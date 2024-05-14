@@ -1,3 +1,7 @@
+import React from "react";
+import logo from "../assets/images/logo.png";
+import Carousel from "../components/Carousel";
+
 const LandingPage = () => {
   return (
     <div>
@@ -14,7 +18,35 @@ const LandingPage = () => {
         </div>
 
         <div className="mt-6 text-center leading-8">
-          <h2 style={{color: "#333333", fontSize: "2rem", fontFamily: "Ubuntu"}}>The stage is set! <br />Choose your role.</h2>
+          <h2
+            style={{ color: "#333333", fontSize: "2rem", fontFamily: "Ubuntu" }}
+          >
+            The stage is set! <br />
+            Choose your role.
+          </h2>
+        </div>
+
+        <div className="mt-4 w-full md:w-1/2">
+          <Carousel />
+        </div>
+
+        <div className="mt-4">
+          <button className="bg-[#0D99FF] hover:bg-[#80CAFF] text-white font-bold py-2 px-2 rounded-full">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-6 w-6"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M9 5l7 7-7 7"
+              />
+            </svg>
+          </button>
         </div>
       </div>
     </div>
