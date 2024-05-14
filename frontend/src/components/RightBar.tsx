@@ -3,7 +3,7 @@ import IconButton from "@mui/material/IconButton";
 import Badge from "@mui/material/Badge";
 import NotificationsNoneIcon from "@mui/icons-material/NotificationsNone";
 import SettingsIcon from "@mui/icons-material/Settings";
-// import RightBarProfile from "./RightBarProfile";
+import RightBarProfile from "./RightBarProfile";
 
 const RightBar: React.FC = () => {
   return (
@@ -21,7 +21,42 @@ const RightBar: React.FC = () => {
             <SettingsIcon />
           </IconButton>
         </div>
-        <div className="">{/* <RightBarProfile /> */}</div>
+        <div className="">
+          {" "}
+          <RightBarProfile />{" "}
+        </div>
+      </div>
+      <div className="bg-[#F7FBFF] rounded-2xl text-center py-4 px-8 mt-24">
+        <div className="justify-center flex">
+          <img
+            className="rounded-full border-2 border-white w-24 h-24"
+            src="https://randomuser.me/api/portraits/women/94.jpg"
+          />
+        </div>
+        <h1 className="text-[#0D99FF] font-medium text-lg">
+          Ushani Anuruddhika
+        </h1>
+        <p className="text-xs text-[#666666]">
+          30 years old
+          <span className="border-l-2 ml-2 px-1">
+            <LocationOnIcon style={{ fontSize: 16 }} />
+          </span>
+          Badulla, Srilanka
+        </p>
+        <div className="grid grid-cols-3 text-[#333333] mt-8 mb-2">
+          <div className="border-r-2 px-4">
+            <p className="text-xs">Blodd</p>
+            <p className="text-lg font-semibold">O+</p>
+          </div>
+          <div className="border-r-2 px-4">
+            <p className="text-xs">Height</p>
+            <p className="text-lg font-semibold">186cm</p>
+          </div>
+          <div className="px-4">
+            <p className="text-xs">Weight</p>
+            <p className="text-lg font-semibold">90kgs</p>
+          </div>
+        </div>
       </div>
     </div>
   );
