@@ -36,17 +36,17 @@ export default function Carousel() {
           className="mySwiper"
         >
           <SwiperSlide className="slide ">
-            <div className=''>
+            <div className='border-pink-500 border-2 rounded-3xl bg-[#FBD0E0]'>
               <img className='my-10' src={Mother} alt="Mother" />
             </div>
           </SwiperSlide>
           <SwiperSlide className="slide">
-          <div className=''>
+          <div className='border-pink-500 border-2 rounded-3xl bg-[#FBD0E0]'>
               <img className='my-10' src={PHM} alt="Mother" />
             </div>
           </SwiperSlide>
           <SwiperSlide className="slide">
-          <div className=''>
+          <div className='border-pink-500 border-2 rounded-3xl bg-[#FBD0E0]'>
               <img className='my-10' src={MOH} alt="Mother" />
             </div>
           </SwiperSlide>
