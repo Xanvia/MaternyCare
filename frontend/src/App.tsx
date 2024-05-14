@@ -1,34 +1,71 @@
-import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
-import "./App.css";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import BaseLayout from "./layouts/BaseLayout";
+import LandingPage from "./views/LandingPage";
+import Login from "./views/LoginPage";
+import Registration from "./views/Registration";
+import Dashboard from "./views/Dashboard";
+import Notices from "./views/Notices";
+
+// You can add your routes here
+// Add a baselayout too if needed
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    children: [
+      {
+        index: true,
+        element: <LandingPage />,
+      },
+    ],
+  },
+
+  {
+    path: "/login",
+    children: [
+      {
+        index: true,
+        element: <Login />,
+      },
+    ],
+  },
+  {
+    path: "/registration",
+    children: [
+      {
+        index: true,
+        element: <Registration />,
+      },
+    ],
+  },
+  {
+    path: "/dashboard",
+    element: <BaseLayout />,
+    children: [
+      {
+        index: true,
+        element: <Dashboard />,
+      },
+    ],
+  },
+  {
+    path: "/notices",
+    element: <BaseLayout />,
+    children: [
+      {
+        index: true,
+        element: <Notices />,
+      },
+    ],
+  },
+]);
 
 function App() {
-  const [count, setCount] = useState(0);
-
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs text-red-500 mt-5">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    <div>
+      {/* if you have any context which should include in everywhere of the application you can wrap this RouterProvider with that context */}
+      <RouterProvider router={router} />
+    </div>
   );
 }
 
