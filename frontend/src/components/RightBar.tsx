@@ -4,6 +4,8 @@ import Badge from "@mui/material/Badge";
 import NotificationsNoneIcon from "@mui/icons-material/NotificationsNone";
 import SettingsIcon from "@mui/icons-material/Settings";
 import RightBarProfile from "./RightBarProfile";
+import LocationOnIcon from "@mui/icons-material/LocationOn";
+import MUICalendar from "./MUICalendar";
 
 const RightBar: React.FC = () => {
   return (
@@ -57,6 +59,9 @@ const RightBar: React.FC = () => {
             <p className="text-lg font-semibold">90kgs</p>
           </div>
         </div>
+      </div>
+      <div className="mt-10">
+        <MUICalendar />
       </div>
     </div>
   );
