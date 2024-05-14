@@ -31,7 +31,7 @@ export default function Carousel() {
           modifier: 1,
           slideShadows: false,
         }}
-        pagination={true}
+        pagination={false}
         modules={[EffectCoverflow, Pagination]}
         className="mySwiper"
       >
