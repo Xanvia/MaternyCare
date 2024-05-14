@@ -3,7 +3,7 @@ import {
     DashboardIcon,
     NoticesIcon,
     ProfileIcon,
-    LogoutIcon,
+    LogoutIcon
   } from "../assets/icons/Icons";
   
   export const navLinks = [
