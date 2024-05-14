@@ -13,5 +13,5 @@ export {
   ManageAccountsIcon as ProfileIcon,
   LogoutIcon as LogoutIcon,
   CloseIcon as CloseIcon,
-  MenuIcon as MenuIcon,
+  MenuIcon as MenuIcon
 };
