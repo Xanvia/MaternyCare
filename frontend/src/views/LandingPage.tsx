@@ -16,6 +16,9 @@ const LandingPage = () => {
           </h1>
         </div>
 
+        <div className="mt-6 text-center leading-8">
+          <h2 style={{color: "#333333", fontSize: "2rem", fontFamily: "Ubuntu"}}>The stage is set! <br />Choose your role.</h2>
+        </div>
       </div>
     </div>
   );
