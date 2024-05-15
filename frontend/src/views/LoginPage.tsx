@@ -26,7 +26,7 @@ const LoginPage: React.FC = () => {
       <form autoComplete="off" onSubmit={formik.handleSubmit} className="flex flex-col items-center w-full">
       <img src={logo} alt="" />
       <header className="text-blue_primary text-4xl mb-14">Materny<span className="text-pink_primary">Care</span></header>
-      <div className="w-full flex flex-col items-center mb-12">
+      <div className="w-full flex flex-col items-center mb-9">
         <input
           className={`shadow appearance-none rounded-b-xl py-4 px-4 w-11/12 lg:w-5/12 sm:w-8/12 ss:w-10/12 text-gray-700 leading-tight focus:shadow-outline text-lg
           ${formik.touched.name && formik.errors.name ? 'border-solid border-red-500' : 'border-none'}`}
