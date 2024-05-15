@@ -3,6 +3,7 @@ import DashboardStatCard from "../components/DashboardStatCard";
 import feet from "../assets/images/feet.png";
 import fire from "../assets/images/fire.png";
 import water from "../assets/images/drops.png";
+import LineChart from "../components/LineChart";
 
 const Dashboard = () => {
   return (
@@ -40,6 +41,7 @@ const Dashboard = () => {
         <DashboardStatCard image={fire} color="bg-[#A8F0DB]" />
         <DashboardStatCard image={water} color="bg-[#80CAFF]" />
       </div>
+      <LineChart />
     </div>
   );
 };
