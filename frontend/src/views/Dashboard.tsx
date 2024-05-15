@@ -2,7 +2,7 @@ import SearchIcon from "@mui/icons-material/Search";
 
 const Dashboard = () => {
   return (
-    <div className="w-3/5 mx-11 my">
+    <div className="mx-11">
       <div className="flex justify-between ml-4 mt-7">
         <p className="hidden lg:block">
           Pages <span> / Dashboard</span>
