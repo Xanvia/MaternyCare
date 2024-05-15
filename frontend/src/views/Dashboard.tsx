@@ -22,6 +22,16 @@ const Dashboard = () => {
       <h1 className="text-center text-3xl text-[#0D99FF] lg:hidden">
         Dashboard
       </h1>
+      <div className="mt-14 lg:mt-0 h-44 px-8 py-5 text-white bg-[#BA97FE] rounded-2xl mb-8">
+        <h1 className="mb-2">
+          Hello <span className="font-semibold">Ushani,</span>
+        </h1>
+        <p>
+          Every new life brings endless possibilities. Embrace the journey with
+          love and joy.{" "}
+        </p>
+        {/* <h5 className="mt-3">Learn More </h5> */}
+      </div>
     </div>
   );
 };
