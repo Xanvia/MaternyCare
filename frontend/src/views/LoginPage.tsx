@@ -19,7 +19,7 @@ const LoginPage: React.FC = () => {
   });
 
   return (
-    <div className="flex items-center justify-center h-screen my-4">
+    <div className="flex items-center justify-center h-screen">
       <form autoComplete="off" onSubmit={formik.handleSubmit} className="flex flex-col items-center w-full">
       <img src={logo} alt="" />
       <header className="text-blue_primary text-4xl mb-14">Materny<span className="text-pink_primary">Care</span></header>
