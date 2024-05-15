@@ -18,6 +18,10 @@ const Dashboard = () => {
           />
         </div>
       </div>
+      <h1 className="mt-9 mb-4 hidden lg:block">Dashboard Overview</h1>
+      <h1 className="text-center text-3xl text-[#0D99FF] lg:hidden">
+        Dashboard
+      </h1>
     </div>
   );
 };
