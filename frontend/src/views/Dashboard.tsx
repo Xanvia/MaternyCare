@@ -1,5 +1,25 @@
+import SearchIcon from "@mui/icons-material/Search";
+
 const Dashboard = () => {
-  return <div>Dashboard</div>;
+  return (
+    <div className="w-3/5 mx-11 my">
+      <div className="flex justify-between ml-4 mt-7">
+        <p className="hidden lg:block">
+          Pages <span> / Dashboard</span>
+        </p>
+
+        <div className="lg:flex items-center relative hidden ">
+          <SearchIcon className="absolute left-3 " />
+          <input
+            className="border-2 border-gray-300 bg-white h-10 pl-10 pr-16 rounded-lg text-sm focus:outline-none "
+            type="search"
+            name="search"
+            placeholder="Search any keywords"
+          />
+        </div>
+      </div>
+    </div>
+  );
 };
 
 export default Dashboard;
