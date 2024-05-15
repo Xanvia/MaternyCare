@@ -28,7 +28,8 @@ const LoginPage: React.FC = () => {
       <header className="text-blue_primary text-4xl mb-14">Materny<span className="text-pink_primary">Care</span></header>
       <div className="w-full flex flex-col items-center mb-12">
         <input
-          className={`shadow appearance-none border-none rounded-b-xl py-4 px-4 w-11/12 lg:w-5/12 sm:w-8/12 ss:w-10/12 text-gray-700 leading-tight focus:outline-[#0D99FF] focus:shadow-outline text-lg`}
+          className={`shadow appearance-none rounded-b-xl py-4 px-4 w-11/12 lg:w-5/12 sm:w-8/12 ss:w-10/12 text-gray-700 leading-tight focus:shadow-outline text-lg
+          ${formik.touched.name && formik.errors.name ? 'border-solid border-red-500' : 'border-none'}`}
           value={formik.values.name}
           placeholder="Name"
           id="name"
@@ -36,7 +37,7 @@ const LoginPage: React.FC = () => {
           type="text"
           onChange={formik.handleChange}
         />
-        <div className="w-11/12 lg:w-5/12 sm:w-8/12 ss:w-10/12 mb-9 flex flex-col items-start pl-4">
+        <div className="w-11/12 lg:w-5/12 sm:w-8/12 ss:w-10/12 mb-9 flex flex-col items-start pl-4 mt-1">
         {formik.touched.name && formik.errors.name ? (
             <div className="text-red-500 text-xs">{formik.errors.name}</div>
           ) : null}
@@ -44,7 +45,8 @@ const LoginPage: React.FC = () => {
       </div>
       <div className="w-full mb-9 flex flex-col items-center">
         <input
-          className={`shadow appearance-none border-none rounded-b-xl py-4 px-4 w-11/12 lg:w-5/12 sm:w-8/12 ss:w-10/12	 text-gray-700 leading-tight focus:outline-[#0D99FF] focus:shadow-outline text-lg`}
+          className={`shadow appearance-none rounded-b-xl py-4 px-4 w-11/12 lg:w-5/12 sm:w-8/12 ss:w-10/12	 text-gray-700 leading-tight  focus:shadow-outline text-lg
+          ${formik.touched.name && formik.errors.name ? 'border-solid border-red-500' : 'border-none'}`}
           value={formik.values.password}
           placeholder="Password"
           id="password"
@@ -52,7 +54,7 @@ const LoginPage: React.FC = () => {
           type="password"
           onChange={formik.handleChange}
         />
-        <div className="w-11/12 lg:w-5/12 sm:w-8/12 ss:w-10/12 mb-9 flex flex-col items-start pl-4">
+        <div className="w-11/12 lg:w-5/12 sm:w-8/12 ss:w-10/12 mb-9 flex flex-col items-start pl-4 mt-1">
         {formik.touched.password && formik.errors.password ? (
             <div className="text-red-500 text-xs">{formik.errors.password}</div>
           ) : null}
