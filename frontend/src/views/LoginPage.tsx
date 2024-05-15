@@ -1,6 +1,8 @@
 import React from "react";
 import { useFormik } from "formik";
 import logo from "../assets/images/logo.png";
+import { loginSchema } from "../schemas/Schemas";
+
 
 interface FormValues {
   name: string;
@@ -13,6 +15,7 @@ const LoginPage: React.FC = () => {
       name: "",
       password: "",
     },
+    validationSchema: loginSchema,
     onSubmit: values => {
       console.log('Form data', values);
     }
@@ -25,7 +28,7 @@ const LoginPage: React.FC = () => {
       <header className="text-blue_primary text-4xl mb-14">Materny<span className="text-pink_primary">Care</span></header>
       <div className="w-full flex flex-col items-center mb-12">
         <input
-          className={`shadow appearance-none border-none rounded-b-xl py-4 px-4 w-5/12	 text-gray-700 leading-tight focus:outline-[#0D99FF] focus:shadow-outline text-lg`}
+          className={`shadow appearance-none border-none rounded-b-xl py-4 px-4 w-11/12 lg:w-5/12 sm:w-8/12 ss:w-10/12 text-gray-700 leading-tight focus:outline-[#0D99FF] focus:shadow-outline text-lg`}
           value={formik.values.name}
           placeholder="Name"
           id="name"
@@ -33,10 +36,15 @@ const LoginPage: React.FC = () => {
           type="text"
           onChange={formik.handleChange}
         />
+        <div className="w-11/12 lg:w-5/12 sm:w-8/12 ss:w-10/12 mb-9 flex flex-col items-start pl-4">
+        {formik.touched.name && formik.errors.name ? (
+            <div className="text-red-500 text-xs">{formik.errors.name}</div>
+          ) : null}
+        </div>
       </div>
       <div className="w-full mb-9 flex flex-col items-center">
         <input
-          className={`shadow appearance-none border-none rounded-b-xl py-4 px-4 w-5/12	 text-gray-700 leading-tight focus:outline-[#0D99FF] focus:shadow-outline text-lg`}
+          className={`shadow appearance-none border-none rounded-b-xl py-4 px-4 w-11/12 lg:w-5/12 sm:w-8/12 ss:w-10/12	 text-gray-700 leading-tight focus:outline-[#0D99FF] focus:shadow-outline text-lg`}
           value={formik.values.password}
           placeholder="Password"
           id="password"
@@ -44,12 +52,17 @@ const LoginPage: React.FC = () => {
           type="password"
           onChange={formik.handleChange}
         />
+        <div className="w-11/12 lg:w-5/12 sm:w-8/12 ss:w-10/12 mb-9 flex flex-col items-start pl-4">
+        {formik.touched.password && formik.errors.password ? (
+            <div className="text-red-500 text-xs">{formik.errors.password}</div>
+          ) : null}
+        </div>
       </div>
-      <div className="w-5/12 mb-9 flex flex-col items-start">
-      <a href="" className="text-[#838383] text-xs">Forgot Password?</a>
+      <div className="w-11/12 lg:w-5/12 sm:w-8/12 ss:w-10/12 mb-9 flex flex-col items-start">
+      <a href="" className="text-[#838383] text-xs ">Forgot Password?</a>
       </div>
       <button
-      className={`text-xl py-5 rounded-xl text-white w-5/12 h-16 bg-blue_primary hover:bg-[#33C2FF]`} 
+      className={`text-xl py-5 rounded-xl w-11/12 lg:w-5/12 sm:w-8/12 ss:w-10/12 text-white h-16 bg-blue_primary hover:bg-[#33C2FF]`} 
       type="submit">Login
       </button>
     </form>
