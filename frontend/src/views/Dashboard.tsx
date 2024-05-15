@@ -1,4 +1,8 @@
 import SearchIcon from "@mui/icons-material/Search";
+import DashboardStatCard from "../components/DashboardStatCard";
+import feet from "../assets/images/feet.png";
+import fire from "../assets/images/fire.png";
+import water from "../assets/images/drops.png";
 
 const Dashboard = () => {
   return (
@@ -30,7 +34,11 @@ const Dashboard = () => {
           Every new life brings endless possibilities. Embrace the journey with
           love and joy.{" "}
         </p>
-        {/* <h5 className="mt-3">Learn More </h5> */}
+      </div>
+      <div className="grid  sm:grid-cols-3 grid-cols-2 gap-8">
+        <DashboardStatCard image={feet} color="bg-[#F9B8D0]" />
+        <DashboardStatCard image={fire} color="bg-[#A8F0DB]" />
+        <DashboardStatCard image={water} color="bg-[#80CAFF]" />
       </div>
     </div>
   );
