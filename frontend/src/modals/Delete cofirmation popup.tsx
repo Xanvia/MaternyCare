@@ -25,15 +25,22 @@ export default function AlertDialogModal() {
         <ModalDialog variant="outlined" role="alertdialog">
           <DialogTitle>
             <WarningRoundedIcon />
-            Confirmation
+            Are you sure?
           </DialogTitle>
           <Divider />
-          <DialogContent>
-            Are you sure you want to discard all of your notes?
+          <DialogContent sx={{ color: '#666666' }}>
+            Are you sure you want to delete this item? This action cannot be undone
           </DialogContent>
           <DialogActions>
-            <Button variant="solid" color="danger" onClick={() => setOpen(false)}>
-              Discard notes
+            <Button variant="solid"
+              sx={{
+                backgroundColor: '#F580AB',
+                color: '#ffffff',
+                '&:hover': {
+                  backgroundColor: '#f36b96', // slightly darker shade for hover effect
+                },
+              }} onClick={() => setOpen(false)}>
+              Delete
             </Button>
             <Button variant="plain" color="neutral" onClick={() => setOpen(false)}>
               Cancel
