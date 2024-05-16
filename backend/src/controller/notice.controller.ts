@@ -53,3 +53,34 @@ export const getNotice = async (
       );
   }
 };
+export const getNotices = async (
+  req: Request,
+  res: Response
+): Promise<Response<Notice[]>> => {
+  console.info(
+    `[${new Date().toLocaleString()}] Incoming ${req.method}${
+      req.originalUrl
+    } Request from ${req.rawHeaders[0]} ${req.rawHeaders[1]}`
+  );
+
+  try {
+    const pool = await connection();
+    const result: any = await pool.query(QUERY.SELECT_NOTICES);
+    return res
+      .status(Code.OK)
+      .send(
+        new HttpResponse(Code.OK, Status.OK, "Notices retrieved", result[0])
+      );
+  } catch (error: unknown) {
+    console.error(error);
+    return res
+      .status(Code.INTERNAL_SERVER_ERROR)
+      .send(
+        new HttpResponse(
+          Code.INTERNAL_SERVER_ERROR,
+          Status.INTERNAL_SERVER_ERROR,
+          "An Error Occurred"
+        )
+      );
+  }
+};
