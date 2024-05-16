@@ -48,7 +48,7 @@ const LoginPage: React.FC = () => {
             onChange={formik.handleChange}
           />
           {/* Display error message with icon */}
-          <div className="w-11/12 lg:w-5/12 sm:w-8/12 ss:w-10/12 mb-9 flex flex-col items-start pl-4 mt-1">
+          <div className="w-11/12 lg:w-5/12 sm:w-8/12 ss:w-10/12 mb-9 flex flex-col items-start mt-1">
             {formik.touched.name && formik.errors.name ? (
               <div className="text-red-500 text-xs">
                 {" "}
@@ -72,9 +72,10 @@ const LoginPage: React.FC = () => {
             type="password"
             onChange={formik.handleChange}
           />
-          <div className="w-11/12 lg:w-5/12 sm:w-8/12 ss:w-10/12 mb-9 flex flex-col items-start pl-4 mt-1">
+          <div className="w-11/12 lg:w-5/12 sm:w-8/12 ss:w-10/12 mb-9 flex flex-col items-start mt-1">
             {formik.touched.password && formik.errors.password ? (
               <div className="text-red-500 text-xs">
+                <ErrorIcon />
                 {formik.errors.password}
               </div>
             ) : null}
