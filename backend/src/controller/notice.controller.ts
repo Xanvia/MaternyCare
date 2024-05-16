@@ -173,3 +173,46 @@ export const updateNotice = async (
       );
   }
 };
+export const deleteNotice = async (
+  req: Request,
+  res: Response
+): Promise<Response<Notice>> => {
+  console.info(
+    `[${new Date().toLocaleString()}] Incoming ${req.method}${
+      req.originalUrl
+    } Request from ${req.rawHeaders[0]} ${req.rawHeaders[1]}`
+  );
+
+  try {
+    const pool = await connection();
+    const result: any = await pool.query(QUERY.SELECT_NOTICE, [
+      req.params.noticeId,
+    ]);
+
+    if ((result[0] as Array<any>).length > 0) {
+      const result: any = await pool.query(QUERY.DELETE_NOTICE, [
+        req.params.noticeId,
+      ]);
+      return res
+        .status(Code.OK)
+        .send(new HttpResponse(Code.OK, Status.OK, "Notice deleted"));
+    } else {
+      return res
+        .status(Code.NOT_FOUND)
+        .send(
+          new HttpResponse(Code.NOT_FOUND, Status.NOT_FOUND, "Notice not found")
+        );
+    }
+  } catch (error: unknown) {
+    console.error(error);
+    return res
+      .status(Code.INTERNAL_SERVER_ERROR)
+      .send(
+        new HttpResponse(
+          Code.INTERNAL_SERVER_ERROR,
+          Status.INTERNAL_SERVER_ERROR,
+          "An Error Occurred"
+        )
+      );
+  }
+};
