@@ -21,8 +21,16 @@ export default function AlertDialogModal() {
         color="danger"
         endDecorator={<DeleteForever />}
         onClick={() => setOpen(true)}
+        sx={{
+            borderColor: '#F580AB',
+            color: '#F580AB',
+            '&:hover': {
+              borderColor: '#F9B8D0',
+              color: '#F9B8D0',
+            },
+          }}
       >
-        Discard
+        Delete
       </Button>
       <Modal open={open} onClose={() => setOpen(false)}>
         <ModalDialog variant="outlined" role="alertdialog">
@@ -38,7 +46,7 @@ export default function AlertDialogModal() {
           >
             <CloseIcon />
           </IconButton>
-          <DialogTitle sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 1 }}>
+          <DialogTitle sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 1, color:'#333333' }}>
             <WarningRoundedIcon />
             Are you sure?
           </DialogTitle>
@@ -46,7 +54,19 @@ export default function AlertDialogModal() {
           <DialogContent sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 1, color: '#666666' }}>
             Are you sure you want to delete this item? This action cannot be undone
           </DialogContent>
-          <DialogActions sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 1, color: '#666666' }}>
+          <DialogActions sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 1, color: '#666666' }}>            
+            <Button variant="outlined"
+              sx={{
+                borderColor: '#F580AB',
+                color: '#333333',
+                padding: '12px 70px',
+                fontSize: '1rem',
+                '&:hover': {
+                  borderColor: '#CCEAFF',
+                },
+              }} onClick={() => setOpen(false)}>
+              Cancel
+            </Button>
             <Button variant="solid"
               sx={{
                 backgroundColor: '#F580AB',
@@ -58,18 +78,6 @@ export default function AlertDialogModal() {
                 },
               }} onClick={() => setOpen(false)}>
               Delete
-            </Button>
-            <Button variant="outlined"
-              sx={{
-                borderColor: '#F580AB',
-                color: '#000000',
-                padding: '12px 70px',
-                fontSize: '1rem',
-                '&:hover': {
-                  borderColor: '#F9B8D0',
-                },
-              }} onClick={() => setOpen(false)}>
-              Cancel
             </Button>
           </DialogActions>
         </ModalDialog>
