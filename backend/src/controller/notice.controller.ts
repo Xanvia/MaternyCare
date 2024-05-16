@@ -84,3 +84,42 @@ export const getNotices = async (
       );
   }
 };
+
+export const createNotice = async (
+  req: Request,
+  res: Response
+): Promise<Response<Notice>> => {
+  console.info(
+    `[${new Date().toLocaleString()}] Incoming ${req.method}${
+      req.originalUrl
+    } Request from ${req.rawHeaders[0]} ${req.rawHeaders[1]}`
+  );
+
+  let notice: Notice = { ...req.body };
+
+  try {
+    const pool = await connection();
+    const result: any = await pool.query(
+      QUERY.CREATE_NOTICE,
+      Object.values(notice)
+    );
+    notice = { id: (result[0] as ResultSetHeader).insertId, ...req.body };
+
+    return res
+      .status(Code.CREATED)
+      .send(
+        new HttpResponse(Code.CREATED, Status.CREATED, "Notice created", notice)
+      );
+  } catch (error: unknown) {
+    console.error(error);
+    return res
+      .status(Code.INTERNAL_SERVER_ERROR)
+      .send(
+        new HttpResponse(
+          Code.INTERNAL_SERVER_ERROR,
+          Status.INTERNAL_SERVER_ERROR,
+          "An Error Occurred"
+        )
+      );
+  }
+};
