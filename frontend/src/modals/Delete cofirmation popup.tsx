@@ -9,6 +9,9 @@ import ModalDialog from '@mui/joy/ModalDialog';
 import DeleteForever from '@mui/icons-material/DeleteForever';
 import WarningRoundedIcon from '@mui/icons-material/WarningRounded';
 
+import IconButton from '@mui/joy/IconButton';
+import CloseIcon from '@mui/icons-material/Close';
+
 export default function AlertDialogModal() {
   const [open, setOpen] = React.useState<boolean>(false);
   return (
@@ -23,26 +26,49 @@ export default function AlertDialogModal() {
       </Button>
       <Modal open={open} onClose={() => setOpen(false)}>
         <ModalDialog variant="outlined" role="alertdialog">
-          <DialogTitle>
+        <IconButton
+            aria-label="close"
+            onClick={() => setOpen(false)}
+            sx={{
+              position: 'absolute',
+              top: '8px',
+              right: '8px',
+              color: '#666666',
+            }}
+          >
+            <CloseIcon />
+          </IconButton>
+          <DialogTitle sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 1 }}>
             <WarningRoundedIcon />
             Are you sure?
           </DialogTitle>
           <Divider />
-          <DialogContent sx={{ color: '#666666' }}>
+          <DialogContent sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 1, color: '#666666' }}>
             Are you sure you want to delete this item? This action cannot be undone
           </DialogContent>
-          <DialogActions>
+          <DialogActions sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 1, color: '#666666' }}>
             <Button variant="solid"
               sx={{
                 backgroundColor: '#F580AB',
                 color: '#ffffff',
+                padding: '12px 70px',
+                fontSize: '1rem',
                 '&:hover': {
-                  backgroundColor: '#f36b96', // slightly darker shade for hover effect
+                  backgroundColor: '#F9B8D0',
                 },
               }} onClick={() => setOpen(false)}>
               Delete
             </Button>
-            <Button variant="plain" color="neutral" onClick={() => setOpen(false)}>
+            <Button variant="outlined"
+              sx={{
+                borderColor: '#F580AB',
+                color: '#000000',
+                padding: '12px 70px',
+                fontSize: '1rem',
+                '&:hover': {
+                  borderColor: '#F9B8D0',
+                },
+              }} onClick={() => setOpen(false)}>
               Cancel
             </Button>
           </DialogActions>
