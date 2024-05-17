@@ -7,10 +7,10 @@ import DialogActions from "@mui/joy/DialogActions";
 import Modal from "@mui/joy/Modal";
 import ModalDialog from "@mui/joy/ModalDialog";
 import DeleteForever from "@mui/icons-material/DeleteForever";
-import WarningRoundedIcon from "@mui/icons-material/WarningRounded";
 
 import IconButton from "@mui/joy/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
+import TextField from "@mui/material/TextField";
 
 export default function AlertDialogModal() {
   const [open, setOpen] = React.useState<boolean>(false);
@@ -55,8 +55,8 @@ export default function AlertDialogModal() {
               color: "#333333",
             }}
           >
-            <WarningRoundedIcon />
-            Are you sure?
+            
+            Update kick count
           </DialogTitle>
           <Divider />
           <DialogContent
@@ -68,8 +68,7 @@ export default function AlertDialogModal() {
               color: "#666666",
             }}
           >
-            Are you sure you want to delete this item? This action cannot be
-            undone
+            Please enter the new kick count. Confirm the update to save changes.
           </DialogContent>
           <DialogActions
             sx={{
@@ -81,27 +80,12 @@ export default function AlertDialogModal() {
             }}
           >
             <Button
-              variant="outlined"
-              sx={{
-                borderColor: "#F580AB",
-                color: "#000000",
-                "&:hover": {
-                  borderColor: "#F9B8D0",
-                },
-                width: { xs: "50%", md: "40%" },
-                fontSize: "1rem",
-              }}
-              onClick={() => setOpen(false)}
-            >
-              Cancel
-            </Button>
-            <Button
               variant="solid"
               sx={{
-                backgroundColor: "#F580AB",
+                backgroundColor: "#0D99FF",
                 color: "#ffffff",
                 "&:hover": {
-                  backgroundColor: "#F9B8D0",
+                  backgroundColor: "#80CAFF",
                 },
 
                 width: { xs: "50%", md: "40%" },
@@ -109,8 +93,36 @@ export default function AlertDialogModal() {
               }}
               onClick={() => setOpen(false)}
             >
-              Delete
+              Update
             </Button>
+
+            {/* <Button
+              variant="outlined"
+              sx={{
+                borderColor: "#0D99FF",
+                color: "#000000",
+                "&:hover": {
+                  borderColor: "#80CAFF",
+                },
+                width: { xs: "50%", md: "40%" },
+                fontSize: "1rem",
+              }}
+              onClick={() => setOpen(false)}
+            >
+              Cancel
+            </Button> */}
+
+            <TextField
+              id="outlined-number-small"
+              label=""
+              type="number"
+              size="small"
+              InputLabelProps={{
+                shrink: true,
+              }}
+              
+            
+            />
           </DialogActions>
         </ModalDialog>
       </Modal>
