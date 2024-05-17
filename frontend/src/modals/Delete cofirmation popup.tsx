@@ -55,30 +55,30 @@ export default function AlertDialogModal() {
             Are you sure you want to delete this item? This action cannot be undone
           </DialogContent>
           <DialogActions sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 1, color: '#666666' }}>            
-            <Button variant="outlined"
-              sx={{
-                borderColor: '#F580AB',
-                color: '#333333',
-                padding: '12px 70px',
-                fontSize: '1rem',
-                '&:hover': {
-                  borderColor: '#CCEAFF',
-                },
-              }} onClick={() => setOpen(false)}>
-              Cancel
-            </Button>
-            <Button variant="solid"
-              sx={{
-                backgroundColor: '#F580AB',
-                color: '#ffffff',
-                padding: '12px 70px',
-                fontSize: '1rem',
-                '&:hover': {
-                  backgroundColor: '#F9B8D0',
-                },
-              }} onClick={() => setOpen(false)}>
-              Delete
-            </Button>
+          <Button variant="outlined"
+  sx={{
+    borderColor: '#F580AB',
+    color: '#000000',
+    '&:hover': {
+      borderColor: '#F9B8D0',
+    },
+    padding: { xs: '8px 16px', md: '12px 70px' }, // Adjust padding for different screen sizes
+    fontSize: '1rem',
+  }} onClick={() => setOpen(false)}>
+  Cancel
+</Button>
+<Button variant="solid"
+  sx={{
+    backgroundColor: '#F580AB',
+    color: '#ffffff',
+    '&:hover': {
+      backgroundColor: '#F9B8D0',
+    },
+    padding: { xs: '8px 16px', md: '12px 70px' }, // Adjust padding for different screen sizes
+    fontSize: '1rem',
+  }} onClick={() => setOpen(false)}>
+  Delete
+</Button>
           </DialogActions>
         </ModalDialog>
       </Modal>
