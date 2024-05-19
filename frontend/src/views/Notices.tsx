@@ -1,5 +1,7 @@
 // import React, { useEffect, useState } from "react";
 import SearchIcon from "@mui/icons-material/Search";
+import axios from "axios";
+import { Rings } from "react-loader-spinner";
 
 const Notices = () => {
   return (
