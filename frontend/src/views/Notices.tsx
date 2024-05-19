@@ -1,9 +1,39 @@
-// import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import SearchIcon from "@mui/icons-material/Search";
 import axios from "axios";
 import { Rings } from "react-loader-spinner";
 
 const Notices = () => {
+  const BASE_URL = "http://localhost:5000/";
+  const [notices, setNotices] = useState([]);
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    const getNotices = () => {
+      setLoading(true);
+      const axiosConfig = {
+        method: "get",
+        url: `${BASE_URL}notices`,
+        headers: {
+          Authorization: `Bearer`,
+        },
+      };
+      axios(axiosConfig)
+        .then((response) => {
+          console.log(response.data.data);
+          setNotices(response.data.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        })
+        .finally(() => {
+          setLoading(false);
+        });
+    };
+
+    getNotices();
+  }, []);
+
   return (
     <div className="mx-11 my ">
       <div className="flex justify-between ml-4 mt-7">
