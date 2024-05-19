@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import SearchIcon from "@mui/icons-material/Search";
 import axios from "axios";
 import { Rings } from "react-loader-spinner";
+import DeleteCofirmation from "../modals/DeleteCofirmation";
 
 const Notices = () => {
   const BASE_URL = "http://localhost:5000/";
@@ -60,8 +61,7 @@ const Notices = () => {
           </button>
         </div>
       </div>
-      <div className="columns-1 sm:columns-2 gap-10">
-        {" "}
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         {loading ? (
           <Rings
             visible={true}
@@ -75,7 +75,12 @@ const Notices = () => {
         ) : (
           notices.map(
             (
-              notice: { title: string; message: string; created_at: string },
+              notice: {
+                title: string;
+                message: string;
+                created_at: string;
+                id: string;
+              },
               index: number
             ) => {
               const date = new Date(notice.created_at);
@@ -85,12 +90,14 @@ const Notices = () => {
 
               return (
                 <div
-                  className="px-8 py-5 text-white rounded-2xl mb-8 animate-fadeIn shadow-md"
+                  key={index}
+                  className="px-8 py-5 text-white rounded-2xl mb-8 animate-fadeIn shadow-md max-w-full h-auto"
                   style={{ backgroundColor: colors[index % colors.length] }}
                 >
                   <h1 className="mb-2 font-medium text-xl">{notice.title}</h1>
                   <p className="font-normal text-sm">{notice.message}</p>
                   <p className="text-xs mt-3">Posted on: {formattedDate}</p>
+                  <DeleteCofirmation noticeId={notice.id} />
                 </div>
               );
             }

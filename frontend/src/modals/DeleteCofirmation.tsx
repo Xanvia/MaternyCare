@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useState } from "react";
 import Button from "@mui/joy/Button";
 import Divider from "@mui/joy/Divider";
 import DialogTitle from "@mui/joy/DialogTitle";
@@ -8,12 +8,48 @@ import Modal from "@mui/joy/Modal";
 import ModalDialog from "@mui/joy/ModalDialog";
 import DeleteForever from "@mui/icons-material/DeleteForever";
 import WarningRoundedIcon from "@mui/icons-material/WarningRounded";
+import axios from "axios";
+// import { Rings } from "react-loader-spinner";
 
 import IconButton from "@mui/joy/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
 
-export default function AlertDialogModal() {
+interface DeleteConfirmationProps {
+  noticeId: string;
+}
+
+export default function DeleteConfirmation({
+  noticeId,
+}: DeleteConfirmationProps) {
   const [open, setOpen] = React.useState<boolean>(false);
+  const BASE_URL = "http://localhost:5000/";
+  const [loading, setLoading] = useState(false);
+  const [showAlert, setShowAlert] = useState(false);
+
+  const deleteNotice = () => {
+    setLoading(true);
+    const axiosConfig = {
+      method: "delete",
+      url: `${BASE_URL}notices/${noticeId}`,
+      headers: {
+        Authorization: `Bearer`,
+      },
+    };
+    axios(axiosConfig)
+      .then((response) => {
+        console.log(response.data);
+        // window.location.reload();
+        setShowAlert(true);
+        setTimeout(() => setShowAlert(false), 3000);
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  };
+
   return (
     <React.Fragment>
       <Button
@@ -22,7 +58,8 @@ export default function AlertDialogModal() {
         endDecorator={<DeleteForever />}
         onClick={() => setOpen(true)}
         sx={{
-          borderColor: "#F580AB",
+          mt: 3,
+          background: "white",
           color: "#F580AB",
           "&:hover": {
             borderColor: "#F9B8D0",
@@ -103,17 +140,40 @@ export default function AlertDialogModal() {
                 "&:hover": {
                   backgroundColor: "#F9B8D0",
                 },
-
                 width: { xs: "50%", md: "40%" },
                 fontSize: "1rem",
               }}
-              onClick={() => setOpen(false)}
+              onClick={() => {
+                deleteNotice();
+                setOpen(false);
+              }}
             >
               Delete
             </Button>
           </DialogActions>
         </ModalDialog>
       </Modal>
+      {showAlert && (
+        <div
+          className="fixed bottom-0 right-0 m-4 p-4 text-sm text-green-800 rounded-lg bg-green-300 dark:bg-gray-800 dark:text-green-400"
+          role="alert"
+        >
+          <svg
+            className="flex-shrink-0 inline w-4 h-4 me-3"
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="currentColor"
+            viewBox="0 0 20 20"
+          >
+            <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
+          </svg>
+          <span className="sr-only">Info</span>
+          <div>
+            <span className="font-medium">Success alert!</span> The notice has
+            been deleted successfully.
+          </div>
+        </div>
+      )}
     </React.Fragment>
   );
 }
