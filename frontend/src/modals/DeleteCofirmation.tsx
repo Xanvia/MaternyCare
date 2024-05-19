@@ -40,7 +40,7 @@ export default function DeleteConfirmation({
         console.log(response.data);
         setShowAlert(true);
         setTimeout(() => setShowAlert(false), 3000);
-        window.location.reload();
+        setTimeout(() => window.location.reload(), 1000);
       })
       .catch((err) => {
         console.log(err);
@@ -155,7 +155,7 @@ export default function DeleteConfirmation({
       </Modal>
       {showAlert && (
         <div
-          className="fixed bottom-0 right-0 m-4 p-4 text-sm text-green-800 rounded-lg bg-green-300 dark:bg-gray-800 dark:text-green-400"
+          className="fixed top-0 right-0 m-4 p-4 text-sm text-green-800 rounded-lg bg-green-300 dark:bg-gray-800 dark:text-green-400 z-50"
           role="alert"
         >
           <svg
