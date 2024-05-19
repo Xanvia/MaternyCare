@@ -23,7 +23,7 @@ export default {
         pink_optional: "#FDE8EF",
       },
       fontFamily: {
-        ubuntu: ['Ubuntu', 'sans-serif'],
+        ubuntu: ["Ubuntu", "sans-serif"],
       },
     },
     screens: {
@@ -35,5 +35,5 @@ export default {
       xl: "1700px",
     },
   },
-  plugins: [],
+  plugins: [require("flowbite/plugin")],
 };
