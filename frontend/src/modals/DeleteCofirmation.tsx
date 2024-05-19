@@ -38,9 +38,9 @@ export default function DeleteConfirmation({
     axios(axiosConfig)
       .then((response) => {
         console.log(response.data);
-        // window.location.reload();
         setShowAlert(true);
         setTimeout(() => setShowAlert(false), 3000);
+        window.location.reload();
       })
       .catch((err) => {
         console.log(err);
