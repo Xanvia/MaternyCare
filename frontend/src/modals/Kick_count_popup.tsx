@@ -6,31 +6,28 @@ import DialogContent from "@mui/joy/DialogContent";
 import DialogActions from "@mui/joy/DialogActions";
 import Modal from "@mui/joy/Modal";
 import ModalDialog from "@mui/joy/ModalDialog";
-import DeleteForever from "@mui/icons-material/DeleteForever";
 
 import IconButton from "@mui/joy/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
 import TextField from "@mui/material/TextField";
 
-export default function AlertDialogModal() {
+export default function KickCountUpdateModal() {
   const [open, setOpen] = React.useState<boolean>(false);
   return (
     <React.Fragment>
       <Button
         variant="outlined"
-        color="danger"
-        endDecorator={<DeleteForever />}
         onClick={() => setOpen(true)}
         sx={{
-          borderColor: "#F580AB",
-          color: "#F580AB",
+          borderColor: "#0D99FF",
+          color: "#0D99FF",
           "&:hover": {
-            borderColor: "#F9B8D0",
-            color: "#F9B8D0",
+            borderColor: "#80CAFF",
+            color: "#80CAFF",
           },
         }}
       >
-        Delete
+        Update kick count
       </Button>
       <Modal open={open} onClose={() => setOpen(false)}>
         <ModalDialog variant="outlined" role="alertdialog">
@@ -95,22 +92,6 @@ export default function AlertDialogModal() {
             >
               Update
             </Button>
-
-            {/* <Button
-              variant="outlined"
-              sx={{
-                borderColor: "#0D99FF",
-                color: "#000000",
-                "&:hover": {
-                  borderColor: "#80CAFF",
-                },
-                width: { xs: "50%", md: "40%" },
-                fontSize: "1rem",
-              }}
-              onClick={() => setOpen(false)}
-            >
-              Cancel
-            </Button> */}
 
             <TextField
               id="outlined-number-small"
