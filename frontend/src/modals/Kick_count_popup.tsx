@@ -120,7 +120,15 @@ export default function AlertDialogModal() {
               InputLabelProps={{
                 shrink: true,
               }}
-              
+              InputProps={{
+                sx: {
+                  height: "36px", // Adjust the height of the input field
+                },
+              }}
+              sx={{
+                width: { xs: "50%", md: "40%" },
+                fontSize: "1rem",
+              }}
             
             />
           </DialogActions>
