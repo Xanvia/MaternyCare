@@ -1,8 +1,8 @@
 import SearchIcon from "@mui/icons-material/Search";
 import DashboardStatCard from "../components/DashboardStatCard";
-import feet from "../assets/images/feet.png";
-import fire from "../assets/images/fire.png";
-import water from "../assets/images/drops.png";
+import feet from "../assets/images/feet.svg";
+import fire from "../assets/images/fire.svg";
+import water from "../assets/images/drops.svg";
 import LineChart from "../components/LineChart";
 
 const Dashboard = () => {
