@@ -4,7 +4,7 @@ import feet from "../assets/images/feet.svg";
 import fire from "../assets/images/fire.svg";
 import water from "../assets/images/drops.svg";
 import LineChart from "../components/LineChart";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 const quotes = [
   {
@@ -30,6 +30,11 @@ const quotes = [
 ];
 
 const Dashboard = () => {
+  const [random, setRandom] = useState(0);
+  useEffect(() => {
+    setRandom(Math.floor(Math.random() * 4));
+  }, []);
+
   return (
     <div className="mx-11">
       <div className="flex justify-between ml-4 mt-7">
@@ -51,7 +56,7 @@ const Dashboard = () => {
       <h1 className="text-center text-3xl text-[#0D99FF] lg:hidden">
         Dashboard
       </h1>
-      <div className="mt-14 lg:mt-0 h-44 px-8 py-5 text-white bg-[#BA97FE] rounded-2xl mb-8 w-auto">
+      <div className="mt-14 lg:mt-0 h-auto min-h-44 px-8 py-5 text-white bg-[#BA97FE] rounded-2xl mb-8 w-auto">
         <h1 className="mb-2">
           Hello{" "}
           <span className="">
@@ -59,13 +64,11 @@ const Dashboard = () => {
           </span>
         </h1>
         <p className="text-2xl">
-          <span className="text-3xl">❝</span> The joy of motherhood comes in
-          moments. There will be hard times and frustrating times. But amid the
-          challenges, there are shining moments of joy and satisfaction.
+          <span className="text-3xl">❝</span> {quotes[random].text}
           <span className="text-3xl">❞</span>
         </p>
         <div className="w-full flex justify-end text-sm mt-3">
-          {`– M. Russell Ballard`}
+          {`– ${quotes[random].author}`}
         </div>
       </div>
       <div className="grid  sm:grid-cols-3 grid-cols-2 gap-8">
