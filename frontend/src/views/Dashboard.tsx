@@ -37,9 +37,27 @@ const Dashboard = () => {
         </p>
       </div>
       <div className="grid  sm:grid-cols-3 grid-cols-2 gap-8">
-        <DashboardStatCard image={feet} color="bg-[#F9B8D0]" />
-        <DashboardStatCard image={fire} color="bg-[#A8F0DB]" />
-        <DashboardStatCard image={water} color="bg-[#80CAFF]" />
+        <DashboardStatCard
+          image={feet}
+          color="bg-[#F9B8D0]"
+          count={5}
+          title="Kick Count"
+          subtitle="kicks"
+        />
+        <DashboardStatCard
+          image={fire}
+          color="bg-[#A8F0DB]"
+          count={78}
+          title="Heart Rate"
+          subtitle="bpm"
+        />
+        <DashboardStatCard
+          image={water}
+          color="bg-[#80CAFF]"
+          count={8}
+          title="Water"
+          subtitle="litres"
+        />
       </div>
       <div className="mt-12">
         <LineChart />
