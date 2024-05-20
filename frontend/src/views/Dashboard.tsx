@@ -41,7 +41,9 @@ const Dashboard = () => {
         <DashboardStatCard image={fire} color="bg-[#A8F0DB]" />
         <DashboardStatCard image={water} color="bg-[#80CAFF]" />
       </div>
-      <LineChart />
+      <div className="mt-12">
+        <LineChart />
+      </div>
     </div>
   );
 };
