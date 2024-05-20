@@ -21,7 +21,10 @@ ChartJS.register(
 );
 
 const LineChart = () => {
-  const options = { responsive: true, maintainAspectRatio: true };
+  const options = {
+    responsive: true,
+    maintainAspectRatio: false,
+  };
   const data = {
     labels: [
       "Month 01",
