@@ -1,5 +1,3 @@
-import IconButton from "@mui/material/IconButton";
-import AlarmIcon from "@mui/icons-material/Alarm";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import Button from "@mui/material/Button";
 
@@ -30,16 +28,6 @@ const DashboardStatCard = ({
             </div>
           </div>
         </div>
-        {/* <div className="flex justify-center items-center">
-          {" "}
-          <IconButton
-            // color="primary"
-            sx={{ background: "#CAE9FF", color: "#0D99FF" }}
-            aria-label="add an alarm"
-          >
-            <AddCircleOutlineIcon />
-          </IconButton>
-        </div> */}
       </div>
       <div className="flex justify-center mt-4 ">
         <Button
