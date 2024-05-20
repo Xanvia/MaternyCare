@@ -55,7 +55,7 @@ const Dashboard = () => {
           image={water}
           color="bg-[#80CAFF]"
           count={8}
-          title="Water"
+          title="Water Amount"
           subtitle="litres"
         />
       </div>

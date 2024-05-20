@@ -15,8 +15,8 @@ const DashboardStatCard = ({
   subtitle: string;
 }) => {
   return (
-    <div className="bg-white py-8 px-6 h-42 rounded-lg">
-      <div className="grid llg:grid-cols-2 grid-cols-2 gap-2">
+    <div className="bg-white py-8 xs:px-6 px-4 h-42 rounded-lg">
+      <div className="grid xs:grid-cols-2 grid-cols-1 gap-2">
         <div
           className={` xl:col-span-1 rounded-full ${color} w-16 h-16 p-4 flex justify-center m-auto`}
         >
