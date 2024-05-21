@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useEffect, useState } from "react";
 import Button from "@mui/joy/Button";
 import Divider from "@mui/joy/Divider";
 import DialogTitle from "@mui/joy/DialogTitle";
@@ -12,7 +12,17 @@ import { CloseIcon } from "../assets/icons/Icons";
 import { PlusCircle } from "../assets/icons/Icons";
 
 export default function HeartRateUpdate() {
-  const [open, setOpen] = React.useState<boolean>(false);
+  const [open, setOpen] = useState<boolean>(false);
+  const min = 110;
+  const max = 160;
+  const [heartRate, setHeartRate] = useState(125);
+  const [sync, setSync] = useState(false);
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    setHeartRate(Math.floor(Math.random() * (max - min + 1)) + min);
+  }, [sync]);
+
   return (
     <React.Fragment>
       <Button
@@ -68,7 +78,7 @@ export default function HeartRateUpdate() {
             }}
           >
             Below is the synced heart rate data from the device
-            <h1 className="text-3xl">78 bpm</h1>
+            <h1 className="text-3xl">{heartRate} bpm</h1>
           </DialogContent>
           <DialogActions
             sx={{
@@ -105,7 +115,7 @@ export default function HeartRateUpdate() {
                 width: { xs: "50%", md: "40%" },
                 fontSize: "1rem",
               }}
-              onClick={() => setOpen(false)}
+              onClick={() => setSync(!sync)}
             >
               Sync Now
             </Button>
