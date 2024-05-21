@@ -10,6 +10,7 @@ import ModalDialog from "@mui/joy/ModalDialog";
 import IconButton from "@mui/joy/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
 import TextField from "@mui/material/TextField";
+import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 
 export default function KickCountUpdateModal() {
   const [open, setOpen] = React.useState<boolean>(false);
@@ -21,14 +22,17 @@ export default function KickCountUpdateModal() {
         sx={{
           borderColor: "#0D99FF",
           color: "#0D99FF",
+          width: "100%",
           "&:hover": {
             borderColor: "#80CAFF",
             color: "#80CAFF",
           },
         }}
       >
-        Update kick count
+        <AddCircleOutlineIcon className="mr-2" />
+        Update
       </Button>
+
       <Modal open={open} onClose={() => setOpen(false)}>
         <ModalDialog variant="outlined" role="alertdialog">
           <IconButton
@@ -52,7 +56,6 @@ export default function KickCountUpdateModal() {
               color: "#333333",
             }}
           >
-            
             Update kick count
           </DialogTitle>
           <Divider />
@@ -84,7 +87,6 @@ export default function KickCountUpdateModal() {
                 "&:hover": {
                   backgroundColor: "#80CAFF",
                 },
-
                 width: { xs: "50%", md: "40%" },
                 fontSize: "1rem",
               }}
@@ -110,7 +112,6 @@ export default function KickCountUpdateModal() {
                 width: { xs: "50%", md: "40%" },
                 fontSize: "1rem",
               }}
-            
             />
           </DialogActions>
         </ModalDialog>

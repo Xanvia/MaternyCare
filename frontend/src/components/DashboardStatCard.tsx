@@ -1,5 +1,4 @@
-import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
-import Button from "@mui/material/Button";
+import KickCountUpdateModal from "../modals/Kick_count_popup";
 
 const DashboardStatCard = ({
   image,
@@ -38,13 +37,14 @@ const DashboardStatCard = ({
         </div>
       </div>
       <div className="flex justify-center mt-6 ">
-        <Button
+        {/* <Button
           sx={{ width: "100%" }}
           variant="outlined"
           startIcon={<AddCircleOutlineIcon />}
         >
           Update
-        </Button>
+        </Button> */}
+        <KickCountUpdateModal />
       </div>
     </div>
   );
