@@ -10,6 +10,11 @@ import ModalDialog from "@mui/joy/ModalDialog";
 import IconButton from "@mui/joy/IconButton";
 import { CloseIcon } from "../assets/icons/Icons";
 import { PlusCircle } from "../assets/icons/Icons";
+import CircularWithValueLabel from "../components/CircularProgress";
+
+// interface HeartRateUpdateProps {
+//   onUpdate: (heartRate: number) => void;
+// }
 
 export default function HeartRateUpdate() {
   const [open, setOpen] = useState<boolean>(false);
@@ -17,11 +22,33 @@ export default function HeartRateUpdate() {
   const max = 160;
   const [heartRate, setHeartRate] = useState(125);
   const [sync, setSync] = useState(false);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    setHeartRate(Math.floor(Math.random() * (max - min + 1)) + min);
-  }, [sync]);
+    if (!loading) {
+      setHeartRate(Math.floor(Math.random() * (max - min + 1)) + min);
+    }
+  }, [sync, loading]);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 3000); // Set loading to false after 5 seconds initially
+
+    return () => clearTimeout(timer); // Cleanup timer on component unmount
+  }, []);
+
+  const handleSync = () => {
+    setLoading(true);
+    setTimeout(() => {
+      setSync(!sync);
+      setLoading(false);
+    }, 2000); // Show loader for 10 seconds
+  };
+
+  const handleUpdate = () => {
+    setOpen(false);
+  };
 
   return (
     <React.Fragment>
@@ -78,7 +105,9 @@ export default function HeartRateUpdate() {
             }}
           >
             Below is the synced heart rate data from the device
-            <h1 className="text-3xl">{heartRate} bpm</h1>
+            <h1 className="text-3xl">
+              {loading ? <CircularWithValueLabel /> : `${heartRate} bpm`}
+            </h1>
           </DialogContent>
           <DialogActions
             sx={{
@@ -100,7 +129,7 @@ export default function HeartRateUpdate() {
                 width: { xs: "50%", md: "40%" },
                 fontSize: "1rem",
               }}
-              onClick={() => setOpen(false)}
+              onClick={handleUpdate}
             >
               Update
             </Button>
@@ -115,7 +144,7 @@ export default function HeartRateUpdate() {
                 width: { xs: "50%", md: "40%" },
                 fontSize: "1rem",
               }}
-              onClick={() => setSync(!sync)}
+              onClick={handleSync}
             >
               Sync Now
             </Button>

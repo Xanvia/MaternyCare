@@ -89,7 +89,7 @@ const Dashboard = () => {
           count={78}
           title="Heart Rate"
           subtitle="bpm"
-          updateComponent=<HeartRateUpdate />
+          updateComponent={<HeartRateUpdate />}
         />
         <DashboardStatCard
           image={water}
