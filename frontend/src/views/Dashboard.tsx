@@ -6,7 +6,8 @@ import water from "../assets/images/drops.svg";
 import LineChart from "../components/LineChart";
 import { useEffect, useState } from "react";
 import KickCountUpdateModal from "../modals/Kick_count_popup";
-import HeartRateUpdate from "../modals/Heart_rate_popup";
+import HeartRateUpdate from "../modals/HeartRateUpdate";
+import WaterAmountUpdate from "../modals/WaterAmountUpdate";
 
 const quotes = [
   {
@@ -96,6 +97,7 @@ const Dashboard = () => {
           count={8}
           title="Water Amount"
           subtitle="litres"
+          updateComponent=<WaterAmountUpdate />
         />
       </div>
       <div className="mt-12 h-96 w-auto">
