@@ -8,9 +8,9 @@ import Modal from "@mui/joy/Modal";
 import ModalDialog from "@mui/joy/ModalDialog";
 
 import IconButton from "@mui/joy/IconButton";
-import CloseIcon from "@mui/icons-material/Close";
 import TextField from "@mui/material/TextField";
-import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
+import { CloseIcon } from "../assets/icons/Icons";
+import { PlusCircle } from "../assets/icons/Icons";
 
 export default function KickCountUpdateModal() {
   const [open, setOpen] = React.useState<boolean>(false);
@@ -29,7 +29,7 @@ export default function KickCountUpdateModal() {
           },
         }}
       >
-        <AddCircleOutlineIcon className="mr-2" />
+        <PlusCircle className="mr-2" />
         Update
       </Button>
 
