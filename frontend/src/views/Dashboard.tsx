@@ -5,6 +5,8 @@ import fire from "../assets/images/fire.svg";
 import water from "../assets/images/drops.svg";
 import LineChart from "../components/LineChart";
 import { useEffect, useState } from "react";
+import KickCountUpdateModal from "../modals/Kick_count_popup";
+import HeartRateUpdate from "../modals/Heart_rate_popup";
 
 const quotes = [
   {
@@ -78,6 +80,7 @@ const Dashboard = () => {
           count={5}
           title="Kick Count"
           subtitle="kicks"
+          updateComponent=<KickCountUpdateModal />
         />
         <DashboardStatCard
           image={fire}
@@ -85,6 +88,7 @@ const Dashboard = () => {
           count={78}
           title="Heart Rate"
           subtitle="bpm"
+          updateComponent=<HeartRateUpdate />
         />
         <DashboardStatCard
           image={water}

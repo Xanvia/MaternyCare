@@ -1,17 +1,21 @@
-import KickCountUpdateModal from "../modals/Kick_count_popup";
+import React, { ReactNode } from "react";
 
-const DashboardStatCard = ({
-  image,
-  color,
-  count,
-  title,
-  subtitle,
-}: {
+interface DashboardStatCardProps {
   image: string;
   color: string;
   count: number;
   title: string;
   subtitle: string;
+  updateComponent?: ReactNode; // Define a prop for the component you want to pass
+}
+
+const DashboardStatCard: React.FC<DashboardStatCardProps> = ({
+  image,
+  color,
+  count,
+  title,
+  subtitle,
+  updateComponent, // Destructure the new prop
 }) => {
   return (
     <div className="bg-white py-8 xs:px-6 px-4 h-42 rounded-lg">
@@ -37,14 +41,7 @@ const DashboardStatCard = ({
         </div>
       </div>
       <div className="flex justify-center mt-6 ">
-        {/* <Button
-          sx={{ width: "100%" }}
-          variant="outlined"
-          startIcon={<AddCircleOutlineIcon />}
-        >
-          Update
-        </Button> */}
-        <KickCountUpdateModal />
+        {updateComponent && updateComponent}
       </div>
     </div>
   );
