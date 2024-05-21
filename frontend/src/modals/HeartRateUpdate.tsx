@@ -94,25 +94,21 @@ export default function HeartRateUpdate() {
             >
               Update
             </Button>
-
-            {/* <TextField
-              id="outlined-number-small"
-              label=""
-              type="number"
-              size="small"
-              InputLabelProps={{
-                shrink: true,
-              }}
-              InputProps={{
-                sx: {
-                  height: "36px", // Adjust the height of the input field
-                },
-              }}
+            <Button
+              variant="solid"
               sx={{
+                backgroundColor: "#0D99FF",
+                color: "#ffffff",
+                "&:hover": {
+                  backgroundColor: "#80CAFF",
+                },
                 width: { xs: "50%", md: "40%" },
                 fontSize: "1rem",
               }}
-            /> */}
+              onClick={() => setOpen(false)}
+            >
+              Sync Now
+            </Button>
           </DialogActions>
         </ModalDialog>
       </Modal>
