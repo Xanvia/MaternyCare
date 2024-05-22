@@ -4,10 +4,11 @@ import feet from "../assets/images/feet.svg";
 import fire from "../assets/images/fire.svg";
 import water from "../assets/images/drops.svg";
 import LineChart from "../components/LineChart";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import KickCountUpdateModal from "../modals/Kick_count_popup";
 import HeartRateUpdate from "../modals/HeartRateUpdate";
 import WaterAmountUpdate from "../modals/WaterAmountUpdate";
+import { HeartRateContext } from "../contexts/HeartRateContextProvider";
 
 const quotes = [
   {
@@ -33,10 +34,15 @@ const quotes = [
 ];
 
 const Dashboard = () => {
+  const heartRateContext = useContext(HeartRateContext);
   const [random, setRandom] = useState(0);
   useEffect(() => {
     setRandom(Math.floor(Math.random() * 4));
   }, []);
+
+  if (heartRateContext == null) {
+    return;
+  }
 
   return (
     <div className="mx-11">
@@ -86,7 +92,7 @@ const Dashboard = () => {
         <DashboardStatCard
           image={fire}
           color="bg-[#A8F0DB]"
-          count={78}
+          count={heartRateContext.heartRate}
           title="Heart Rate"
           subtitle="bpm"
           updateComponent={<HeartRateUpdate />}

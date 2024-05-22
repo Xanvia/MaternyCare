@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from "react";
+// HeartRateUpdate.js
+import { useEffect, useState, useContext } from "react";
 import Button from "@mui/joy/Button";
 import Divider from "@mui/joy/Divider";
 import DialogTitle from "@mui/joy/DialogTitle";
@@ -6,48 +7,47 @@ import DialogContent from "@mui/joy/DialogContent";
 import DialogActions from "@mui/joy/DialogActions";
 import Modal from "@mui/joy/Modal";
 import ModalDialog from "@mui/joy/ModalDialog";
-
 import IconButton from "@mui/joy/IconButton";
-import { CloseIcon } from "../assets/icons/Icons";
-import { PlusCircle } from "../assets/icons/Icons";
 import CircularWithValueLabel from "../components/CircularProgress";
+import { CloseIcon, PlusCircle } from "../assets/icons/Icons";
+import { HeartRateContext } from "../contexts/HeartRateContextProvider";
 
 export default function HeartRateUpdate() {
-  const [open, setOpen] = useState<boolean>(false);
-  const min = 110;
-  const max = 160;
-  const [heartRate, setHeartRate] = useState(125);
-  const [sync, setSync] = useState(false);
+  const [open, setOpen] = useState(false);
+  // const [sync, setSync] = useState(false);
   const [loading, setLoading] = useState(true);
+  // const heartRateContext = useContext(HeartRateContext);
 
-  useEffect(() => {
-    if (!loading) {
-      setHeartRate(Math.floor(Math.random() * (max - min + 1)) + min);
-    }
-  }, [sync, loading]);
+  // useEffect(() => {
+  //   if (!loading && heartRateContext) {
+  //     const newHeartRate = Math.floor(Math.random() * (160 - 110 + 1)) + 110;
+  //     heartRateContext.updateHeartRate(newHeartRate);
+  //   }
+  // }, [sync, loading, heartRateContext]);
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setLoading(false);
-    }, 3000); // Set loading to false after 5 seconds initially
+  // useEffect(() => {
+  //   const timer = setTimeout(() => {
+  //     setLoading(false);
+  //   }, 3000); // Set loading to false after 3 seconds initially
 
-    return () => clearTimeout(timer); // Cleanup timer on component unmount
-  }, []);
+  //   return () => clearTimeout(timer); // Cleanup timer on component unmount
+  // }, []);
 
-  const handleSync = () => {
-    setLoading(true);
-    setTimeout(() => {
-      setSync(!sync);
-      setLoading(false);
-    }, 2000); // Show loader for 10 seconds
-  };
+  // const handleSync = () => {
+  //   setLoading(true);
+  //   setTimeout(() => {
+  //     setSync(!sync);
+  //     setLoading(false);
+  //   }, 2000); // Show loader for 2 seconds
+  // };
 
   const handleUpdate = () => {
     setOpen(false);
+    // heartRateContext?.updateHeartRate(heartRate);
   };
 
   return (
-    <React.Fragment>
+    <>
       <Button
         variant="outlined"
         onClick={() => setOpen(true)}
@@ -102,7 +102,7 @@ export default function HeartRateUpdate() {
           >
             Below is the synced heart rate data from the device
             <h1 className="text-3xl">
-              {loading ? <CircularWithValueLabel /> : `${heartRate} bpm`}
+              {loading ? <CircularWithValueLabel /> : `128 bpm`}
             </h1>
           </DialogContent>
           <DialogActions
@@ -140,13 +140,13 @@ export default function HeartRateUpdate() {
                 width: { xs: "50%", md: "40%" },
                 fontSize: "1rem",
               }}
-              onClick={handleSync}
+              // onClick={handleSync}
             >
               Sync Now
             </Button>
           </DialogActions>
         </ModalDialog>
       </Modal>
-    </React.Fragment>
+    </>
   );
 }

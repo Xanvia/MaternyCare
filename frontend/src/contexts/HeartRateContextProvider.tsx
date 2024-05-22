@@ -1,3 +1,4 @@
+// HeartRateContextProvider.js
 import React, { useState, ReactNode } from "react";
 
 // Define the context type
@@ -21,8 +22,8 @@ const HeartRateContextProvider: React.FC<HeartRateContextProviderProps> = ({
 }) => {
   const [heartRate, setHeartRate] = useState(125);
 
-  const updateHeartRate = (heartRate: number) => {
-    setHeartRate(heartRate);
+  const updateHeartRate = (newHeartRate: number) => {
+    setHeartRate(newHeartRate);
   };
 
   return (
