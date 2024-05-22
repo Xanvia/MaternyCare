@@ -5,6 +5,7 @@ import Login from "./views/LoginPage";
 import Registration from "./views/Registration";
 import Dashboard from "./views/Dashboard";
 import Notices from "./views/Notices";
+import HeartRateContextProvider from "./contexts/HeartRateContextProvider";
 
 // You can add your routes here
 // Add a baselayout too if needed
@@ -64,7 +65,9 @@ function App() {
   return (
     <div>
       {/* if you have any context which should include in everywhere of the application you can wrap this RouterProvider with that context */}
-      <RouterProvider router={router} />
+      <HeartRateContextProvider>
+        <RouterProvider router={router} />
+      </HeartRateContextProvider>
     </div>
   );
 }

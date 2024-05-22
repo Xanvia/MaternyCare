@@ -1,4 +1,5 @@
-import * as React from "react";
+// HeartRateUpdate.js
+import { useState, useContext } from "react";
 import Button from "@mui/joy/Button";
 import Divider from "@mui/joy/Divider";
 import DialogTitle from "@mui/joy/DialogTitle";
@@ -6,16 +7,37 @@ import DialogContent from "@mui/joy/DialogContent";
 import DialogActions from "@mui/joy/DialogActions";
 import Modal from "@mui/joy/Modal";
 import ModalDialog from "@mui/joy/ModalDialog";
-
 import IconButton from "@mui/joy/IconButton";
-import TextField from "@mui/material/TextField";
-import { CloseIcon } from "../assets/icons/Icons";
-import { PlusCircle } from "../assets/icons/Icons";
+import CircularWithValueLabel from "../components/CircularProgress";
+import { CloseIcon, PlusCircle } from "../assets/icons/Icons";
+import { HeartRateContext } from "../contexts/HeartRateContextProvider";
 
-export default function KickCountUpdateModal() {
-  const [open, setOpen] = React.useState<boolean>(false);
+export default function HeartRateUpdate() {
+  const [open, setOpen] = useState(false);
+  // const [sync, setSync] = useState(false);
+  const [loading, setLoading] = useState(false);
+
+  const heartRateContext = useContext(HeartRateContext);
+  const heartRate = heartRateContext?.heartRate;
+
+  const handleSync = () => {
+    const newHeartRate = Math.floor(Math.random() * (160 - 110 + 1)) + 110;
+
+    setLoading(true);
+
+    setTimeout(() => {
+      setLoading(false);
+    }, 2000);
+
+    heartRateContext?.updateHeartRate(newHeartRate);
+  };
+
+  const handleUpdate = () => {
+    setOpen(false);
+  };
+
   return (
-    <React.Fragment>
+    <>
       <Button
         variant="outlined"
         onClick={() => setOpen(true)}
@@ -56,7 +78,7 @@ export default function KickCountUpdateModal() {
               color: "#333333",
             }}
           >
-            Update kick count
+            Update Heart Rate
           </DialogTitle>
           <Divider />
           <DialogContent
@@ -68,7 +90,10 @@ export default function KickCountUpdateModal() {
               color: "#666666",
             }}
           >
-            Please enter the new kick count. Confirm the update to save changes.
+            Below is the synced heart rate data from the device
+            <h1 className="text-3xl">
+              {loading ? <CircularWithValueLabel /> : `${heartRate} bpm`}
+            </h1>
           </DialogContent>
           <DialogActions
             sx={{
@@ -90,32 +115,28 @@ export default function KickCountUpdateModal() {
                 width: { xs: "50%", md: "40%" },
                 fontSize: "1rem",
               }}
-              onClick={() => setOpen(false)}
+              onClick={handleUpdate}
             >
               Update
             </Button>
-
-            <TextField
-              id="outlined-number-small"
-              label=""
-              type="number"
-              size="small"
-              InputLabelProps={{
-                shrink: true,
-              }}
-              InputProps={{
-                sx: {
-                  height: "36px", // Adjust the height of the input field
-                },
-              }}
+            <Button
+              variant="solid"
               sx={{
+                backgroundColor: "#0D99FF",
+                color: "#ffffff",
+                "&:hover": {
+                  backgroundColor: "#80CAFF",
+                },
                 width: { xs: "50%", md: "40%" },
                 fontSize: "1rem",
               }}
-            />
+              onClick={handleSync}
+            >
+              Sync Now
+            </Button>
           </DialogActions>
         </ModalDialog>
       </Modal>
-    </React.Fragment>
+    </>
   );
 }

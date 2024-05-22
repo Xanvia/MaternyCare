@@ -12,7 +12,7 @@ import TextField from "@mui/material/TextField";
 import { CloseIcon } from "../assets/icons/Icons";
 import { PlusCircle } from "../assets/icons/Icons";
 
-export default function KickCountUpdateModal() {
+export default function WaterAmountUpdate() {
   const [open, setOpen] = React.useState<boolean>(false);
   return (
     <React.Fragment>
@@ -56,7 +56,7 @@ export default function KickCountUpdateModal() {
               color: "#333333",
             }}
           >
-            Update kick count
+            Update Water Amount
           </DialogTitle>
           <Divider />
           <DialogContent
@@ -68,7 +68,8 @@ export default function KickCountUpdateModal() {
               color: "#666666",
             }}
           >
-            Please enter the new kick count. Confirm the update to save changes.
+            Please enter the new water amount. Confirm the update to save
+            changes.
           </DialogContent>
           <DialogActions
             sx={{
