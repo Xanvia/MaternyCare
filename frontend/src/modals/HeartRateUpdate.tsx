@@ -12,10 +12,6 @@ import { CloseIcon } from "../assets/icons/Icons";
 import { PlusCircle } from "../assets/icons/Icons";
 import CircularWithValueLabel from "../components/CircularProgress";
 
-// interface HeartRateUpdateProps {
-//   onUpdate: (heartRate: number) => void;
-// }
-
 export default function HeartRateUpdate() {
   const [open, setOpen] = useState<boolean>(false);
   const min = 110;
