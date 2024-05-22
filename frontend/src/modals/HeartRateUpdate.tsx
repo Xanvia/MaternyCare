@@ -31,32 +31,9 @@ export default function HeartRateUpdate() {
 
     heartRateContext?.updateHeartRate(newHeartRate);
   };
-  // useEffect(() => {
-  //   if (!loading && heartRateContext) {
-  //     const newHeartRate = Math.floor(Math.random() * (160 - 110 + 1)) + 110;
-  //     heartRateContext.updateHeartRate(newHeartRate);
-  //   }
-  // }, [sync, loading, heartRateContext]);
-
-  // useEffect(() => {
-  //   const timer = setTimeout(() => {
-  //     setLoading(false);
-  //   }, 3000); // Set loading to false after 3 seconds initially
-
-  //   return () => clearTimeout(timer); // Cleanup timer on component unmount
-  // }, []);
-
-  // const handleSync = () => {
-  //   setLoading(true);
-  //   setTimeout(() => {
-  //     setSync(!sync);
-  //     setLoading(false);
-  //   }, 2000); // Show loader for 2 seconds
-  // };
 
   const handleUpdate = () => {
     setOpen(false);
-    // heartRateContext?.updateHeartRate(heartRate);
   };
 
   return (
