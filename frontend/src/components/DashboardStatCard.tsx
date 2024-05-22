@@ -3,7 +3,7 @@ import React, { ReactNode, useState } from "react";
 interface DashboardStatCardProps {
   image: string;
   color: string;
-  count: number;
+  count?: number;
   title: string;
   subtitle: string;
   updateComponent?: ReactNode;

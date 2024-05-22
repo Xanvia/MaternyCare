@@ -35,14 +35,15 @@ const quotes = [
 
 const Dashboard = () => {
   const heartRateContext = useContext(HeartRateContext);
+  const heartRate = heartRateContext?.heartRate;
   const [random, setRandom] = useState(0);
   useEffect(() => {
     setRandom(Math.floor(Math.random() * 4));
   }, []);
 
-  if (heartRateContext == null) {
-    return;
-  }
+  // if (heartRateContext == null) {
+  //   return;
+  // }
 
   return (
     <div className="mx-11">
@@ -66,7 +67,7 @@ const Dashboard = () => {
         Dashboard
       </h1>
       <div className="mt-14 lg:mt-0 h-auto min-h-44 px-8 py-5 text-white bg-[#BA97FE] rounded-2xl mb-8 w-auto">
-        <h1 className="mb-2">
+        <h1 className="mb-2 text-lg">
           Hello{" "}
           <span className="">
             Ushani<span> 😃</span>
@@ -92,7 +93,7 @@ const Dashboard = () => {
         <DashboardStatCard
           image={fire}
           color="bg-[#A8F0DB]"
-          count={heartRateContext.heartRate}
+          count={heartRate}
           title="Heart Rate"
           subtitle="bpm"
           updateComponent={<HeartRateUpdate />}

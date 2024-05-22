@@ -1,5 +1,5 @@
 // HeartRateUpdate.js
-import { useEffect, useState, useContext } from "react";
+import { useState, useContext } from "react";
 import Button from "@mui/joy/Button";
 import Divider from "@mui/joy/Divider";
 import DialogTitle from "@mui/joy/DialogTitle";
@@ -15,9 +15,22 @@ import { HeartRateContext } from "../contexts/HeartRateContextProvider";
 export default function HeartRateUpdate() {
   const [open, setOpen] = useState(false);
   // const [sync, setSync] = useState(false);
-  const [loading, setLoading] = useState(true);
-  // const heartRateContext = useContext(HeartRateContext);
+  const [loading, setLoading] = useState(false);
 
+  const heartRateContext = useContext(HeartRateContext);
+  const heartRate = heartRateContext?.heartRate;
+
+  const handleSync = () => {
+    const newHeartRate = Math.floor(Math.random() * (160 - 110 + 1)) + 110;
+
+    setLoading(true);
+
+    setTimeout(() => {
+      setLoading(false);
+    }, 2000);
+
+    heartRateContext?.updateHeartRate(newHeartRate);
+  };
   // useEffect(() => {
   //   if (!loading && heartRateContext) {
   //     const newHeartRate = Math.floor(Math.random() * (160 - 110 + 1)) + 110;
@@ -102,7 +115,7 @@ export default function HeartRateUpdate() {
           >
             Below is the synced heart rate data from the device
             <h1 className="text-3xl">
-              {loading ? <CircularWithValueLabel /> : `128 bpm`}
+              {loading ? <CircularWithValueLabel /> : `${heartRate} bpm`}
             </h1>
           </DialogContent>
           <DialogActions
@@ -140,7 +153,7 @@ export default function HeartRateUpdate() {
                 width: { xs: "50%", md: "40%" },
                 fontSize: "1rem",
               }}
-              // onClick={handleSync}
+              onClick={handleSync}
             >
               Sync Now
             </Button>
