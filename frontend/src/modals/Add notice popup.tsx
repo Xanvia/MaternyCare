@@ -154,7 +154,7 @@ export default function AddNotice() {
                     type="submit"
                     disabled={isSubmitting}
                   >
-                    Update
+                    Create
                   </Button>
                   <Button
                     variant="outlined"
