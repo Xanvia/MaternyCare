@@ -19,7 +19,7 @@ const validationSchema = Yup.object({
     message: Yup.string().required('Message is required'),
   });
   
-  export default function AddNotice() {
+  export default function UpdateNotice() {
     const [open, setOpen] = React.useState<boolean>(false);
   
     return (
@@ -36,7 +36,7 @@ const validationSchema = Yup.object({
             },
           }}
         >
-          Add Notice
+          Update Notice
         </Button>
         <Modal open={open} onClose={() => setOpen(false)}>
           <ModalDialog variant="outlined" role="alertdialog">
@@ -61,7 +61,7 @@ const validationSchema = Yup.object({
                 color: "#333333",
               }}
             >
-              Add notice
+              Update notice
             </DialogTitle>
             <Divider />
             <Formik
