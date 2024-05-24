@@ -1,12 +1,16 @@
 import SearchIcon from "@mui/icons-material/Search";
 import { Outlet } from "react-router-dom";
+import { useContext } from "react";
+import { TitleContext } from "../contexts/TitleContextProvider";
 
 const FeedLayout = () => {
+  const titleContext = useContext(TitleContext);
+  console.log("from feed layout" + titleContext?.pageTitle);
   return (
     <div>
       <div className="flex justify-between ml-4 mt-7">
         <p className="hidden lg:block">
-          Pages <span> / Dashboard</span>
+          Pages <span> / {titleContext?.pageTitle}</span>
         </p>
 
         <div className="lg:flex items-center relative hidden ">
@@ -19,7 +23,7 @@ const FeedLayout = () => {
           />
         </div>
       </div>
-      <h1 className="mt-9 mb-4 hidden lg:block">Dashboard Overview</h1>
+      <h1 className="mt-9 mb-4 hidden lg:block">{`${titleContext?.pageTitle} Overview`}</h1>
       <h1 className="text-center text-3xl text-[#0D99FF] lg:hidden">
         Dashboard
       </h1>

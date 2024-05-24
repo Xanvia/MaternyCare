@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useContext } from "react";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { useTheme } from "@mui/material//styles";
 import { MenuIcon } from "../assets/icons/Icons";
@@ -6,6 +6,7 @@ import { navLinks } from "../data/Data";
 import { NavLink } from "react-router-dom";
 import logo from "../assets/images/logo.png";
 import { useMatch } from "react-router-dom";
+import { TitleContext } from "../contexts/TitleContextProvider";
 
 const Drawer: React.FC = () => {
   const LARGE_SCREEN_WIDTH = 1024;
@@ -13,6 +14,8 @@ const Drawer: React.FC = () => {
   const theme = useTheme();
   const isLargeScreen = useMediaQuery(theme.breakpoints.up("lg"));
   const [isDrawerOpen, setDrawerOpen] = React.useState(isLargeScreen);
+
+  const titleContext = useContext(TitleContext);
 
   const checkScreenSize = () => {
     if (window.innerWidth >= LARGE_SCREEN_WIDTH) {
@@ -24,6 +27,11 @@ const Drawer: React.FC = () => {
 
   const toggleDrawer = () => {
     setDrawerOpen(!isDrawerOpen);
+  };
+
+  const handleTitle = (title: string) => {
+    titleContext?.updatePageTitle(title);
+    console.log("from drawer " + title);
   };
 
   useEffect(() => {
@@ -92,6 +100,7 @@ const Drawer: React.FC = () => {
                   className={`flex items-center space-x-2 py-3 px-3 rounded-xl w-full ${
                     match ? "text-[#0D99FF] bg-[#CAE9FF]" : ""
                   }`}
+                  onClick={() => handleTitle(item.name)}
                 >
                   <item.icon />
                   <span className="pl-1 ">{item.name}</span>
