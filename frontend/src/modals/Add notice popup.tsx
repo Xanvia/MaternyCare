@@ -94,7 +94,17 @@ export default function AddNotice() {
                     maxWidth: '100%',
                 }}
                 >
-                <TextField fullWidth label="" id="fullWidth" size="small"/>
+                <TextField
+                    fullWidth
+                    label=""
+                    id="fullWidth"
+                    size="small"
+                    InputProps={{
+                    sx: {
+                        height: '100px', // Adjust the height as needed
+                    },
+                    }}
+                />
             </Box>
 
 
