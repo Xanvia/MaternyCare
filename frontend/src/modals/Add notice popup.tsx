@@ -117,7 +117,7 @@ export default function AddNotice() {
                     backgroundColor: "#F9B8D0",
                   },
   
-                  width: { xs: "50%", md: "40%" },
+                  width: { xs: "50%", md: "100%" },
                   fontSize: "1rem",
                 }}
                 onClick={() => setOpen(false)}
@@ -133,7 +133,7 @@ export default function AddNotice() {
                   "&:hover": {
                     borderColor: "#F9B8D0",
                   },
-                  width: { xs: "50%", md: "40%" },
+                  width: { xs: "50%", md: "100%" },
                   fontSize: "1rem",
                 }}
                 onClick={() => setOpen(false)}
