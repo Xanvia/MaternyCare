@@ -6,10 +6,10 @@ import DialogContent from "@mui/joy/DialogContent";
 import DialogActions from "@mui/joy/DialogActions";
 import Modal from "@mui/joy/Modal";
 import ModalDialog from "@mui/joy/ModalDialog";
-import WarningRoundedIcon from "@mui/icons-material/WarningRounded";
-
+import TextField from '@mui/material/TextField';
 import IconButton from "@mui/joy/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
+import { Box } from "@mui/material";
 
 export default function AddNotice() {
     const [open, setOpen] = React.useState<boolean>(false);
@@ -52,22 +52,52 @@ export default function AddNotice() {
                 color: "#333333",
               }}
             >
-              <WarningRoundedIcon />
-              Are you sure?
+              Add notice
             </DialogTitle>
             <Divider />
             <DialogContent
               sx={{
                 display: "flex",
-                alignItems: "center",
                 justifyContent: "center",
                 gap: 1,
                 color: "#666666",
+                fontWeight: "bold",
               }}
             >
-              Are you sure you want to delete this item? This action cannot be
-              undone
+              Title:
             </DialogContent>
+
+            <Box
+                sx={{
+                    width: 500,
+                    maxWidth: '100%',
+                }}
+                >
+                <TextField fullWidth label="" id="fullWidth" size="small"/>
+            </Box>
+
+            <DialogContent
+              sx={{
+                display: "flex",
+                justifyContent: "center",
+                gap: 1,
+                color: "#666666",
+                fontWeight: "bold",
+              }}
+            >
+              Message:
+            </DialogContent>
+
+            <Box
+                sx={{
+                    width: 500,
+                    maxWidth: '100%',
+                }}
+                >
+                <TextField fullWidth label="" id="fullWidth" size="small"/>
+            </Box>
+
+
             <DialogActions
               sx={{
                 display: "flex",
@@ -77,21 +107,7 @@ export default function AddNotice() {
                 color: "#666666",
               }}
             >
-              <Button
-                variant="outlined"
-                sx={{
-                  borderColor: "#F580AB",
-                  color: "#000000",
-                  "&:hover": {
-                    borderColor: "#F9B8D0",
-                  },
-                  width: { xs: "50%", md: "40%" },
-                  fontSize: "1rem",
-                }}
-                onClick={() => setOpen(false)}
-              >
-                Cancel
-              </Button>
+
               <Button
                 variant="solid"
                 sx={{
@@ -106,7 +122,23 @@ export default function AddNotice() {
                 }}
                 onClick={() => setOpen(false)}
               >
-                Delete
+                Update
+              </Button>
+
+              <Button
+                variant="outlined"
+                sx={{
+                  borderColor: "#F580AB",
+                  color: "#000000",
+                  "&:hover": {
+                    borderColor: "#F9B8D0",
+                  },
+                  width: { xs: "50%", md: "40%" },
+                  fontSize: "1rem",
+                }}
+                onClick={() => setOpen(false)}
+              >
+                Cancel
               </Button>
             </DialogActions>
           </ModalDialog>
