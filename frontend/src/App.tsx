@@ -7,6 +7,7 @@ import Dashboard from "./views/Dashboard";
 import Notices from "./views/Notices";
 import HeartRateContextProvider from "./contexts/HeartRateContextProvider";
 import Appointments from "./views/Appointments";
+import Profile from "./views/Profile";
 
 // You can add your routes here
 // Add a baselayout too if needed
@@ -67,6 +68,16 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <Appointments />,
+      },
+    ],
+  },
+  {
+    path: "/profile",
+    element: <BaseLayout />,
+    children: [
+      {
+        index: true,
+        element: <Profile />,
       },
     ],
   },
