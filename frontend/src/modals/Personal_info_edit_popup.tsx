@@ -116,7 +116,7 @@ const validationSchema = Yup.object({
                 color: "#333333",
               }}
             >
-              Add notice
+              Edit Personal information
             </DialogTitle>
             <Divider />
             <Formik
@@ -139,7 +139,7 @@ const validationSchema = Yup.object({
                       fontWeight: "bold",
                     }}
                   >
-                    Title:
+                    First Name:
                   </DialogContent>
                   <Box
                     sx={{
@@ -157,35 +157,10 @@ const validationSchema = Yup.object({
                       helperText={touched.title && errors.title}
                     />
                   </Box>
-                  <DialogContent
-                    sx={{
-                      display: "flex",
-                      justifyContent: "center",
-                      gap: 1,
-                      color: "#666666",
-                      fontWeight: "bold",
-                    }}
-                  >
-                    Message:
-                  </DialogContent>
-                  <Box
-                    sx={{
-                      width: 500,
-                      maxWidth: "100%",
-                    }}
-                  >
-                    <Field
-                      as={TextField}
-                      name="message"
-                      fullWidth
-                      size="small"
-                      variant="outlined"
-                      multiline
-                      rows={4}
-                      error={touched.message && Boolean(errors.message)}
-                      helperText={touched.message && errors.message}
-                    />
-                  </Box>
+
+                  
+
+                  
                   <DialogActions
                     sx={{
                       display: "flex",
