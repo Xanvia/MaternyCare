@@ -86,7 +86,14 @@ const validationSchema = Yup.object({
             </DialogTitle>
             <Divider />
             <Formik
-              initialValues={{ title: "", message: "" }}
+              initialValues={{
+                firstName: "",
+                lastName: "",
+                email: "",
+                phone: "",
+                age: "",
+                bio: "",
+              }}
               validationSchema={validationSchema}
               onSubmit={(values, { setSubmitting }) => {
                 console.log("Form data:", values);
@@ -115,12 +122,12 @@ const validationSchema = Yup.object({
                   >
                     <Field
                       as={TextField}
-                      name="title"
+                      name="firstName"
                       fullWidth
                       size="small"
                       variant="outlined"
-                      error={touched.title && Boolean(errors.title)}
-                      helperText={touched.title && errors.title}
+                      error={touched.firstName && Boolean(errors.firstName)}
+                      helperText={touched.firstName && errors.firstName}
                     />
                   </Box>
 
@@ -143,12 +150,12 @@ const validationSchema = Yup.object({
                   >
                     <Field
                       as={TextField}
-                      name="title"
+                      name="lastName"
                       fullWidth
                       size="small"
                       variant="outlined"
-                      error={touched.title && Boolean(errors.title)}
-                      helperText={touched.title && errors.title}
+                      error={touched.lastName && Boolean(errors.lastName)}
+                      helperText={touched.lastName && errors.lastName}
                     />
                   </Box>
 
@@ -171,12 +178,12 @@ const validationSchema = Yup.object({
                   >
                     <Field
                       as={TextField}
-                      name="title"
+                      name="email"
                       fullWidth
                       size="small"
                       variant="outlined"
-                      error={touched.title && Boolean(errors.title)}
-                      helperText={touched.title && errors.title}
+                      error={touched.email && Boolean(errors.email)}
+                      helperText={touched.email && errors.email}
                     />
                   </Box>
 
@@ -199,46 +206,46 @@ const validationSchema = Yup.object({
                   >
                     <Field
                       as={TextField}
-                      name="title"
+                      name="phone"
                       fullWidth
                       size="small"
                       variant="outlined"
-                      error={touched.title && Boolean(errors.title)}
-                      helperText={touched.title && errors.title}
+                      error={touched.phone && Boolean(errors.phone)}
+                      helperText={touched.phone && errors.phone}
                     />
                   </Box>
 
                   <DialogContent
-        sx={{
-          display: "flex",
-          justifyContent: "center",
-          gap: 1,
-          color: "#666666",
-          fontWeight: "bold",
-        }}
-      >
-        Age:
-      </DialogContent>
-      <Box
-        sx={{
-          width: 500,
-          maxWidth: "100%",
-        }}
-      >
-        <Field
-          as={TextField}
-          name="age" // Change "title" to "age"
-          fullWidth
-          size="small"
-          variant="outlined"
-          inputProps={{
-            type: "number",
-            min: 0,
-            step: 1,
-          }}
-          error={touched.title && Boolean(errors.title)}
-          helperText={touched.title && errors.title}
-        />
+                    sx={{
+                    display: "flex",
+                    justifyContent: "center",
+                    gap: 1,
+                    color: "#666666",
+                    fontWeight: "bold",
+                    }}
+                >
+                    Age:
+                </DialogContent>
+                <Box
+                    sx={{
+                    width: 500,
+                    maxWidth: "100%",
+                    }}
+                >
+                    <Field
+                    as={TextField}
+                    name="age"
+                    fullWidth
+                    size="small"
+                    variant="outlined"
+                    inputProps={{
+                        type: "number",
+                        min: 0,
+                        step: 1,
+                    }}
+                    error={touched.age && Boolean(errors.age)}
+                    helperText={touched.age && errors.age}
+                    />
       </Box>
 
                     {/* <DialogContent
@@ -284,12 +291,12 @@ const validationSchema = Yup.object({
                   >
                     <Field
                       as={TextField}
-                      name="title"
+                      name="bio"
                       fullWidth
                       size="small"
                       variant="outlined"
-                      error={touched.title && Boolean(errors.title)}
-                      helperText={touched.title && errors.title}
+                      error={touched.bio && Boolean(errors.bio)}
+                      helperText={touched.bio && errors.bio}
                     />
                   </Box>
                   
