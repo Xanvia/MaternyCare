@@ -213,6 +213,34 @@ const validationSchema = Yup.object({
                       helperText={touched.title && errors.title}
                     />
                   </Box>
+
+                  <DialogContent
+                    sx={{
+                      display: "flex",
+                      justifyContent: "center",
+                      gap: 1,
+                      color: "#666666",
+                      fontWeight: "bold",
+                    }}
+                  >
+                    Phone:
+                  </DialogContent>
+                  <Box
+                    sx={{
+                      width: 500,
+                      maxWidth: "100%",
+                    }}
+                  >
+                    <Field
+                      as={TextField}
+                      name="title"
+                      fullWidth
+                      size="small"
+                      variant="outlined"
+                      error={touched.title && Boolean(errors.title)}
+                      helperText={touched.title && errors.title}
+                    />
+                  </Box>
                   
                   <DialogActions
                     sx={{
