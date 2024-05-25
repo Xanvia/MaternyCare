@@ -72,6 +72,40 @@ const Profile = () => {
           </div>
         </div>
       </div>
+      <div className="border-solid border-2 rounded-lg py-5 px-5 ">
+        <div className="flex justify-between ">
+          <h5 className="text-xl mb-5">Location information</h5>
+          <button
+            type="button"
+            className="text-blue_primary hover:text-white border border-blue_primary hover:bg-blue_primary focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-1 text-center me-2 mb-2 h-1/2 w-full sm:w-auto"
+          >
+            <Edit className="mr-2 p-0.5" />
+            Edit
+          </button>
+        </div>
+        <div className="grid grid-cols-2">
+          <div className="text-text_color_2">
+            <h5 className="">Country</h5>
+            <p className="font-semibold mt-2 mb-4">Srilanka</p>
+          </div>
+          <div className="text-text_color_2">
+            <h5 className="">State / Province</h5>
+            <p className="font-semibold mt-2 mb-4">Uva</p>
+          </div>
+          <div className="text-text_color_2">
+            <h5 className="">City / District</h5>
+            <p className="font-semibold mt-2 mb-4">Badulla</p>
+          </div>
+          <div className="text-text_color_2">
+            <h5 className="">Postal Code</h5>
+            <p className="font-semibold mt-2 mb-4">90048</p>
+          </div>
+          <div className="text-text_color_2">
+            <h5 className="">GS Division Number</h5>
+            <p className="font-semibold mt-2 mb-4">80B-ILUKTHENNA</p>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
