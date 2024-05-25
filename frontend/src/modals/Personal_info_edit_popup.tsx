@@ -16,9 +16,12 @@ import { Edit } from "../assets/icons/Icons";
 
 // Validation schema
 const validationSchema = Yup.object({
-    title: Yup.string().required("Title is required"),
-    message: Yup.string().required("Message is required"),
-    age: Yup.string().required("Message is required"),
+    firstName: Yup.string().required("First Name is required"),
+    lastName: Yup.string().required("Last Name is required"),
+    email: Yup.string().required("Email is required"),
+    phone: Yup.string().required("Phone is required"),
+    age: Yup.string().required("Age is required"),
+    bio: Yup.string().required("Bio is required"),
   });
   
   export default function EditPersonalInfo() {
@@ -215,7 +218,7 @@ const validationSchema = Yup.object({
                     />
                   </Box>
 
-                  <DialogContent
+                    <DialogContent
                     sx={{
                     display: "flex",
                     justifyContent: "center",
@@ -223,7 +226,7 @@ const validationSchema = Yup.object({
                     color: "#666666",
                     fontWeight: "bold",
                     }}
-                >
+                    >
                     Age:
                 </DialogContent>
                 <Box
@@ -246,33 +249,10 @@ const validationSchema = Yup.object({
                     error={touched.age && Boolean(errors.age)}
                     helperText={touched.age && errors.age}
                     />
-      </Box>
+                </Box>
 
-                    {/* <DialogContent
-                    sx={{
-                        display: "flex",
-                        justifyContent: "center",
-                        gap: 1,
-                        color: "#666666",
-                        fontWeight: "bold",
-                    }}
-                    >
-                    Age:
-                    </DialogContent>
-                    <Box
-                    sx={{
-                        width: 500,
-                        maxWidth: "100%",
-                    }}
-                    >
-                    <Field
-                        as={TextField} // Replacing TextField with FormikSelect
-                        name="age"
-                        label="Age"
-                    />
-                    </Box> */}
 
-                    <DialogContent
+                <DialogContent
                     sx={{
                       display: "flex",
                       justifyContent: "center",
@@ -280,15 +260,15 @@ const validationSchema = Yup.object({
                       color: "#666666",
                       fontWeight: "bold",
                     }}
-                  >
-                    Bio:
-                  </DialogContent>
-                  <Box
+                >
+                Bio:
+                </DialogContent>
+                <Box
                     sx={{
                       width: 500,
                       maxWidth: "100%",
                     }}
-                  >
+                >
                     <Field
                       as={TextField}
                       name="bio"
