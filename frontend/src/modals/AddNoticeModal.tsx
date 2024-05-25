@@ -73,7 +73,7 @@ export default function AddNoticeModal() {
               setOpen(false);
             }}
           >
-            {({ isSubmitting }) => (
+            {({ isSubmitting, errors, touched }) => (
               <Form>
                 <DialogContent
                   sx={{
@@ -98,8 +98,8 @@ export default function AddNoticeModal() {
                     fullWidth
                     size="small"
                     variant="outlined"
-                    error={Boolean(ErrorMessage)}
-                    helperText={<ErrorMessage name="title" />}
+                    error={touched.title && Boolean(errors.title)}
+                    helperText={touched.title && errors.title}
                   />
                 </Box>
                 <DialogContent
@@ -127,8 +127,8 @@ export default function AddNoticeModal() {
                     variant="outlined"
                     multiline
                     rows={4}
-                    error={Boolean(ErrorMessage)}
-                    helperText={<ErrorMessage name="message" />}
+                    error={touched.message && Boolean(errors.message)}
+                    helperText={touched.message && errors.message}
                   />
                 </Box>
                 <DialogActions
