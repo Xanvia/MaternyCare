@@ -6,20 +6,20 @@ import DialogContent from "@mui/joy/DialogContent";
 import DialogActions from "@mui/joy/DialogActions";
 import Modal from "@mui/joy/Modal";
 import ModalDialog from "@mui/joy/ModalDialog";
-import TextField from '@mui/material/TextField';
+import TextField from "@mui/material/TextField";
 import IconButton from "@mui/joy/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
 import { Box } from "@mui/material";
-import { Formik, Form, Field, ErrorMessage } from 'formik';
-import * as Yup from 'yup';
+import { Formik, Form, Field, ErrorMessage } from "formik";
+import * as Yup from "yup";
 
 // Validation schema
 const validationSchema = Yup.object({
-  title: Yup.string().required('Title is required'),
-  message: Yup.string().required('Message is required'),
+  title: Yup.string().required("Title is required"),
+  message: Yup.string().required("Message is required"),
 });
 
-export default function AddNotice() {
+export default function AddNoticeModal() {
   const [open, setOpen] = React.useState<boolean>(false);
 
   return (
@@ -65,10 +65,10 @@ export default function AddNotice() {
           </DialogTitle>
           <Divider />
           <Formik
-            initialValues={{ title: '', message: '' }}
+            initialValues={{ title: "", message: "" }}
             validationSchema={validationSchema}
             onSubmit={(values, { setSubmitting }) => {
-              console.log('Form data:', values);
+              console.log("Form data:", values);
               setSubmitting(false);
               setOpen(false);
             }}
@@ -89,7 +89,7 @@ export default function AddNotice() {
                 <Box
                   sx={{
                     width: 500,
-                    maxWidth: '100%',
+                    maxWidth: "100%",
                   }}
                 >
                   <Field
@@ -116,7 +116,7 @@ export default function AddNotice() {
                 <Box
                   sx={{
                     width: 500,
-                    maxWidth: '100%',
+                    maxWidth: "100%",
                   }}
                 >
                   <Field
