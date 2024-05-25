@@ -106,6 +106,59 @@ const Profile = () => {
           </div>
         </div>
       </div>
+      <div className="border-solid border-2 rounded-lg py-5 px-5 ">
+        <div className="flex justify-between ">
+          <h5 className="text-xl mb-5">Account information</h5>
+          <button
+            type="button"
+            className="text-blue_primary hover:text-white border border-blue_primary hover:bg-blue_primary focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-1 text-center me-2 mb-2 h-1/2 w-full sm:w-auto"
+          >
+            <Edit className="mr-2 p-0.5" />
+            Edit
+          </button>
+        </div>
+        <div className="grid grid-cols-2">
+          <div className="text-text_color_2">
+            <h5 className="">User Name</h5>
+            <p className="font-semibold mt-2 mb-4">Ushani</p>
+          </div>
+          <div className="text-text_color_2">
+            <h5 className="">Password</h5>
+            <div className="relative w-1/2">
+              <input
+                type={showPassword ? "text" : "password"}
+                id="password"
+                className="bg-gray-50 border border-none pl-0 text-gray-900 text-sm rounded-lg disabled:opacity-50 focus:ring-0 focus:outline-none w-full"
+                value="qwerty123"
+                required
+              />
+              <button
+                type="button"
+                className="absolute right-0 top-1/2 transform -translate-y-1/2"
+                onClick={() => setShowPassword(!showPassword)}
+              >
+                {showPassword ? (
+                  <EyeOffIcon className="h-5 w-5 text-gray-500" />
+                ) : (
+                  <EyeIcon className="h-5 w-5 text-gray-500" />
+                )}
+              </button>
+            </div>
+          </div>
+          <div className="text-text_color_2">
+            <h5 className="">Stage</h5>
+            <p className="font-semibold mt-2 mb-4">Postnatal</p>
+          </div>
+          <div className="text-text_color_2">
+            <h5 className="">Baby count</h5>
+            <p className="font-semibold mt-2 mb-4">1</p>
+          </div>
+          <div className="text-text_color_2">
+            <h5 className="">GS Division Number</h5>
+            <p className="font-semibold mt-2 mb-4">80B-ILUKTHENNA</p>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
