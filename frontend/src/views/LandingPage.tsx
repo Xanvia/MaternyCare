@@ -10,7 +10,7 @@ const LandingPage = () => {
         </div>
 
         <div className="mt-0 text-center leading-9 font-semibold">
-          <h1 style={{ fontFamily: "Ubuntu", fontSize: "2.25rem" }}>
+          <h1 className="text-2xl sm:text-3xl md:text-4xl" style={{ fontFamily: "Ubuntu"}}>
             <span style={{ color: "#0D99FF" }}>Materny</span>
             <span style={{ color: "#F580AB" }}>Care</span>
           </h1>
