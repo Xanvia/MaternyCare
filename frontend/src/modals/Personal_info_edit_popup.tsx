@@ -346,7 +346,7 @@ const validationSchema = Yup.object({
                       type="submit"
                       disabled={isSubmitting}
                     >
-                      Create
+                      Update
                     </Button>
                     <Button
                       variant="outlined"
