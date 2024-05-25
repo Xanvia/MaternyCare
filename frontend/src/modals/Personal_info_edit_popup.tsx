@@ -19,6 +19,7 @@ import FormikSelect from "formik";
 const validationSchema = Yup.object({
     title: Yup.string().required("Title is required"),
     message: Yup.string().required("Message is required"),
+    age: Yup.string().required("Message is required"),
   });
   
   export default function AddNoticeModal() {
@@ -243,35 +244,40 @@ const validationSchema = Yup.object({
                     />
                   </Box>
 
-                  {/* <DialogContent
-                    sx={{
-                      display: "flex",
-                      justifyContent: "center",
-                      gap: 1,
-                      color: "#666666",
-                      fontWeight: "bold",
-                    }}
-                  >
-                    Age:
-                  </DialogContent>
-                  <Box
-                    sx={{
-                      width: 500,
-                      maxWidth: "100%",
-                    }}
-                  >
-                    <Field
-                      as={TextField}
-                      name="title"
-                      fullWidth
-                      size="small"
-                      variant="outlined"
-                      error={touched.title && Boolean(errors.title)}
-                      helperText={touched.title && errors.title}
-                    />
-                  </Box> */}
+                  <DialogContent
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          gap: 1,
+          color: "#666666",
+          fontWeight: "bold",
+        }}
+      >
+        Age:
+      </DialogContent>
+      <Box
+        sx={{
+          width: 500,
+          maxWidth: "100%",
+        }}
+      >
+        <Field
+          as={TextField}
+          name="age" // Change "title" to "age"
+          fullWidth
+          size="small"
+          variant="outlined"
+          inputProps={{
+            type: "number",
+            min: 0,
+            step: 1,
+          }}
+          error={touched.title && Boolean(errors.title)}
+          helperText={touched.title && errors.title}
+        />
+      </Box>
 
-                    <DialogContent
+                    {/* <DialogContent
                     sx={{
                         display: "flex",
                         justifyContent: "center",
@@ -293,7 +299,7 @@ const validationSchema = Yup.object({
                         name="age"
                         label="Age"
                     />
-                    </Box>
+                    </Box> */}
 
                     <DialogContent
                     sx={{
