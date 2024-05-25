@@ -13,7 +13,6 @@ import { Box } from "@mui/material";
 import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
 import { Edit } from "../assets/icons/Icons";
-import FormikSelect from "formik";
 
 // Validation schema
 const validationSchema = Yup.object({
