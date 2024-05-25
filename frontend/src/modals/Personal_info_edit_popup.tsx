@@ -21,7 +21,7 @@ const validationSchema = Yup.object({
     age: Yup.string().required("Message is required"),
   });
   
-  export default function AddNoticeModal() {
+  export default function EditPersonalInfo() {
     const [open, setOpen] = React.useState<boolean>(false);
   
     return (
@@ -33,12 +33,12 @@ const validationSchema = Yup.object({
             borderColor: "#0D99FF",
             color: "#0D99FF",
             "&:hover": {
-              borderColor: "#80CAFF",
-              color: "#80CAFF",
+              borderColor: "#0D99FF",
+              color: "#FFFFFF",
             },
           }}
         >
-          Add Notice
+          Edit
         </Button> */}
 
         {/* <Button
