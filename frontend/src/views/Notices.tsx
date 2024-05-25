@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { Rings } from "react-loader-spinner";
 import DeleteCofirmation from "../modals/DeleteCofirmation";
+import AddNoticeModal from "../modals/AddNoticeModal";
 
 const Notices = () => {
   const BASE_URL = "http://localhost:5000/";
@@ -40,9 +41,10 @@ const Notices = () => {
       <div className="flex justify-between my-4 items-center ">
         <h1 className="mt-9 mb-4">Notices</h1>
         <div className="flex justify-end">
-          <button className="bg-[#CAE9FF] py-2 px-4 rounded-lg text-[#0D99FF] hover:bg-[#0D99FF] hover:text-white hover:animate-fadeIn active:bg-[#CAE9FF] active:text-[#0D99FF]">
+          {/* <button className="bg-[#CAE9FF] py-2 px-4 rounded-lg text-[#0D99FF] hover:bg-[#0D99FF] hover:text-white hover:animate-fadeIn active:bg-[#CAE9FF] active:text-[#0D99FF]">
             Add Notice
-          </button>
+          </button> */}
+          <AddNoticeModal />
         </div>
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
