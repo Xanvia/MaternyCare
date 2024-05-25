@@ -29,7 +29,7 @@ const RightBar: React.FC = () => {
           <RightBarProfile />{" "}
         </div>
       </div>
-      <div className="bg-[#F7FBFF] rounded-2xl text-center py-4 px-8 mt-24">
+      <div className="bg-[#F7FBFF] rounded-2xl text-center py-4 px-8 mt-8">
         <div className="justify-center flex">
           <img
             className="rounded-full border-2 border-white w-24 h-24"
