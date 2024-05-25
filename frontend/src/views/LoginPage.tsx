@@ -81,9 +81,12 @@ const LoginPage: React.FC = () => {
             ) : null}
           </div>
         </div>
-        <div className="w-11/12 lg:w-5/12 sm:w-8/12 ss:w-10/12 mb-9 flex flex-col items-start">
+        <div className="w-11/12 lg:w-5/12 sm:w-8/12 ss:w-10/12 mb-9 flex flex-row justify-between">
           <a href="" className="text-[#838383] text-xs ">
             Forgot Password?
+          </a>
+          <a href="" className="text-[#838383] text-xs ">
+            Don't have an account? Sign Up
           </a>
         </div>
         <button
