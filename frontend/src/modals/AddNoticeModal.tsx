@@ -143,10 +143,10 @@ export default function AddNoticeModal() {
                   <Button
                     variant="solid"
                     sx={{
-                      backgroundColor: "#F580AB",
+                      backgroundColor: "#0D99FF",
                       color: "#ffffff",
                       "&:hover": {
-                        backgroundColor: "#F9B8D0",
+                        backgroundColor: "#80CAFF",
                       },
                       width: { xs: "50%", md: "100%" },
                       fontSize: "1rem",
@@ -159,10 +159,10 @@ export default function AddNoticeModal() {
                   <Button
                     variant="outlined"
                     sx={{
-                      borderColor: "#F580AB",
+                      borderColor: "#0D99FF",
                       color: "#000000",
                       "&:hover": {
-                        borderColor: "#F9B8D0",
+                        borderColor: "#80CAFF",
                       },
                       width: { xs: "50%", md: "100%" },
                       fontSize: "1rem",
