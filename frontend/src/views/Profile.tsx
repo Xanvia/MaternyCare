@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Edit, EyeIcon, EyeOffIcon } from "../assets/icons/Icons";
 
 const Profile = () => {
