@@ -53,13 +53,45 @@ const validationSchema = Yup.object({
         <Button
         type="button"
         onClick={() => setOpen(true)}
-        className="text-blue_primary hover:text-white border border-blue_primary hover:bg-blue_primary focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-1 text-center me-2 mb-2 h-1/2 w-auto"
+        className="text-[#0D99FF] hover:text-[#ffffff] border border-[#0D99FF] hover:bg-[#0D99FF] focus:ring-4 focus:outline-none focus:ring-[#80CAFF] font-medium rounded-lg text-sm px-3 py-1 text-center mr-2 mb-2 h-1/2 w-auto"
         >
         <div className="flex items-center">
             <Edit className="xs:mr-2 p-0.5" />
             <p className="xs:block hidden">Edit</p>
         </div>
         </Button>
+
+{/* <Button
+      variant="outlined"
+      onClick={() => setOpen(true)}
+      sx={{
+        color: "#0D99FF",
+        borderColor: "#0D99FF",
+        "&:hover": {
+          color: "#ffffff",
+          backgroundColor: "#0D99FF",
+          borderColor: "#0D99FF",
+        },
+        "&:focus": {
+          outline: "none",
+          boxShadow: "0 0 0 4px rgba(128, 202, 255, 0.5)",
+        },
+        fontSize: "0.875rem", // text-sm
+        fontWeight: "500", // font-medium
+        borderRadius: "0.5rem", // rounded-lg
+        padding: "0.25rem 0.75rem", // px-3 py-1
+        textAlign: "center",
+        marginRight: "0.5rem", // mr-2
+        marginBottom: "0.5rem", // mb-2
+        height: "auto", // h-1/2
+        width: "auto", // w-auto
+      }}
+    >
+      <div style={{ display: "flex", alignItems: "center" }}>
+        <Edit style={{ marginRight: "8px", padding: "2px" }} />
+        <p style={{ display: "none", xs: "block" }}>Edit</p>
+      </div>
+    </Button> */}
 
         <Modal open={open} onClose={() => setOpen(false)}>
           <ModalDialog variant="outlined" role="alertdialog">
