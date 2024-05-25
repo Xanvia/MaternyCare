@@ -4,7 +4,7 @@ import { Edit, EyeIcon, EyeOffIcon } from "../assets/icons/Icons";
 const Profile = () => {
   const [showPassword, setShowPassword] = useState(false);
   return (
-    <div className="mx-10 bg-white rounded-xl p-5 flex flex-col gap-8">
+    <div className="xs:mx-10 mx-3 bg-white rounded-xl p-5 flex flex-col gap-8">
       <div className="border-solid border-2 rounded-lg md:py-2 px-5 sm:flex justify-between items-center py-5">
         <div className="flex flex-col items-center bg-white xs:flex-row xs:max-w-xl">
           <img
@@ -33,17 +33,19 @@ const Profile = () => {
         </button>
       </div>
       <div className="border-solid border-2 rounded-lg py-5 px-5 ">
-        <div className="flex justify-between ">
+        <div className="flex justify-between items-center">
           <h5 className="text-xl mb-5">Personal information</h5>
           <button
             type="button"
-            className="text-blue_primary hover:text-white border border-blue_primary hover:bg-blue_primary focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-1 text-center me-2 mb-2 h-1/2 w-full sm:w-auto"
+            className="text-blue_primary hover:text-white border border-blue_primary hover:bg-blue_primary focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-1 text-center me-2 mb-2 h-1/2 w-auto"
           >
-            <Edit className="mr-2 p-0.5" />
-            Edit
+            <div className="flex items-center">
+              <Edit className="xs:mr-2  p-0.5 " />
+              <p className="xs:block hidden">Edit</p>
+            </div>
           </button>
         </div>
-        <div className="grid grid-cols-2">
+        <div className="grid xs:grid-cols-2 grid-cols-1">
           <div className="text-text_color_2">
             <h5 className="">First Name</h5>
             <p className="font-semibold mt-2 mb-4">Ushani</p>
@@ -77,13 +79,15 @@ const Profile = () => {
           <h5 className="text-xl mb-5">Location information</h5>
           <button
             type="button"
-            className="text-blue_primary hover:text-white border border-blue_primary hover:bg-blue_primary focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-1 text-center me-2 mb-2 h-1/2 w-full sm:w-auto"
+            className="text-blue_primary hover:text-white border border-blue_primary hover:bg-blue_primary focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-1 text-center me-2 mb-2 h-1/2 w-auto"
           >
-            <Edit className="mr-2 p-0.5" />
-            Edit
+            <div className="flex items-center">
+              <Edit className="xs:mr-2  p-0.5 " />
+              <p className="xs:block hidden">Edit</p>
+            </div>
           </button>
         </div>
-        <div className="grid grid-cols-2">
+        <div className="grid xs:grid-cols-2 grid-cols-1">
           <div className="text-text_color_2">
             <h5 className="">Country</h5>
             <p className="font-semibold mt-2 mb-4">Srilanka</p>
@@ -111,20 +115,22 @@ const Profile = () => {
           <h5 className="text-xl mb-5">Account information</h5>
           <button
             type="button"
-            className="text-blue_primary hover:text-white border border-blue_primary hover:bg-blue_primary focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-1 text-center me-2 mb-2 h-1/2 w-full sm:w-auto"
+            className="text-blue_primary hover:text-white border border-blue_primary hover:bg-blue_primary focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-1 text-center me-2 mb-2 h-1/2 w-auto"
           >
-            <Edit className="mr-2 p-0.5" />
-            Edit
+            <div className="flex items-center">
+              <Edit className="xs:mr-2  p-0.5 " />
+              <p className="xs:block hidden">Edit</p>
+            </div>
           </button>
         </div>
-        <div className="grid grid-cols-2">
+        <div className="grid xs:grid-cols-2 grid-cols-1">
           <div className="text-text_color_2">
             <h5 className="">User Name</h5>
             <p className="font-semibold mt-2 mb-4">Ushani</p>
           </div>
-          <div className="text-text_color_2">
+          <div className="text-text_color_2 pr-4 xs:pr-0">
             <h5 className="">Password</h5>
-            <div className="relative w-1/2">
+            <div className="relative w-full xs:w-1/2">
               <input
                 type={showPassword ? "text" : "password"}
                 id="password"
