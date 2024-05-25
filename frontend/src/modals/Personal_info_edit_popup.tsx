@@ -13,6 +13,7 @@ import { Box } from "@mui/material";
 import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
 import { Edit } from "../assets/icons/Icons";
+import FormikSelect from "formik";
 
 // Validation schema
 const validationSchema = Yup.object({
@@ -241,6 +242,58 @@ const validationSchema = Yup.object({
                       helperText={touched.title && errors.title}
                     />
                   </Box>
+
+                  {/* <DialogContent
+                    sx={{
+                      display: "flex",
+                      justifyContent: "center",
+                      gap: 1,
+                      color: "#666666",
+                      fontWeight: "bold",
+                    }}
+                  >
+                    Age:
+                  </DialogContent>
+                  <Box
+                    sx={{
+                      width: 500,
+                      maxWidth: "100%",
+                    }}
+                  >
+                    <Field
+                      as={TextField}
+                      name="title"
+                      fullWidth
+                      size="small"
+                      variant="outlined"
+                      error={touched.title && Boolean(errors.title)}
+                      helperText={touched.title && errors.title}
+                    />
+                  </Box> */}
+
+                    <DialogContent
+                    sx={{
+                        display: "flex",
+                        justifyContent: "center",
+                        gap: 1,
+                        color: "#666666",
+                        fontWeight: "bold",
+                    }}
+                    >
+                    Age:
+                    </DialogContent>
+                    <Box
+                    sx={{
+                        width: 500,
+                        maxWidth: "100%",
+                    }}
+                    >
+                    <Field
+                        as={TextField} // Replacing TextField with FormikSelect
+                        name="age"
+                        label="Age"
+                    />
+                    </Box>
                   
                   <DialogActions
                     sx={{
