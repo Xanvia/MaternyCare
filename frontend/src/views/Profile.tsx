@@ -1,11 +1,10 @@
-import { Edit } from "../assets/icons/Icons";
+import React, { useState } from "react";
+import { Edit, EyeIcon, EyeOffIcon } from "../assets/icons/Icons";
 
 const Profile = () => {
+  const [showPassword, setShowPassword] = useState(false);
   return (
-    <div className="mx-10 bg-white rounded-xl p-5">
-      {/* <h2 className="text-base text-text_color_1 font-medium mb-5">
-        My Profile
-      </h2> */}
+    <div className="mx-10 bg-white rounded-xl p-5 flex flex-col gap-8">
       <div className="border-solid border-2 rounded-lg md:py-2 px-5 sm:flex justify-between items-center py-5">
         <div className="flex flex-col items-center bg-white xs:flex-row xs:max-w-xl">
           <img
@@ -27,11 +26,51 @@ const Profile = () => {
         </div>
         <button
           type="button"
-          className="text-blue_primary hover:text-white border border-blue_primary hover:bg-blue_primary focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 h-1/2 w-full sm:w-auto"
+          className="text-blue_primary hover:text-white border border-blue_primary hover:bg-blue_primary focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-1 text-center me-2 mb-2 h-1/2 w-full sm:w-auto"
         >
           <Edit className="mr-2 p-0.5" />
           Edit
         </button>
+      </div>
+      <div className="border-solid border-2 rounded-lg py-5 px-5 ">
+        <div className="flex justify-between ">
+          <h5 className="text-xl mb-5">Personal information</h5>
+          <button
+            type="button"
+            className="text-blue_primary hover:text-white border border-blue_primary hover:bg-blue_primary focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-1 text-center me-2 mb-2 h-1/2 w-full sm:w-auto"
+          >
+            <Edit className="mr-2 p-0.5" />
+            Edit
+          </button>
+        </div>
+        <div className="grid grid-cols-2">
+          <div className="text-text_color_2">
+            <h5 className="">First Name</h5>
+            <p className="font-semibold mt-2 mb-4">Ushani</p>
+          </div>
+          <div className="text-text_color_2">
+            <h5 className="">Last Name</h5>
+            <p className="font-semibold mt-2 mb-4">Anuruddhika</p>
+          </div>
+          <div className="text-text_color_2">
+            <h5 className="">Email address</h5>
+            <p className="font-semibold mt-2 mb-4">ushani123@gmail.com</p>
+          </div>
+          <div className="text-text_color_2">
+            <h5 className="">Phone</h5>
+            <p className="font-semibold mt-2 mb-4">(+94) 714530767</p>
+          </div>
+          <div className="text-text_color_2">
+            <h5 className="">Age</h5>
+            <p className="font-semibold mt-2 mb-4">30 years old</p>
+          </div>
+          <div className="text-text_color_2">
+            <h5 className="">Bio</h5>
+            <p className="font-semibold mt-2 mb-4">
+              I'm currently working as a Teacher
+            </p>
+          </div>
+        </div>
       </div>
     </div>
   );
