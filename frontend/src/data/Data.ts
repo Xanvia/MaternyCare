@@ -45,11 +45,13 @@ export const categories = [
     name: "All categories",
     content: [
       {
+        path: "/guide/breastfeed",
         title: "Breast Feed",
         subtitle: "This sections shows how to breast feed",
         img: "https://img.freepik.com/free-vector/hand-drawn-breastmilk-illustration_23-2149197117.jpg?w=826&t=st=1716706205~exp=1716706805~hmac=24647f075f615057b04c64d8a8a595c9db1e772733aafa55fe12b9f8ec7b5022",
       },
       {
+        path: "/guide/breastfeed",
         title: "Breast Feed2",
         subtitle: "This sections shows how to breast feed cdsfsdfsd",
         img: "https://img.freepik.com/free-vector/hand-drawn-first-time-mother-illustration_23-2150556835.jpg?w=826&t=st=1716706335~exp=1716706935~hmac=4ce0edb3707c68417937208e8b9e07a59e88c2ff10696c4f14d3457981231eec",
@@ -60,6 +62,7 @@ export const categories = [
     name: "Breast Feed",
     content: [
       {
+        path: "/guide/breastfeed",
         title: "Breast Feed",
         subtitle: "This sections shows how to breast feed",
         img: "https://img.freepik.com/free-vector/hand-drawn-breastmilk-illustration_23-2149197117.jpg?w=826&t=st=1716706205~exp=1716706805~hmac=24647f075f615057b04c64d8a8a595c9db1e772733aafa55fe12b9f8ec7b5022",
@@ -70,16 +73,19 @@ export const categories = [
     name: "Baby Care",
     content: [
       {
+        path: "/guide/breastfeed",
         title: "Breast Feed",
         subtitle: "This sections shows how to breast feed",
         img: "https://img.freepik.com/free-vector/hand-drawn-breastmilk-illustration_23-2149197117.jpg?w=826&t=st=1716706205~exp=1716706805~hmac=24647f075f615057b04c64d8a8a595c9db1e772733aafa55fe12b9f8ec7b5022",
       },
       {
+        path: "/guide/breastfeed",
         title: "Breast Feed2",
         subtitle: "This sections shows how to breast feed cdsfsdfsd",
         img: "https://img.freepik.com/free-vector/hand-drawn-first-time-mother-illustration_23-2150556835.jpg?w=826&t=st=1716706335~exp=1716706935~hmac=4ce0edb3707c68417937208e8b9e07a59e88c2ff10696c4f14d3457981231eec",
       },
       {
+        path: "/guide/breastfeed",
         title: "Breast Feed2",
         subtitle: "This sections shows how to breast feed cdsfsdfsd",
         img: "https://img.freepik.com/free-vector/hand-drawn-first-time-mother-illustration_23-2150556835.jpg?w=826&t=st=1716706335~exp=1716706935~hmac=4ce0edb3707c68417937208e8b9e07a59e88c2ff10696c4f14d3457981231eec",
