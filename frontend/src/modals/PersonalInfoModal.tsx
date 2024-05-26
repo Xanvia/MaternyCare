@@ -140,6 +140,7 @@ export default function PersonalInfoModal() {
                     gap: 1,
                     color: "#666666",
                     fontWeight: "bold",
+                    mt: 2,
                   }}
                 >
                   Last Name:
@@ -168,6 +169,7 @@ export default function PersonalInfoModal() {
                     gap: 1,
                     color: "#666666",
                     fontWeight: "bold",
+                    mt: 2,
                   }}
                 >
                   Email address:
@@ -196,6 +198,7 @@ export default function PersonalInfoModal() {
                     gap: 1,
                     color: "#666666",
                     fontWeight: "bold",
+                    mt: 2,
                   }}
                 >
                   Phone:
@@ -224,6 +227,7 @@ export default function PersonalInfoModal() {
                     gap: 1,
                     color: "#666666",
                     fontWeight: "bold",
+                    mt: 2,
                   }}
                 >
                   Age:
@@ -257,6 +261,7 @@ export default function PersonalInfoModal() {
                     gap: 1,
                     color: "#666666",
                     fontWeight: "bold",
+                    mt: 2,
                   }}
                 >
                   Bio:
@@ -265,6 +270,7 @@ export default function PersonalInfoModal() {
                   sx={{
                     width: 500,
                     maxWidth: "100%",
+                    mb: 2,
                   }}
                 >
                   <Field
