@@ -28,12 +28,12 @@ const MotherGuide: React.FC = () => {
           .map((category) => (
             <div
               key={category.name}
-              className="grid grid-cols-3 animate-fade-in"
+              className="grid llg:grid-cols-3 ss:grid-cols-2 grid-cols-1 animate-fade-in"
             >
               {category.content.map((item, index) => (
                 <div
                   key={index}
-                  className="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 m-4"
+                  className="ss:max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 m-4"
                 >
                   <a href={item.path}>
                     <img
