@@ -31,10 +31,19 @@ const SinglePost = () => {
           />
         </div>
       </div>
-      <div>
-        <h2>{post.title}</h2>
-        <p>{post.subtitle}</p>
-        <img src={post.img} alt="category" />
+      <div className="py-10">
+        <div className="text-text_color_2">
+          <img
+            src={post.img}
+            alt="category"
+            className="float-left w-1/3 mr-10"
+          />
+          <h1 className="text-4xl pt-4 mb-5 text-text_color_1">{post.title}</h1>
+          <p className="text-lg mb-5 font-medium">{post.subtitle}</p>
+          <p className="text-base mt-3">{post.content.para1}</p>
+          <p className="text-base mt-3">{post.content.para2}</p>
+          <p className="text-base mt-3">{post.content.para3}</p>
+        </div>
       </div>
     </div>
   );
