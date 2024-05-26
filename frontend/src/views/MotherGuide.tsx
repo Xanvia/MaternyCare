@@ -13,8 +13,8 @@ const MotherGuide: React.FC = () => {
             type="button"
             className={`px-4 py-2 m-2 font-medium text-sm rounded-md ${
               category.name === activeTab
-                ? "bg-blue-500 text-white"
-                : "bg-white text-blue-500 border border-blue-500"
+                ? "bg-blue_primary text-white"
+                : "bg-white text-blue_primary border border-blue_primary"
             }`}
             onClick={() => setActiveTab(category.name)}
           >
@@ -53,7 +53,7 @@ const MotherGuide: React.FC = () => {
                     </p>
                     <a
                       href={item.path}
-                      className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                      className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue_primary rounded-lg hover:bg-blue_secondary focus:ring-4 focus:outline-none focus:ring-blue-300"
                     >
                       Read more
                       <svg
