@@ -8,6 +8,8 @@ import Notices from "./views/Notices";
 import HeartRateContextProvider from "./contexts/HeartRateContextProvider";
 import Appointments from "./views/Appointments";
 import Profile from "./views/Profile";
+import MotherGuide from "./views/MotherGuide";
+import SinglePost from "./views/SinglePost";
 
 // You can add your routes here
 // Add a baselayout too if needed
@@ -79,6 +81,17 @@ const router = createBrowserRouter([
         index: true,
         element: <Profile />,
       },
+    ],
+  },
+  {
+    path: "/guide",
+    element: <BaseLayout />,
+    children: [
+      {
+        index: true,
+        element: <MotherGuide />,
+      },
+      { path: "singlepost/:id", element: <SinglePost /> },
     ],
   },
 ]);

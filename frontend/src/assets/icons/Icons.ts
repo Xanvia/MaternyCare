@@ -7,6 +7,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import MenuIcon from "@mui/icons-material/Menu";
 import ErrorIcon from "@mui/icons-material/Error";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
+import QuizIcon from "@mui/icons-material/Quiz";
 
 export {
   SpaceDashboardIcon as DashboardIcon,
@@ -18,4 +19,5 @@ export {
   ErrorIcon as ErrorIcon,
   MenuIcon as MenuIcon,
   AddCircleOutlineIcon as PlusCircle,
+  QuizIcon as Help,
 };
