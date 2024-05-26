@@ -35,7 +35,7 @@ const MotherGuide: React.FC = () => {
                   key={index}
                   className="ss:max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 m-4"
                 >
-                  <a href={item.path}>
+                  <a href={`/guide/singlepost/${item.id}`}>
                     <img
                       className="rounded-t-lg"
                       src={item.img}
@@ -43,7 +43,7 @@ const MotherGuide: React.FC = () => {
                     />
                   </a>
                   <div className="p-5">
-                    <a href={item.path}>
+                    <a href={`/guide/singlepost/${item.id}`}>
                       <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
                         {item.title}
                       </h5>
@@ -52,7 +52,7 @@ const MotherGuide: React.FC = () => {
                       {item.subtitle}
                     </p>
                     <a
-                      href={item.path}
+                      href={`/guide/singlepost/${item.id}`}
                       className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue_primary rounded-lg hover:bg-blue_secondary focus:ring-4 focus:outline-none focus:ring-blue-300"
                     >
                       Read more
