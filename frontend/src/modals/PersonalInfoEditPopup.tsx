@@ -121,6 +121,7 @@ const validationSchema = Yup.object({
                     sx={{
                       width: 500,
                       maxWidth: "100%",
+                      mb: 2,
                     }}
                   >
                     <Field
@@ -149,6 +150,7 @@ const validationSchema = Yup.object({
                     sx={{
                       width: 500,
                       maxWidth: "100%",
+                      mb: 2,
                     }}
                   >
                     <Field
@@ -177,6 +179,7 @@ const validationSchema = Yup.object({
                     sx={{
                       width: 500,
                       maxWidth: "100%",
+                      mb: 2,
                     }}
                   >
                     <Field
@@ -205,6 +208,7 @@ const validationSchema = Yup.object({
                     sx={{
                       width: 500,
                       maxWidth: "100%",
+                      mb: 2,
                     }}
                   >
                     <Field
@@ -233,6 +237,7 @@ const validationSchema = Yup.object({
                     sx={{
                     width: 500,
                     maxWidth: "100%",
+                    mb: 2,
                     }}
                 >
                     <Field
@@ -267,6 +272,7 @@ const validationSchema = Yup.object({
                     sx={{
                       width: 500,
                       maxWidth: "100%",
+                      mb: 2,
                     }}
                 >
                     <Field
