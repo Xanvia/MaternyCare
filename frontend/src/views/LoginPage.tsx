@@ -32,7 +32,7 @@ const LoginPage: React.FC = () => {
         <header className="text-blue_primary text-4xl lg:mb-8 mb-6">
           Materny<span className="text-pink_primary">Care</span>
         </header>
-        <div className="w-full flex flex-col items-center mb-4">
+        <div className="w-full flex flex-col items-center lg:mb-9 mb-4">
           <input
             className={`shadow appearance-none rounded-b-xl py-4 px-4 w-11/12 lg:w-5/12 sm:w-8/12 ss:w-10/12 text-gray-700 leading-tight focus:shadow-outline text-lg
           ${
