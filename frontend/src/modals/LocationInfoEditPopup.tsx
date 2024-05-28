@@ -124,7 +124,7 @@ const validationSchema = Yup.object({
                   >
                     <Field
                       as={TextField}
-                      name="firstName"
+                      name="country"
                       fullWidth
                       size="small"
                       variant="outlined"
@@ -153,7 +153,7 @@ const validationSchema = Yup.object({
                   >
                     <Field
                       as={TextField}
-                      name="lastName"
+                      name="state"
                       fullWidth
                       size="small"
                       variant="outlined"
@@ -182,7 +182,7 @@ const validationSchema = Yup.object({
                   >
                     <Field
                       as={TextField}
-                      name="email"
+                      name="city"
                       fullWidth
                       size="small"
                       variant="outlined"
@@ -211,7 +211,7 @@ const validationSchema = Yup.object({
                   >
                     <Field
                       as={TextField}
-                      name="phone"
+                      name="postalcode"
                       fullWidth
                       size="small"
                       variant="outlined"
@@ -241,7 +241,7 @@ const validationSchema = Yup.object({
                 >
                     <Field
                       as={TextField}
-                      name="bio"
+                      name="gs"
                       fullWidth
                       size="small"
                       variant="outlined"
@@ -299,4 +299,3 @@ const validationSchema = Yup.object({
       </React.Fragment>
     );
   }
-  
