@@ -9,6 +9,7 @@ import HeartRateUpdate from "../modals/HeartRateUpdate";
 import WaterAmountUpdate from "../modals/WaterAmountUpdate";
 import { HeartRateContext } from "../contexts/HeartRateContextProvider";
 
+
 const quotes = [
   {
     id: 1,
