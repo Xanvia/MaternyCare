@@ -89,12 +89,11 @@ const validationSchema = Yup.object({
             <Divider />
             <Formik
               initialValues={{
-                firstName: "",
-                lastName: "",
-                email: "",
-                phone: "",
-                age: "",
-                bio: "",
+                country: "",
+                state: "",
+                city: "",
+                postalcode: "",
+                gs: "",
               }}
               validationSchema={validationSchema}
               onSubmit={(values, { setSubmitting }) => {
@@ -129,8 +128,8 @@ const validationSchema = Yup.object({
                       fullWidth
                       size="small"
                       variant="outlined"
-                      error={touched.firstName && Boolean(errors.firstName)}
-                      helperText={touched.firstName && errors.firstName}
+                      error={touched.country && Boolean(errors.country)}
+                      helperText={touched.country && errors.country}
                     />
                   </Box>
 
@@ -158,8 +157,8 @@ const validationSchema = Yup.object({
                       fullWidth
                       size="small"
                       variant="outlined"
-                      error={touched.lastName && Boolean(errors.lastName)}
-                      helperText={touched.lastName && errors.lastName}
+                      error={touched.state && Boolean(errors.state)}
+                      helperText={touched.state && errors.state}
                     />
                   </Box>
 
@@ -187,8 +186,8 @@ const validationSchema = Yup.object({
                       fullWidth
                       size="small"
                       variant="outlined"
-                      error={touched.email && Boolean(errors.email)}
-                      helperText={touched.email && errors.email}
+                      error={touched.city && Boolean(errors.city)}
+                      helperText={touched.city && errors.city}
                     />
                   </Box>
 
@@ -216,44 +215,40 @@ const validationSchema = Yup.object({
                       fullWidth
                       size="small"
                       variant="outlined"
-                      error={touched.phone && Boolean(errors.phone)}
-                      helperText={touched.phone && errors.phone}
+                      error={touched.postalcode && Boolean(errors.postalcode)}
+                      helperText={touched.postalcode && errors.postalcode}
                     />
                   </Box>
 
-                    <DialogContent
+
+                <DialogContent
                     sx={{
-                    display: "flex",
-                    justifyContent: "center",
-                    gap: 1,
-                    color: "#666666",
-                    fontWeight: "bold",
+                      display: "flex",
+                      justifyContent: "center",
+                      gap: 1,
+                      color: "#666666",
+                      fontWeight: "bold",
                     }}
-                    >
-                    GS Division number:
+                >
+                GS Division number:
                 </DialogContent>
                 <Box
                     sx={{
-                    width: 500,
-                    maxWidth: "100%",
-                    mb: 2,
+                      width: 500,
+                      maxWidth: "100%",
+                      mb: 2,
                     }}
                 >
                     <Field
-                    as={TextField}
-                    name="age"
-                    fullWidth
-                    size="small"
-                    variant="outlined"
-                    inputProps={{
-                        type: "number",
-                        min: 0,
-                        step: 1,
-                    }}
-                    error={touched.age && Boolean(errors.age)}
-                    helperText={touched.age && errors.age}
+                      as={TextField}
+                      name="bio"
+                      fullWidth
+                      size="small"
+                      variant="outlined"
+                      error={touched.gs && Boolean(errors.gs)}
+                      helperText={touched.gs && errors.gs}
                     />
-                </Box>
+                  </Box>
                   
                   <DialogActions
                     sx={{
