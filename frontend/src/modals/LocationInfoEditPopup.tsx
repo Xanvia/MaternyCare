@@ -84,7 +84,7 @@ const validationSchema = Yup.object({
                 color: "#333333",
               }}
             >
-              Edit Personal information
+              Edit Location information
             </DialogTitle>
             <Divider />
             <Formik
@@ -114,7 +114,7 @@ const validationSchema = Yup.object({
                       fontWeight: "bold",
                     }}
                   >
-                    First Name:
+                    Country:
                   </DialogContent>
                   <Box
                     sx={{
@@ -143,7 +143,7 @@ const validationSchema = Yup.object({
                       fontWeight: "bold",
                     }}
                   >
-                    Last Name:
+                    State / Province:
                   </DialogContent>
                   <Box
                     sx={{
@@ -172,7 +172,7 @@ const validationSchema = Yup.object({
                       fontWeight: "bold",
                     }}
                   >
-                    Email address:
+                    City / District:
                   </DialogContent>
                   <Box
                     sx={{
@@ -201,7 +201,7 @@ const validationSchema = Yup.object({
                       fontWeight: "bold",
                     }}
                   >
-                    Phone:
+                    Postal code:
                   </DialogContent>
                   <Box
                     sx={{
@@ -230,7 +230,7 @@ const validationSchema = Yup.object({
                     fontWeight: "bold",
                     }}
                     >
-                    Age:
+                    GS Division number:
                 </DialogContent>
                 <Box
                     sx={{
@@ -254,36 +254,6 @@ const validationSchema = Yup.object({
                     helperText={touched.age && errors.age}
                     />
                 </Box>
-
-
-                <DialogContent
-                    sx={{
-                      display: "flex",
-                      justifyContent: "center",
-                      gap: 1,
-                      color: "#666666",
-                      fontWeight: "bold",
-                    }}
-                >
-                Bio:
-                </DialogContent>
-                <Box
-                    sx={{
-                      width: 500,
-                      maxWidth: "100%",
-                      mb: 2,
-                    }}
-                >
-                    <Field
-                      as={TextField}
-                      name="bio"
-                      fullWidth
-                      size="small"
-                      variant="outlined"
-                      error={touched.bio && Boolean(errors.bio)}
-                      helperText={touched.bio && errors.bio}
-                    />
-                  </Box>
                   
                   <DialogActions
                     sx={{
