@@ -28,8 +28,8 @@ const LoginPage: React.FC = () => {
         onSubmit={formik.handleSubmit}
         className="flex flex-col items-center w-full"
       >
-        <img src={logo} alt="" />
-        <header className="text-blue_primary text-4xl lg:mb-8 mb-6">
+        <img src={logo} alt="" className="lg:size-1/12 ss:size-1/6 size-1/6"/>
+        <header className="text-blue_primary lg:text-4xl ss:text-4xl text-xl lg:mb-8 mb-6">
           Materny<span className="text-pink_primary">Care</span>
         </header>
         <div className="w-full flex flex-col items-center lg:mb-9 mb-4">
