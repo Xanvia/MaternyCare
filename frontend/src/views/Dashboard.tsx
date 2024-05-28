@@ -4,7 +4,7 @@ import fire from "../assets/images/fire.svg";
 import water from "../assets/images/drops.svg";
 import LineChart from "../components/LineChart";
 import { useEffect, useState, useContext } from "react";
-import KickCountUpdateModal from "../modals/Kick_count_popup";
+import KickCountUpdateModal from "../modals/KickCountUpdateModal";
 import HeartRateUpdate from "../modals/HeartRateUpdate";
 import WaterAmountUpdate from "../modals/WaterAmountUpdate";
 import { HeartRateContext } from "../contexts/HeartRateContextProvider";

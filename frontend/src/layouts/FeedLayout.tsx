@@ -8,12 +8,13 @@ const FeedLayout = () => {
   console.log("from feed layout" + titleContext?.pageTitle);
   return (
     <div>
-      <div className="flex justify-between ml-4 mt-7">
+      <div className="flex justify-between ml-10 mt-7">
         <p className="hidden lg:block">
-          Pages <span> / {titleContext?.pageTitle}</span>
+          Pages /{" "}
+          <span className="text-text_color_2"> {titleContext?.pageTitle}</span>
         </p>
 
-        <div className="lg:flex items-center relative hidden ">
+        <div className="lg:flex items-center relative hidden mr-10">
           <SearchIcon className="absolute left-3 " />
           <input
             className="border-2 border-gray-300 bg-white h-10 pl-10 pr-16 rounded-lg text-sm focus:outline-none "
@@ -23,9 +24,9 @@ const FeedLayout = () => {
           />
         </div>
       </div>
-      <h1 className="mt-9 mb-4 hidden lg:block">{`${titleContext?.pageTitle} Overview`}</h1>
+      <h1 className="mt-9 mb-4 ml-10 text-base text-text_color_2 hidden lg:block">{`${titleContext?.pageTitle} Overview`}</h1>
       <h1 className="text-center text-3xl text-[#0D99FF] lg:hidden">
-        Dashboard
+        {titleContext?.pageTitle}
       </h1>
       <Outlet />
     </div>
