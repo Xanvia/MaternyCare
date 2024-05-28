@@ -15,3 +15,11 @@ import * as Yup from "yup";
 import { Edit } from "../assets/icons/Icons";
 
 // Validation schema
+const validationSchema = Yup.object({
+    country: Yup.string().required("Country is required"),
+    state: Yup.string().required("State / Province is required"),
+    city: Yup.string().required("City / District is required"),
+    postalcode: Yup.string().required("Postal code is required"),
+    gs: Yup.string().required("GS Division number is required"),
+  });
+
