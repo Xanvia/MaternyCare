@@ -13,3 +13,13 @@ import { Box } from "@mui/material";
 import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
 import { Edit } from "../assets/icons/Icons";
+
+// Validation schema
+const validationSchema = Yup.object({
+    username: Yup.string().required("Username is required"),
+    passord: Yup.string().required("Passwword is required"),
+    stage: Yup.string().required("Stage is required"),
+    babycount: Yup.string().required("Baby count is required"),
+    gs: Yup.string().required("GS Division number is required"),
+  });
+  
