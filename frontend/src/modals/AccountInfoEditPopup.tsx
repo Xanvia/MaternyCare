@@ -12,7 +12,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import { Box } from "@mui/material";
 import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
-import { Edit } from "../assets/icons/Icons";
+// import { Edit } from "../assets/icons/Icons";
 
 // Validation schema
 const validationSchema = Yup.object({
@@ -56,7 +56,7 @@ const validationSchema = Yup.object({
             }}
             >
             <div style={{ display: "flex", alignItems: "center" }}>
-                <Edit style={{ marginRight: "8px", padding: "2px" }} />
+                {/* <Edit style={{ marginRight: "8px", padding: "2px" }} /> */}
                 <p className="xs:block hidden">Edit</p>
             </div>
         </Button>
