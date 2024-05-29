@@ -4,13 +4,12 @@ import Divider from "@mui/joy/Divider";
 import DialogTitle from "@mui/joy/DialogTitle";
 import DialogContent from "@mui/joy/DialogContent";
 import DialogActions from "@mui/joy/DialogActions";
-import Input from '@mui/material/Input';
 import Modal from "@mui/joy/Modal";
 import ModalDialog from "@mui/joy/ModalDialog";
 import TextField from "@mui/material/TextField";
 import IconButton from "@mui/joy/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
-import { Box, FormControl, InputAdornment, InputLabel, OutlinedInput } from "@mui/material";
+import { Box, FormControl, InputAdornment, InputLabel, OutlinedInput, Typography } from "@mui/material";
 import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
 import { Edit } from "../assets/icons/Icons";
@@ -115,7 +114,7 @@ export default function EditAccountInfo() {
               setOpen(false);
             }}
           >
-            {({ isSubmitting, errors, touched }) => (
+            {({ isSubmitting, errors, touched, values }) => (
               <Form>
                 <DialogContent
                   sx={{
@@ -175,7 +174,6 @@ export default function EditAccountInfo() {
                       size="small"
                       variant="outlined"
                       error={touched.password && Boolean(errors.password)}
-                      helperText={touched.password && errors.password}
                       endAdornment={
                         <InputAdornment position="end">
                           <IconButton
@@ -191,9 +189,9 @@ export default function EditAccountInfo() {
                       label="Password"
                     />
                     {touched.password && errors.password && (
-                      <div style={{ color: 'red', fontSize: '0.875rem' }}>
+                      <Typography variant="body2" color="error" sx={{ mt: 1 }}>
                         {errors.password}
-                      </div>
+                      </Typography>
                     )}
                   </FormControl>
                 </Box>
@@ -217,17 +215,16 @@ export default function EditAccountInfo() {
                   }}
                 >
                   <FormControl sx={{ width: '100%' }} variant="outlined">
-                    <InputLabel htmlFor="outlined-adornment-password"></InputLabel>
+                    <InputLabel htmlFor="outlined-adornment-repassword"></InputLabel>
                     <Field
                       as={OutlinedInput}
                       name="repassword"
-                      id="outlined-adornment-password"
+                      id="outlined-adornment-repassword"
                       type={showPassword ? 'text' : 'password'}
                       fullWidth
                       size="small"
                       variant="outlined"
                       error={touched.repassword && Boolean(errors.repassword)}
-                      helperText={touched.repassword && errors.repassword}
                       endAdornment={
                         <InputAdornment position="end">
                           <IconButton
@@ -242,12 +239,26 @@ export default function EditAccountInfo() {
                       }
                       label="Re-Password"
                     />
-                    {touched.password && errors.password && (
-                      <div style={{ color: 'red', fontSize: '0.875rem' }}>
-                        {errors.password}
-                      </div>
+                    {touched.repassword && errors.repassword && (
+                      <Typography variant="body2" color="error" sx={{ mt: 1 }}>
+                        {errors.repassword}
+                      </Typography>
                     )}
                   </FormControl>
+                </Box>
+
+                <Box sx={{ mt: 2 }}>
+                  {touched.repassword && values.repassword && values.password && (
+                    values.repassword === values.password ? (
+                      <Typography variant="body2" color="green">
+                        Passwords match.
+                      </Typography>
+                    ) : (
+                      <Typography variant="body2" color="error">
+                        Passwords do not match.
+                      </Typography>
+                    )
+                  )}
                 </Box>
 
                 <DialogContent
@@ -280,9 +291,9 @@ export default function EditAccountInfo() {
                     <MenuItem value="Postnatal">Postnatal</MenuItem>
                   </Field>
                   {touched.stage && errors.stage && (
-                    <div style={{ color: 'red', fontSize: '0.875rem' }}>
+                    <Typography variant="body2" color="error" sx={{ mt: 1 }}>
                       {errors.stage}
-                    </div>
+                    </Typography>
                   )}
                 </Box>
 
