@@ -12,12 +12,14 @@ import CloseIcon from "@mui/icons-material/Close";
 import { Box } from "@mui/material";
 import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
-// import { Edit } from "../assets/icons/Icons";
+import { Edit } from "../assets/icons/Icons";
+import { Select, MenuItem } from "@mui/material";
+
 
 // Validation schema
 const validationSchema = Yup.object({
     username: Yup.string().required("Username is required"),
-    passord: Yup.string().required("Passwword is required"),
+    password: Yup.string().required("Passwword is required"),
     stage: Yup.string().required("Stage is required"),
     babycount: Yup.string().required("Baby count is required"),
     gs: Yup.string().required("GS Division number is required"),
@@ -56,7 +58,7 @@ const validationSchema = Yup.object({
             }}
             >
             <div style={{ display: "flex", alignItems: "center" }}>
-                {/* <Edit style={{ marginRight: "8px", padding: "2px" }} /> */}
+                <Edit style={{ marginRight: "8px", padding: "2px" }} />
                 <p className="xs:block hidden">Edit</p>
             </div>
         </Button>
@@ -181,15 +183,23 @@ const validationSchema = Yup.object({
                     }}
                   >
                     <Field
-                      as={TextField}
+                      as={Select}
                       name="stage"
                       fullWidth
                       size="small"
                       variant="outlined"
                       error={touched.stage && Boolean(errors.stage)}
-                      helperText={touched.stage && errors.stage}
-                    />
+                    >
+                      <MenuItem value="Prenatal">Prenatal</MenuItem>
+                      <MenuItem value="Postnatal">Postnatal</MenuItem>
+                    </Field>
+                    {touched.stage && errors.stage && (
+                      <div style={{ color: 'red', fontSize: '0.875rem' }}>
+                        {errors.stage}
+                      </div>
+                    )}
                   </Box>
+
 
                     <DialogContent
                     sx={{
