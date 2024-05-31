@@ -89,7 +89,14 @@ export default function EditPersonalInfo() {
       </Button>
 
       <Modal open={open} onClose={() => setOpen(false)}>
-        <ModalDialog variant="outlined" role="alertdialog">
+        <ModalDialog
+          variant="outlined"
+          role="alertdialog"
+          sx={{
+            maxHeight: '80vh', // Limit the modal height to 80% of the viewport height
+            overflowY: 'auto' // Add vertical scroll if content overflows
+          }}
+        >
           <IconButton
             aria-label="close"
             onClick={() => setOpen(false)}
