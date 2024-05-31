@@ -14,9 +14,8 @@ import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
 import { Edit } from "../assets/icons/Icons";
 import { Select, MenuItem } from "@mui/material";
-
-import Visibility from '@mui/icons-material/Visibility';
-import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import Visibility from "@mui/icons-material/Visibility";
+import VisibilityOff from "@mui/icons-material/VisibilityOff";
 
 // Validation schema
 const validationSchema = Yup.object({
@@ -28,9 +27,30 @@ const validationSchema = Yup.object({
   gs: Yup.string().required("GS Division number is required"),
 });
 
+// Mock function to fetch current data
+const fetchCurrentData = () => {
+  // Replace this with actual data fetching logic
+  return {
+    username: "currentUsername",
+    password: "currentPassword",
+    repassword: "currentPassword",
+    stage: "Prenatal",
+    babycount: "1",
+    gs: "12345",
+  };
+};
+
 export default function EditAccountInfo() {
   const [open, setOpen] = React.useState<boolean>(false);
   const [showPassword, setShowPassword] = React.useState(false);
+  const [initialValues, setInitialValues] = React.useState({
+    username: "",
+    password: "",
+    repassword: "",
+    stage: "",
+    babycount: "",
+    gs: "",
+  });
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
@@ -38,11 +58,17 @@ export default function EditAccountInfo() {
     event.preventDefault();
   };
 
+  const handleOpen = () => {
+    const currentData = fetchCurrentData();
+    setInitialValues(currentData);
+    setOpen(true);
+  };
+
   return (
     <React.Fragment>
       <Button
         variant="outlined"
-        onClick={() => setOpen(true)}
+        onClick={handleOpen}
         sx={{
           color: "#0D99FF",
           borderColor: "#0D99FF",
@@ -73,7 +99,14 @@ export default function EditAccountInfo() {
       </Button>
 
       <Modal open={open} onClose={() => setOpen(false)}>
-        <ModalDialog variant="outlined" role="alertdialog">
+        <ModalDialog
+          variant="outlined"
+          role="alertdialog"
+          sx={{
+            maxHeight: '80vh',
+            overflowY: 'auto',
+          }}
+        >
           <IconButton
             aria-label="close"
             onClick={() => setOpen(false)}
@@ -99,20 +132,14 @@ export default function EditAccountInfo() {
           </DialogTitle>
           <Divider />
           <Formik
-            initialValues={{
-              username: "",
-              password: "",
-              repassword: "",
-              stage: "",
-              babycount: "",
-              gs: "",
-            }}
+            initialValues={initialValues}
             validationSchema={validationSchema}
             onSubmit={(values, { setSubmitting }) => {
               console.log("Form data:", values);
               setSubmitting(false);
               setOpen(false);
             }}
+            enableReinitialize={true} // Enable reinitialization when initialValues change
           >
             {({ isSubmitting, errors, touched, values }) => (
               <Form>
@@ -163,13 +190,13 @@ export default function EditAccountInfo() {
                     mb: 2,
                   }}
                 >
-                  <FormControl sx={{ width: '100%' }} variant="outlined">
+                  <FormControl sx={{ width: "100%" }} variant="outlined">
                     <InputLabel htmlFor="outlined-adornment-password"></InputLabel>
                     <Field
                       as={OutlinedInput}
                       name="password"
                       id="outlined-adornment-password"
-                      type={showPassword ? 'text' : 'password'}
+                      type={showPassword ? "text" : "password"}
                       fullWidth
                       size="small"
                       variant="outlined"
@@ -214,13 +241,13 @@ export default function EditAccountInfo() {
                     mb: 2,
                   }}
                 >
-                  <FormControl sx={{ width: '100%' }} variant="outlined">
+                  <FormControl sx={{ width: "100%" }} variant="outlined">
                     <InputLabel htmlFor="outlined-adornment-repassword"></InputLabel>
                     <Field
                       as={OutlinedInput}
                       name="repassword"
                       id="outlined-adornment-repassword"
-                      type={showPassword ? 'text' : 'password'}
+                      type={showPassword ? "text" : "password"}
                       fullWidth
                       size="small"
                       variant="outlined"
