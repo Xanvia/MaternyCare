@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Edit, EyeIcon, EyeOffIcon } from "../assets/icons/Icons";
 import EditPersonalInfo from "../modals/PersonalInfoEditPopup";
+import EditAccountInfo from "../modals/AccountInfoEditPopup";
 
 const Profile = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -72,6 +73,7 @@ const Profile = () => {
               <p className="xs:block hidden">Edit</p>
             </div>
           </button>
+          {/* <EditAccountInfo /> */}
         </div>
         <div className="grid xs:grid-cols-2 grid-cols-1">
           <div className="text-text_color_2">
@@ -99,7 +101,7 @@ const Profile = () => {
       <div className="border-solid border-2 rounded-lg py-5 px-5 ">
         <div className="flex justify-between ">
           <h5 className="text-xl mb-5">Account information</h5>
-          <button
+          {/* <button
             type="button"
             className="text-blue_primary hover:text-white border border-blue_primary hover:bg-blue_primary focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-1 text-center me-2 mb-2 h-1/2 w-auto"
           >
@@ -107,7 +109,9 @@ const Profile = () => {
               <Edit className="xs:mr-2  p-0.5 " />
               <p className="xs:block hidden">Edit</p>
             </div>
-          </button>
+          </button> */}
+
+          <EditAccountInfo />
         </div>
         <div className="grid xs:grid-cols-2 grid-cols-1">
           <div className="text-text_color_2">
