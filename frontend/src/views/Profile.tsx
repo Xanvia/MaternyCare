@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Edit, EyeIcon, EyeOffIcon } from "../assets/icons/Icons";
-import PersonalInfoModal from "../modals/PersonalInfoModal";
+import EditPersonalInfo from "../modals/PersonalInfoEditPopup";
 
 const Profile = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -45,7 +45,7 @@ const Profile = () => {
               <p className="xs:block hidden">Edit</p>
             </div>
           </button> */}
-          <PersonalInfoModal />
+          <EditPersonalInfo />
         </div>
         <div className="grid xs:grid-cols-2 grid-cols-1">
           <div className="text-text_color_2">
