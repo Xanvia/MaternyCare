@@ -60,8 +60,6 @@ export default function EditAccountInfo() {
   });
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
-
-  // const handleMouseDownPassword = (
   //   event: React.MouseEvent<HTMLButtonElement>
   // ) => {
   //   event.preventDefault();
@@ -212,14 +210,6 @@ export default function EditAccountInfo() {
                       error={touched.password && Boolean(errors.password)}
                       endAdornment={
                         <InputAdornment position="end">
-                          {/* <IconButton
-                            aria-label="toggle password visibility"
-                            onClick={handleClickShowPassword}
-                            onMouseDown={handleMouseDownPassword}
-                            edge="end"
-                          >
-                            {showPassword ? <VisibilityOff /> : <Visibility />}
-                          </IconButton> */}
                           <IconButton
                             aria-label="toggle password visibility"
                             onClick={handleClickShowPassword}
@@ -275,14 +265,6 @@ export default function EditAccountInfo() {
                       error={touched.repassword && Boolean(errors.repassword)}
                       endAdornment={
                         <InputAdornment position="end">
-                          {/* <IconButton
-                            aria-label="toggle password visibility"
-                            onClick={handleClickShowPassword}
-                            onMouseDown={handleMouseDownPassword}
-                            edge="end"
-                          >
-                            {showPassword ? <VisibilityOff /> : <Visibility />}
-                          </IconButton> */}
                           <IconButton
                             aria-label="toggle password visibility"
                             onClick={handleClickShowPassword}
