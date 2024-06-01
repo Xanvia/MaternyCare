@@ -25,26 +25,10 @@ const Profile = () => {
             </p>
           </div>
         </div>
-        {/* <button
-          type="button"
-          className="text-blue_primary hover:text-white border border-blue_primary hover:bg-blue_primary focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-1 text-center me-2 mb-2 h-1/2 w-full sm:w-auto"
-        >
-          <Edit className="mr-2 p-0.5" />
-          Edit
-        </button> */}
       </div>
       <div className="border-solid border-2 rounded-lg py-5 px-5 ">
         <div className="flex justify-between items-center">
           <h5 className="text-xl mb-5">Personal information</h5>
-          {/* <button
-            type="button"
-            className="text-blue_primary hover:text-white border border-blue_primary hover:bg-blue_primary focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-1 text-center me-2 mb-2 h-1/2 w-auto"
-          >
-            <div className="flex items-center">
-              <Edit className="xs:mr-2  p-0.5 " />
-              <p className="xs:block hidden">Edit</p>
-            </div>
-          </button> */}
           <EditPersonalInfo />
         </div>
         <div className="grid xs:grid-cols-2 grid-cols-1">
