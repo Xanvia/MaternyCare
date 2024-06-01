@@ -9,7 +9,14 @@ import ModalDialog from "@mui/joy/ModalDialog";
 import TextField from "@mui/material/TextField";
 import IconButton from "@mui/joy/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
-import { Box, FormControl, InputAdornment, InputLabel, OutlinedInput, Typography } from "@mui/material";
+import {
+  Box,
+  FormControl,
+  InputAdornment,
+  InputLabel,
+  OutlinedInput,
+  Typography,
+} from "@mui/material";
 import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
 import { Edit } from "../assets/icons/Icons";
@@ -54,9 +61,11 @@ export default function EditAccountInfo() {
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
-  const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
-    event.preventDefault();
-  };
+  // const handleMouseDownPassword = (
+  //   event: React.MouseEvent<HTMLButtonElement>
+  // ) => {
+  //   event.preventDefault();
+  // };
 
   const handleOpen = () => {
     const currentData = fetchCurrentData();
@@ -103,8 +112,8 @@ export default function EditAccountInfo() {
           variant="outlined"
           role="alertdialog"
           sx={{
-            maxHeight: '80vh',
-            overflowY: 'auto',
+            maxHeight: "80vh",
+            overflowY: "auto",
           }}
         >
           <IconButton
@@ -203,11 +212,23 @@ export default function EditAccountInfo() {
                       error={touched.password && Boolean(errors.password)}
                       endAdornment={
                         <InputAdornment position="end">
-                          <IconButton
+                          {/* <IconButton
                             aria-label="toggle password visibility"
                             onClick={handleClickShowPassword}
                             onMouseDown={handleMouseDownPassword}
                             edge="end"
+                          >
+                            {showPassword ? <VisibilityOff /> : <Visibility />}
+                          </IconButton> */}
+                          <IconButton
+                            aria-label="toggle password visibility"
+                            onClick={handleClickShowPassword}
+                            onMouseDown={(
+                              event: React.MouseEvent<HTMLButtonElement>
+                            ) => {
+                              event.preventDefault();
+                              handleClickShowPassword();
+                            }}
                           >
                             {showPassword ? <VisibilityOff /> : <Visibility />}
                           </IconButton>
@@ -254,11 +275,23 @@ export default function EditAccountInfo() {
                       error={touched.repassword && Boolean(errors.repassword)}
                       endAdornment={
                         <InputAdornment position="end">
-                          <IconButton
+                          {/* <IconButton
                             aria-label="toggle password visibility"
                             onClick={handleClickShowPassword}
                             onMouseDown={handleMouseDownPassword}
                             edge="end"
+                          >
+                            {showPassword ? <VisibilityOff /> : <Visibility />}
+                          </IconButton> */}
+                          <IconButton
+                            aria-label="toggle password visibility"
+                            onClick={handleClickShowPassword}
+                            onMouseDown={(
+                              event: React.MouseEvent<HTMLButtonElement>
+                            ) => {
+                              event.preventDefault();
+                              handleClickShowPassword();
+                            }}
                           >
                             {showPassword ? <VisibilityOff /> : <Visibility />}
                           </IconButton>
@@ -275,8 +308,10 @@ export default function EditAccountInfo() {
                 </Box>
 
                 <Box sx={{ mt: 2 }}>
-                  {touched.repassword && values.repassword && values.password && (
-                    values.repassword === values.password ? (
+                  {touched.repassword &&
+                    values.repassword &&
+                    values.password &&
+                    (values.repassword === values.password ? (
                       <Typography variant="body2" color="green">
                         Passwords match.
                       </Typography>
@@ -284,8 +319,7 @@ export default function EditAccountInfo() {
                       <Typography variant="body2" color="error">
                         Passwords do not match.
                       </Typography>
-                    )
-                  )}
+                    ))}
                 </Box>
 
                 <DialogContent
@@ -386,7 +420,7 @@ export default function EditAccountInfo() {
                     helperText={touched.gs && errors.gs}
                   />
                 </Box>
-                
+
                 <DialogActions
                   sx={{
                     display: "flex",
