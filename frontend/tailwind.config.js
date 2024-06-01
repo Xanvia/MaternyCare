@@ -25,6 +25,15 @@ export default {
       fontFamily: {
         ubuntu: ["Ubuntu", "sans-serif"],
       },
+      animation: {
+        "fade-in": "fadeIn 0.8s ease-in forwards",
+      },
+      keyframes: {
+        fadeIn: {
+          "0%": { opacity: "0" },
+          "100%": { opacity: "1" },
+        },
+      },
     },
     screens: {
       xs: "480px",

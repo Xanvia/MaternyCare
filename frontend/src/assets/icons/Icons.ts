@@ -10,6 +10,7 @@ import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import EditIcon from "@mui/icons-material/Edit";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
+import QuizIcon from "@mui/icons-material/Quiz";
 
 export {
   SpaceDashboardIcon as DashboardIcon,
@@ -24,4 +25,5 @@ export {
   EditIcon as Edit,
   VisibilityIcon as EyeIcon,
   VisibilityOffIcon as EyeOffIcon,
+  QuizIcon as Help,
 };

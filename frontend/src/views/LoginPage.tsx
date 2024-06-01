@@ -28,13 +28,14 @@ const LoginPage: React.FC = () => {
         onSubmit={formik.handleSubmit}
         className="flex flex-col items-center w-full"
       >
-        <img src={logo} alt="" />
-        <header className="text-blue_primary text-4xl mb-14">
+        <img src={logo} alt="" className="lg:size-1/12 md:size-1/12 ss:size-1/6 sm:size-1/6 size-1/6"/>
+        <header className="text-blue_primary lg:text-4xl ss:text-4xl text-2xl lg:mb-8 mb-6">
           Materny<span className="text-pink_primary">Care</span>
         </header>
-        <div className="w-full flex flex-col items-center mb-9">
+        <div className="w-full flex flex-col items-center lg:mb-9 mb-4">
           <input
-            className={`shadow appearance-none rounded-b-xl py-4 px-4 w-11/12 lg:w-5/12 sm:w-8/12 ss:w-10/12 text-gray-700 leading-tight focus:shadow-outline text-lg
+            className={`shadow appearance-none rounded-b-xl py-4 px-4 w-11/12 lg:w-5/12 sm:w-8/12 ss:w-10/12 text-gray-700 leading-tight focus:shadow-outline 
+            lg:text-lg md:text-base sm:text-base text-sm
           ${
             formik.touched.name && formik.errors.name
               ? "border-solid border-red-500"
@@ -48,7 +49,7 @@ const LoginPage: React.FC = () => {
             onChange={formik.handleChange}
           />
           {/* Display error message with icon */}
-          <div className="w-11/12 lg:w-5/12 sm:w-8/12 ss:w-10/12 mb-9 flex flex-col items-start mt-1">
+          <div className="w-11/12 lg:w-5/12 sm:w-8/12 ss:w-10/12 mb-2 flex flex-col items-start mt-1">
             {formik.touched.name && formik.errors.name ? (
               <div className="text-red-500 text-xs">
                 {" "}
@@ -57,9 +58,10 @@ const LoginPage: React.FC = () => {
             ) : null}
           </div>
         </div>
-        <div className="w-full mb-9 flex flex-col items-center">
+        <div className="w-full mb-4 flex flex-col items-center">
           <input
-            className={`shadow appearance-none rounded-b-xl py-4 px-4 w-11/12 lg:w-5/12 sm:w-8/12 ss:w-10/12	 text-gray-700 leading-tight  focus:shadow-outline text-lg
+            className={`shadow appearance-none rounded-b-xl py-4 px-4 w-11/12 lg:w-5/12 sm:w-8/12 ss:w-10/12	 text-gray-700 leading-tight  focus:shadow-outline 
+            lg:text-lg md:text-base sm:text-base text-sm
           ${
             formik.touched.name && formik.errors.name
               ? "border-solid border-red-500"
@@ -72,7 +74,7 @@ const LoginPage: React.FC = () => {
             type="password"
             onChange={formik.handleChange}
           />
-          <div className="w-11/12 lg:w-5/12 sm:w-8/12 ss:w-10/12 mb-9 flex flex-col items-start mt-1">
+          <div className="w-11/12 lg:w-5/12 sm:w-8/12 ss:w-10/12 mb-2 flex flex-col items-start mt-1">
             {formik.touched.password && formik.errors.password ? (
               <div className="text-red-500 text-xs">
                 <ErrorIcon />
@@ -81,7 +83,7 @@ const LoginPage: React.FC = () => {
             ) : null}
           </div>
         </div>
-        <div className="w-11/12 lg:w-5/12 sm:w-8/12 ss:w-10/12 mb-9 flex flex-row justify-between">
+        <div className="w-11/12 lg:w-5/12 sm:w-8/12 ss:w-10/12 mb-4 flex flex-row justify-between">
           <a href="" className="text-[#838383] text-xs ">
             Forgot Password?
           </a>
@@ -90,7 +92,7 @@ const LoginPage: React.FC = () => {
           </a>
         </div>
         <button
-          className={`text-xl py-5 rounded-xl w-11/12 lg:w-5/12 sm:w-8/12 ss:w-10/12 text-white h-16 bg-blue_primary hover:bg-[#33C2FF]`}
+          className={`py-5 rounded-xl w-11/12 lg:w-5/12 sm:w-8/12 ss:w-10/12 text-white h-16 bg-blue_primary hover:bg-[#33C2FF] lg:text-lg md:text-lg sm:text-small text-small`}
           type="submit"
         >
           Login
