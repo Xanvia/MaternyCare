@@ -19,7 +19,7 @@ const validationSchema = Yup.object({
   message: Yup.string().required("Message is required"),
 });
 
-export default function UpdateNotice() {
+export default function UpdateNoticeModal() {
   const [open, setOpen] = React.useState<boolean>(false);
 
   return (
