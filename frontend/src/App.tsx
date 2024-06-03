@@ -10,6 +10,7 @@ import Appointments from "./views/Appointments";
 import Profile from "./views/Profile";
 import MotherGuide from "./views/MotherGuide";
 import SinglePost from "./views/SinglePost";
+import {DashboardPHM} from "./views/DashboardPHM";
 
 // You can add your routes here
 // Add a baselayout too if needed
@@ -50,6 +51,16 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <Dashboard />,
+      },
+    ],
+  },
+  {
+    path: "/phmdashboard",
+    element: <BaseLayout />,
+    children: [
+      {
+        index: true,
+        element: <DashboardPHM />,
       },
     ],
   },
