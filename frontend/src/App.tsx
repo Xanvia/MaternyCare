@@ -10,7 +10,7 @@ import Appointments from "./views/Appointments";
 import Profile from "./views/Profile";
 import MotherGuide from "./views/MotherGuide";
 import SinglePost from "./views/SinglePost";
-import {DashboardPHM} from "./views/DashboardPHM";
+import DashboardPHM from "./views/DashboardPHM";
 
 // You can add your routes here
 // Add a baselayout too if needed
