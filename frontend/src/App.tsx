@@ -81,6 +81,16 @@ const router = createBrowserRouter([
       },
     ],
   },
+  {
+    path: "/Notification",
+    element: <BaseLayout />,
+    children: [
+      {
+        index: true,
+        element: <Notification />,
+      },
+    ],
+  },
 ]);
 
 function App() {
