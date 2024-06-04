@@ -25,7 +25,7 @@ const FeedLayout = () => {
         </div>
       </div>
       <h1 className="mt-9 mb-4 ml-10 text-base text-text_color_2 hidden lg:block">{`${titleContext?.pageTitle} Overview`}</h1>
-      <h1 className="text-center text-3xl text-[#0D99FF] lg:hidden">
+      <h1 className="text-center text-3xl text-[#0D99FF] lg:hidden mb-5">
         {titleContext?.pageTitle}
       </h1>
       <Outlet />
