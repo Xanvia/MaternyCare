@@ -8,6 +8,7 @@ import Notices from "./views/Notices";
 import HeartRateContextProvider from "./contexts/HeartRateContextProvider";
 import Appointments from "./views/Appointments";
 import Profile from "./views/Profile";
+import Notification from "./views/Notification";
 
 // You can add your routes here
 // Add a baselayout too if needed
