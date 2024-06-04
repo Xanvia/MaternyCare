@@ -82,7 +82,7 @@ const router = createBrowserRouter([
     ],
   },
   {
-    path: "/Notification",
+    path: "/notification",
     element: <BaseLayout />,
     children: [
       {
