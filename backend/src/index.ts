@@ -7,6 +7,9 @@ import { NoticeRoutes } from "./routes/notice.routes";
 // import { User } from "./entity/User";
 import { Notice } from "./entity/Notice";
 import * as cors from "cors"; // import cors
+import authRoutes from "./routes/auth.routes";
+import { jwtMiddleware } from "./middlewear/jwtMiddleware";
+import { User } from "./entity/User";
 
 AppDataSource.initialize()
   .then(async () => {
@@ -15,6 +18,9 @@ AppDataSource.initialize()
     app.use(bodyParser.json());
     app.use(cors()); // use cors as middleware
 
+    app.use("/auth", authRoutes);
+
+    app.use(jwtMiddleware);
     // register express routes from defined application routes
     const AllRoutes = [...UserRoutes, ...NoticeRoutes];
 
@@ -40,18 +46,23 @@ AppDataSource.initialize()
       );
     });
 
-    // setup express app here
-    // ...
+    // await AppDataSource.manager.save(
+    //   AppDataSource.manager.create(Notice, {
+    //     title: "Phantom",
+    //     subtitle: "Assassin",
+    //     message: "Test api 1",
+    //   })
+    // );
 
-    await AppDataSource.manager.save(
-      AppDataSource.manager.create(Notice, {
-        title: "Phantom",
-        subtitle: "Assassin",
-        message: "Test api 1",
-      })
-    );
+    // await AppDataSource.manager.save(
+    //   AppDataSource.manager.create(User, {
+    //     firstName: "Yasela",
+    //     lastName: "Dissanayake",
+    //     email: "yasela2014@gmai.com",
+    //     password: "1234",
+    //   })
+    // );
 
-    // start express server
     app.listen(3000);
 
     console.log("Express server has started on port 3000");
