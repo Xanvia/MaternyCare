@@ -7,17 +7,20 @@ import SettingsIcon from "@mui/icons-material/Settings";
 import RightBarProfile from "./RightBarProfile";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import MUICalendar from "./MUICalendar";
+import { Link } from 'react-router-dom';
 
 const RightBar: React.FC = () => {
   return (
     <div className="px-6  pt-4 hidden lg:flex flex-col bg-white rounded-l-2xl w-[350px] ml-auto ">
       <div className="grid grid-cols-3 gap-4 items-center mx-5">
         <div>
+        <Link to="/notification">
           <IconButton aria-label="show new notifications" color="inherit">
             <Badge badgeContent={5} color="error">
               <NotificationsNoneIcon />
             </Badge>
           </IconButton>
+        </Link>
         </div>
         <div>
           <IconButton aria-label="show new notifications" color="inherit">
