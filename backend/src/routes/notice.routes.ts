@@ -1,20 +1,28 @@
-import { Router } from "express";
-import {
-  createNotice,
-  deleteNotice,
-  getNotice,
-  getNotices,
-  updateNotice,
-} from "../controller/notice.controller";
+import { NoticeController } from "../controller/NoticeController";
 
-const noticeRoutes = Router();
-
-noticeRoutes.route("/").get(getNotices).post(createNotice);
-
-noticeRoutes
-  .route("/:noticeId")
-  .get(getNotice)
-  .put(updateNotice)
-  .delete(deleteNotice);
-
-export default noticeRoutes;
+export const NoticeRoutes = [
+  {
+    method: "get",
+    route: "/notices",
+    controller: NoticeController,
+    action: "all",
+  },
+  {
+    method: "get",
+    route: "/notices/:id",
+    controller: NoticeController,
+    action: "one",
+  },
+  {
+    method: "post",
+    route: "/notices",
+    controller: NoticeController,
+    action: "save",
+  },
+  {
+    method: "delete",
+    route: "/notices/:id",
+    controller: NoticeController,
+    action: "remove",
+  },
+];
