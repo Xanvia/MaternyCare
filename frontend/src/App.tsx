@@ -56,6 +56,16 @@ const router = createBrowserRouter([
     ],
   },
   {
+    path: "/phmdashboard",
+    element: <BaseLayout />,
+    children: [
+      {
+        index: true,
+        element: <DashboardPHM />,
+      },
+    ],
+  },
+  {
     path: "/notices",
     element: <BaseLayout />,
     children: [
@@ -85,7 +95,18 @@ const router = createBrowserRouter([
       },
     ],
   },
-  {
+   {
+    path: "/guide",
+    element: <BaseLayout />,
+    children: [
+      {
+        index: true,
+        element: <MotherGuide />,
+      },
+      { path: "singlepost/:id", element: <SinglePost /> },
+    ],
+  },
+   {
     path: "/notification",
     element: <BaseLayout />,
     children: [

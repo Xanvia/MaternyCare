@@ -5,7 +5,7 @@ import DeleteCofirmation from "../modals/DeleteCofirmation";
 import AddNoticeModal from "../modals/AddNoticeModal";
 
 const Notices = () => {
-  const BASE_URL = "http://localhost:5000/";
+  const BASE_URL = "http://localhost:3000/";
   const [notices, setNotices] = useState([]);
   const [loading, setLoading] = useState(false);
   const colors = ["#BA97FE", "#0D99FF", "#F580AB", "#F1CB3A", "#3AF16C"];
@@ -16,14 +16,14 @@ const Notices = () => {
       const axiosConfig = {
         method: "get",
         url: `${BASE_URL}notices`,
-        headers: {
-          Authorization: `Bearer`,
-        },
+        // headers: {
+        //   Authorization: `Bearer`,
+        // },
       };
       axios(axiosConfig)
         .then((response) => {
-          console.log(response.data.data);
-          setNotices(response.data.data);
+          console.log(response.data);
+          setNotices(response.data);
         })
         .catch((err) => {
           console.log(err);
@@ -64,15 +64,13 @@ const Notices = () => {
               notice: {
                 title: string;
                 message: string;
-                created_at: string;
+                createdAt: string;
                 id: string;
               },
               index: number
             ) => {
-              const date = new Date(notice.created_at);
-              const formattedDate = `${date.getFullYear()}-${String(
-                date.getMonth() + 1
-              ).padStart(2, "0")}-${String(date.getDate()).padStart(2, "0")}`;
+              const date = new Date(notice.createdAt);
+              const formattedDate = date.toISOString().split("T")[0];
 
               return (
                 <div
