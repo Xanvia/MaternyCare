@@ -1,4 +1,3 @@
-import React from 'react'
 import MOH from '../assets/images/moh.png';
 import PHM from '../assets/images/phm.png';
 
