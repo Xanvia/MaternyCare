@@ -22,7 +22,7 @@ export default function DeleteConfirmation({
   noticeId,
 }: DeleteConfirmationProps) {
   const [open, setOpen] = React.useState<boolean>(false);
-  const BASE_URL = "http://localhost:5000/";
+  const BASE_URL = "http://localhost:3000/";
   // const [loading, setLoading] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
 
@@ -31,9 +31,9 @@ export default function DeleteConfirmation({
     const axiosConfig = {
       method: "delete",
       url: `${BASE_URL}notices/${noticeId}`,
-      headers: {
-        Authorization: `Bearer`,
-      },
+      // headers: {
+      //   Authorization: `Bearer`,
+      // },
     };
     axios(axiosConfig)
       .then((response) => {
