@@ -1,4 +1,5 @@
 import { Swiper, SwiperSlide } from "swiper/react";
+import { SetStateAction, useState } from "react";
 
 // Import Swiper styles
 import "swiper/css";
@@ -15,6 +16,15 @@ import MOH from "../assets/images/moh.png";
 import { EffectCoverflow, Pagination } from "swiper/modules";
 
 export default function Carousel() {
+  const [activeSlide, setActiveSlide] = useState(0);
+
+  const handleSlideChange = (swiper: {
+    activeIndex: SetStateAction<number>;
+  }) => {
+    setActiveSlide(swiper.activeIndex);
+    // Here you can add code to navigate to a different page based on the active index
+  };
+  console.log(activeSlide);
   return (
     <>
       <div className="carouselContainer">
@@ -33,6 +43,7 @@ export default function Carousel() {
           pagination={false}
           modules={[EffectCoverflow, Pagination]}
           className="mySwiper"
+          onSlideChange={handleSlideChange}
         >
           <SwiperSlide className="slide ">
             <div className="border-pink-500 border-2 rounded-3xl bg-[#FBD0E0]">
