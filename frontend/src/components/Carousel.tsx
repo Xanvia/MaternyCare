@@ -1,5 +1,5 @@
 import { Swiper, SwiperSlide } from "swiper/react";
-import { SetStateAction, useState } from "react";
+import { SetStateAction, useState, useContext, useEffect } from "react";
 
 // Import Swiper styles
 import "swiper/css";
@@ -7,24 +7,35 @@ import "swiper/css/effect-coverflow";
 import "swiper/css/pagination";
 
 import "./carousel.module.css";
-
 import Mother from "../assets/images/mother.png";
 import PHM from "../assets/images/phm.png";
 import MOH from "../assets/images/moh.png";
 
 // import required modules
 import { EffectCoverflow, Pagination } from "swiper/modules";
+import { RoleContext } from "../contexts/RoleContextProvider";
 
 export default function Carousel() {
   const [activeSlide, setActiveSlide] = useState(0);
+
+  const roleContext = useContext(RoleContext);
 
   const handleSlideChange = (swiper: {
     activeIndex: SetStateAction<number>;
   }) => {
     setActiveSlide(swiper.activeIndex);
-    // Here you can add code to navigate to a different page based on the active index
   };
-  console.log(activeSlide);
+
+  useEffect(() => {
+    if (activeSlide === 0) {
+      roleContext?.updateRole("mother");
+    } else if (activeSlide === 1) {
+      roleContext?.updateRole("phm");
+    } else if (activeSlide === 2) {
+      roleContext?.updateRole("moh");
+    }
+  }, [activeSlide]);
+
   return (
     <>
       <div className="carouselContainer">
