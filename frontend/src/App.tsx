@@ -8,6 +8,7 @@ import Notices from "./views/Notices";
 import HeartRateContextProvider from "./contexts/HeartRateContextProvider";
 import Appointments from "./views/Appointments";
 import Profile from "./views/Profile";
+import Notification from "./views/Notification";
 import MotherGuide from "./views/MotherGuide";
 import SinglePost from "./views/SinglePost";
 import {DashboardPHM} from "./views/DashboardPHM";
@@ -94,7 +95,7 @@ const router = createBrowserRouter([
       },
     ],
   },
-  {
+   {
     path: "/guide",
     element: <BaseLayout />,
     children: [
@@ -103,6 +104,16 @@ const router = createBrowserRouter([
         element: <MotherGuide />,
       },
       { path: "singlepost/:id", element: <SinglePost /> },
+    ],
+  },
+   {
+    path: "/notification",
+    element: <BaseLayout />,
+    children: [
+      {
+        index: true,
+        element: <Notification />,
+      },
     ],
   },
 ]);
