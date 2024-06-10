@@ -10,7 +10,8 @@ import Appointments from "./views/Appointments";
 import Profile from "./views/Profile";
 import MotherGuide from "./views/MotherGuide";
 import SinglePost from "./views/SinglePost";
-import {DashboardPHM} from "./views/DashboardPHM";
+import { DashboardPHM } from "./views/DashboardPHM";
+import RoleContextProvider from "./contexts/RoleContextProvider";
 
 // You can add your routes here
 // Add a baselayout too if needed
@@ -111,9 +112,11 @@ function App() {
   return (
     <div>
       {/* if you have any context which should include in everywhere of the application you can wrap this RouterProvider with that context */}
-      <HeartRateContextProvider>
-        <RouterProvider router={router} />
-      </HeartRateContextProvider>
+      <RoleContextProvider>
+        <HeartRateContextProvider>
+          <RouterProvider router={router} />
+        </HeartRateContextProvider>
+      </RoleContextProvider>
     </div>
   );
 }
