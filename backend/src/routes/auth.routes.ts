@@ -1,13 +1,21 @@
 import { Router } from "express";
-import { UserController } from "../controller/UserController";
 import { jwtMiddleware } from "../middlewear/jwtMiddleware";
+import { UserController } from "../controller/UserController";
 
-const router = Router();
-const userController = new UserController();
+export const AuthRoutes = [
+  {
+    method: "post",
+    route: "/login",
+    controller: UserController,
+    action: "login",
+    middlewares: [],
+  },
 
-router.post("/register", userController.save);
-router.post("/login", userController.login);
-
-router.use(jwtMiddleware);
-
-export default router;
+  {
+    method: "post",
+    route: "/register",
+    controller: UserController,
+    action: "save",
+    middlewares: [],
+  },
+];

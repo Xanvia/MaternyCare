@@ -6,23 +6,27 @@ export const NoticeRoutes = [
     route: "/notices",
     controller: NoticeController,
     action: "all",
+    middlewares: [],
   },
   {
     method: "get",
     route: "/notices/:id",
     controller: NoticeController,
     action: "one",
+    middlewares: [],
   },
   {
     method: "post",
     route: "/notices",
     controller: NoticeController,
     action: "save",
+    middlewares: [],
   },
   {
     method: "delete",
     route: "/notices/:id",
     controller: NoticeController,
     action: "remove",
+    middlewares: [],
   },
 ];

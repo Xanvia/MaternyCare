@@ -7,9 +7,10 @@ import { NoticeRoutes } from "./routes/notice.routes";
 // import { User } from "./entity/User";
 import { Notice } from "./entity/Notice";
 import * as cors from "cors"; // import cors
-import authRoutes from "./routes/auth.routes";
+import { AuthRoutes } from "./routes/auth.routes";
 import { jwtMiddleware } from "./middlewear/jwtMiddleware";
 import { User } from "./entity/User";
+import { RequestHandler } from "express"; // import RequestHandler from express
 
 AppDataSource.initialize()
   .then(async () => {
@@ -18,15 +19,21 @@ AppDataSource.initialize()
     app.use(bodyParser.json());
     app.use(cors()); // use cors as middleware
 
-    app.use("/auth", authRoutes);
+    interface Route {
+      method: string;
+      route: string;
+      controller: any;
+      action: string;
+      middlewares?: RequestHandler[];
+    }
 
-    app.use(jwtMiddleware);
     // register express routes from defined application routes
-    const AllRoutes = [...UserRoutes, ...NoticeRoutes];
+    const AllRoutes = [...UserRoutes, ...NoticeRoutes, ...AuthRoutes];
 
     AllRoutes.forEach((route) => {
       (app as any)[route.method](
         route.route,
+        ...route.middlewares,
         (req: Request, res: Response, next: Function) => {
           const result = new (route.controller as any)()[route.action](
             req,
