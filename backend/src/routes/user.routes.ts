@@ -1,4 +1,5 @@
 import { UserController } from "../controller/UserController";
+import { adminMiddleware } from "../middlewear/adminMiddleware";
 
 export const UserRoutes = [
   {
@@ -6,7 +7,7 @@ export const UserRoutes = [
     route: "/users",
     controller: UserController,
     action: "all",
-    middlewares: [],
+    middlewares: [adminMiddleware],
   },
   {
     method: "get",

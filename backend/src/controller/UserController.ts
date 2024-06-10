@@ -27,7 +27,7 @@ export class UserController {
   }
 
   async save(request: Request, response: Response, next: NextFunction) {
-    const { firstName, lastName, email, password } = request.body;
+    const { firstName, lastName, email, password, role } = request.body;
 
     const hashedPassword = await bcrypt.hash(password, 10);
 
@@ -36,6 +36,7 @@ export class UserController {
       lastName,
       email,
       password: hashedPassword,
+      role,
     });
 
     const savedUser = await this.userRepository.save(user);
