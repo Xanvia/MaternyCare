@@ -1,9 +1,11 @@
 import { useContext, useState } from "react";
 import { RoleContext } from "../contexts/RoleContextProvider";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const Registration = () => {
   const roleContext = useContext(RoleContext);
+  const navigate = useNavigate();
 
   const [form, setForm] = useState({
     firstName: "",
@@ -28,6 +30,7 @@ const Registration = () => {
         form
       );
       console.log(response.data);
+      navigate("/login");
       // Handle successful registration here
     } catch (error) {
       console.error(error);
