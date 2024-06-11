@@ -66,7 +66,11 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <DashboardPHM />,
+        element: (
+          <PrivateRoute>
+            <DashboardPHM />
+          </PrivateRoute>
+        ),
       },
     ],
   },
@@ -76,7 +80,11 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <Notices />,
+        element: (
+          <PrivateRoute>
+            <Notices />
+          </PrivateRoute>
+        ),
       },
     ],
   },
@@ -86,7 +94,11 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <Appointments />,
+        element: (
+          <PrivateRoute>
+            <Appointments />
+          </PrivateRoute>
+        ),
       },
     ],
   },
@@ -96,7 +108,11 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <Profile />,
+        element: (
+          <PrivateRoute>
+            <Profile />
+          </PrivateRoute>
+        ),
       },
     ],
   },
@@ -106,7 +122,11 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <MotherGuide />,
+        element: (
+          <PrivateRoute>
+            <MotherGuide />
+          </PrivateRoute>
+        ),
       },
       { path: "singlepost/:id", element: <SinglePost /> },
     ],

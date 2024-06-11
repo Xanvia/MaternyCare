@@ -3,7 +3,6 @@ import {
   DashboardIcon,
   NoticesIcon,
   ProfileIcon,
-  LogoutIcon,
   Help,
 } from "../assets/icons/Icons";
 
@@ -33,11 +32,11 @@ export const navLinks = [
     icon: Help,
     path: "/guide",
   },
-  {
-    name: "Logout",
-    icon: LogoutIcon,
-    path: "",
-  },
+  // {
+  //   name: "Logout",
+  //   icon: LogoutIcon,
+  //   path: "",
+  // },
 ];
 
 export const categories = [
