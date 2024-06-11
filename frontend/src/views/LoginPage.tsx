@@ -33,6 +33,10 @@ const LoginPage: React.FC = () => {
           }
         );
         console.log(response.data);
+        localStorage.setItem(
+          "name",
+          JSON.stringify(response.data.user.firstName)
+        );
         navigate("/dashboard");
         // Handle successful login here
       } catch (error) {

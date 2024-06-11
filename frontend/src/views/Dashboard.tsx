@@ -9,7 +9,6 @@ import HeartRateUpdate from "../modals/HeartRateUpdate";
 import WaterAmountUpdate from "../modals/WaterAmountUpdate";
 import { HeartRateContext } from "../contexts/HeartRateContextProvider";
 
-
 const quotes = [
   {
     id: 1,
@@ -37,6 +36,22 @@ const Dashboard = () => {
   const heartRateContext = useContext(HeartRateContext);
   const heartRate = heartRateContext?.heartRate;
   const [random, setRandom] = useState(0);
+
+  const toTitleCase = (str: string) => {
+    return str.replace(/\w\S*/g, function (txt: any) {
+      return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+    });
+  };
+
+  let name = localStorage.getItem("name");
+
+  if (name) {
+    name = JSON.parse(name);
+    name = toTitleCase(name);
+  } else {
+    name = "Mom";
+  }
+
   useEffect(() => {
     setRandom(Math.floor(Math.random() * 4));
   }, []);
@@ -51,7 +66,7 @@ const Dashboard = () => {
         <h1 className="mb-2 text-lg">
           Hello{" "}
           <span className="">
-            Ushani<span> 😃</span>
+            {name}.<span> 😃</span>
           </span>
         </h1>
         <p className="text-2xl">
