@@ -44,12 +44,13 @@ const Dashboard = () => {
   };
 
   let name = localStorage.getItem("name");
+  let role = localStorage.getItem("role");
 
   if (name) {
-    name = JSON.parse(name);
+    name = JSON.parse(name) as string;
     name = toTitleCase(name);
   } else {
-    name = "Mom";
+    name = role;
   }
 
   useEffect(() => {

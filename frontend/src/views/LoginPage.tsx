@@ -37,6 +37,7 @@ const LoginPage: React.FC = () => {
           "name",
           JSON.stringify(response.data.user.firstName)
         );
+        localStorage.setItem("role", JSON.stringify(response.data.user.role));
         navigate("/dashboard");
         // Handle successful login here
       } catch (error) {
