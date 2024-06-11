@@ -12,6 +12,7 @@ import MotherGuide from "./views/MotherGuide";
 import SinglePost from "./views/SinglePost";
 import { DashboardPHM } from "./views/DashboardPHM";
 import RoleContextProvider from "./contexts/RoleContextProvider";
+import { PrivateRoute } from "./components/PrivateRoute";
 
 // You can add your routes here
 // Add a baselayout too if needed
@@ -51,7 +52,11 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <Dashboard />,
+        element: (
+          <PrivateRoute>
+            <Dashboard />,
+          </PrivateRoute>
+        ),
       },
     ],
   },
