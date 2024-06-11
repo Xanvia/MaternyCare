@@ -47,25 +47,39 @@ export class UserController {
   }
 
   async login(request: Request, response: Response, next: NextFunction) {
-    const { email, password } = request.body;
+    try {
+      const { email, password } = request.body;
 
-    const user = await this.userRepository.findOne({ where: { email } });
+      const user = await this.userRepository.findOne({ where: { email } });
 
-    if (!user) {
-      return response.status(400).json({ message: "Email does not exist" });
+      if (!user) {
+        return response.status(400).json({ message: "Email does not exist" });
+      }
+
+      const passwordMatch = await bcrypt.compare(password, user.password);
+
+      if (!passwordMatch) {
+        return response.status(400).json({ message: "Password is incorrect" });
+      }
+
+      // Generate a JWT
+      const token = jwt.sign({ userId: user.id }, process.env.JWT_SECRET);
+
+      // Send the token back to the client
+      return response.json({
+        user: {
+          id: user.id,
+          firstName: user.firstName,
+          lastName: user.lastName,
+          email: user.email,
+          role: user.role,
+        },
+        token,
+      });
+    } catch (error) {
+      console.log(error);
+      return response.status(500).json({ message: "Internal server error" });
     }
-
-    const passwordMatch = await bcrypt.compare(password, user.password);
-
-    if (!passwordMatch) {
-      return response.status(400).json({ message: "Password is incorrect" });
-    }
-
-    // Generate a JWT
-    const token = jwt.sign({ userId: user.id }, process.env.JWT_SECRET);
-
-    // Send the token back to the client
-    return { user, token };
   }
 
   async remove(request: Request, response: Response, next: NextFunction) {
