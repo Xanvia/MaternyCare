@@ -13,6 +13,7 @@ import SinglePost from "./views/SinglePost";
 import { DashboardPHM } from "./views/DashboardPHM";
 import RoleContextProvider from "./contexts/RoleContextProvider";
 import { PrivateRoute } from "./components/PrivateRoute";
+import { PublicRoute } from "./components/PublicRoute";
 
 // You can add your routes here
 // Add a baselayout too if needed
@@ -23,7 +24,11 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <LandingPage />,
+        element: (
+          <PublicRoute>
+            <LandingPage />
+          </PublicRoute>
+        ),
       },
     ],
   },
@@ -33,7 +38,11 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <Login />,
+        element: (
+          <PublicRoute>
+            <Login />
+          </PublicRoute>
+        ),
       },
     ],
   },
@@ -42,7 +51,11 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <Registration />,
+        element: (
+          <PublicRoute>
+            <Registration />
+          </PublicRoute>
+        ),
       },
     ],
   },

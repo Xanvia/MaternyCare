@@ -5,6 +5,8 @@ import { loginSchema } from "../schemas/Schemas";
 import { ErrorIcon } from "../assets/icons/Icons";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 interface FormValues {
   email: string;
@@ -33,11 +35,12 @@ const LoginPage: React.FC = () => {
           }
         );
         console.log(response.data);
-        localStorage.setItem(
-          "name",
-          JSON.stringify(response.data.user.firstName)
-        );
-        localStorage.setItem("role", JSON.stringify(response.data.user.role));
+        // localStorage.setItem(
+        //   "name",
+        //   JSON.stringify(response.data.user.firstName)
+        // );
+        // localStorage.setItem("role", JSON.stringify(response.data.user.role));
+        localStorage.setItem("user", JSON.stringify(response.data.user));
         localStorage.setItem("token", JSON.stringify(response.data.token));
         console.log(response.data.user.role);
         navigate("/dashboard");
@@ -45,12 +48,18 @@ const LoginPage: React.FC = () => {
       } catch (error) {
         console.error(error);
         // Handle errors here
+        if ((error as any).response && (error as any).response.status === 401) {
+          toast.error("Credentials don't match");
+        } else {
+          toast.error("An error occured");
+        }
       }
     },
   });
 
   return (
     <div className="flex items-center justify-center h-screen">
+      <ToastContainer />
       <form
         autoComplete="off"
         onSubmit={formik.handleSubmit}

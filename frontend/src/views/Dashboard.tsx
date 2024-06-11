@@ -40,10 +40,12 @@ const Dashboard = () => {
 
   let name = localStorage.getItem("name");
   let role = localStorage.getItem("role");
-
+  let userItem = localStorage.getItem("user");
+  const user = userItem ? JSON.parse(userItem) : null;
+  console.log("from dash" + user);
   if (name) {
     name = JSON.parse(name) as string;
-    name = toTitleCase(name);
+    name = toTitleCase(user.firstName);
   } else {
     name = role ? (JSON.parse(role) as string) : "";
   }
