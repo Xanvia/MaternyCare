@@ -8,6 +8,7 @@ import KickCountUpdateModal from "../modals/KickCountUpdateModal";
 import HeartRateUpdate from "../modals/HeartRateUpdate";
 import WaterAmountUpdate from "../modals/WaterAmountUpdate";
 import { HeartRateContext } from "../contexts/HeartRateContextProvider";
+import toTitleCase from "../components/CaseConverter";
 
 const quotes = [
   {
@@ -37,12 +38,6 @@ const Dashboard = () => {
   const heartRate = heartRateContext?.heartRate;
   const [random, setRandom] = useState(0);
 
-  const toTitleCase = (str: string) => {
-    return str.replace(/\w\S*/g, function (txt: any) {
-      return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
-    });
-  };
-
   let name = localStorage.getItem("name");
   let role = localStorage.getItem("role");
 
@@ -50,7 +45,7 @@ const Dashboard = () => {
     name = JSON.parse(name) as string;
     name = toTitleCase(name);
   } else {
-    name = role;
+    name = role ? (JSON.parse(role) as string) : "";
   }
 
   useEffect(() => {
