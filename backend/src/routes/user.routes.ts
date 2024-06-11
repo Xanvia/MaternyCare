@@ -7,7 +7,7 @@ export const UserRoutes = [
     route: "/users",
     controller: UserController,
     action: "all",
-    middlewares: [adminMiddleware],
+    middlewares: [],
   },
   {
     method: "get",
@@ -16,12 +16,6 @@ export const UserRoutes = [
     action: "one",
     middlewares: [],
   },
-  // {
-  //   method: "post",
-  //   route: "/users",
-  //   controller: UserController,
-  //   action: "save",
-  // },
   {
     method: "delete",
     route: "/users/:id",
