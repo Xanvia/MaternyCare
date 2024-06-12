@@ -12,6 +12,16 @@ export class UserController {
   async all(request: Request, response: Response, next: NextFunction) {
     return this.userRepository.find();
   }
+  // async all(request: Request, response: Response, next: NextFunction) {
+  //   const users = await this.userRepository.find();
+  //   return users.map((user) => ({
+  //     id: user.id,
+  //     firstName: user.firstName,
+  //     lastName: user.lastName,
+  //     email: user.email,
+  //     role: user.role,
+  //   }));
+  // }
 
   async one(request: Request, response: Response, next: NextFunction) {
     const id = parseInt(request.params.id);
@@ -25,6 +35,25 @@ export class UserController {
     }
     return user;
   }
+
+  // async one(request: Request, response: Response, next: NextFunction) {
+  //   const id = parseInt(request.params.id);
+
+  //   const user = await this.userRepository.findOne({
+  //     where: { id },
+  //   });
+
+  //   if (!user) {
+  //     return "unregistered user";
+  //   }
+  //   return {
+  //     id: user.id,
+  //     firstName: user.firstName,
+  //     lastName: user.lastName,
+  //     email: user.email,
+  //     role: user.role,
+  //   };
+  // }
 
   async save(request: Request, response: Response, next: NextFunction) {
     const { firstName, lastName, email, password, role } = request.body;
@@ -45,6 +74,35 @@ export class UserController {
 
     return { user: savedUser, token };
   }
+
+  // async save(request: Request, response: Response, next: NextFunction) {
+  //   const { firstName, lastName, email, password, role } = request.body;
+
+  //   const hashedPassword = await bcrypt.hash(password, 10);
+
+  //   const user = Object.assign(new User(), {
+  //     firstName,
+  //     lastName,
+  //     email,
+  //     password: hashedPassword,
+  //     role,
+  //   });
+
+  //   const savedUser = await this.userRepository.save(user);
+
+  //   const token = jwt.sign({ userId: savedUser.id }, process.env.JWT_SECRET);
+
+  //   return {
+  //     user: {
+  //       id: savedUser.id,
+  //       firstName: savedUser.firstName,
+  //       lastName: savedUser.lastName,
+  //       email: savedUser.email,
+  //       role: savedUser.role,
+  //     },
+  //     token,
+  //   };
+  // }
 
   async login(request: Request, response: Response, next: NextFunction) {
     try {
