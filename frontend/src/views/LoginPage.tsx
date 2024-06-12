@@ -43,7 +43,21 @@ const LoginPage: React.FC = () => {
         localStorage.setItem("user", JSON.stringify(response.data.user));
         localStorage.setItem("token", JSON.stringify(response.data.token));
         console.log(response.data.user.role);
-        navigate("/dashboard");
+
+        switch (response.data.user.role) {
+          case "mother":
+            navigate("/dashboard");
+            break;
+          case "phm":
+            navigate("/phmdashboard");
+            break;
+          case "moh":
+            navigate("/phmdashboard");
+            break;
+          default:
+            navigate("/dashboard");
+        }
+
         // Handle successful login here
       } catch (error) {
         console.error(error);
