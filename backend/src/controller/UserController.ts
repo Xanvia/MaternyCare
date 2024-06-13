@@ -123,17 +123,7 @@ export class UserController {
       // Generate a JWT
       const token = jwt.sign({ userId: user.id }, process.env.JWT_SECRET);
 
-      // Send the token back to the client
-      return response.json({
-        user: {
-          id: user.id,
-          firstName: user.firstName,
-          lastName: user.lastName,
-          email: user.email,
-          role: user.role,
-        },
-        token,
-      });
+      return { user: user, token };
     } catch (error) {
       console.log(error);
       return response.status(500).json({ message: "Internal server error" });

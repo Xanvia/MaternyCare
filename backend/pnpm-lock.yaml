@@ -26,6 +26,9 @@ dependencies:
   express-jwt:
     specifier: ^8.4.1
     version: 8.4.1
+  flatted:
+    specifier: ^3.3.1
+    version: 3.3.1
   json-stringify-safe:
     specifier: ^5.0.1
     version: 5.0.1
@@ -656,6 +659,10 @@ packages:
       unpipe: 1.0.0
     transitivePeerDependencies:
       - supports-color
+    dev: false
+
+  /flatted@3.3.1:
+    resolution: {integrity: sha512-X8cqMLLie7KsNUDSdzeN8FYK9rEt4Dt67OsG/DNGnYTSDBG4uFAJFBnUeiV+zCVAvwFy56IjM9sH51jVaEhNxw==}
     dev: false
 
   /foreground-child@3.1.1:
