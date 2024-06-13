@@ -10,20 +10,19 @@ const LandingPage = () => {
         </div>
 
         <div className="mt-0 text-center leading-9 font-semibold">
-          <h1 className="text-2xl sm:text-3xl md:text-4xl" style={{ fontFamily: "Ubuntu"}}>
+          <h1 className="text-3xl md:text-4xl" style={{ fontFamily: "Ubuntu"}}>
             <span style={{ color: "#0D99FF" }}>Materny</span>
             <span style={{ color: "#F580AB" }}>Care</span>
           </h1>
         </div>
 
         <div className="mt-6 text-center leading-8">
-          <h2
-            style={{ color: "#333333", fontSize: "2rem", fontFamily: "Ubuntu" }}
-          >
+          <h2 className="text-2xl md:text-3xl font-ubuntu text-gray-800">
             The stage is set! <br />
             Choose your role.
           </h2>
         </div>
+
 
         <div className="mt-4 w-full md:w-1/2">
           <Carousel />
