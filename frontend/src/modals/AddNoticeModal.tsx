@@ -13,6 +13,8 @@ import { Box } from "@mui/material";
 import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 // Validation schema
 const validationSchema = Yup.object({
@@ -29,6 +31,7 @@ export default function AddNoticeModal() {
 
   return (
     <React.Fragment>
+      <ToastContainer />
       <Button
         variant="outlined"
         onClick={() => setOpen(true)}
@@ -90,7 +93,8 @@ export default function AddNoticeModal() {
                   console.log(response.data);
                   setSubmitting(false);
                   setOpen(false);
-                  window.location.reload();
+                  toast.success("The notice has been added successfully!.");
+                  setTimeout(() => window.location.reload(), 1500);
                 })
                 .catch((err) => {
                   console.log(err);
