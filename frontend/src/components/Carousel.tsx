@@ -22,7 +22,12 @@ export default function Carousel() {
           effect={"coverflow"}
           grabCursor={true}
           centeredSlides={true}
-          slidesPerView={3}
+          slidesPerView={2}
+        breakpoints={{
+          768: {
+            slidesPerView: 3,
+          },
+        }}
           coverflowEffect={{
             rotate: 20,
             stretch: 0,
