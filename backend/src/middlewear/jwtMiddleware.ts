@@ -4,6 +4,15 @@ import * as dotenv from "dotenv";
 
 dotenv.config();
 
+// Add a custom property 'user' to the 'Request' type definition
+declare global {
+  namespace Express {
+    interface Request {
+      user: any;
+    }
+  }
+}
+
 export function jwtMiddleware(
   request: Request,
   response: Response,

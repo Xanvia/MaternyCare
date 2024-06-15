@@ -15,7 +15,7 @@ export const AuthRoutes = [
     method: "post",
     route: "/register",
     controller: UserController,
-    action: "save",
+    action: "createUser",
     middlewares: [],
   },
 ];
