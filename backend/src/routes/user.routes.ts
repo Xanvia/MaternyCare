@@ -1,28 +1,26 @@
 import { UserController } from "../controller/UserController";
+import { adminMiddleware } from "../middlewear/adminMiddleware";
 
 export const UserRoutes = [
   {
     method: "get",
     route: "/users",
     controller: UserController,
-    action: "all",
+    action: "getAllUsers",
+    middlewares: [],
   },
   {
     method: "get",
     route: "/users/:id",
     controller: UserController,
-    action: "one",
-  },
-  {
-    method: "post",
-    route: "/users",
-    controller: UserController,
-    action: "save",
+    action: "getOneUser",
+    middlewares: [],
   },
   {
     method: "delete",
     route: "/users/:id",
     controller: UserController,
-    action: "remove",
+    action: "removeUser",
+    middlewares: [],
   },
 ];

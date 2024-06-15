@@ -7,9 +7,14 @@ import SettingsIcon from "@mui/icons-material/Settings";
 import RightBarProfile from "./RightBarProfile";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import MUICalendar from "./MUICalendar";
+import ToTitle from "./CaseConverter";
+
 import { Link } from 'react-router-dom';
 
 const RightBar: React.FC = () => {
+  let userItem = localStorage.getItem("user");
+  const user = userItem ? JSON.parse(userItem) : null;
+
   return (
     <div className="px-6  pt-4 hidden lg:flex flex-col bg-white rounded-l-2xl w-[350px] ml-auto ">
       <div className="grid grid-cols-3 gap-4 items-center mx-5">
@@ -40,7 +45,7 @@ const RightBar: React.FC = () => {
           />
         </div>
         <h1 className="text-[#0D99FF] font-medium text-lg">
-          Ushani Anuruddhika
+          {`${ToTitle(user.firstName)} ${ToTitle(user.lastName)}`}
         </h1>
         <p className="text-xs text-[#666666]">
           30 years old
@@ -51,7 +56,7 @@ const RightBar: React.FC = () => {
         </p>
         <div className="grid grid-cols-3 text-[#333333] mt-8 mb-2">
           <div className="border-r-2 px-4">
-            <p className="text-xs">Blodd</p>
+            <p className="text-xs">Blood</p>
             <p className="text-lg font-semibold">O+</p>
           </div>
           <div className="border-r-2 px-4">

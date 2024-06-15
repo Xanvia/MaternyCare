@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import Button from "@mui/joy/Button";
 import Divider from "@mui/joy/Divider";
 import DialogTitle from "@mui/joy/DialogTitle";
@@ -9,6 +9,8 @@ import ModalDialog from "@mui/joy/ModalDialog";
 import DeleteForever from "@mui/icons-material/DeleteForever";
 import WarningRoundedIcon from "@mui/icons-material/WarningRounded";
 import axios from "axios";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 // import { Rings } from "react-loader-spinner";
 
 import IconButton from "@mui/joy/IconButton";
@@ -23,24 +25,24 @@ export default function DeleteConfirmation({
 }: DeleteConfirmationProps) {
   const [open, setOpen] = React.useState<boolean>(false);
   const BASE_URL = "http://localhost:3000/";
+  const token = localStorage.getItem("token");
   // const [loading, setLoading] = useState(false);
-  const [showAlert, setShowAlert] = useState(false);
 
   const deleteNotice = () => {
     // setLoading(true);
     const axiosConfig = {
       method: "delete",
       url: `${BASE_URL}notices/${noticeId}`,
-      // headers: {
-      //   Authorization: `Bearer`,
-      // },
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
     };
     axios(axiosConfig)
       .then((response) => {
         console.log(response.data);
-        setShowAlert(true);
-        setTimeout(() => setShowAlert(false), 3000);
-        setTimeout(() => window.location.reload(), 1000);
+        // setTimeout(() => setShowAlert(false), 3000);
+        toast.success("The notice has been deleted successfully.");
+        setTimeout(() => window.location.reload(), 2000);
       })
       .catch((err) => {
         console.log(err);
@@ -52,6 +54,7 @@ export default function DeleteConfirmation({
 
   return (
     <React.Fragment>
+      <ToastContainer />
       <Button
         variant="outlined"
         color="danger"
@@ -153,27 +156,6 @@ export default function DeleteConfirmation({
           </DialogActions>
         </ModalDialog>
       </Modal>
-      {showAlert && (
-        <div
-          className="fixed top-0 right-0 m-4 p-4 text-sm text-green-800 rounded-lg bg-green-300 dark:bg-gray-800 dark:text-green-400 z-50"
-          role="alert"
-        >
-          <svg
-            className="flex-shrink-0 inline w-4 h-4 me-3"
-            aria-hidden="true"
-            xmlns="http://www.w3.org/2000/svg"
-            fill="currentColor"
-            viewBox="0 0 20 20"
-          >
-            <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
-          </svg>
-          <span className="sr-only">Info</span>
-          <div>
-            <span className="font-medium">Success alert!</span> The notice has
-            been deleted successfully.
-          </div>
-        </div>
-      )}
     </React.Fragment>
   );
 }

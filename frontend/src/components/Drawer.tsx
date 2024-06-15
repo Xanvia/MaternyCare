@@ -1,7 +1,7 @@
 import React, { useEffect, useContext } from "react";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { useTheme } from "@mui/material//styles";
-import { MenuIcon } from "../assets/icons/Icons";
+import { LogoutIcon, MenuIcon } from "../assets/icons/Icons";
 import { navLinks } from "../data/Data";
 import { NavLink } from "react-router-dom";
 import logo from "../assets/images/logo.png";
@@ -32,6 +32,11 @@ const Drawer: React.FC = () => {
   const handleTitle = (title: string) => {
     titleContext?.updatePageTitle(title);
     console.log("from drawer " + title);
+  };
+
+  const logout = () => {
+    localStorage.removeItem("token");
+    window.location.href = "/login";
   };
 
   useEffect(() => {
@@ -108,6 +113,14 @@ const Drawer: React.FC = () => {
               </NavLink>
             );
           })}
+
+          <button
+            className={`flex items-center space-x-2 py-3 px-3 rounded-xl w-full}`}
+            onClick={logout}
+          >
+            <LogoutIcon className="text-blue_primary" />
+            <span className="pl-1 text-blue_primary">Logout</span>
+          </button>
         </div>
       </div>
     </div>

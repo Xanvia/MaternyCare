@@ -1,7 +1,14 @@
 import logo from "../assets/images/logo.png";
 import Carousel from "../components/Carousel";
+import { useNavigate } from "react-router-dom";
 
 const LandingPage = () => {
+  const navigate = useNavigate();
+
+  const handleNext = () => {
+    navigate("/registration");
+  };
+
   return (
     <div>
       <div className="flex flex-col justify-start items-center h-screen bg-[#F5F5F5]">
@@ -10,7 +17,9 @@ const LandingPage = () => {
         </div>
 
         <div className="mt-0 text-center leading-9 font-semibold">
+
           <h1 className="text-3xl md:text-4xl" style={{ fontFamily: "Ubuntu"}}>
+
             <span style={{ color: "#0D99FF" }}>Materny</span>
             <span style={{ color: "#F580AB" }}>Care</span>
           </h1>
@@ -29,7 +38,10 @@ const LandingPage = () => {
         </div>
 
         <div className="mt-4">
-          <button className="bg-[#0D99FF] hover:bg-[#80CAFF] text-white font-bold py-2 px-2 rounded-full">
+          <button
+            className="bg-[#0D99FF] hover:bg-[#80CAFF] text-white font-bold py-2 px-2 rounded-full"
+            onClick={handleNext}
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="h-6 w-6"
