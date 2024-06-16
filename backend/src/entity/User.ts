@@ -31,13 +31,13 @@ export class User {
   })
   role: UserRole;
 
-  toJSON() {
-    return {
-      id: this.id,
-      firstName: this.firstName,
-      lastName: this.lastName,
-      email: this.email,
-      role: this.role,
-    };
-  }
+  // toJSON() {
+  //   return {
+  //     id: this.id,
+  //     firstName: this.firstName,
+  //     lastName: this.lastName,
+  //     email: this.email,
+  //     role: this.role,
+  //   };
+  // }
 }
