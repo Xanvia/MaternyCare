@@ -8,9 +8,15 @@ import Notices from "./views/Notices";
 import HeartRateContextProvider from "./contexts/HeartRateContextProvider";
 import Appointments from "./views/Appointments";
 import Profile from "./views/Profile";
+import Notification from "./views/Notification";
 import MotherGuide from "./views/MotherGuide";
 import SinglePost from "./views/SinglePost";
+
 import DashboardPHM from "./views/DashboardPHM";
+import RoleContextProvider from "./contexts/RoleContextProvider";
+import { PrivateRoute } from "./components/PrivateRoute";
+import { PublicRoute } from "./components/PublicRoute";
+
 
 // You can add your routes here
 // Add a baselayout too if needed
@@ -21,7 +27,11 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <LandingPage />,
+        element: (
+          <PublicRoute>
+            <LandingPage />
+          </PublicRoute>
+        ),
       },
     ],
   },
@@ -31,7 +41,11 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <Login />,
+        element: (
+          <PublicRoute>
+            <Login />
+          </PublicRoute>
+        ),
       },
     ],
   },
@@ -40,7 +54,11 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <Registration />,
+        element: (
+          <PublicRoute>
+            <Registration />
+          </PublicRoute>
+        ),
       },
     ],
   },
@@ -50,7 +68,11 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <Dashboard />,
+        element: (
+          <PrivateRoute>
+            <Dashboard />,
+          </PrivateRoute>
+        ),
       },
     ],
   },
@@ -60,7 +82,11 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <DashboardPHM />,
+        element: (
+          <PrivateRoute>
+            <DashboardPHM />
+          </PrivateRoute>
+        ),
       },
     ],
   },
@@ -70,7 +96,11 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <Notices />,
+        element: (
+          <PrivateRoute>
+            <Notices />
+          </PrivateRoute>
+        ),
       },
     ],
   },
@@ -80,7 +110,11 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <Appointments />,
+        element: (
+          <PrivateRoute>
+            <Appointments />
+          </PrivateRoute>
+        ),
       },
     ],
   },
@@ -90,19 +124,37 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <Profile />,
+        element: (
+          <PrivateRoute>
+            <Profile />
+          </PrivateRoute>
+        ),
       },
     ],
   },
-  {
+   {
     path: "/guide",
     element: <BaseLayout />,
     children: [
       {
         index: true,
-        element: <MotherGuide />,
+        element: (
+          <PrivateRoute>
+            <MotherGuide />
+          </PrivateRoute>
+        ),
       },
       { path: "singlepost/:id", element: <SinglePost /> },
+    ],
+  },
+   {
+    path: "/notification",
+    element: <BaseLayout />,
+    children: [
+      {
+        index: true,
+        element: <Notification />,
+      },
     ],
   },
 ]);
@@ -111,9 +163,11 @@ function App() {
   return (
     <div>
       {/* if you have any context which should include in everywhere of the application you can wrap this RouterProvider with that context */}
-      <HeartRateContextProvider>
-        <RouterProvider router={router} />
-      </HeartRateContextProvider>
+      <RoleContextProvider>
+        <HeartRateContextProvider>
+          <RouterProvider router={router} />
+        </HeartRateContextProvider>
+      </RoleContextProvider>
     </div>
   );
 }

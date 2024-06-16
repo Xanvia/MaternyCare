@@ -3,9 +3,13 @@ import { EyeIcon, EyeOffIcon } from "../assets/icons/Icons";
 import EditPersonalInfo from "../modals/PersonalInfoEditPopup";
 import EditAccountInfo from "../modals/AccountInfoEditPopup";
 import EditLocationInfo from "../modals/LocationInfoEditPopup";
+import ToTitle from "../components/CaseConverter";
 
 const Profile = () => {
   const [showPassword, setShowPassword] = useState(false);
+  let userItem = localStorage.getItem("user");
+  const user = userItem ? JSON.parse(userItem) : null;
+
   return (
     <div className="xs:mx-10 mx-3 bg-white rounded-xl p-5 flex flex-col gap-8">
       <div className="border-solid border-2 rounded-lg md:py-2 px-5 sm:flex justify-between items-center py-5">
@@ -17,7 +21,7 @@ const Profile = () => {
           />
           <div className="flex flex-col  justify-between p-4 leading-normal">
             <h5 className="mb-2 text-2xl font-bold tracking-tight text-text_color_1 dark:text-white">
-              Ushani Anuruddhika
+              {`${user.firstName} ${user.lastName}`}
             </h5>
             <p className="mb-1 font-normal text-text_color_2 dark:text-gray-400">
               30 years old
@@ -36,15 +40,15 @@ const Profile = () => {
         <div className="grid xs:grid-cols-2 grid-cols-1">
           <div className="text-text_color_2">
             <h5 className="">First Name</h5>
-            <p className="font-semibold mt-2 mb-4">Ushani</p>
+            <p className="font-semibold mt-2 mb-4">{ToTitle(user.firstName)}</p>
           </div>
           <div className="text-text_color_2">
             <h5 className="">Last Name</h5>
-            <p className="font-semibold mt-2 mb-4">Anuruddhika</p>
+            <p className="font-semibold mt-2 mb-4">{ToTitle(user.lastName)}</p>
           </div>
           <div className="text-text_color_2">
             <h5 className="">Email address</h5>
-            <p className="font-semibold mt-2 mb-4">ushani123@gmail.com</p>
+            <p className="font-semibold mt-2 mb-4">{user.email}</p>
           </div>
           <div className="text-text_color_2">
             <h5 className="">Phone</h5>
@@ -98,7 +102,7 @@ const Profile = () => {
         <div className="grid xs:grid-cols-2 grid-cols-1">
           <div className="text-text_color_2">
             <h5 className="">User Name</h5>
-            <p className="font-semibold mt-2 mb-4">Ushani</p>
+            <p className="font-semibold mt-2 mb-4">{ToTitle(user.firstName)}</p>
           </div>
           <div className="text-text_color_2 pr-4 xs:pr-0">
             <h5 className="">Password</h5>
