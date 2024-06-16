@@ -73,6 +73,7 @@ export class UserController {
         email: user.email,
         firstName: user.firstName,
         lastName: user.lastName,
+        role: user.role,
       };
 
       response.json({ user: userResponse, token });
