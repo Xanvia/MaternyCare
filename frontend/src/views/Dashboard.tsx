@@ -8,7 +8,9 @@ import KickCountUpdateModal from "../modals/KickCountUpdateModal";
 import HeartRateUpdate from "../modals/HeartRateUpdate";
 import WaterAmountUpdate from "../modals/WaterAmountUpdate";
 import { HeartRateContext } from "../contexts/HeartRateContextProvider";
+
 import toTitleCase from "../components/CaseConverter";
+
 
 const quotes = [
   {
