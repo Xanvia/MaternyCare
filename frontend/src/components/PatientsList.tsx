@@ -237,7 +237,7 @@ const PatientsList: React.FC = () => {
                         </div>
                         <div className="ml-3">
                           <p className="text-gray-900 whitespace-no-wrap">
-                            Vera Carpenter
+                            Vera Carpenters
                           </p>
                         </div>
                       </div>
