@@ -11,7 +11,6 @@ import { HeartRateContext } from "../contexts/HeartRateContextProvider";
 
 import toTitleCase from "../components/CaseConverter";
 
-
 const quotes = [
   {
     id: 1,
@@ -40,13 +39,11 @@ const Dashboard = () => {
   const heartRate = heartRateContext?.heartRate;
   const [random, setRandom] = useState(0);
 
-  let name = localStorage.getItem("name");
   let role = localStorage.getItem("role");
   let userItem = localStorage.getItem("user");
-  const user = userItem ? JSON.parse(userItem) : null;
-  console.log("from dash" + user);
+  const user = userItem && JSON.parse(userItem);
+  let name = user.firstName;
   if (name) {
-    name = JSON.parse(name) as string;
     name = toTitleCase(user.firstName);
   } else {
     name = role ? (JSON.parse(role) as string) : "";

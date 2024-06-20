@@ -39,7 +39,7 @@ const LoginPage: React.FC = () => {
         //   "name",
         //   JSON.stringify(response.data.user.firstName)
         // );
-        // localStorage.setItem("role", JSON.stringify(response.data.user.role));
+        localStorage.setItem("role", JSON.stringify(response.data.user.role));
         localStorage.setItem("user", JSON.stringify(response.data.user));
         localStorage.setItem("token", JSON.stringify(response.data.token));
         console.log(response.data.user.role);

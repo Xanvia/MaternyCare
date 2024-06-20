@@ -16,10 +16,16 @@ import DashboardPHM from "./views/DashboardPHM";
 import RoleContextProvider from "./contexts/RoleContextProvider";
 import { PrivateRoute } from "./components/PrivateRoute";
 import { PublicRoute } from "./components/PublicRoute";
-
+import { RoleBasedRoute } from "./components/RoleBaseRoute";
+import UnAutherized from "./views/UnAutherized";
+// import UnAutherized from "./views/UnAutherized";
 
 // You can add your routes here
 // Add a baselayout too if needed
+// let userItem = localStorage.getItem("user");
+// const user = userItem && JSON.parse(userItem);
+// // const role = user.role.toUpperCase();
+// // console.log("app role" + role);
 
 const router = createBrowserRouter([
   {
@@ -69,9 +75,9 @@ const router = createBrowserRouter([
       {
         index: true,
         element: (
-          <PrivateRoute>
-            <Dashboard />,
-          </PrivateRoute>
+          <RoleBasedRoute requiredRole="mother">
+            <Dashboard />
+          </RoleBasedRoute>
         ),
       },
     ],
@@ -83,9 +89,9 @@ const router = createBrowserRouter([
       {
         index: true,
         element: (
-          <PrivateRoute>
+          <RoleBasedRoute requiredRole="phm">
             <DashboardPHM />
-          </PrivateRoute>
+          </RoleBasedRoute>
         ),
       },
     ],
@@ -132,7 +138,7 @@ const router = createBrowserRouter([
       },
     ],
   },
-   {
+  {
     path: "/guide",
     element: <BaseLayout />,
     children: [
@@ -147,13 +153,22 @@ const router = createBrowserRouter([
       { path: "singlepost/:id", element: <SinglePost /> },
     ],
   },
-   {
+  {
     path: "/notification",
     element: <BaseLayout />,
     children: [
       {
         index: true,
         element: <Notification />,
+      },
+    ],
+  },
+  {
+    path: "/unauthorized",
+    children: [
+      {
+        index: true,
+        element: <UnAutherized />,
       },
     ],
   },

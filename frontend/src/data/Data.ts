@@ -6,11 +6,14 @@ import {
   Help,
 } from "../assets/icons/Icons";
 
+let userItem = localStorage.getItem("user");
+const user = userItem && JSON.parse(userItem);
+
 export const navLinks = [
   {
     name: "Dashboard",
     icon: DashboardIcon,
-    path: "/dashboard",
+    path: `${user.role === "mother" ? "/dashboard" : "/phmdashboard"}`,
   },
   {
     name: "Notices",
