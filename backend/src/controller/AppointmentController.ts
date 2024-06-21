@@ -2,17 +2,17 @@ import { AppDataSource } from "../data-source";
 import { NextFunction, Request, Response } from "express";
 import { Appointment } from "../entity/Appointment";
 
-export class NoticeController {
-  private noticeRepository = AppDataSource.getRepository(Appointment);
+export class AppointmentController {
+  private appointmentRepository = AppDataSource.getRepository(Appointment);
 
   async all(request: Request, response: Response, next: NextFunction) {
-    return this.noticeRepository.find();
+    return this.appointmentRepository.find();
   }
 
   async one(request: Request, response: Response, next: NextFunction) {
     const id = parseInt(request.params.id);
 
-    const appointment = await this.noticeRepository.findOne({
+    const appointment = await this.appointmentRepository.findOne({
       where: { id },
     });
 
@@ -35,19 +35,21 @@ export class NoticeController {
       phm,
     });
 
-    return this.noticeRepository.save(appointment);
+    return this.appointmentRepository.save(appointment);
   }
 
   async remove(request: Request, response: Response, next: NextFunction) {
     const id = parseInt(request.params.id);
 
-    let appointmentToRemove = await this.noticeRepository.findOneBy({ id });
+    let appointmentToRemove = await this.appointmentRepository.findOneBy({
+      id,
+    });
 
     if (!appointmentToRemove) {
       return "this appointment not exist";
     }
 
-    await this.noticeRepository.remove(appointmentToRemove);
+    await this.appointmentRepository.remove(appointmentToRemove);
 
     return "appointment has been removed";
   }
