@@ -12,6 +12,10 @@ import { jwtMiddleware } from "./middlewear/jwtMiddleware";
 import { User } from "./entity/User";
 import { RequestHandler } from "express"; // import RequestHandler from express
 // import stringify from "json-stringify-safe";
+import { AppointmentRoutes } from "./routes/appointment.routes";
+import { Appointment } from "./entity/Appointment";
+import { Mother } from "./entity/Mother";
+import { Phm } from "./entity/Phm";
 
 AppDataSource.initialize()
   .then(async () => {
@@ -29,7 +33,12 @@ AppDataSource.initialize()
     }
 
     // register express routes from defined application routes
-    const AllRoutes = [...UserRoutes, ...NoticeRoutes, ...AuthRoutes];
+    const AllRoutes = [
+      ...UserRoutes,
+      ...NoticeRoutes,
+      ...AuthRoutes,
+      ...AppointmentRoutes,
+    ];
 
     AllRoutes.forEach((route) => {
       (app as any)[route.method](
@@ -54,45 +63,48 @@ AppDataSource.initialize()
       );
     });
 
-    // AllRoutes.forEach((route) => {
-    //   (app as any)[route.method](
-    //     route.route,
-    //     ...route.middlewares,
-    //     (req: Request, res: Response, next: Function) => {
-    //       const result = new (route.controller as any)()[route.action](
-    //         req,
-    //         res,
-    //         next
-    //       );
-    //       if (result instanceof Promise) {
-    //         result.then((result) =>
-    //           result !== null && result !== undefined
-    //             ? res.send(stringify(result))
-    //             : undefined
-    //         );
-    //       } else if (result !== null && result !== undefined) {
-    //         res.json(stringify(result));
-    //       }
-    //     }
-    //   );
+    // const motherEntity1 = new Mother();
+    // await AppDataSource.manager.save(motherEntity1);
+
+    // await AppDataSource.manager.save(AppDataSource.manager.create(Mother, {}));
+
+    // const motherId = 1; // replace with actual mother ID
+    // const phmId = 1; // replace with actual PHM ID
+
+    // const motherRepository = AppDataSource.manager.getRepository(Mother);
+    // const motherEntity = await motherRepository.findOne({
+    //   where: { id: motherId },
     // });
 
-    // await AppDataSource.manager.save(
-    //   AppDataSource.manager.create(Notice, {
-    //     title: "Phantom",
-    //     subtitle: "Assassin",
-    //     message: "Test api 1",
-    //   })
+    // const phmRepository = AppDataSource.manager.getRepository(Phm);
+    // const phmEntity = await phmRepository.findOne({ where: { id: phmId } });
+
+    // const appointments = [
+    //   {
+    //     type: "prenatal",
+    //     dateRange: "[2022-01-01,2022-12-31]", // replace with actual value
+    //     checkedByMother: false,
+    //     checkedByPHM: false,
+    //     mother: motherEntity,
+    //     phm: phmEntity,
+    //   },
+    //   {
+    //     type: "postnatal",
+    //     dateRange: "[2022-01-01,2022-12-31]", // replace with actual value
+    //     checkedByMother: false,
+    //     checkedByPHM: false,
+    //     mother: motherEntity,
+    //     phm: phmEntity,
+    //   },
+    //   // add more appointment objects here
+    // ];
+
+    // const appointmentEntities = AppDataSource.manager.create(
+    //   Appointment,
+    //   appointments
     // );
 
-    // await AppDataSource.manager.save(
-    //   AppDataSource.manager.create(User, {
-    //     firstName: "Yasela",
-    //     lastName: "Dissanayake",
-    //     email: "yasela2014@gmai.com",
-    //     password: "1234",
-    //   })
-    // );
+    // await AppDataSource.manager.save(appointmentEntities);
 
     app.listen(3000);
 

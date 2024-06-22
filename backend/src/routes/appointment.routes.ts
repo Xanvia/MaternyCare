@@ -1,6 +1,6 @@
 import { AppointmentController } from "../controller/AppointmentController";
 
-export const NoticeRoutes = [
+export const AppointmentRoutes = [
   {
     method: "get",
     route: "/appointments",
