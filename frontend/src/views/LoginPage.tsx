@@ -18,6 +18,50 @@ const LoginPage: React.FC = () => {
     validationSchema: loginSchema,
     onSubmit: (values) => {
       console.log("Form data", values);
+      // try {
+      //   const response = await axios.post(
+      //     "http://localhost:3000/login/",
+      //     values,
+      //     {
+      //       headers: {
+      //         "Content-Type": "application/json",
+      //       },
+      //     }
+      //   );
+      //   console.log(response.data);
+      //   // localStorage.setItem(
+      //   //   "name",
+      //   //   JSON.stringify(response.data.user.firstName)
+      //   // );
+      //   //localStorage.setItem("role", JSON.stringify(response.data.user.role));
+      //   localStorage.setItem("user", JSON.stringify(response.data.user));
+      //   localStorage.setItem("token", JSON.stringify(response.data.token));
+      //   console.log(response.data.user.role);
+
+      //   switch (response.data.user.role) {
+      //     case "mother":
+      //       navigate("/dashboard");
+      //       break;
+      //     case "phm":
+      //       navigate("/phmdashboard");
+      //       break;
+      //     case "moh":
+      //       navigate("/phmdashboard");
+      //       break;
+      //     default:
+      //       navigate("/dashboard");
+      //   }
+
+      //   // Handle successful login here
+      // } catch (error) {
+      //   console.error(error);
+      //   // Handle errors here
+      //   if ((error as any).response && (error as any).response.status === 401) {
+      //     toast.error("Credentials don't match");
+      //   } else {
+      //     toast.error("An error occured");
+      //   }
+      // }
     },
   });
 
