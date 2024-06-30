@@ -16,6 +16,12 @@ export class Mother {
   id: number;
 
   @Column({ type: 'int' })
+  phmId: number;
+
+  @Column({ type: 'int' })
+  mohId: number;
+
+  @Column({ type: 'int' })
   age: number;
 
   @Column({ type: 'varchar', length: 255 })
@@ -41,9 +47,6 @@ export class Mother {
 
   @Column({ type: 'boolean' })
   isVerified: boolean;
-
-  @Column({ type: 'varchar', length: 255 })
-  checkup: string;
 
   @Column({ type: 'int' })
   fetal_age: number;
@@ -75,6 +78,9 @@ export class Mother {
   @Column({ type: 'int' })
   mother_height: number;
 
+  @Column({ type: 'int', array: true })
+  appointment: number[];
+
   @Column({ type: 'text' })
   mother_blood_type: string;
 
@@ -86,6 +92,7 @@ export class Mother {
 
   @Column({ type: 'enum', enum: ['male', 'female'] })
   baby_gender: 'male' | 'female';
+
 
   @OneToMany(() => Appointment, (appointment) => appointment.mother)
   appointments: Appointment[];
