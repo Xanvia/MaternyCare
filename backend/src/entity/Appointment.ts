@@ -1,6 +1,7 @@
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from "typeorm";
 import { Mother } from "./Mother";
 import { Phm } from "./Phm";
+import { Moh } from "./Moh";
 
 @Entity()
 export class Appointment {
@@ -24,4 +25,7 @@ export class Appointment {
 
   @ManyToOne(() => Phm, (phm) => phm.appointments)
   phm: Phm;
+
+  @ManyToOne(() => Moh, (moh) => moh.appointments)
+  moh: Moh;
 }
