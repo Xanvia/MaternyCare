@@ -1,6 +1,7 @@
 import { Entity, PrimaryGeneratedColumn, Column, OneToOne } from "typeorm";
 import { Mother } from "./Mother";
 import { Phm } from "./Phm";
+import { Moh } from "./Moh";
 
 export enum UserRole {
   ADMIN = "admin",
@@ -47,6 +48,12 @@ export class User {
     onDelete: "CASCADE",
   })
   phm: Phm;
+
+  @OneToOne(() => Moh, (moh) => moh.user, {
+    nullable: true,
+    onDelete: "CASCADE",
+  })
+  moh: Moh;
 
   // toJSON() {
   //   return {
