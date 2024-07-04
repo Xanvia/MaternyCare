@@ -8,6 +8,7 @@ import {
 } from "typeorm";
 import { Appointment } from "./Appointment";
 import { User } from "./User";
+import { FieldArea } from "./FieldArea";
 
 @Entity()
 export class Phm {
@@ -22,9 +23,6 @@ export class Phm {
 
   @Column({ type: 'varchar', length: 255 })
   nic: string;
-
-  // @Column({ type: 'int' })
-  // fieldArea_id: number;
 
   @Column({ type: 'boolean' })
   isVisited: boolean;
@@ -47,4 +45,8 @@ export class Phm {
   @OneToOne(() => User, (user) => user.phm)
   @JoinColumn()
   user: User;
+
+  @OneToOne(() => FieldArea, (fielaArea) => fielaArea.id)
+  @JoinColumn()
+  fielaArea: FieldArea;
 }
