@@ -8,7 +8,7 @@ import { Mother } from "./Mother";
 import { Phm } from "./Phm";
   
   @Entity()
-  export class FieldArea {
+  export class Feedback {
     @PrimaryGeneratedColumn()
     id: number;
 
