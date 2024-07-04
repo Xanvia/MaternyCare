@@ -9,6 +9,7 @@ import {
 import { Appointment } from "./Appointment";
 import { User } from "./User";
 import { FieldArea } from "./FieldArea";
+import { Feedback } from "./Feedback";
 
 @Entity()
 export class Phm {
@@ -41,6 +42,9 @@ export class Phm {
 
   @OneToMany(() => Appointment, (appointment) => appointment.phm)
   appointments: Appointment[];
+
+  @OneToMany(() => Feedback, (feedback) => feedback.phm)
+  feedbacks: Feedback[];
 
   @OneToOne(() => User, (user) => user.phm)
   @JoinColumn()

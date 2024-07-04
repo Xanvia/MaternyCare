@@ -9,6 +9,7 @@ import {
 } from "typeorm";
 import { Appointment } from "./Appointment";
 import { User } from "./User";
+import { Feedback } from "./Feedback";
 
 
 @Entity()
@@ -97,6 +98,9 @@ export class Mother {
 
   @OneToMany(() => Appointment, (appointment) => appointment.mother)
   appointments: Appointment[];
+
+  @OneToMany(() => Feedback, (feedback) => feedback.mother)
+  feedbacks: Feedback[];
 
   @OneToOne(() => User, (user) => user.mother)
   @JoinColumn()
