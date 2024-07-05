@@ -11,7 +11,6 @@ import { Appointment } from "./Appointment";
 import { User } from "./User";
 import { Feedback } from "./Feedback";
 
-
 @Entity()
 export class Mother {
   @PrimaryGeneratedColumn()
@@ -92,6 +91,26 @@ export class Mother {
   @Column({ type: 'enum', enum: ['male', 'female'] })
   baby_gender: 'male' | 'female';
 
+  @Column({ type: 'varchar', length: 255 })
+  allergies: string;
+
+  @Column({ type: 'varchar', length: 255 })
+  phm_area: string;
+
+  @Column({ type: 'varchar', length: 255 })
+  moh_area: string;
+
+  @Column({ type: 'varchar', length: 255 })
+  field_clinic: string;
+
+  @Column({ type: 'varchar', length: 255 })
+  hospital_clinic: string;
+
+  @Column({ type: 'varchar', length: 255 })
+  consultant_obstetrician: string;
+
+  @Column({ type: 'varchar', length: 255 })
+  antenatal_risk_conditions: string;
 
   @OneToMany(() => Appointment, (appointment) => appointment.mother)
   appointments: Appointment[];
