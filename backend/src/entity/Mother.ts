@@ -47,9 +47,6 @@ export class Mother {
   @Column({ type: 'varchar', length: 50 })
   hospital_id: string;
 
-  @Column({ type: 'boolean' })
-  isVerified: boolean;
-
   @Column({ type: 'int' })
   fetal_age: number;
 
