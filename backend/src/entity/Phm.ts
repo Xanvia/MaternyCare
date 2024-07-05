@@ -25,9 +25,6 @@ export class Phm {
   @Column({ type: 'varchar', length: 255 })
   nic: string;
 
-  @Column({ type: 'boolean' })
-  isVisited: boolean;
-
   @Column({ type: 'int' })
   mother_count: number;
 

@@ -26,9 +26,6 @@ export class Moh {
   @Column()
   mohArea: string;
 
-  @Column({ default: false })
-  isVisited: boolean;
-
   @Column()
   motherCount: number;
 
