@@ -112,6 +112,57 @@ export class Mother {
   @Column({ type: 'varchar', length: 255 })
   antenatal_risk_conditions: string;
 
+  @Column({ type: 'varchar', length: 255 })
+  eligible_family_register: string;
+
+  @Column({ type: 'varchar', length: 255 })
+  pregnant_mother_register: string;
+
+  @Column({ type: 'boolean' })
+  consanguinity: boolean;
+
+  @Column({ type: 'boolean' })
+  rubella_immunization: boolean;
+
+  @Column({ type: 'boolean' })
+  pre_pregnancy_screening: boolean;
+
+  @Column({ type: 'boolean' })
+  preconceptional_folic_acid: boolean;
+
+  @Column({ type: 'boolean' })
+  history_of_subfertility: boolean;
+
+  @Column({ type: 'boolean' })
+  planned_pregnancy: boolean;
+
+  @Column({ type: 'varchar', length: 255 })
+  last_family_planing_method: string;
+
+  @Column({ type: 'int' })
+  gravidity: number;
+
+  @Column({ type: 'int' })
+  age_of_youngest_child: number;
+
+  @Column({ type: 'date' })
+  LRMP: Date;
+
+  @Column({ type: 'date' })
+  EDD: Date;
+
+  @Column({ type: 'date' })
+  US_corrected_EDD: Date;
+
+  @Column({ type: 'varchar', length: 255 })
+  POA_at_dating_scan: string;
+
+  @Column({ type: 'date' })
+  date_of_quickening: Date;
+
+  @Column({ type: 'varchar', length: 255 })
+  POA_at_registration: string;
+
   @OneToMany(() => Appointment, (appointment) => appointment.mother)
   appointments: Appointment[];
 
