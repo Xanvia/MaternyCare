@@ -163,6 +163,24 @@ export class Mother {
   @Column({ type: 'varchar', length: 255 })
   POA_at_registration: string;
 
+  @Column({ type: 'varchar', length: 255 })
+  Respiratory_system: string;
+
+  @Column({ type: 'varchar', length: 255 })
+  Breast_examination: string;
+
+  @Column({ type: 'varchar', length: 255 })
+  Anthelmintic_drugs: string;
+
+  @Column({ type: 'date' })
+  Date_of_issuing_kick_count_chart: Date;
+
+  @Column({ type: 'date' })
+  Date_of_taking_blood_sample_for_HIV_screening: Date;
+
+  @Column({ type: 'date' })
+  Date_of_result_informed_to_mother: Date;
+
   @OneToMany(() => Appointment, (appointment) => appointment.mother)
   appointments: Appointment[];
 
