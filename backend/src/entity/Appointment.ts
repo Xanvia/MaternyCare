@@ -8,8 +8,8 @@ export class Appointment {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
-  type: string; // prenatal or postnatal
+  @Column({ type: 'enum', enum: ['prenatal', 'postnatal'] })
+  appointment_type: 'prenatal' | 'postnatal'; // Enum type for appointment
 
   @Column("daterange")
   dateRange: string; // PostgreSQL daterange type
