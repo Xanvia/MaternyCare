@@ -173,9 +173,6 @@ export class Mother {
   Anthelmintic_drugs: string;
 
   @Column({ type: 'date' })
-  Date_of_issuing_kick_count_chart: Date;
-
-  @Column({ type: 'date' })
   Date_of_taking_blood_sample_for_HIV_screening: Date;
 
   @Column({ type: 'date' })
