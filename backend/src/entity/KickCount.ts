@@ -5,7 +5,7 @@ import {
   } from "typeorm";
   
   @Entity()
-  export class Location {
+  export class KickCount {
     @PrimaryGeneratedColumn()
     id: number;
   
