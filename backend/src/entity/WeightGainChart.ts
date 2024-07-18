@@ -1,7 +1,7 @@
 import { Entity, PrimaryGeneratedColumn, Column } from "typeorm";
 
 @Entity()
-export class MedicalRecord {
+export class WeightGainChart {
   @PrimaryGeneratedColumn()
   id: number;
 

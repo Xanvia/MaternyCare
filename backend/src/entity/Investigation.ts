@@ -5,7 +5,7 @@ import {
   } from "typeorm";
   
   @Entity()
-  export class FieldArea {
+  export class Investigation {
     @PrimaryGeneratedColumn()
     id: number;
   

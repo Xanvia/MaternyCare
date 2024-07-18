@@ -5,7 +5,7 @@ import {
   } from "typeorm";
   
   @Entity()
-  export class Location {
+  export class SyphilisScreening {
     @PrimaryGeneratedColumn()
     id: number;
   
