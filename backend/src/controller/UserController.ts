@@ -53,7 +53,17 @@ export class UserController {
   //   return { user: savedUser, token };
   // }
   async createUser(request: Request, response: Response, next: NextFunction) {
-    const { firstName, lastName, email, password, role } = request.body;
+    const {
+      firstName,
+      lastName,
+      email,
+      password,
+      role,
+      isVerified,
+      mother,
+      phm,
+      moh,
+    } = request.body;
 
     try {
       // Hash the password
@@ -65,7 +75,11 @@ export class UserController {
         lastName,
         email,
         password: hashedPassword,
+        isVerified,
         role,
+        mother,
+        phm,
+        moh,
       });
       const savedUser = await this.userRepository.save(user);
 
