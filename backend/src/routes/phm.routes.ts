@@ -1,4 +1,5 @@
 import { PhmController } from "../controller/PhmController";
+import { jwtMiddleware } from "../middlewear/jwtMiddleware";
 
 export const PhmRoutes = [
   {
@@ -6,27 +7,27 @@ export const PhmRoutes = [
     route: "/users/phms",
     controller: PhmController,
     action: "all",
-    middlewares: [],
+    middlewares: [jwtMiddleware],
   },
   {
     method: "get",
     route: "/users/phms/:id",
     controller: PhmController,
     action: "one",
-    middlewares: [],
+    middlewares: [jwtMiddleware],
   },
   {
     method: "post",
     route: "/users/phms",
     controller: PhmController,
     action: "save",
-    middlewares: [],
+    middlewares: [jwtMiddleware],
   },
   {
     method: "delete",
     route: "/users/phms/:id",
     controller: PhmController,
     action: "remove",
-    middlewares: [],
+    middlewares: [jwtMiddleware],
   },
 ];
