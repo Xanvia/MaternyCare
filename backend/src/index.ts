@@ -6,6 +6,7 @@ import { UserRoutes } from "./routes/user.routes";
 import { NoticeRoutes } from "./routes/notice.routes";
 import { AuthRoutes } from "./routes/auth.routes";
 import { AppointmentRoutes } from "./routes/appointment.routes";
+import { PhmRoutes } from "./routes/phm.routes";
 // import * as cors from "cors"; // import cors
 import { RequestHandler } from "express"; // import RequestHandler from express
 import { User, UserRole } from "./entity/User";
@@ -36,6 +37,7 @@ AppDataSource.initialize()
       ...NoticeRoutes,
       ...AuthRoutes,
       ...AppointmentRoutes,
+      ...PhmRoutes,
     ];
 
     AllRoutes.forEach((route) => {
