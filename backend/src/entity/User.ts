@@ -1,4 +1,10 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToOne } from "typeorm";
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  OneToOne,
+  JoinColumn,
+} from "typeorm";
 import { Mother } from "./Mother";
 import { Phm } from "./Phm";
 import { Moh } from "./Moh";
@@ -41,27 +47,20 @@ export class User {
     nullable: true,
     onDelete: "CASCADE",
   })
+  @JoinColumn()
   mother: Mother;
 
   @OneToOne(() => Phm, (phm) => phm.user, {
     nullable: true,
     onDelete: "CASCADE",
   })
+  @JoinColumn()
   phm: Phm;
 
   @OneToOne(() => Moh, (moh) => moh.user, {
     nullable: true,
     onDelete: "CASCADE",
   })
+  @JoinColumn()
   moh: Moh;
-
-  // toJSON() {
-  //   return {
-  //     id: this.id,
-  //     firstName: this.firstName,
-  //     lastName: this.lastName,
-  //     email: this.email,
-  //     role: this.role,
-  //   };
-  // }
 }

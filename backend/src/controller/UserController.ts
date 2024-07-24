@@ -1,13 +1,20 @@
 import { AppDataSource } from "../data-source";
 import { NextFunction, Request, Response } from "express";
-import { User } from "../entity/User";
+import { User, UserRole } from "../entity/User";
 import * as bcrypt from "bcrypt";
 import * as jwt from "jsonwebtoken";
 import * as dotenv from "dotenv";
+import { Phm } from "../entity/Phm";
+import { Moh } from "../entity/Moh";
+import { Mother } from "../entity/Mother";
 
 dotenv.config();
 export class UserController {
+  // private userRepository = AppDataSource.getRepository(User);
   private userRepository = AppDataSource.getRepository(User);
+  private phmRepository = AppDataSource.getRepository(Phm);
+  private mohRepository = AppDataSource.getRepository(Moh);
+  private motherRepository = AppDataSource.getRepository(Mother);
 
   async getAllUsers(request: Request, response: Response, next: NextFunction) {
     return this.userRepository.find();
@@ -26,24 +33,69 @@ export class UserController {
     return user;
   }
 
+  // async createUser(request: Request, response: Response, next: NextFunction) {
+  //   const { firstName, lastName, email, password, role } = request.body;
+
+  //   const hashedPassword = await bcrypt.hash(password, 10);
+
+  //   const user = Object.assign(new User(), {
+  //     firstName,
+  //     lastName,
+  //     email,
+  //     password: hashedPassword,
+  //     role,
+  //   });
+
+  //   const savedUser = await this.userRepository.save(user);
+
+  //   const token = jwt.sign({ userId: savedUser.id }, process.env.JWT_SECRET);
+
+  //   return { user: savedUser, token };
+  // }
   async createUser(request: Request, response: Response, next: NextFunction) {
     const { firstName, lastName, email, password, role } = request.body;
 
-    const hashedPassword = await bcrypt.hash(password, 10);
+    try {
+      // Hash the password
+      const hashedPassword = await bcrypt.hash(password, 10);
 
-    const user = Object.assign(new User(), {
-      firstName,
-      lastName,
-      email,
-      password: hashedPassword,
-      role,
-    });
+      // Create and save the user
+      const user = Object.assign(new User(), {
+        firstName,
+        lastName,
+        email,
+        password: hashedPassword,
+        role,
+      });
+      const savedUser = await this.userRepository.save(user);
 
-    const savedUser = await this.userRepository.save(user);
+      // Create role-specific entity if needed
+      if (role === UserRole.PHM) {
+        const phm = new Phm();
+        phm.user = savedUser;
+        // Set other PHM-specific fields here
+        await this.phmRepository.save(phm);
+      } else if (role === UserRole.MOH) {
+        const moh = new Moh();
+        moh.user = savedUser;
+        // Set other MOH-specific fields here
+        await this.mohRepository.save(moh);
+      } else if (role === UserRole.MOTHER) {
+        const mother = new Mother();
+        mother.user = savedUser;
+        // Set other Mother-specific fields here
+        await this.motherRepository.save(mother);
+      }
 
-    const token = jwt.sign({ userId: savedUser.id }, process.env.JWT_SECRET);
+      // Generate a JWT
+      const token = jwt.sign({ userId: savedUser.id }, process.env.JWT_SECRET!);
 
-    return { user: savedUser, token };
+      // Return user and token
+      return response.status(201).json({ user: savedUser, token });
+    } catch (error) {
+      console.error("Error creating user:", error);
+      return response.status(500).json({ message: "Internal server error" });
+    }
   }
 
   async login(request: Request, response: Response, next: NextFunction) {

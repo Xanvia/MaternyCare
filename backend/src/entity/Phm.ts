@@ -16,25 +16,25 @@ export class Phm {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ type: 'int' })
+  @Column({ type: "int", nullable: true })
   phone_number: number;
 
-  @Column({ type: 'int' })
+  @Column({ type: "int", nullable: true })
   phm_id: number;
 
-  @Column({ type: 'varchar', length: 255 })
+  @Column({ type: "varchar", length: 255, nullable: true })
   nic: string;
 
-  @Column({ type: 'int' })
+  @Column({ type: "int", nullable: true })
   mother_count: number;
 
-  @Column({ type: 'int' })
+  @Column({ type: "int", nullable: true })
   baby_count: number;
 
-  @Column({ type: 'int' })
+  @Column({ type: "int", nullable: true })
   star_points: number;
 
-  @Column({ type: 'boolean' })
+  @Column({ type: "boolean", nullable: true })
   isVerified: boolean;
 
   @OneToMany(() => Appointment, (appointment) => appointment.phm)
