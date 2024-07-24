@@ -3,12 +3,12 @@ import { NextFunction, Request, Response } from "express";
 import { User, UserRole } from "../entity/User";
 import * as bcrypt from "bcrypt";
 import * as jwt from "jsonwebtoken";
-import * as dotenv from "dotenv";
+// import * as dotenv from "dotenv";
 import { Phm } from "../entity/Phm";
 import { Moh } from "../entity/Moh";
 import { Mother } from "../entity/Mother";
 
-dotenv.config();
+// dotenv.config();
 export class UserController {
   // private userRepository = AppDataSource.getRepository(User);
   private userRepository = AppDataSource.getRepository(User);
@@ -53,17 +53,8 @@ export class UserController {
   //   return { user: savedUser, token };
   // }
   async createUser(request: Request, response: Response, next: NextFunction) {
-    const {
-      firstName,
-      lastName,
-      email,
-      password,
-      role,
-      isVerified,
-      mother,
-      phm,
-      moh,
-    } = request.body;
+    const { firstName, lastName, email, password, role, isVerified } =
+      request.body;
 
     try {
       // Hash the password
@@ -77,38 +68,35 @@ export class UserController {
         password: hashedPassword,
         isVerified,
         role,
-        mother,
-        phm,
-        moh,
       });
       const savedUser = await this.userRepository.save(user);
 
-      // Create role-specific entity if needed
-      if (role === UserRole.PHM) {
-        const phm = new Phm();
-        phm.user = savedUser;
-        // Set other PHM-specific fields here
-        await this.phmRepository.save(phm);
-      } else if (role === UserRole.MOH) {
-        const moh = new Moh();
-        moh.user = savedUser;
-        // Set other MOH-specific fields here
-        await this.mohRepository.save(moh);
-      } else if (role === UserRole.MOTHER) {
-        const mother = new Mother();
-        mother.user = savedUser;
-        // Set other Mother-specific fields here
-        await this.motherRepository.save(mother);
-      }
+      // // Create role-specific entity if needed
+      // if (role === UserRole.PHM) {
+      //   const phm = new Phm();
+      //   phm.user = savedUser;
+      //   // Set other PHM-specific fields here
+      //   await this.phmRepository.save(phm);
+      // } else if (role === UserRole.MOH) {
+      //   const moh = new Moh();
+      //   //  user.moh = savedUser;
+      //   // Set other MOH-specific fields here
+      //   await this.mohRepository.save(moh);
+      // } else if (role === UserRole.MOTHER) {
+      //   const mother = new Mother();
+      //   //  user.mother = savedUser;
+      //   // Set other Mother-specific fields here
+      //   await this.motherRepository.save(mother);
+      // }
 
       // Generate a JWT
       const token = jwt.sign({ userId: savedUser.id }, process.env.JWT_SECRET!);
 
       // Return user and token
-      return response.status(201).json({ user: savedUser, token });
+      response.send({ user: savedUser, token });
     } catch (error) {
       console.error("Error creating user:", error);
-      return response.status(500).json({ message: "Internal server error" });
+      response.status(500).json({ message: "Internal server error" });
     }
   }
 

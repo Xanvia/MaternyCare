@@ -31,10 +31,6 @@ export class PhmController {
       baby_count,
       star_points,
       isVerified,
-      appointments,
-      feedbacks,
-      user,
-      fielaArea,
     } = request.body;
 
     const phm = Object.assign(new Phm(), {
@@ -45,10 +41,7 @@ export class PhmController {
       baby_count,
       star_points,
       isVerified,
-      appointments,
-      feedbacks,
-      user,
-      fielaArea,
+      user: request.user,
     });
 
     return this.phmRepository.save(phm);

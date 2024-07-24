@@ -14,31 +14,27 @@ export class Moh {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
+  @Column({ nullable: true })
   phone: number;
 
-  @Column()
+  @Column({ nullable: true })
   mohId: string;
 
-  @Column()
+  @Column({ nullable: true })
   nic: string;
 
-  @Column()
+  @Column({ nullable: true })
   mohArea: string;
 
-  @Column()
+  @Column({ nullable: true })
   motherCount: number;
 
-  @Column()
+  @Column({ nullable: true })
   babyCount: number;
 
-  @Column()
+  @Column({ nullable: true })
   starPoints: number;
 
-  @OneToMany(() => Appointment, (appointment) => appointment.moh)
-  appointments: Appointment[];
-
-  @OneToOne(() => User, (user) => user.moh)
-  @JoinColumn()
-  user: User;
+  // @OneToMany(() => Appointment, (appointment) => appointment.moh)
+  // appointments: Appointment[];
 }

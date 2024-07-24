@@ -6,11 +6,14 @@ import { UserRoutes } from "./routes/user.routes";
 import { NoticeRoutes } from "./routes/notice.routes";
 import { AuthRoutes } from "./routes/auth.routes";
 import { AppointmentRoutes } from "./routes/appointment.routes";
-import * as cors from "cors"; // import cors
+// import * as cors from "cors"; // import cors
 import { RequestHandler } from "express"; // import RequestHandler from express
 import { User, UserRole } from "./entity/User";
 import { Moh } from "./entity/Moh";
 import { Appointment } from "./entity/Appointment";
+
+const cors = require("cors");
+require("dotenv").config();
 
 AppDataSource.initialize()
   .then(async () => {
@@ -64,43 +67,6 @@ AppDataSource.initialize()
         }
       );
     });
-
-    // // Create User, Moh, and Appointment tables
-    // const userRepository = AppDataSource.getRepository(User);
-    // const mohRepository = AppDataSource.getRepository(Moh);
-
-    // // Creating sample user and moh data
-    // const user = new User();
-    // user.firstName = "Sahan";
-    // user.lastName = "Maleesha";
-    // user.email = "sahan.doe@example.com";
-    // user.password = "securepassword2";
-    // user.isVerified = true;
-    // user.role = UserRole.MOH; // or any valid role
-
-    // const moh = new Moh();
-    // moh.phone = 1234567793;
-    // moh.mohId = "MOH002";
-    // moh.nic = "1234567892V";
-    // moh.mohArea = "Area 2";
-    // moh.motherCount = 1;
-    // moh.babyCount = 1;
-    // moh.starPoints = 0;
-    // moh.user = user;
-
-    // await userRepository.save(user);
-    // await mohRepository.save(moh);
-
-    // // Creating a sample appointment
-    // const appointment = new Appointment();
-    // appointment.appointment_type = "prenatal";
-    // appointment.dateRange = "[2022-01-01,2022-12-31]"; // replace with actual value
-    // appointment.checkedByMother = false;
-    // appointment.checkedByPHM = false;
-    // appointment.moh = moh;
-
-    // const appointmentRepository = AppDataSource.getRepository(Appointment);
-    // await appointmentRepository.save(appointment);
 
     app.listen(3000, () => {
       console.log("Express server has started on port 3000");

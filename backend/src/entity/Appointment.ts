@@ -8,8 +8,8 @@ export class Appointment {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ type: 'enum', enum: ['prenatal', 'postnatal'] })
-  appointment_type: 'prenatal' | 'postnatal'; // Enum type for appointment
+  @Column({ type: "enum", enum: ["prenatal", "postnatal"] })
+  appointment_type: "prenatal" | "postnatal"; // Enum type for appointment
 
   @Column("daterange")
   dateRange: string; // PostgreSQL daterange type
@@ -20,12 +20,12 @@ export class Appointment {
   @Column({ default: false })
   checkedByPHM: boolean;
 
-  @ManyToOne(() => Mother, (mother) => mother.appointments)
-  mother: Mother;
+  // @ManyToOne(() => Mother, (mother) => mother.appointments)
+  // mother: Mother;
 
-  @ManyToOne(() => Phm, (phm) => phm.appointments)
-  phm: Phm;
+  // @ManyToOne(() => Phm, (phm) => phm.appointments)
+  // phm: Phm;
 
-  @ManyToOne(() => Moh, (moh) => moh.appointments)
-  moh: Moh;
+  // @ManyToOne(() => Moh, (moh) => moh.appointments)
+  // moh: Moh;
 }
