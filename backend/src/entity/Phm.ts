@@ -34,20 +34,20 @@ export class Phm {
   @Column({ type: "int", nullable: true })
   star_points: number;
 
-  @Column({ type: "boolean", nullable: true })
-  isVerified: boolean;
+  // @OneToMany(() => Appointment, (appointment) => appointment.phm)
+  // appointments: Appointment[];
 
-  @OneToMany(() => Appointment, (appointment) => appointment.phm)
-  appointments: Appointment[];
+  // @OneToMany(() => Feedback, (feedback) => feedback.phm)
+  // feedbacks: Feedback[];
 
-  @OneToMany(() => Feedback, (feedback) => feedback.phm)
-  feedbacks: Feedback[];
+  // @OneToOne(() => FieldArea, (fielaArea) => fielaArea.id)
+  // @JoinColumn()
+  // fielaArea: FieldArea;
 
-  @OneToOne(() => User, (user) => user.phm)
+  @OneToOne(() => User, {
+    nullable: true,
+    onDelete: "CASCADE",
+  })
   @JoinColumn()
   user: User;
-
-  @OneToOne(() => FieldArea, (fielaArea) => fielaArea.id)
-  @JoinColumn()
-  fielaArea: FieldArea;
 }

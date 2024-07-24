@@ -42,25 +42,4 @@ export class User {
     default: UserRole.MOTHER,
   })
   role: UserRole;
-
-  @OneToOne(() => Mother, (mother) => mother.user, {
-    nullable: true,
-    onDelete: "CASCADE",
-  })
-  @JoinColumn()
-  mother: Mother;
-
-  @OneToOne(() => Phm, (phm) => phm.user, {
-    nullable: true,
-    onDelete: "CASCADE",
-  })
-  @JoinColumn()
-  phm: Phm;
-
-  @OneToOne(() => Moh, (moh) => moh.user, {
-    nullable: true,
-    onDelete: "CASCADE",
-  })
-  @JoinColumn()
-  moh: Moh;
 }

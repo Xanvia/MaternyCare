@@ -1,25 +1,18 @@
-import {
-    Entity,
-    PrimaryGeneratedColumn,
-    Column,
-    ManyToOne,
-  } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from "typeorm";
 import { Mother } from "./Mother";
 import { Phm } from "./Phm";
-  
-  @Entity()
-  export class Feedback {
-    @PrimaryGeneratedColumn()
-    id: number;
 
-    @ManyToOne(() => Mother, (mother) => mother.feedbacks)
-    mother: Mother;
+@Entity()
+export class Feedback {
+  @PrimaryGeneratedColumn()
+  id: number;
 
-    @ManyToOne(() => Phm, (phm) => phm.feedbacks)
-    phm: Phm;
+  // @ManyToOne(() => Mother, (mother) => mother.feedbacks)
+  // mother: Mother;
 
-    @Column({ type: 'varchar', length: 255 })
-    content: string;
+  // @ManyToOne(() => Phm, (phm) => phm.feedbacks)
+  // phm: Phm;
 
-  }
-  
+  @Column({ type: "varchar", length: 255 })
+  content: string;
+}
