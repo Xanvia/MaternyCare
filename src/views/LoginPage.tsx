@@ -2,35 +2,31 @@ import React from "react";
 import { useFormik } from "formik";
 import logo from "../assets/images/logo.png";
 import { loginSchema } from "../schemas/Schemas";
-//import { ErrorIcon } from "../assets/icons/Icons";
+import { ErrorIcon } from "../assets/icons/Icons";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 interface FormValues {
-  FirstName: string;
-  LastName: string;
-  ContactNo:string;
-  ContactNo1:string;
+  email: string;
+  password: string;
 }
 
-const Registration: React.FC = () => {
+const LoginPage: React.FC = () => {
   const navigate = useNavigate();
 
   const formik = useFormik<FormValues>({
     initialValues: {
-      FirstName: "",
-      LastName: "",
-      ContactNo: "",
-      ContactNo1: "",
+      email: "",
+      password: "",
     },
     validationSchema: loginSchema,
     onSubmit: async (values) => {
       console.log("Form data", values);
       try {
         const response = await axios.post(
-          "http://localhost:3000/Registration/",
+          "http://localhost:3000/login/",
           values,
           {
             headers: {
@@ -91,92 +87,74 @@ const Registration: React.FC = () => {
         <header className="text-blue_primary lg:text-4xl ss:text-4xl text-2xl lg:mb-8 mb-6">
           Materny<span className="text-pink_primary">Care</span>
         </header>
-        
-        {/* add progressBar */ }
-
         <div className="w-full flex flex-col items-center lg:mb-9 mb-4">
           <input
             className={`shadow appearance-none rounded-b-xl py-4 px-4 w-11/12 lg:w-5/12 sm:w-8/12 ss:w-10/12 text-gray-700 leading-tight focus:shadow-outline 
             lg:text-lg md:text-base sm:text-base text-sm
           ${
-            formik.touched.FirstName && formik.errors.FirstName
+            formik.touched.email && formik.errors.email
               ? "border-solid border-red-500"
               : "border-none"
           }`}
-            value={formik.values.FirstName}
-            placeholder="First Name"
-            id="FirstName"
-            name="FirstName"
-            type="Text"
+            value={formik.values.email}
+            placeholder="Email"
+            id="email"
+            name="email"
+            type="email"
             onChange={formik.handleChange}
           />
+          {/* Display error message with icon */}
+          <div className="w-11/12 lg:w-5/12 sm:w-8/12 ss:w-10/12 mb-2 flex flex-col items-start mt-1">
+            {formik.touched.email && formik.errors.email ? (
+              <div className="text-red-500 text-xs">
+                {" "}
+                <ErrorIcon /> {formik.errors.email}
+              </div>
+            ) : null}
           </div>
-
+        </div>
         <div className="w-full mb-4 flex flex-col items-center">
           <input
             className={`shadow appearance-none rounded-b-xl py-4 px-4 w-11/12 lg:w-5/12 sm:w-8/12 ss:w-10/12	 text-gray-700 leading-tight  focus:shadow-outline 
             lg:text-lg md:text-base sm:text-base text-sm
           ${
-            formik.touched.LastName && formik.errors.LastName
+            formik.touched.password && formik.errors.password
               ? "border-solid border-red-500"
               : "border-none"
           }`}
-            value={formik.values.LastName}
-            placeholder="Last Name"
-            id="LastName"
-            name="LastName"
-            type="Text"
+            value={formik.values.password}
+            placeholder="Password"
+            id="password"
+            name="password"
+            type="password"
             onChange={formik.handleChange}
           />
-        
-        <div className="w-full mb-4 flex flex-col items-center">
-          <input
-            className={`shadow appearance-none rounded-b-xl py-4 px-4 w-11/12 lg:w-5/12 sm:w-8/12 ss:w-10/12 text-gray-700 leading-tight focus:shadow-outline 
-            lg:text-lg md:text-base sm:text-base text-sm
-          ${
-            formik.touched.ContactNo && formik.errors.ContactNo
-              ? "border-solid border-red-500"
-              : "border-none"
-          }`}
-            value={formik.values.ContactNo}
-            placeholder="Contact Number"
-            id="ContactNo"
-            name="ContactNo"
-            type="Text"
-            onChange={formik.handleChange}
-          />
+          <div className="w-11/12 lg:w-5/12 sm:w-8/12 ss:w-10/12 mb-2 flex flex-col items-start mt-1">
+            {formik.touched.password && formik.errors.password ? (
+              <div className="text-red-500 text-xs">
+                <ErrorIcon />
+                {formik.errors.password}
+              </div>
+            ) : null}
           </div>
-          
-          <div className="w-full mb-4 flex flex-col items-center">
-          <input
-            className={`shadow appearance-none rounded-b-xl py-4 px-4 w-11/12 lg:w-5/12 sm:w-8/12 ss:w-10/12 text-gray-700 leading-tight focus:shadow-outline 
-            lg:text-lg md:text-base sm:text-base text-sm
-          ${
-            formik.touched.ContactNo1 && formik.errors.ContactNo1
-              ? "border-solid border-red-500"
-              : "border-none"
-          }`}
-            value={formik.values.ContactNo1}
-            placeholder="Contact Number another"
-            id="ContactNo1"
-            name="ContactNo1"
-            type="Text"
-            onChange={formik.handleChange}
-          />
-          </div>
-
         </div>
-
+        <div className="w-11/12 lg:w-5/12 sm:w-8/12 ss:w-10/12 mb-4 flex flex-row justify-between">
+          <a href="" className="text-[#838383] text-xs ">
+            Forgot Password?
+          </a>
+          <a href="" className="text-[#838383] text-xs ">
+            Don't have an account? Sign Up
+          </a>
+        </div>
         <button
           className={`py-5 rounded-xl w-11/12 lg:w-5/12 sm:w-8/12 ss:w-10/12 text-white h-16 bg-blue_primary hover:bg-[#33C2FF] lg:text-lg md:text-lg sm:text-small text-small`}
           type="submit"
         >
-          Next
+          Login
         </button>
-        
       </form>
     </div>
   );
 };
 
-export default Registration;
+export default LoginPage;
