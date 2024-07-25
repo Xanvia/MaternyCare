@@ -135,7 +135,7 @@ const LoginPage: React.FC = () => {
                 <ErrorIcon />
                 {formik.errors.password}
               </div>
-            ) : null}
+            ) : null} 
           </div>
         </div>
         <div className="w-11/12 lg:w-5/12 sm:w-8/12 ss:w-10/12 mb-4 flex flex-row justify-between">
