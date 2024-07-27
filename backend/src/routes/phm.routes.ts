@@ -7,7 +7,7 @@ export const PhmRoutes = [
     route: "/users/phms",
     controller: PhmController,
     action: "all",
-    middlewares: [jwtMiddleware],
+    middlewares: [],
   },
   {
     method: "get",
