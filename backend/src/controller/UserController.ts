@@ -71,24 +71,6 @@ export class UserController {
       });
       const savedUser = await this.userRepository.save(user);
 
-      // // Create role-specific entity if needed
-      // if (role === UserRole.PHM) {
-      //   const phm = new Phm();
-      //   phm.user = savedUser;
-      //   // Set other PHM-specific fields here
-      //   await this.phmRepository.save(phm);
-      // } else if (role === UserRole.MOH) {
-      //   const moh = new Moh();
-      //   //  user.moh = savedUser;
-      //   // Set other MOH-specific fields here
-      //   await this.mohRepository.save(moh);
-      // } else if (role === UserRole.MOTHER) {
-      //   const mother = new Mother();
-      //   //  user.mother = savedUser;
-      //   // Set other Mother-specific fields here
-      //   await this.motherRepository.save(mother);
-      // }
-
       // Generate a JWT
       const token = jwt.sign(
         { userId: savedUser.id, userRole: savedUser.role },
@@ -138,6 +120,42 @@ export class UserController {
       console.error("Login error:", error);
       response.status(500).json({ message: "Internal server error" });
     }
+  }
+
+  async updateUser(request: Request, response: Response, next: NextFunction) {
+    const id = parseInt(request.params.id);
+    const { firstName, lastName, email, password, role } = request.body;
+
+    const userToUpdate = await this.userRepository.findOneBy({ id });
+
+    if (!userToUpdate) {
+      return "this user not exist";
+    }
+
+    if (firstName) {
+      userToUpdate.firstName = firstName;
+    }
+
+    if (lastName) {
+      userToUpdate.lastName = lastName;
+    }
+
+    if (email) {
+      userToUpdate.email = email;
+    }
+
+    if (password) {
+      const hashedPassword = await bcrypt.hash(password, 10);
+      userToUpdate.password = hashedPassword;
+    }
+
+    if (role) {
+      userToUpdate.role = role;
+    }
+
+    await this.userRepository.save(userToUpdate);
+
+    return "user has been updated";
   }
 
   async removeUser(request: Request, response: Response, next: NextFunction) {

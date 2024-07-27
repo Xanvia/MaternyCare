@@ -8,13 +8,20 @@ export const UserRoutes = [
     route: "/users",
     controller: UserController,
     action: "getAllUsers",
-    middlewares: [jwtMiddleware],
+    middlewares: [],
   },
   {
     method: "get",
     route: "/users/:id",
     controller: UserController,
     action: "getOneUser",
+    middlewares: [jwtMiddleware],
+  },
+  {
+    method: "put",
+    route: "/users/:id",
+    controller: UserController,
+    action: "updateUser",
     middlewares: [jwtMiddleware],
   },
   {
