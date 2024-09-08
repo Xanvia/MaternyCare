@@ -25,15 +25,8 @@ export class PhmController {
   }
 
   async save(request: Request, response: Response, next: NextFunction) {
-    const {
-      phone_number,
-      phm_id,
-      nic,
-      mother_count,
-      baby_count,
-      star_points,
-      isVerified,
-    } = request.body;
+    const { phone_number, phm_id, nic, mother_count, baby_count, star_points } =
+      request.body;
 
     if (request.user.userRole !== "phm") {
       console.log(request.user.role);
@@ -71,8 +64,13 @@ export class PhmController {
       mother_count,
       baby_count,
       star_points,
-      isVerified,
-      user: request.user.id,
+      user_id: user.id,
+      firstName: user.firstName,
+      lastName: user.lastName,
+      email: user.email,
+      role: user.role,
+      isVerified: user.isVerified,
+      password: user.password,
     });
 
     return this.phmRepository.save(phm);
