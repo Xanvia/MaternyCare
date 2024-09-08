@@ -7,6 +7,7 @@ import { NoticeRoutes } from "./routes/notice.routes";
 import { AuthRoutes } from "./routes/auth.routes";
 import { AppointmentRoutes } from "./routes/appointment.routes";
 import { PhmRoutes } from "./routes/phm.routes";
+import { MotherRoutes } from "./routes/mother.routes";
 // import * as cors from "cors"; // import cors
 import { RequestHandler } from "express"; // import RequestHandler from express
 import { User, UserRole } from "./entity/User";
@@ -38,6 +39,7 @@ AppDataSource.initialize()
       ...AuthRoutes,
       ...AppointmentRoutes,
       ...PhmRoutes,
+      ...MotherRoutes,
     ];
 
     AllRoutes.forEach((route) => {

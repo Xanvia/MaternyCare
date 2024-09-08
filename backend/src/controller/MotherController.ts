@@ -1,9 +1,11 @@
 import { AppDataSource } from "../data-source";
 import { NextFunction, Request, Response } from "express";
 import { Mother } from "../entity/Mother";
+import { User } from "../entity/User";
 
 export class MotherController {
   private motherRepository = AppDataSource.getRepository(Mother);
+  private userRepository = AppDataSource.getRepository(User);
 
   async all(request: Request, response: Response, next: NextFunction) {
     return this.motherRepository.find();
@@ -23,12 +25,48 @@ export class MotherController {
   }
 
   async save(request: Request, response: Response, next: NextFunction) {
-    const { title, subtitle, message } = request.body;
+    const { age, nic, risk_type } = request.body;
+
+    if (request.user.userRole !== "mother") {
+      console.log(request.user.role);
+      return "You are not authorized to create a Mother";
+    }
+
+    const userId = request.user?.userId;
+
+    if (!userId) {
+      return response
+        .status(400)
+        .json({ error: "User ID is missing or invalid" });
+    }
+
+    const parsedUserId = parseInt(userId, 10);
+
+    if (isNaN(parsedUserId)) {
+      return response
+        .status(400)
+        .json({ error: "User ID is not a valid number" });
+    }
+
+    const user = await this.userRepository.findOne({
+      where: { id: parsedUserId }, // Use the correct property name here
+    });
+
+    if (!user) {
+      return response.status(404).json({ error: "User not found" });
+    }
 
     const mother = Object.assign(new Mother(), {
-      title,
-      subtitle,
-      message,
+      age,
+      nic,
+      risk_type,
+      user_id: user.id,
+      firstName: user.firstName,
+      lastName: user.lastName,
+      email: user.email,
+      role: user.role,
+      isVerified: user.isVerified,
+      password: user.password,
     });
 
     return this.motherRepository.save(mother);

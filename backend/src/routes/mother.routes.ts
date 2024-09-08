@@ -1,32 +1,33 @@
 import { MotherController } from "../controller/MotherController";
+import { jwtMiddleware } from "../middlewear/jwtMiddleware";
 
 export const MotherRoutes = [
   {
     method: "get",
-    route: "/mothers",
+    route: "/users/mothers",
     controller: MotherController,
     action: "all",
     middlewares: [],
   },
   {
     method: "get",
-    route: "/mothers/:id",
+    route: "/users/mothers/:id",
     controller: MotherController,
     action: "one",
-    middlewares: [],
+    middlewares: [jwtMiddleware],
   },
   {
     method: "post",
-    route: "/mothers",
+    route: "/users/mothers",
     controller: MotherController,
     action: "save",
-    middlewares: [],
+    middlewares: [jwtMiddleware],
   },
   {
     method: "delete",
-    route: "/mothers/:id",
+    route: "/users/mothers/:id",
     controller: MotherController,
     action: "remove",
-    middlewares: [],
+    middlewares: [jwtMiddleware],
   },
 ];
