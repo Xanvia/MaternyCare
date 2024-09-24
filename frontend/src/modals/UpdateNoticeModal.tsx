@@ -12,18 +12,36 @@ import CloseIcon from "@mui/icons-material/Close";
 import { Box } from "@mui/material";
 import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
+import axios from "axios";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
+interface UpdateNoticeProps {
+  noticeId: string;
+  noticeTitle: string;
+  noticeMessage: string;
+}
 
 // Validation schema
 const validationSchema = Yup.object({
   title: Yup.string().required("Title is required"),
+  // subtitle: Yup.string().required("Subtitle is required"),
   message: Yup.string().required("Message is required"),
 });
 
-export default function UpdateNoticeModal() {
+export default function UpdateNoticeModal({
+  noticeId,
+  noticeTitle,
+  noticeMessage,
+}: UpdateNoticeProps) {
   const [open, setOpen] = React.useState<boolean>(false);
+  const token = localStorage.getItem("token");
+
+  const BASE_URL = "http://localhost:3000/";
 
   return (
     <React.Fragment>
+      <ToastContainer />
       <Button
         variant="outlined"
         onClick={() => setOpen(true)}
@@ -61,16 +79,41 @@ export default function UpdateNoticeModal() {
               color: "#333333",
             }}
           >
-            Update notice
+            Add notice
           </DialogTitle>
           <Divider />
           <Formik
-            initialValues={{ title: "", message: "" }}
+            initialValues={{
+              title: noticeTitle,
+              message: noticeMessage,
+              subtitle: "",
+            }}
             validationSchema={validationSchema}
             onSubmit={(values, { setSubmitting }) => {
-              console.log("Form data:", values);
-              setSubmitting(false);
-              setOpen(false);
+              const axiosConfig = {
+                method: "put",
+                url: `${BASE_URL}notices/${noticeId}`,
+                headers: {
+                  Authorization: `Bearer ${token}`,
+                },
+                data: {
+                  title: values.title,
+                  subtitle: values.subtitle,
+                  message: values.message,
+                },
+              };
+              axios(axiosConfig)
+                .then((response) => {
+                  console.log(response.data);
+                  setSubmitting(false);
+                  setOpen(false);
+                  toast.success("The notice has been updated successfully!.");
+                  setTimeout(() => window.location.reload(), 1500);
+                })
+                .catch((err) => {
+                  console.log(err);
+                  setSubmitting(false);
+                });
             }}
           >
             {({ isSubmitting, errors, touched }) => (
@@ -100,6 +143,33 @@ export default function UpdateNoticeModal() {
                     variant="outlined"
                     error={touched.title && Boolean(errors.title)}
                     helperText={touched.title && errors.title}
+                  />
+                </Box>
+                <DialogContent
+                  sx={{
+                    display: "flex",
+                    justifyContent: "center",
+                    gap: 1,
+                    color: "#666666",
+                    fontWeight: "bold",
+                  }}
+                >
+                  Subtitle:
+                </DialogContent>
+                <Box
+                  sx={{
+                    width: 500,
+                    maxWidth: "100%",
+                  }}
+                >
+                  <Field
+                    as={TextField}
+                    name="subtitle"
+                    fullWidth
+                    size="small"
+                    variant="outlined"
+                    error={touched.subtitle && Boolean(errors.subtitle)}
+                    helperText={touched.subtitle && errors.subtitle}
                   />
                 </Box>
                 <DialogContent
@@ -154,7 +224,7 @@ export default function UpdateNoticeModal() {
                     type="submit"
                     disabled={isSubmitting}
                   >
-                    Update
+                    Create
                   </Button>
                   <Button
                     variant="outlined"

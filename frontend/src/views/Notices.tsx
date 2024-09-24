@@ -3,6 +3,7 @@ import axios from "axios";
 import { Rings } from "react-loader-spinner";
 import DeleteCofirmation from "../modals/DeleteCofirmation";
 import AddNoticeModal from "../modals/AddNoticeModal";
+import UpdateNoticeModal from "../modals/UpdateNoticeModal";
 
 const Notices = () => {
   const BASE_URL = "http://localhost:3000/";
@@ -75,13 +76,22 @@ const Notices = () => {
               return (
                 <div
                   key={index}
-                  className="px-8 py-5 text-white rounded-2xl mb-8 animate-fadeIn shadow-md max-w-full h-auto"
+                  className="px-8 py-5 text-white rounded-2xl mb-8 animate-fadeIn shadow-md max-w-full h-auto flex flex-col justify-between"
                   style={{ backgroundColor: colors[index % colors.length] }}
                 >
-                  <h1 className="mb-2 font-medium text-xl">{notice.title}</h1>
-                  <p className="font-normal text-sm">{notice.message}</p>
-                  <p className="text-xs mt-3">Posted on: {formattedDate}</p>
-                  <DeleteCofirmation noticeId={notice.id} />
+                  <div>
+                    <h1 className="mb-2 font-medium text-xl">{notice.title}</h1>
+                    <p className="font-normal text-sm">{notice.message}</p>
+                    <p className="text-xs mt-3">Posted on: {formattedDate}</p>
+                  </div>
+                  <div className="flex gap-3">
+                    <DeleteCofirmation noticeId={notice.id} />
+                    <UpdateNoticeModal
+                      noticeId={notice.id}
+                      noticeTitle={notice.title}
+                      noticeMessage={notice.message}
+                    />
+                  </div>
                 </div>
               );
             }
