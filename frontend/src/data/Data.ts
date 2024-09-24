@@ -6,6 +6,24 @@ import {
   Help,
 } from "../assets/icons/Icons";
 
+const getDashboardPath = () => {
+  // const user = JSON.parse(localStorage.getItem("user") || "{}");
+  let userItem = localStorage.getItem("user");
+  const user = userItem ? JSON.parse(userItem) : null;
+
+  switch (user.role) {
+    case "mother":
+      return "/dashboard";
+    case "phm":
+      return "/phmdashboard";
+    case "moh":
+      return "/mohdashboard";
+    default:
+      return "/dashboard";
+  }
+};
+
+// console.log("role from drawer " + getDashboardPath());
 export const navLinks = [
   {
     name: "Dashboard",

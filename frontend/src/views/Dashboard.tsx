@@ -86,7 +86,7 @@ const Dashboard = () => {
           count={5}
           title="Kick Count"
           subtitle="kicks"
-          updateComponent=<KickCountUpdateModal />
+          updateComponent={<KickCountUpdateModal />}
         />
         <DashboardStatCard
           image={fire}

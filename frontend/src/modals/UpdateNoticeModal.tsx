@@ -69,6 +69,12 @@ export default function UpdateNoticeModal({
             borderColor: "#F9B8D0",
             color: "#F9B8D0",
           },
+          width: {
+            xs: "100%", // full width on extra-small devices
+            sm: "100%", // full width on small devices
+            md: "auto%", // full width on medium devices
+            lg: "auto", // default width on large devices and above
+          },
         }}
       >
         Update Notice

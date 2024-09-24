@@ -84,7 +84,7 @@ const Notices = () => {
                     <p className="font-normal text-sm">{notice.message}</p>
                     <p className="text-xs mt-3">Posted on: {formattedDate}</p>
                   </div>
-                  <div className="flex gap-3">
+                  <div className="md:flex gap-3">
                     <DeleteCofirmation noticeId={notice.id} />
                     <UpdateNoticeModal
                       noticeId={notice.id}
