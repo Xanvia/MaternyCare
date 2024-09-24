@@ -10,6 +10,7 @@ interface AppointmentCardProps {
 }
 const AppointmentCard: React.FC<AppointmentCardProps> = ({year, month, start_day, end_day, title}) => {
   return (
+    
     <div className='sm:w-36 w-full bg-white rounded-3xl pb-2'>
       <button  className='sm:w-36 w-full  items-center justify-center'>
         <div  className='flex flex-col items-center justify-center pt-1'>
