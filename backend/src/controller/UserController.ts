@@ -1,13 +1,20 @@
 import { AppDataSource } from "../data-source";
 import { NextFunction, Request, Response } from "express";
-import { User } from "../entity/User";
+import { User, UserRole } from "../entity/User";
 import * as bcrypt from "bcrypt";
 import * as jwt from "jsonwebtoken";
-import * as dotenv from "dotenv";
+// import * as dotenv from "dotenv";
+import { Phm } from "../entity/Phm";
+import { Moh } from "../entity/Moh";
+import { Mother } from "../entity/Mother";
 
-dotenv.config();
+// dotenv.config();
 export class UserController {
+  // private userRepository = AppDataSource.getRepository(User);
   private userRepository = AppDataSource.getRepository(User);
+  private phmRepository = AppDataSource.getRepository(Phm);
+  private mohRepository = AppDataSource.getRepository(Moh);
+  private motherRepository = AppDataSource.getRepository(Mother);
 
   async getAllUsers(request: Request, response: Response, next: NextFunction) {
     return this.userRepository.find();
@@ -26,24 +33,56 @@ export class UserController {
     return user;
   }
 
+  // async createUser(request: Request, response: Response, next: NextFunction) {
+  //   const { firstName, lastName, email, password, role } = request.body;
+
+  //   const hashedPassword = await bcrypt.hash(password, 10);
+
+  //   const user = Object.assign(new User(), {
+  //     firstName,
+  //     lastName,
+  //     email,
+  //     password: hashedPassword,
+  //     role,
+  //   });
+
+  //   const savedUser = await this.userRepository.save(user);
+
+  //   const token = jwt.sign({ userId: savedUser.id }, process.env.JWT_SECRET);
+
+  //   return { user: savedUser, token };
+  // }
   async createUser(request: Request, response: Response, next: NextFunction) {
-    const { firstName, lastName, email, password, role } = request.body;
+    const { firstName, lastName, email, password, role, isVerified } =
+      request.body;
 
-    const hashedPassword = await bcrypt.hash(password, 10);
+    try {
+      // Hash the password
+      const hashedPassword = await bcrypt.hash(password, 10);
 
-    const user = Object.assign(new User(), {
-      firstName,
-      lastName,
-      email,
-      password: hashedPassword,
-      role,
-    });
+      // Create and save the user
+      const user = Object.assign(new User(), {
+        firstName,
+        lastName,
+        email,
+        password: hashedPassword,
+        isVerified,
+        role,
+      });
+      const savedUser = await this.userRepository.save(user);
 
-    const savedUser = await this.userRepository.save(user);
+      // Generate a JWT
+      const token = jwt.sign(
+        { userId: savedUser.id, userRole: savedUser.role },
+        process.env.JWT_SECRET!
+      );
 
-    const token = jwt.sign({ userId: savedUser.id }, process.env.JWT_SECRET);
-
-    return { user: savedUser, token };
+      // Return user and token
+      response.send({ user: savedUser, token });
+    } catch (error) {
+      console.error("Error creating user:", error);
+      response.status(500).json({ message: "Internal server error" });
+    }
   }
 
   async login(request: Request, response: Response, next: NextFunction) {
@@ -81,6 +120,42 @@ export class UserController {
       console.error("Login error:", error);
       response.status(500).json({ message: "Internal server error" });
     }
+  }
+
+  async updateUser(request: Request, response: Response, next: NextFunction) {
+    const id = parseInt(request.params.id);
+    const { firstName, lastName, email, password, role } = request.body;
+
+    const userToUpdate = await this.userRepository.findOneBy({ id });
+
+    if (!userToUpdate) {
+      return "this user not exist";
+    }
+
+    if (firstName) {
+      userToUpdate.firstName = firstName;
+    }
+
+    if (lastName) {
+      userToUpdate.lastName = lastName;
+    }
+
+    if (email) {
+      userToUpdate.email = email;
+    }
+
+    if (password) {
+      const hashedPassword = await bcrypt.hash(password, 10);
+      userToUpdate.password = hashedPassword;
+    }
+
+    if (role) {
+      userToUpdate.role = role;
+    }
+
+    await this.userRepository.save(userToUpdate);
+
+    return "user has been updated";
   }
 
   async removeUser(request: Request, response: Response, next: NextFunction) {

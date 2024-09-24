@@ -1,4 +1,13 @@
-import { Entity, PrimaryGeneratedColumn, Column } from "typeorm";
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  OneToOne,
+  JoinColumn,
+} from "typeorm";
+import { Mother } from "./Mother";
+import { Phm } from "./Phm";
+import { Moh } from "./Moh";
 
 export enum UserRole {
   ADMIN = "admin",
@@ -24,20 +33,13 @@ export class User {
   @Column()
   password: string;
 
+  @Column({ default: false })
+  isVerified: boolean;
+
   @Column({
     type: "enum",
     enum: UserRole,
     default: UserRole.MOTHER,
   })
   role: UserRole;
-
-  // toJSON() {
-  //   return {
-  //     id: this.id,
-  //     firstName: this.firstName,
-  //     lastName: this.lastName,
-  //     email: this.email,
-  //     role: this.role,
-  //   };
-  // }
 }
