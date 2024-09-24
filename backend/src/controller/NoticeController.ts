@@ -99,4 +99,28 @@ export class NoticeController {
 
     return "notice has been soft deleted";
   }
+
+  async update(request: Request, response: Response, next: NextFunction) {
+    const id = parseInt(request.params.id);
+    const { title, subtitle, message } = request.body;
+
+    // Fetch the notice to update, making sure it’s not soft-deleted
+    let noticeToUpdate = await this.noticeRepository.findOne({
+      where: { id, deletedAt: null },
+    });
+
+    if (!noticeToUpdate) {
+      return "this notice does not exist or is already deleted";
+    }
+
+    // Update the fields
+    noticeToUpdate.title = title;
+    noticeToUpdate.subtitle = subtitle;
+    noticeToUpdate.message = message;
+
+    // Save the updated notice
+    await this.noticeRepository.save(noticeToUpdate);
+
+    return "notice has been updated";
+  }
 }
