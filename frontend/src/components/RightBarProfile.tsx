@@ -6,8 +6,10 @@ import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import Logout from "@mui/icons-material/Logout";
-import Settings from "@mui/icons-material/Settings";
+// import Settings from "@mui/icons-material/Settings";
+import Person3Icon from "@mui/icons-material/Person3";
 import ToTitle from "./CaseConverter";
+import { useNavigate } from "react-router-dom";
 
 export default function RightBarProfile() {
   let userItem = localStorage.getItem("user");
@@ -20,6 +22,19 @@ export default function RightBarProfile() {
   };
   const handleClose = () => {
     setAnchorEl(null);
+  };
+
+  const navigate = useNavigate();
+
+  const handleProfileClick = () => {
+    handleClose();
+    navigate("/profile");
+  };
+
+  const logout = () => {
+    handleClose();
+    localStorage.removeItem("token");
+    window.location.href = "/login";
   };
 
   return (
@@ -92,13 +107,13 @@ export default function RightBarProfile() {
         transformOrigin={{ horizontal: "right", vertical: "top" }}
         anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
       >
-        <MenuItem onClick={handleClose}>
+        <MenuItem onClick={handleProfileClick}>
           <ListItemIcon>
-            <Settings fontSize="small" />
+            <Person3Icon fontSize="small" />
           </ListItemIcon>
           Profile
         </MenuItem>
-        <MenuItem onClick={handleClose}>
+        <MenuItem onClick={logout}>
           <ListItemIcon>
             <Logout fontSize="small" />
           </ListItemIcon>
