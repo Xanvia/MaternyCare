@@ -1,5 +1,6 @@
 import { MotherController } from "../controller/MotherController";
 import { jwtMiddleware } from "../middlewear/jwtMiddleware";
+import { roleMiddleware } from "../middlewear/roleMiddleware";
 
 export const MotherRoutes = [
   {
@@ -14,20 +15,20 @@ export const MotherRoutes = [
     route: "/users/mothers/:id",
     controller: MotherController,
     action: "one",
-    middlewares: [jwtMiddleware],
+    middlewares: [jwtMiddleware, roleMiddleware("mother")],
   },
   {
     method: "post",
     route: "/users/mothers",
     controller: MotherController,
     action: "save",
-    middlewares: [jwtMiddleware],
+    middlewares: [jwtMiddleware, roleMiddleware("mother")],
   },
   {
     method: "delete",
     route: "/users/mothers/:id",
     controller: MotherController,
     action: "remove",
-    middlewares: [jwtMiddleware],
+    middlewares: [jwtMiddleware, roleMiddleware("mother")],
   },
 ];
