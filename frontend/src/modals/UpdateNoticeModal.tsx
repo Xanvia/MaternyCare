@@ -9,6 +9,7 @@ import ModalDialog from "@mui/joy/ModalDialog";
 import TextField from "@mui/material/TextField";
 import IconButton from "@mui/joy/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
+import UpdateIcon from "@mui/icons-material/Update";
 import { Box } from "@mui/material";
 import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
@@ -42,7 +43,7 @@ export default function UpdateNoticeModal({
   return (
     <React.Fragment>
       <ToastContainer />
-      <Button
+      {/* <Button
         variant="outlined"
         onClick={() => setOpen(true)}
         sx={{
@@ -51,6 +52,22 @@ export default function UpdateNoticeModal({
           "&:hover": {
             borderColor: "#80CAFF",
             color: "#80CAFF",
+          },
+        }}
+      >
+      </Button> */}
+      <Button
+        variant="outlined"
+        color="danger"
+        endDecorator={<UpdateIcon />}
+        onClick={() => setOpen(true)}
+        sx={{
+          mt: 3,
+          background: "white",
+          color: "#F580AB",
+          "&:hover": {
+            borderColor: "#F9B8D0",
+            color: "#F9B8D0",
           },
         }}
       >
@@ -79,7 +96,7 @@ export default function UpdateNoticeModal({
               color: "#333333",
             }}
           >
-            Add notice
+            Update notice
           </DialogTitle>
           <Divider />
           <Formik
@@ -224,7 +241,7 @@ export default function UpdateNoticeModal({
                     type="submit"
                     disabled={isSubmitting}
                   >
-                    Create
+                    Update
                   </Button>
                   <Button
                     variant="outlined"
