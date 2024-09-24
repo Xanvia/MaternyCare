@@ -8,7 +8,7 @@ const FeedLayout = () => {
   console.log("from feed layout" + titleContext?.pageTitle);
   return (
     <div>
-      <div className="flex justify-between ml-10 mt-7">
+      <div className="flex justify-between ml-10 my-7">
         <p className="hidden lg:block">
           Pages /{" "}
           <span className="text-text_color_2"> {titleContext?.pageTitle}</span>
@@ -24,7 +24,7 @@ const FeedLayout = () => {
           />
         </div>
       </div>
-      <h1 className="mt-9 mb-4 ml-10 text-base text-text_color_2 hidden lg:block">{`${titleContext?.pageTitle} Overview`}</h1>
+      {/* <h1 className="mt-9 mb-4 ml-10 text-base text-text_color_2 hidden lg:block">{`${titleContext?.pageTitle} Overview`}</h1> */}
       <h1 className="text-center text-3xl text-[#0D99FF] lg:hidden mb-5">
         {titleContext?.pageTitle}
       </h1>
