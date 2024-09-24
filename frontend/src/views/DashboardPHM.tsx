@@ -5,8 +5,11 @@ import water from "../assets/images/drops.svg";
 import PatientsList from "../components/PatientsList";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import useRoleProtection from "../customHooks/useRoleProtection";
 
 const DashboardPHM = () => {
+  useRoleProtection("phm");
+
   const BASE_URL = "http://localhost:3000/";
 
   interface Phm {

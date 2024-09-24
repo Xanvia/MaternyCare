@@ -10,7 +10,7 @@ import WaterAmountUpdate from "../modals/WaterAmountUpdate";
 import { HeartRateContext } from "../contexts/HeartRateContextProvider";
 
 import toTitleCase from "../components/CaseConverter";
-
+import useRoleProtection from "../customHooks/useRoleProtection";
 
 const quotes = [
   {
@@ -36,6 +36,8 @@ const quotes = [
 ];
 
 const Dashboard = () => {
+  useRoleProtection("mother");
+
   const heartRateContext = useContext(HeartRateContext);
   const heartRate = heartRateContext?.heartRate;
   const [random, setRandom] = useState(0);
