@@ -7,8 +7,12 @@ import MenuItem from "@mui/material/MenuItem";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import Logout from "@mui/icons-material/Logout";
 import Settings from "@mui/icons-material/Settings";
+import ToTitle from "./CaseConverter";
 
 export default function RightBarProfile() {
+  let userItem = localStorage.getItem("user");
+  const user = userItem ? JSON.parse(userItem) : null;
+
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
@@ -31,10 +35,24 @@ export default function RightBarProfile() {
             aria-expanded={open ? "true" : undefined}
           >
             <div className="bg-[#EAEEFD] flex justify-center items-center rounded-xl w-16 h-16 p-2">
-              <img
+              {/* <img
                 className="rounded-full border-2 border-white "
                 src="https://randomuser.me/api/portraits/women/94.jpg"
-              />
+              /> */}
+              {user.image ? (
+                <img
+                  className="rounded-full border-2 border-white "
+                  src="https://randomuser.me/api/portraits/women/94.jpg"
+                />
+              ) : (
+                <div className="relative inline-flex items-center justify-center w-12 h-12 overflow-hidden bg-gray-100 rounded-full dark:bg-gray-600">
+                  <span className="font-medium text-xl text-gray-600 dark:text-gray-300">
+                    {`${ToTitle(user.firstName[0])} ${ToTitle(
+                      user.lastName[0]
+                    )}`}
+                  </span>
+                </div>
+              )}
             </div>
           </IconButton>
         </Tooltip>

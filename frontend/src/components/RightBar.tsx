@@ -9,7 +9,7 @@ import LocationOnIcon from "@mui/icons-material/LocationOn";
 import MUICalendar from "./MUICalendar";
 import ToTitle from "./CaseConverter";
 
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 
 const RightBar: React.FC = () => {
   let userItem = localStorage.getItem("user");
@@ -19,13 +19,13 @@ const RightBar: React.FC = () => {
     <div className="px-6  pt-4 hidden lg:flex flex-col bg-white rounded-l-2xl w-[350px] ml-auto ">
       <div className="grid grid-cols-3 gap-4 items-center mx-5">
         <div>
-        <Link to="/notification">
-          <IconButton aria-label="show new notifications" color="inherit">
-            <Badge badgeContent={5} color="error">
-              <NotificationsNoneIcon />
-            </Badge>
-          </IconButton>
-        </Link>
+          <Link to="/notification">
+            <IconButton aria-label="show new notifications" color="inherit">
+              <Badge badgeContent={5} color="error">
+                <NotificationsNoneIcon />
+              </Badge>
+            </IconButton>
+          </Link>
         </div>
         <div>
           <IconButton aria-label="show new notifications" color="inherit">
@@ -39,10 +39,18 @@ const RightBar: React.FC = () => {
       </div>
       <div className="bg-[#F7FBFF] rounded-2xl text-center py-4 px-8 mt-8">
         <div className="justify-center flex">
-          <img
-            className="rounded-full border-2 border-white w-24 h-24"
-            src="https://randomuser.me/api/portraits/women/94.jpg"
-          />
+          {user.image ? (
+            <img
+              className="rounded-full border-2 border-white w-24 h-24"
+              src="https://randomuser.me/api/portraits/women/94.jpg"
+            />
+          ) : (
+            <div className="relative inline-flex items-center justify-center w-24 h-24 overflow-hidden bg-gray-100 rounded-full dark:bg-gray-600">
+              <span className="font-medium text-3xl text-gray-600 dark:text-gray-300">
+                {`${ToTitle(user.firstName[0])} ${ToTitle(user.lastName[0])}`}
+              </span>
+            </div>
+          )}
         </div>
         <h1 className="text-[#0D99FF] font-medium text-lg">
           {`${ToTitle(user.firstName)} ${ToTitle(user.lastName)}`}
