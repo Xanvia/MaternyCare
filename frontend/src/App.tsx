@@ -14,9 +14,10 @@ import SinglePost from "./views/SinglePost";
 
 import DashboardPHM from "./views/DashboardPHM";
 import RoleContextProvider from "./contexts/RoleContextProvider";
-import { PrivateRoute } from "./components/PrivateRoute";
-import { PublicRoute } from "./components/PublicRoute";
-
+import { PrivateRoute } from "./routes/PrivateRoute";
+import { PublicRoute } from "./routes/PublicRoute";
+import Unauthorized from "./views/UnAuthorized";
+import DashboardMOH from "./views/DashboardMOH";
 
 // You can add your routes here
 // Add a baselayout too if needed
@@ -91,6 +92,20 @@ const router = createBrowserRouter([
     ],
   },
   {
+    path: "/mohdashboard",
+    element: <BaseLayout />,
+    children: [
+      {
+        index: true,
+        element: (
+          <PrivateRoute>
+            <DashboardMOH />
+          </PrivateRoute>
+        ),
+      },
+    ],
+  },
+  {
     path: "/notices",
     element: <BaseLayout />,
     children: [
@@ -132,7 +147,7 @@ const router = createBrowserRouter([
       },
     ],
   },
-   {
+  {
     path: "/guide",
     element: <BaseLayout />,
     children: [
@@ -147,13 +162,22 @@ const router = createBrowserRouter([
       { path: "singlepost/:id", element: <SinglePost /> },
     ],
   },
-   {
+  {
     path: "/notification",
     element: <BaseLayout />,
     children: [
       {
         index: true,
         element: <Notification />,
+      },
+    ],
+  },
+  {
+    path: "/unauthorized",
+    children: [
+      {
+        index: true,
+        element: <Unauthorized />,
       },
     ],
   },

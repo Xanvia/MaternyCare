@@ -52,7 +52,7 @@ const LoginPage: React.FC = () => {
             navigate("/phmdashboard");
             break;
           case "moh":
-            navigate("/phmdashboard");
+            navigate("/mohdashboard");
             break;
           default:
             navigate("/dashboard");
