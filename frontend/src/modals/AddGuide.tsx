@@ -21,13 +21,21 @@ const validationSchema = Yup.object({
   title: Yup.string().required("Title is required"),
   subtitle: Yup.string().required("Subtitle is required"),
   message: Yup.string().required("Message is required"),
+  image: Yup.mixed().required("Image is required"),
 });
 
 export default function AddGuide() {
   const [open, setOpen] = React.useState<boolean>(false);
+  const [selectedFile, setSelectedFile] = React.useState<File | null>(null);
   const token = localStorage.getItem("token");
 
   const BASE_URL = "http://localhost:3000/";
+
+  // Handle file change
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0] || null;
+    setSelectedFile(file);
+  };
 
   return (
     <React.Fragment>
@@ -73,36 +81,39 @@ export default function AddGuide() {
           </DialogTitle>
           <Divider />
           <Formik
-            initialValues={{ title: "", message: "", subtitle: "" }}
+            initialValues={{ title: "", message: "", subtitle: "", image: null }}
             validationSchema={validationSchema}
             onSubmit={(values, { setSubmitting }) => {
-              const axiosConfig = {
-                method: "post",
-                url: `${BASE_URL}notices`,
-                headers: {
-                  Authorization: `Bearer ${token}`,
-                },
-                data: {
-                  title: values.title,
-                  subtitle: values.subtitle,
-                  message: values.message,
-                },
-              };
-              axios(axiosConfig)
+              const formData = new FormData();
+              formData.append("title", values.title);
+              formData.append("subtitle", values.subtitle);
+              formData.append("message", values.message);
+              if (selectedFile) {
+                formData.append("image", selectedFile);
+              }
+
+              axios
+                .post(`${BASE_URL}notices`, formData, {
+                  headers: {
+                    "Content-Type": "multipart/form-data",
+                    Authorization: `Bearer ${token}`,
+                  },
+                })
                 .then((response) => {
                   console.log(response.data);
                   setSubmitting(false);
                   setOpen(false);
-                  toast.success("The notice has been added successfully!.");
+                  toast.success("The notice has been added successfully!");
                   setTimeout(() => window.location.reload(), 1500);
                 })
                 .catch((err) => {
                   console.log(err);
                   setSubmitting(false);
+                  toast.error("Failed to add notice");
                 });
             }}
           >
-            {({ isSubmitting, errors, touched }) => (
+            {({ isSubmitting, errors, touched, setFieldValue }) => (
               <Form>
                 <DialogContent
                   sx={{
@@ -187,6 +198,40 @@ export default function AddGuide() {
                     helperText={touched.message && errors.message}
                   />
                 </Box>
+
+                {/* Image Upload */}
+                <DialogContent
+                  sx={{
+                    display: "flex",
+                    justifyContent: "center",
+                    gap: 1,
+                    color: "#666666",
+                    fontWeight: "bold",
+                  }}
+                >
+                  Upload Image:
+                </DialogContent>
+                <Box
+                  sx={{
+                    width: 500,
+                    maxWidth: "100%",
+                  }}
+                >
+                  <input
+                    type="file"
+                    accept="image/*"
+                    onChange={(e) => {
+                      handleFileChange(e);
+                      setFieldValue("image", e.target.files?.[0] || null);
+                    }}
+                  />
+                  {touched.image && errors.image && (
+                    <div style={{ color: "red", marginTop: "5px" }}>
+                      {errors.image}
+                    </div>
+                  )}
+                </Box>
+
                 <DialogActions
                   sx={{
                     display: "flex",
