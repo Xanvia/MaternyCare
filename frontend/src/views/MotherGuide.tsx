@@ -1,26 +1,32 @@
 import React, { useState } from "react";
 import { categories } from "../data/Data";
+import AddGuide from "../modals/AddGuide";
 
 const MotherGuide: React.FC = () => {
   const [activeTab, setActiveTab] = useState(categories[0].name);
 
   return (
     <div className="mx-10">
-      <div className="flex items-center justify-center py-4 md:py-8 flex-wrap">
-        {categories.map((category, index) => (
-          <button
-            key={index}
-            type="button"
-            className={`px-4 py-2 m-2 font-medium text-sm rounded-md ${
-              category.name === activeTab
-                ? "bg-blue_primary text-white"
-                : "bg-white text-blue_primary border border-blue_primary"
-            }`}
-            onClick={() => setActiveTab(category.name)}
-          >
-            {category.name}
-          </button>
-        ))}
+      <div className="flex items-center justify-between py-4 md:py-8 flex-wrap">.
+        <div className="flex items-center flex-wrap">
+          {categories.map((category, index) => (
+            <button
+              key={index}
+              type="button"
+              className={`px-4 py-2 m-2 font-medium text-sm rounded-md ${
+                category.name === activeTab
+                  ? "bg-blue_primary text-white"
+                  : "bg-white text-blue_primary border border-blue_primary"
+              }`}
+              onClick={() => setActiveTab(category.name)}
+            >
+              {category.name}
+            </button>
+          ))}
+        </div>
+        <div className="flex justify-end">
+          <AddGuide />
+        </div>
       </div>
       <div>
         {categories
