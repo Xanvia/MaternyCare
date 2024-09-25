@@ -2,7 +2,7 @@ import React, { useEffect, useContext } from "react";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { useTheme } from "@mui/material//styles";
 import { LogoutIcon, MenuIcon } from "../assets/icons/Icons";
-import { navLinks } from "../data/Data";
+import { getNavLinks } from "../data/Data";
 import { NavLink } from "react-router-dom";
 import logo from "../assets/images/logo.png";
 import { useMatch } from "react-router-dom";
@@ -10,7 +10,6 @@ import { TitleContext } from "../contexts/TitleContextProvider";
 
 const Drawer: React.FC = () => {
   const LARGE_SCREEN_WIDTH = 1024;
-
   const theme = useTheme();
   const isLargeScreen = useMediaQuery(theme.breakpoints.up("lg"));
   const [isDrawerOpen, setDrawerOpen] = React.useState(isLargeScreen);
@@ -47,6 +46,8 @@ const Drawer: React.FC = () => {
       window.removeEventListener("resize", checkScreenSize);
     };
   }, []);
+
+  const navLinks = getNavLinks();
 
   return (
     <div>
