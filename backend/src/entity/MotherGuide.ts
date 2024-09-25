@@ -19,6 +19,9 @@ import {
   
     @Column()
     message: string;
+
+    // @Column({default:})
+    // imageURL: string;
   
     @CreateDateColumn()
     createdAt: Date;
