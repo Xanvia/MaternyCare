@@ -199,7 +199,7 @@ export default function AddGuide() {
                   />
                 </Box>
 
-                {/* Image Upload */}
+                {/* Image Upload
                 <DialogContent
                   sx={{
                     display: "flex",
@@ -210,7 +210,7 @@ export default function AddGuide() {
                   }}
                 >
                   Upload Image:
-                </DialogContent>
+                </DialogContent> */}
                 <Box
                   sx={{
                     width: 500,
