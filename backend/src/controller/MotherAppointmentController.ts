@@ -28,7 +28,7 @@ export class AppointmentController {
   async save(request: Request, response: Response, next: NextFunction) {
     const { appointment_type, dateRange} = request.body;
 
-    const notice = Object.assign(new Appointment(), {
+    const appointment = Object.assign(new Appointment(), {
       appointment_type,
       dateRange,
     });
