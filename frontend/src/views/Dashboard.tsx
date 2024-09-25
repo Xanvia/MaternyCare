@@ -11,29 +11,7 @@ import { HeartRateContext } from "../contexts/HeartRateContextProvider";
 
 import toTitleCase from "../components/CaseConverter";
 import useRoleProtection from "../customHooks/useRoleProtection";
-
-const quotes = [
-  {
-    id: 1,
-    text: "The joy of motherhood comes in moments. There will be hard times and frustrating times. But amid the challenges, there are shining moments of joy and satisfaction.",
-    author: "M. Russell Ballard",
-  },
-  {
-    id: 1,
-    text: "Motherhood: All love begins and ends there.",
-    author: "Robert Browning",
-  },
-  {
-    id: 1,
-    text: "A mother’s arms are more comforting than anyone else’s.",
-    author: "Princess Diana",
-  },
-  {
-    id: 1,
-    text: "Being a mother is learning about strengths you didn’t know you had and dealing with fears you didn’t know existed.",
-    author: "Linda Wooten",
-  },
-];
+import { quotes } from "../data/Data";
 
 const Dashboard = () => {
   useRoleProtection("mother");
@@ -42,13 +20,12 @@ const Dashboard = () => {
   const heartRate = heartRateContext?.heartRate;
   const [random, setRandom] = useState(0);
 
-  let name = localStorage.getItem("name");
+  let name = "";
   let role = localStorage.getItem("role");
   let userItem = localStorage.getItem("user");
   const user = userItem ? JSON.parse(userItem) : null;
-  console.log("from dash" + user);
-  if (name) {
-    name = JSON.parse(name) as string;
+  console.log("from dash user: " + user.firstName);
+  if (user.firstName) {
     name = toTitleCase(user.firstName);
   } else {
     name = role ? (JSON.parse(role) as string) : "";

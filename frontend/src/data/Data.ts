@@ -58,7 +58,7 @@ export const navLinks = [
 ];
 export const appointments = [
   {
-    id:1,
+    id: 1,
     year: 2016,
     month: "November",
     start_day: 25,
@@ -66,7 +66,7 @@ export const appointments = [
     title: "1 st home visit",
   },
   {
-    id:2,
+    id: 2,
     year: 2016,
     month: "November",
     start_day: 25,
@@ -74,7 +74,7 @@ export const appointments = [
     title: "1 st home visit",
   },
   {
-    id:3,
+    id: 3,
     year: 2015,
     month: "November",
     start_day: 25,
@@ -82,7 +82,7 @@ export const appointments = [
     title: "1 st home visit",
   },
   {
-    id:4,
+    id: 4,
     year: 2014,
     month: "November",
     start_day: 25,
@@ -90,7 +90,7 @@ export const appointments = [
     title: "1 st home visit",
   },
   {
-    id:5,
+    id: 5,
     year: 2013,
     month: "November",
     start_day: 25,
@@ -98,7 +98,7 @@ export const appointments = [
     title: "1 st home visit",
   },
   {
-    id:1,
+    id: 1,
     year: 2016,
     month: "November",
     start_day: 25,
@@ -106,7 +106,7 @@ export const appointments = [
     title: "1 st home visit",
   },
   {
-    id:2,
+    id: 2,
     year: 2016,
     month: "November",
     start_day: 25,
@@ -114,7 +114,7 @@ export const appointments = [
     title: "1 st home visit",
   },
   {
-    id:3,
+    id: 3,
     year: 2015,
     month: "November",
     start_day: 25,
@@ -122,7 +122,7 @@ export const appointments = [
     title: "1 st home visit",
   },
   {
-    id:4,
+    id: 4,
     year: 2014,
     month: "November",
     start_day: 25,
@@ -130,7 +130,7 @@ export const appointments = [
     title: "1 st home visit",
   },
   {
-    id:5,
+    id: 5,
     year: 2013,
     month: "November",
     start_day: 25,
@@ -289,5 +289,28 @@ export const categories = [
         },
       },
     ],
+  },
+];
+
+export const quotes = [
+  {
+    id: 1,
+    text: "The joy of motherhood comes in moments. There will be hard times and frustrating times. But amid the challenges, there are shining moments of joy and satisfaction.",
+    author: "M. Russell Ballard",
+  },
+  {
+    id: 1,
+    text: "Motherhood: All love begins and ends there.",
+    author: "Robert Browning",
+  },
+  {
+    id: 1,
+    text: "A mother’s arms are more comforting than anyone else’s.",
+    author: "Princess Diana",
+  },
+  {
+    id: 1,
+    text: "Being a mother is learning about strengths you didn’t know you had and dealing with fears you didn’t know existed.",
+    author: "Linda Wooten",
   },
 ];
