@@ -8,10 +8,10 @@ import {
 
 const getDashboardPath = () => {
   // const user = JSON.parse(localStorage.getItem("user") || "{}");
-  let userItem = localStorage.getItem("user");
-  const user = userItem ? JSON.parse(userItem) : null;
 
-  switch (user.role) {
+  let role = localStorage.getItem("role");
+
+  switch (role) {
     case "mother":
       return "/dashboard";
     case "phm":
@@ -24,11 +24,11 @@ const getDashboardPath = () => {
 };
 
 // console.log("role from drawer " + getDashboardPath());
-export const navLinks = [
+export const getNavLinks = () => [
   {
     name: "Dashboard",
     icon: DashboardIcon,
-    path: "/dashboard",
+    path: getDashboardPath(),
   },
   {
     name: "Notices",
