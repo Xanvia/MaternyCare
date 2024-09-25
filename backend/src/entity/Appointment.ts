@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column,DeleteDateColumn, ManyToOne } from "typeorm";
 import { Mother } from "./Mother";
 import { Phm } from "./Phm";
 import { Moh } from "./Moh";
@@ -14,11 +14,14 @@ export class Appointment {
   @Column("daterange")
   dateRange: string; // PostgreSQL daterange type
 
-  @Column({ default: false })
-  checkedByMother: boolean;
+  @DeleteDateColumn({ nullable: true })
+  deletedAt: Date | null;
 
-  @Column({ default: false })
-  checkedByPHM: boolean;
+  // @Column({ default: false })
+  // checkedByMother: boolean;
+
+  // @Column({ default: false })
+  // checkedByPHM: boolean;
 
   // @ManyToOne(() => Mother, (mother) => mother.appointments)
   // mother: Mother;
