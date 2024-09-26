@@ -5,7 +5,7 @@ import { roleMiddleware } from "../middlewear/roleMiddleware";
 export const MotherRoutes = [
   {
     method: "get",
-    route: "/users/mothers",
+    route: "/users/mothers/all",
     controller: MotherController,
     action: "all",
     middlewares: [],
