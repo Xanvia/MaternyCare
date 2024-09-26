@@ -1,8 +1,9 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import BaseLayout from "./layouts/BaseLayout";
 import LandingPage from "./views/LandingPage";
-import Login from "./views/LoginPage";
 import Registration from "./views/Registration";
+import Registration2 from "./views/Registration2";
+import Login from "./views/LoginPage";
 import Dashboard from "./views/Dashboard";
 import Notices from "./views/Notices";
 import HeartRateContextProvider from "./contexts/HeartRateContextProvider";
@@ -63,6 +64,21 @@ const router = createBrowserRouter([
       },
     ],
   },
+
+  {
+    path: "/registration2",
+    children: [
+      {
+        index: true,
+        element: (
+          <PublicRoute>
+            <Registration2 />
+          </PublicRoute>
+        ),
+      },
+    ],
+  },
+
   {
     path: "/dashboard",
     element: <BaseLayout />,
