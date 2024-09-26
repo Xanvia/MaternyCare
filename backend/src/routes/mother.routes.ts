@@ -24,6 +24,7 @@ export const MotherRoutes = [
     controller: MotherController,
     action: "save",
     middlewares: [jwtMiddleware, roleMiddleware("mother")],
+    // middlewares: [jwtMiddleware],
   },
   {
     method: "delete",
