@@ -35,13 +35,16 @@ export default function EditPersonalInfo() {
     bio: "",
   });
 
+  let userItem = localStorage.getItem("user");
+  const user = userItem ? JSON.parse(userItem) : null;
+
   // Mock function to fetch current data
   const fetchCurrentData = () => {
     // Replace this with actual data fetching logic
     return {
-      firstName: "John",
-      lastName: "Doe",
-      email: "john.doe@example.com",
+      firstName: user.firstName,
+      lastName: user.lastName,
+      email: user.email,
       phone: "1234567890",
       age: "30",
       bio: "This is a bio.",

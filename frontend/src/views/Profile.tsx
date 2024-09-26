@@ -1,14 +1,47 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { EyeIcon, EyeOffIcon } from "../assets/icons/Icons";
 import EditPersonalInfo from "../modals/PersonalInfoEditPopup";
 import EditAccountInfo from "../modals/AccountInfoEditPopup";
 import EditLocationInfo from "../modals/LocationInfoEditPopup";
 import ToTitle from "../components/CaseConverter";
+import axios from "axios";
 
 const Profile = () => {
   const [showPassword, setShowPassword] = useState(false);
   let userItem = localStorage.getItem("user");
   const user = userItem ? JSON.parse(userItem) : null;
+
+  const BASE_URL = "http://localhost:3000/";
+  const [mother, setMother] = useState([]);
+  const [loading, setLoading] = useState(false);
+
+  const token = localStorage.getItem("token");
+
+  useEffect(() => {
+    const getMother = () => {
+      setLoading(true);
+      const axiosConfig = {
+        method: "get",
+        url: `${BASE_URL}users/mothers/1`,
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      };
+      axios(axiosConfig)
+        .then((response) => {
+          console.log(response.data);
+          setMother(response.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        })
+        .finally(() => {
+          setLoading(false);
+        });
+    };
+
+    getMother();
+  }, []);
 
   return (
     <div className="xs:mx-10 mx-3 bg-white rounded-xl p-5 flex flex-col gap-8">
@@ -146,3 +179,7 @@ const Profile = () => {
 };
 
 export default Profile;
+function setLoading(arg0: boolean) {
+  throw new Error("Function not implemented.");
+}
+
