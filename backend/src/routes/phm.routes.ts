@@ -23,13 +23,13 @@ export const PhmRoutes = [
     route: "/users/phms",
     controller: PhmController,
     action: "save",
-    middlewares: [jwtMiddleware, roleMiddleware("phm")],
+    middlewares: [jwtMiddleware],
   },
   {
     method: "delete",
     route: "/users/phms/:id",
     controller: PhmController,
     action: "remove",
-    middlewares: [jwtMiddleware, roleMiddleware("phm")],
+    middlewares: [jwtMiddleware],
   },
 ];

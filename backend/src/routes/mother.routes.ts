@@ -23,14 +23,15 @@ export const MotherRoutes = [
     route: "/users/mothers",
     controller: MotherController,
     action: "save",
-    middlewares: [jwtMiddleware, roleMiddleware("mother")],
-    // middlewares: [jwtMiddleware],
+    // middlewares: [jwtMiddleware, roleMiddleware("mother")],
+    middlewares: [jwtMiddleware],
   },
   {
     method: "delete",
     route: "/users/mothers/:id",
     controller: MotherController,
     action: "remove",
-    middlewares: [jwtMiddleware, roleMiddleware("mother")],
+    // middlewares: [jwtMiddleware, roleMiddleware("mother")],
+    middlewares: [jwtMiddleware],
   },
 ];
