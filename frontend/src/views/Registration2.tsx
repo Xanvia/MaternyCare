@@ -15,7 +15,7 @@ interface FormValues {
   ContactNo1: string;
 }
 
-const Registration: React.FC = () => {
+const Registration2: React.FC = () => {
   const navigate = useNavigate();
   const [stage, setStage] = useState(1);
 
@@ -389,5 +389,4 @@ const Registration: React.FC = () => {
   );
 };
 
-export default Registration;
-
+export default Registration2;
