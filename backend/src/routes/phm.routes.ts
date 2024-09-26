@@ -5,18 +5,18 @@ import { roleMiddleware } from "../middlewear/roleMiddleware";
 export const PhmRoutes = [
   {
     method: "get",
-    route: "/users/phms",
+    route: "/users/phms/all",
     controller: PhmController,
     action: "all",
     middlewares: [],
   },
-  {
-    method: "get",
-    route: "/users/phms/:id",
-    controller: PhmController,
-    action: "one",
-    middlewares: [jwtMiddleware, roleMiddleware("phm")],
-  },
+  // {
+  //   method: "get",
+  //   route: "/users/phms/:id",
+  //   controller: PhmController,
+  //   action: "one",
+  //   middlewares: [jwtMiddleware, roleMiddleware("phm")],
+  // },
   {
     method: "post",
     route: "/users/phms",
