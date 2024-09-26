@@ -1,4 +1,10 @@
-import { Entity, PrimaryGeneratedColumn, Column,DeleteDateColumn, ManyToOne } from "typeorm";
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  DeleteDateColumn,
+  ManyToOne,
+} from "typeorm";
 import { Mother } from "./Mother";
 import { Phm } from "./Phm";
 import { Moh } from "./Moh";
@@ -8,16 +14,16 @@ export class Appointment {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
-  appointment_type: string; 
+  @Column({ nullable: true })
+  appointment_type: string;
 
-  @Column({nullable: true })
+  @Column({ nullable: true })
   startDate: String; // PostgreSQL daterange type
 
-  @Column({nullable: true })
+  @Column({ nullable: true })
   endDate: String;
 
-  @Column({nullable: true})
+  @Column({ nullable: true })
   month: string;
 
   @DeleteDateColumn({ nullable: true })

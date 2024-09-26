@@ -15,7 +15,8 @@ export const MotherRoutes = [
     route: "/users/mothers/:id",
     controller: MotherController,
     action: "one",
-    middlewares: [jwtMiddleware, roleMiddleware("mother")],
+    // middlewares: [jwtMiddleware, roleMiddleware("mother")],
+    middlewares: [jwtMiddleware],
   },
   {
     method: "post",
