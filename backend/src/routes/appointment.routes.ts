@@ -23,6 +23,13 @@ export const AppointmentRoutes = [
     middlewares: [],
   },
   {
+    method: "put",
+    route: "/appointments/:id",
+    controller: AppointmentController,
+    action: "update",
+    middlewares: [],
+  },
+  {
     method: "delete",
     route: "/appointments/:id",
     controller: AppointmentController,
