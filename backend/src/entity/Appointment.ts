@@ -8,11 +8,17 @@ export class Appointment {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ type: "enum", enum: ["prenatal", "postnatal"] })
-  appointment_type: "prenatal" | "postnatal"; // Enum type for appointment
+  @Column()
+  appointment_type: string; 
 
-  @Column("daterange")
-  dateRange: string; // PostgreSQL daterange type
+  @Column({nullable: true})
+  startDate: string; // PostgreSQL daterange type
+
+  @Column({nullable: true})
+  endDate: string;
+
+  @Column({nullable: true})
+  month: string;
 
   @DeleteDateColumn({ nullable: true })
   deletedAt: Date | null;
