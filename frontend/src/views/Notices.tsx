@@ -40,7 +40,7 @@ const Notices = () => {
   return (
     <div className="mx-11 my ">
       <div className="flex justify-between my-4 items-center ">
-        <h1 className="mt-9 mb-4">Notices</h1>
+        <h1 className="mt-9 mb-4 text-lg">Notices</h1>
         <div className="flex justify-end">
           {/* <button className="bg-[#CAE9FF] py-2 px-4 rounded-lg text-[#0D99FF] hover:bg-[#0D99FF] hover:text-white hover:animate-fadeIn active:bg-[#CAE9FF] active:text-[#0D99FF]">
             Add Notice
@@ -81,7 +81,7 @@ const Notices = () => {
                 >
                   <div>
                     <h1 className="mb-2 font-medium text-xl">{notice.title}</h1>
-                    <p className="font-normal text-sm">{notice.message}</p>
+                    <p className="font-normal text-[16px]">{notice.message}</p>
                     <p className="text-xs mt-3">Posted on: {formattedDate}</p>
                   </div>
                   <div className="md:flex gap-3">
