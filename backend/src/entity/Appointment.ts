@@ -11,11 +11,11 @@ export class Appointment {
   @Column()
   appointment_type: string; 
 
-  @Column({nullable: true})
-  startDate: string; // PostgreSQL daterange type
+  @Column({nullable: true })
+  startDate: String; // PostgreSQL daterange type
 
-  @Column({nullable: true})
-  endDate: string;
+  @Column({nullable: true })
+  endDate: String;
 
   @Column({nullable: true})
   month: string;
