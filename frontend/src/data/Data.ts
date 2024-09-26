@@ -190,8 +190,6 @@ export const categories = [
       },
     ],
   },
-
-  
   {
     name: "Baby Care",
     content: [
