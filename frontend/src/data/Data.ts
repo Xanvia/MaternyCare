@@ -6,29 +6,29 @@ import {
   Help,
 } from "../assets/icons/Icons";
 
-const getDashboardPath = () => {
-  // const user = JSON.parse(localStorage.getItem("user") || "{}");
+// const getDashboardPath = () => {
+//   // const user = JSON.parse(localStorage.getItem("user") || "{}");
 
-  let role = localStorage.getItem("role");
+//   let role = localStorage.getItem("role");
 
-  switch (role) {
-    case "mother":
-      return "/dashboard";
-    case "phm":
-      return "/phmdashboard";
-    case "moh":
-      return "/mohdashboard";
-    default:
-      return "/dashboard";
-  }
-};
+//   switch (role) {
+//     case "mother":
+//       return "/dashboard";
+//     case "phm":
+//       return "/phmdashboard";
+//     case "moh":
+//       return "/mohdashboard";
+//     default:
+//       return "/dashboard";
+//   }
+// };
 
 // console.log("role from drawer " + getDashboardPath());
 export const getNavLinks = () => [
   {
     name: "Dashboard",
     icon: DashboardIcon,
-    path: getDashboardPath(),
+    path: "/dashboard",
   },
   {
     name: "Notices",

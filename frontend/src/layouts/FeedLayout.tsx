@@ -9,7 +9,7 @@ const FeedLayout = () => {
   return (
     <div>
       <div className="flex justify-between ml-10 my-7">
-        <p className="hidden lg:block">
+        <p className="hidden lg:block text-lg">
           Pages /{" "}
           <span className="text-text_color_2"> {titleContext?.pageTitle}</span>
         </p>
