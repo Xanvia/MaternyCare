@@ -27,9 +27,6 @@ const DashboardPHM = () => {
       const axiosConfig = {
         method: "get",
         url: `${BASE_URL}users`,
-        // headers: {
-        //   Authorization: `Bearer`,
-        // },
       };
       axios(axiosConfig)
         .then((response) => {
@@ -49,14 +46,22 @@ const DashboardPHM = () => {
   return (
     <div className="mx-11">
       <div>
-        {phms.map(
-          (phm) =>
-            phm.role === "phm" && (
-              <div key={phm.id}>
-                <h1>{phm.firstName}</h1>
-              </div>
-            )
-        )}
+        <h1 className="text-lg">
+          List of mothers (for testing axios fetching)
+        </h1>
+        <div className="grid grid-cols-5 gap-2 mb-5">
+          {phms.map(
+            (phm) =>
+              phm.role === "mother" && (
+                <div
+                  className="bg-green-200 h-10 flex items-center justify-center"
+                  key={phm.id}
+                >
+                  <h1>{phm.firstName}</h1>
+                </div>
+              )
+          )}
+        </div>
       </div>
       <div className="grid  sm:grid-cols-3 grid-cols-2 gap-8">
         <DashboardStatCard
