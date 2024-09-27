@@ -62,6 +62,7 @@ export default function DeleteConfirmation({
         onClick={() => setOpen(true)}
         sx={{
           mt: 3,
+          mr: 2,
           background: "white",
           color: "#F580AB",
           "&:hover": {

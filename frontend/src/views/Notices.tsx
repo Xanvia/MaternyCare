@@ -10,6 +10,8 @@ const Notices = () => {
   const [notices, setNotices] = useState([]);
   const [loading, setLoading] = useState(false);
   const colors = ["#BA97FE", "#0D99FF", "#F580AB", "#F1CB3A", "#3AF16C"];
+  const role = localStorage.getItem("role");
+  console.log("role from notices page: " + role);
 
   useEffect(() => {
     const getNotices = () => {
@@ -84,7 +86,7 @@ const Notices = () => {
                     <p className="font-normal text-[16px]">{notice.message}</p>
                     <p className="text-xs mt-3">Posted on: {formattedDate}</p>
                   </div>
-                  <div className="md:flex gap-3">
+                  <div className="md:flex">
                     <DeleteCofirmation noticeId={notice.id} />
                     <UpdateNoticeModal
                       noticeId={notice.id}
