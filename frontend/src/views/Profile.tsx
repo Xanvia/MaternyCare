@@ -6,16 +6,39 @@ import EditLocationInfo from "../modals/LocationInfoEditPopup";
 import ToTitle from "../components/CaseConverter";
 import axios from "axios";
 
+interface Mother {
+  age: number;
+  firstName: string;
+  lastName: string;
+  email: string;
+  location: {
+    country: string;
+    state: string;
+    city: string;
+    postalCode: string;
+    gsDivisionNumber: string;
+  };
+  bio: string;
+  stage: string;
+  babyCount: number;
+}
+
 const Profile = () => {
   const [showPassword, setShowPassword] = useState(false);
   let userItem = localStorage.getItem("user");
   const user = userItem ? JSON.parse(userItem) : null;
 
   const BASE_URL = "http://localhost:3000/";
-  const [mother, setMother] = useState([]);
+  // const [mother, setMother] = useState([]);
+  const [mother, setMother] = useState<Mother | null>(null);
   const [loading, setLoading] = useState(false);
 
-  const token = localStorage.getItem("token");
+  // const token = JSON.parse(localStorage.getItem("token"));
+
+  const storedToken = localStorage.getItem("token");
+const token = storedToken ? JSON.parse(storedToken) : null;
+
+
 
   useEffect(() => {
     const getMother = () => {
@@ -29,7 +52,7 @@ const Profile = () => {
       };
       axios(axiosConfig)
         .then((response) => {
-          console.log(response.data);
+          console.log(response.data.age);
           setMother(response.data);
         })
         .catch((err) => {
@@ -43,6 +66,8 @@ const Profile = () => {
     getMother();
   }, []);
 
+  console.log("SOmething "+mother?.age)
+
   return (
     <div className="xs:mx-10 mx-3 bg-white rounded-xl p-5 flex flex-col gap-8">
       <div className="border-solid border-2 rounded-lg md:py-2 px-5 sm:flex justify-between items-center py-5">
@@ -52,6 +77,7 @@ const Profile = () => {
             src="https://randomuser.me/api/portraits/women/94.jpg"
             alt=""
           />
+          <h1>{token}</h1>
           <div className="flex flex-col  justify-between p-4 leading-normal">
             <h5 className="mb-2 text-2xl font-bold tracking-tight text-text_color_1 dark:text-white">
               {`${user.firstName} ${user.lastName}`}
