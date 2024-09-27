@@ -13,30 +13,57 @@ import { Box } from "@mui/material";
 import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
 import { Edit } from "../assets/icons/Icons";
+import axios from "axios";
+
+interface Mother {
+  age: number;
+  firstName: string;
+  lastName: string;
+  email: string;
+  phone_1: string;
+  location: {
+    country: string;
+    state: string;
+    city: string;
+    postalCode: string;
+    gsDivisionNumber: string;
+  };
+  bio: string;
+  stage: string;
+  babyCount: number;
+}
 
 // Validation schema
 const validationSchema = Yup.object({
   firstName: Yup.string().required("First Name is required"),
   lastName: Yup.string().required("Last Name is required"),
   email: Yup.string().required("Email is required"),
-  phone: Yup.string().required("Phone is required"),
+  phone_1: Yup.string().required("Phone is required"),
   age: Yup.string().required("Age is required"),
   bio: Yup.string().required("Bio is required"),
 });
 
+
+
 export default function EditPersonalInfo() {
   const [open, setOpen] = React.useState<boolean>(false);
+  const [loading, setLoading] = React.useState(false);
   const [initialValues, setInitialValues] = React.useState({
     firstName: "",
     lastName: "",
     email: "",
-    phone: "",
+    phone_1: "",
     age: "",
     bio: "",
   });
 
   let userItem = localStorage.getItem("user");
   const user = userItem ? JSON.parse(userItem) : null;
+  const BASE_URL = "http://localhost:3000/";
+  const storedToken = localStorage.getItem("token");
+const token = storedToken ? JSON.parse(storedToken) : null;
+
+const [mother, setMother] = React.useState<Mother | null>(null);
 
   // Mock function to fetch current data
   const fetchCurrentData = () => {
@@ -45,9 +72,9 @@ export default function EditPersonalInfo() {
       firstName: user.firstName,
       lastName: user.lastName,
       email: user.email,
-      phone: "1234567890",
-      age: "30",
-      bio: "This is a bio.",
+      phone: mother?.phone_1,
+      age: mother?.age,
+      bio: mother?.bio,
     };
   };
 
@@ -56,6 +83,32 @@ export default function EditPersonalInfo() {
     setInitialValues(currentData);
     setOpen(true);
   };
+
+  React.useEffect(() => {
+    const getMother = () => {
+      setLoading(true);
+      const axiosConfig = {
+        method: "get",
+        url: `${BASE_URL}users/mothers/5`,
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      };
+      axios(axiosConfig)
+        .then((response) => {
+          console.log(response.data.age);
+          setMother(response.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        })
+        .finally(() => {
+          setLoading(false);
+        });
+    };
+  
+    getMother();
+  }, []);
 
   return (
     <React.Fragment>

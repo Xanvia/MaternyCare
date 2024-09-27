@@ -11,6 +11,7 @@ interface Mother {
   firstName: string;
   lastName: string;
   email: string;
+  phone_1: string;
   location: {
     country: string;
     state: string;
@@ -45,7 +46,7 @@ const token = storedToken ? JSON.parse(storedToken) : null;
       setLoading(true);
       const axiosConfig = {
         method: "get",
-        url: `${BASE_URL}users/mothers/1`,
+        url: `${BASE_URL}users/mothers/5`,
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -77,7 +78,6 @@ const token = storedToken ? JSON.parse(storedToken) : null;
             src="https://randomuser.me/api/portraits/women/94.jpg"
             alt=""
           />
-          <h1>{token}</h1>
           <div className="flex flex-col  justify-between p-4 leading-normal">
             <h5 className="mb-2 text-2xl font-bold tracking-tight text-text_color_1 dark:text-white">
               {`${user.firstName} ${user.lastName}`}
@@ -111,16 +111,16 @@ const token = storedToken ? JSON.parse(storedToken) : null;
           </div>
           <div className="text-text_color_2">
             <h5 className="">Phone</h5>
-            <p className="font-semibold mt-2 mb-4">(+94) 714530767</p>
+            <p className="font-semibold mt-2 mb-4">{mother?.phone_1}</p>
           </div>
           <div className="text-text_color_2">
             <h5 className="">Age</h5>
-            <p className="font-semibold mt-2 mb-4">30 years old</p>
+            <p className="font-semibold mt-2 mb-4">{mother?.age}</p>
           </div>
           <div className="text-text_color_2">
             <h5 className="">Bio</h5>
             <p className="font-semibold mt-2 mb-4">
-              I'm currently working as a Teacher
+              {mother?.bio}
             </p>
           </div>
         </div>
@@ -205,7 +205,7 @@ const token = storedToken ? JSON.parse(storedToken) : null;
 };
 
 export default Profile;
-function setLoading(arg0: boolean) {
-  throw new Error("Function not implemented.");
-}
+// function setLoading(arg0: boolean) {
+//   throw new Error("Function not implemented.");
+// }
 
