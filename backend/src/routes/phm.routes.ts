@@ -15,7 +15,8 @@ export const PhmRoutes = [
     route: "/users/phms/:id",
     controller: PhmController,
     action: "one",
-    middlewares: [jwtMiddleware, roleMiddleware("phm")],
+    // middlewares: [jwtMiddleware, roleMiddleware("phm")],
+    middlewares: [jwtMiddleware],
   },
   {
     method: "post",
