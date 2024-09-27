@@ -10,7 +10,10 @@ const Notices = () => {
   const [notices, setNotices] = useState([]);
   const [loading, setLoading] = useState(false);
   const colors = ["#BA97FE", "#0D99FF", "#F580AB", "#F1CB3A", "#3AF16C"];
-  const role = localStorage.getItem("role");
+  const role = (localStorage.getItem("role") || "")
+    .replace(/"/g, "")
+    .trim()
+    .toLowerCase();
   console.log("role from notices page: " + role);
 
   useEffect(() => {
@@ -39,15 +42,14 @@ const Notices = () => {
     getNotices();
   }, []);
 
+  console.log("typeeeeeeeeeeeeeeee: " + typeof role); // Logs the type of the variable 'role'
+
   return (
     <div className="mx-11 my ">
       <div className="flex justify-between my-4 items-center ">
         <h1 className="mt-9 mb-4 text-lg">Notices</h1>
         <div className="flex justify-end">
-          {/* <button className="bg-[#CAE9FF] py-2 px-4 rounded-lg text-[#0D99FF] hover:bg-[#0D99FF] hover:text-white hover:animate-fadeIn active:bg-[#CAE9FF] active:text-[#0D99FF]">
-            Add Notice
-          </button> */}
-          <AddNoticeModal />
+          {role !== "mother" && <AddNoticeModal />}
         </div>
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -87,12 +89,16 @@ const Notices = () => {
                     <p className="text-xs mt-3">Posted on: {formattedDate}</p>
                   </div>
                   <div className="md:flex">
-                    <DeleteCofirmation noticeId={notice.id} />
-                    <UpdateNoticeModal
-                      noticeId={notice.id}
-                      noticeTitle={notice.title}
-                      noticeMessage={notice.message}
-                    />
+                    {role !== "mother" && (
+                      <>
+                        <DeleteCofirmation noticeId={notice.id} />
+                        <UpdateNoticeModal
+                          noticeId={notice.id}
+                          noticeTitle={notice.title}
+                          noticeMessage={notice.message}
+                        />
+                      </>
+                    )}
                   </div>
                 </div>
               );

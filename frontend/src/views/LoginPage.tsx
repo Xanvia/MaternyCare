@@ -39,7 +39,7 @@ const LoginPage: React.FC = () => {
         //   "name",
         //   JSON.stringify(response.data.user.firstName)
         // );
-        // localStorage.setItem("role", JSON.stringify(response.data.user.role));
+        localStorage.setItem("role", JSON.stringify(response.data.user.role));
         localStorage.setItem("user", JSON.stringify(response.data.user));
         localStorage.setItem("token", JSON.stringify(response.data.token));
         console.log(response.data.user.role);
@@ -135,7 +135,7 @@ const LoginPage: React.FC = () => {
                 <ErrorIcon />
                 {formik.errors.password}
               </div>
-            ) : null} 
+            ) : null}
           </div>
         </div>
         <div className="w-11/12 lg:w-5/12 sm:w-8/12 ss:w-10/12 mb-4 flex flex-row justify-between">
@@ -157,4 +157,4 @@ const LoginPage: React.FC = () => {
   );
 };
 
-export default LoginPage; 
+export default LoginPage;
