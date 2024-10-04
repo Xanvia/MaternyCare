@@ -37,16 +37,14 @@ const Profile = () => {
   // const token = JSON.parse(localStorage.getItem("token"));
 
   const storedToken = localStorage.getItem("token");
-const token = storedToken ? JSON.parse(storedToken) : null;
-
-
+  const token = storedToken ? JSON.parse(storedToken) : null;
 
   useEffect(() => {
     const getMother = () => {
       setLoading(true);
       const axiosConfig = {
         method: "get",
-        url: `${BASE_URL}users/mothers/5`,
+        url: `${BASE_URL}users/mothers/${user.id}`,
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -67,7 +65,7 @@ const token = storedToken ? JSON.parse(storedToken) : null;
     getMother();
   }, []);
 
-  console.log("SOmething "+mother?.age)
+  console.log("SOmething " + mother?.age);
 
   return (
     <div className="xs:mx-10 mx-3 bg-white rounded-xl p-5 flex flex-col gap-8">
@@ -119,9 +117,7 @@ const token = storedToken ? JSON.parse(storedToken) : null;
           </div>
           <div className="text-text_color_2">
             <h5 className="">Bio</h5>
-            <p className="font-semibold mt-2 mb-4">
-              {mother?.bio}
-            </p>
+            <p className="font-semibold mt-2 mb-4">{mother?.bio}</p>
           </div>
         </div>
       </div>
@@ -208,4 +204,3 @@ export default Profile;
 // function setLoading(arg0: boolean) {
 //   throw new Error("Function not implemented.");
 // }
-
