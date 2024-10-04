@@ -3,7 +3,93 @@ import { useEffect, useState } from "react";
 
 const DashboardMOH = () => {
   return (
-    <h1 className='font-sans text-lg text-text_color_2 ml-5'>Dashboard Overview</h1>
+    <div>
+      <h1 className='font-sans text-lg text-text_color_2 ml-5'>Dashboard Overview</h1>
+
+      <div className='flex flex-row justify-center border-b mb-5 mt-5'>
+        <button className='px-20 font-medium'>MOTHER LIST</button>
+        <button className='px-20 font-medium'>PHM LIST</button>
+        <button className='px-20 font-medium'>PENDING LIST</button>
+      </div>
+
+      <div className='flex bg-white'>
+        <button className='px-5'>Patient List</button>
+        <button className='px-5'>Red Patient List</button>
+        <button className='px-5'>Remove</button>
+
+        <input
+        type="text"
+        placeholder="Search any keywords"
+        className="border p-2 rounded-md shadow-sm w-52 bg-background text-sm"
+      />
+      </div>
+    </div>
+    
+
+
+//     <div className="bg-white p-6 rounded-md shadow-md">
+//   <h1 className="text-customGray font-sans text-lg mb-4">Dashboard Overview</h1>
+
+//   {/* Tab Navigation */}
+//   <div className="flex border-b mb-5">
+//     <button className="py-2 px-4 font-semibold text-blue-600 border-b-2 border-blue-600">
+//       MOTHER LIST
+//     </button>
+//     <button className="py-2 px-4 font-semibold text-gray-400">
+//       PHM LIST
+//     </button>
+//     <button className="py-2 px-4 font-semibold text-gray-400">
+//       PENDING LIST
+//     </button>
+//   </div>
+
+//   {/* Controls */}
+//   <div className="flex justify-between items-center mb-4">
+//     <div className="text-purple-600">
+//       <span className="mr-4">Patient List</span>
+//       <span className="text-red-600 cursor-pointer">Red Patient List</span>
+//     </div>
+//     <div className="flex items-center">
+      // <input
+      //   type="text"
+      //   placeholder="Search any keywords"
+      //   className="border p-2 rounded-md shadow-sm w-72"
+      // />
+//       <button className="bg-purple-500 text-white px-4 py-2 ml-4 rounded-md">
+//         + Add
+//       </button>
+//     </div>
+//   </div>
+
+//   {/* Table */}
+//   <div className="overflow-x-auto">
+//     <table className="min-w-full bg-white border">
+//       <thead>
+//         <tr>
+//           <th className="bg-purple-400 text-white px-4 py-2">Patients</th>
+//           <th className="bg-purple-400 text-white px-4 py-2">Address</th>
+//           <th className="bg-purple-400 text-white px-4 py-2">Appointment</th>
+//           <th className="bg-purple-400 text-white px-4 py-2">Status</th>
+//         </tr>
+//       </thead>
+//       <tbody>
+//         {Array(6).fill(0).map((_, index) => (
+//           <tr key={index} className="border-t">
+//             <td className="px-4 py-2 text-gray-600">Patients</td>
+//             <td className="px-4 py-2 text-gray-600">Address goes here.....</td>
+//             <td className="px-4 py-2 text-gray-600">Appointment Description...</td>
+//             <td className="px-4 py-2 text-gray-600 flex items-center justify-between">
+//               Completed
+//               <div className="w-6 h-6 bg-green-500 rounded-full"></div>
+//             </td>
+//           </tr>
+//         ))}
+//       </tbody>
+//     </table>
+//   </div>
+// </div>
+
+    
   );
 }
 
