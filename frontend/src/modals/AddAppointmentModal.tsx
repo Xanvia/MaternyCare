@@ -76,7 +76,12 @@ export default function AddAppointmentModal() {
           </DialogTitle>
           <Divider />
           <Formik
-            initialValues={{ appointment_type: "", startDate: "", endDate: "", month: "" }}
+            initialValues={{
+              appointment_type: "",
+              startDate: "",
+              endDate: "",
+              month: "",
+            }}
             validationSchema={validationSchema}
             onSubmit={(values, { setSubmitting }) => {
               const axiosConfig = {
@@ -97,7 +102,9 @@ export default function AddAppointmentModal() {
                   console.log(response.data);
                   setSubmitting(false);
                   setOpen(false);
-                  toast.success("The appointment has been added successfully!.");
+                  toast.success(
+                    "The appointment has been added successfully!."
+                  );
                   setTimeout(() => window.location.reload(), 1500);
                 })
                 .catch((err) => {
@@ -117,7 +124,7 @@ export default function AddAppointmentModal() {
                     fontWeight: "bold",
                   }}
                 >
-                  Appointment Type:
+                  Appointment Description:
                 </DialogContent>
                 <Box
                   sx={{
@@ -131,8 +138,13 @@ export default function AddAppointmentModal() {
                     fullWidth
                     size="small"
                     variant="outlined"
-                    error={touched.appointment_type && Boolean(errors.appointment_type)}
-                    helperText={touched.appointment_type && errors.appointment_type}
+                    error={
+                      touched.appointment_type &&
+                      Boolean(errors.appointment_type)
+                    }
+                    helperText={
+                      touched.appointment_type && errors.appointment_type
+                    }
                   />
                 </Box>
 
@@ -166,16 +178,16 @@ export default function AddAppointmentModal() {
                         setFieldValue("endDate", endDate);
                         setFieldValue("month", month);
                       }}
-                    //   renderInput={(params) => (
-                    //     <TextField
-                    //       {...params}
-                    //       fullWidth
-                    //       size="small"
-                    //       variant="outlined"
-                    //       error={touched.startDate && Boolean(errors.startDate)}
-                    //       helperText={touched.startDate && errors.startDate}
-                    //     />
-                    //   )}
+                      //   renderInput={(params) => (
+                      //     <TextField
+                      //       {...params}
+                      //       fullWidth
+                      //       size="small"
+                      //       variant="outlined"
+                      //       error={touched.startDate && Boolean(errors.startDate)}
+                      //       helperText={touched.startDate && errors.startDate}
+                      //     />
+                      //   )}
                     />
                   </LocalizationProvider>
                 </Box>
