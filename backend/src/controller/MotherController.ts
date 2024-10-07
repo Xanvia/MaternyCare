@@ -2,6 +2,7 @@ import { AppDataSource } from "../data-source";
 import { NextFunction, Request, Response } from "express";
 import { Mother } from "../entity/Mother";
 import { User } from "../entity/User";
+import { generateAppointmentsForMother } from "../Service/appointmentService";
 
 export class MotherController {
   private motherRepository = AppDataSource.getRepository(Mother);
@@ -68,6 +69,12 @@ export class MotherController {
       isVerified: user.isVerified,
       password: user.password,
     });
+
+    const savedMother = await this.motherRepository.save(mother);
+
+    if (savedMother.delivery_date) {
+      await generateAppointmentsForMother(savedMother.id); // Call the function to generate appointments
+    }
 
     return this.motherRepository.save(mother);
   }
