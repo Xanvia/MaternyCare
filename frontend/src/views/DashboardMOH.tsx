@@ -28,7 +28,7 @@ const DashboardMOH = () => {
         <button className='px-20 font-medium'>PENDING LIST</button>
       </div>
 
-      <div className='flex bg-white'>
+      <div className='flex bg-white w-full justify-between items-center p-4'>
         <button className='px-5'>Patient List</button>
         <button className='px-5'>Red Patient List</button>
         <button className='px-5'>Remove</button>
