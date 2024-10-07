@@ -14,8 +14,10 @@ export class MotherController {
   async one(request: Request, response: Response, next: NextFunction) {
     const id = parseInt(request.params.id);
 
+    const user = await this.userRepository.findOne({ where: { id } });
+
     const mother = await this.motherRepository.findOne({
-      where: { id },
+      where: { user },
       relations: ["user"],
     });
 

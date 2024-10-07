@@ -5,14 +5,14 @@ import { roleMiddleware } from "../middlewear/roleMiddleware";
 export const MotherRoutes = [
   {
     method: "get",
-    route: "/users/mothers/all",
+    route: "/users/mother/all",
     controller: MotherController,
     action: "all",
     middlewares: [],
   },
   {
     method: "get",
-    route: "/users/mothers/:id",
+    route: "/users/mother/:id",
     controller: MotherController,
     action: "one",
     // middlewares: [jwtMiddleware, roleMiddleware("mother")],
@@ -20,7 +20,7 @@ export const MotherRoutes = [
   },
   {
     method: "post",
-    route: "/users/mothers",
+    route: "/users/mother",
     controller: MotherController,
     action: "save",
     // middlewares: [jwtMiddleware, roleMiddleware("mother")],
@@ -28,7 +28,7 @@ export const MotherRoutes = [
   },
   {
     method: "delete",
-    route: "/users/mothers/:id",
+    route: "/users/mother/:id",
     controller: MotherController,
     action: "remove",
     // middlewares: [jwtMiddleware, roleMiddleware("mother")],
