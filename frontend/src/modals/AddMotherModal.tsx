@@ -36,11 +36,11 @@ export default function AddMotherModal() {
         variant="outlined"
         onClick={() => setOpen(true)}
         sx={{
-          borderColor: "#0D99FF",
-          color: "#0D99FF",
+          borderColor: "#BA97FE",
+          color: "#BA97FE",
           "&:hover": {
-            borderColor: "#80CAFF",
-            color: "#80CAFF",
+            borderColor: "#DDCDFE",
+            color: "#DDCDFE",
           },
         }}
       >
