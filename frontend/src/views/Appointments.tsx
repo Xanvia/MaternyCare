@@ -2,8 +2,12 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { Rings } from "react-loader-spinner";
 import AddAppointmentModal from "../modals/AddAppointmentModal";
+import useRoleProtection from "../customHooks/useRoleProtection";
 
 const Appointments = () => {
+
+  useRoleProtection("mother");
+
   const BASE_URL = "http://localhost:3000/";
   const [appointments, setAppointments] = useState([]);
   const [loading, setLoading] = useState(false);
