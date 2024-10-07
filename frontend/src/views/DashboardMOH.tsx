@@ -14,6 +14,7 @@ import FirstPageIcon from '@mui/icons-material/FirstPage';
 import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
 import LastPageIcon from '@mui/icons-material/LastPage';
+import AddMotherModal from '../modals/AddMotherModal';
 
 
 const DashboardMOH = () => {
@@ -33,10 +34,11 @@ const DashboardMOH = () => {
         <button className='px-5'>Remove</button>
 
         <input
-        type="text"
-        placeholder="Search any keywords"
-        className="border p-2 rounded-md shadow-sm w-52 bg-background text-sm"
-      />
+          type="text"
+          placeholder="Search any keywords"
+          className="border p-2 rounded-md shadow-sm w-52 bg-background text-sm"
+        />
+        <AddMotherModal />
       </div>
     </div>
     
