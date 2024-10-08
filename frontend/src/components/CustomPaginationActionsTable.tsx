@@ -8,7 +8,7 @@ import TableContainer from '@mui/material/TableContainer';
 import TableFooter from '@mui/material/TableFooter';
 import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
-import TableHead from '@mui/material/TableHead'; // Import TableHead
+import TableHead from '@mui/material/TableHead'; 
 import Paper from '@mui/material/Paper';
 import IconButton from '@mui/material/IconButton';
 import FirstPageIcon from '@mui/icons-material/FirstPage';
@@ -86,20 +86,12 @@ function createData(patient: string, address: string, appointment: string, statu
   return { patient, address, appointment, status };
 }
 
+// Sample rows for the table (you can pass different rows based on the tab)
 const rows = [
   createData('Patient_1', 'Address here', 'Appointment description', 'Completed'),
   createData('Patient_2', 'Address here', 'Appointment description', 'Completed'),
   createData('Patient_3', 'Address here', 'Appointment description', 'Completed'),
   createData('Patient_4', 'Address here', 'Appointment description', 'Completed'),
-  createData('Patient_5', 'Address here', 'Appointment description', 'Completed'),
-  createData('Patient_6', 'Address here', 'Appointment description', 'Completed'),
-  createData('Patient_7', 'Address here', 'Appointment description', 'Completed'),
-  createData('Patient_8', 'Address here', 'Appointment description', 'Completed'),
-  createData('Patient_9', 'Address here', 'Appointment description', 'Completed'),
-  createData('Patient_10', 'Address here', 'Appointment description', 'Completed'),
-  createData('Patient_11', 'Address here', 'Appointment description', 'Completed'),
-  createData('Patient_12', 'Address here', 'Appointment description', 'Completed'),
-  createData('Patient_13', 'Address here', 'Appointment description', 'Completed'),
 ].sort((a, b) => (a.address < b.address ? -1 : 1));
 
 export default function CustomPaginationActionsTable() {
@@ -163,14 +155,6 @@ export default function CustomPaginationActionsTable() {
               count={rows.length}
               rowsPerPage={rowsPerPage}
               page={page}
-              slotProps={{
-                select: {
-                  inputProps: {
-                    'aria-label': 'rows per page',
-                  },
-                  native: true,
-                },
-              }}
               onPageChange={handleChangePage}
               onRowsPerPageChange={handleChangeRowsPerPage}
               ActionsComponent={TablePaginationActions}
