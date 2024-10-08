@@ -1,4 +1,3 @@
-import { Router } from "express";
 import { jwtMiddleware } from "../middlewear/jwtMiddleware";
 import { UserController } from "../controller/UserController";
 
