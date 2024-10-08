@@ -23,7 +23,7 @@ const DashboardMOH = () => {
     <div>
       <h1 className='font-sans text-lg text-text_color_2 ml-5'>Dashboard Overview</h1>
 
-      <div className='flex flex-row justify-center border-b mb-5 mt-5'>
+      <div className='flex flex-row justify-center border-b mb-5 mt-8'>
         <button className='px-20 font-medium'>MOTHER LIST</button>
         <button className='px-20 font-medium'>PHM LIST</button>
         <button className='px-20 font-medium'>PENDING LIST</button>
