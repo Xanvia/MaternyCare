@@ -11,12 +11,18 @@ const DashboardPHM = () => {
   useRoleProtection("phm");
 
   const BASE_URL = "http://localhost:3000/";
+  const storedToken = localStorage.getItem("token");
+  const token = storedToken ? JSON.parse(storedToken) : null;
 
   interface Phm {
     id: number;
-    firstName: string;
-    email: string;
-    role: string;
+    nic: string;
+    phone_number: number;
+    mother_count: number;
+    user: {
+      firstName: string;
+      lastName: string;
+    };
   }
 
   const [phms, setPhms] = useState<Phm[]>([]);
@@ -26,7 +32,10 @@ const DashboardPHM = () => {
       // setLoading(true);
       const axiosConfig = {
         method: "get",
-        url: `${BASE_URL}users`,
+        url: `${BASE_URL}users/mother/all`,
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
       };
       axios(axiosConfig)
         .then((response) => {
@@ -50,17 +59,14 @@ const DashboardPHM = () => {
           List of mothers (for testing axios fetching)
         </h1>
         <div className="grid grid-cols-5 gap-2 mb-5">
-          {phms.map(
-            (phm) =>
-              phm.role === "mother" && (
-                <div
-                  className="bg-green-200 h-10 flex items-center justify-center"
-                  key={phm.id}
-                >
-                  <h1>{phm.firstName}</h1>
-                </div>
-              )
-          )}
+          {phms.map((phm) => (
+            <div
+              className="bg-green-200 h-10 flex items-center justify-center"
+              key={phm.id}
+            >
+              <h1>{phm.user.firstName}</h1>
+            </div>
+          ))}
         </div>
       </div>
       <div className="grid  sm:grid-cols-3 grid-cols-2 gap-8">
