@@ -80,7 +80,7 @@ export class UserController {
       // Return user and token
       response.send({ user: savedUser, token });
     } catch (error) {
-      console.error("Error creating user:", error);
+      console.error("Error creating user :", error);
       response.status(500).json({ message: "Internal server error" });
     }
   }

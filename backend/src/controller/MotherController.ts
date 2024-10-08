@@ -111,6 +111,16 @@ export class MotherController {
         return response.status(404).json({ message: "User not found" });
       }
 
+      // Check if a Mother entity already exists for the given userId
+      const existingMother = await this.motherRepository.findOne({
+        where: { user: { id: userId } },
+      });
+      if (existingMother) {
+        return response
+          .status(400)
+          .json({ message: "Mother already exists for this user" });
+      }
+
       const mother = new Mother();
       mother.age = age;
       mother.nic = nic;
