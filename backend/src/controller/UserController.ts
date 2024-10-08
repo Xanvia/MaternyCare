@@ -104,7 +104,10 @@ export class UserController {
       }
 
       // Generate a JWT
-      const token = jwt.sign({ userId: user.id }, process.env.JWT_SECRET);
+      const token = jwt.sign(
+        { userId: user.id, userRole: user.role },
+        process.env.JWT_SECRET
+      );
 
       // Return only necessary user details and token
       const userResponse = {

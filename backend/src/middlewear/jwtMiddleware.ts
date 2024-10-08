@@ -25,9 +25,9 @@ export function jwtMiddleware(
     console.log("JWT_SECRET: ", process.env.JWT_SECRET);
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
-    console.log(decoded);
     // Attach the decoded data to the request object
     request.user = decoded;
+    console.log(request.user);
 
     next();
   } catch (err) {
