@@ -15,6 +15,7 @@ import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
 import LastPageIcon from '@mui/icons-material/LastPage';
 import AddMotherModal from '../modals/AddMotherModal';
+import CustomPaginationActionsTable from '../components/CustomPaginationActionsTable';
 
 
 const DashboardMOH = () => {
@@ -28,18 +29,27 @@ const DashboardMOH = () => {
         <button className='px-20 font-medium'>PENDING LIST</button>
       </div>
 
-      <div className='flex bg-white w-full justify-between items-center p-4'>
-        <button className='px-5'>Patient List</button>
-        <button className='px-5'>Red Patient List</button>
-        <button className='px-5'>Remove</button>
+      <div className="flex bg-white w-full justify-between items-center p-4">
+        <div className="flex space-x-4">
+          <button className="px-5">Patient List</button>
+          <button className="px-5">Red Patient List</button>
+          <button className="px-5">Remove</button>
+        </div>
 
-        <input
-          type="text"
-          placeholder="Search any keywords"
-          className="border p-2 rounded-md shadow-sm w-52 bg-background text-sm"
-        />
-        <AddMotherModal />
+        <div className="flex items-center space-x-4">
+          <input
+            type="text"
+            placeholder="Search any keywords"
+            className="border p-2 rounded-md shadow-sm w-52 bg-background text-sm"
+          />
+          <AddMotherModal />
+        </div>
       </div>
+
+      <div className="mt-5">
+        <CustomPaginationActionsTable />
+      </div>
+
     </div>
     
 
