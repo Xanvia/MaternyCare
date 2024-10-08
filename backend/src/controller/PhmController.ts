@@ -64,13 +64,7 @@ export class PhmController {
       mother_count,
       baby_count,
       star_points,
-      user_id: user.id,
-      firstName: user.firstName,
-      lastName: user.lastName,
-      email: user.email,
-      role: user.role,
-      isVerified: user.isVerified,
-      password: user.password,
+      user: user,
     });
 
     return this.phmRepository.save(phm);
