@@ -8,14 +8,17 @@ export class PhmController {
   private userRepository = AppDataSource.getRepository(User);
 
   async all(request: Request, response: Response, next: NextFunction) {
-    return this.phmRepository.find();
+    return this.phmRepository.find({ relations: ["user"] });
   }
 
   async one(request: Request, response: Response, next: NextFunction) {
     const id = parseInt(request.params.id);
 
+    const user = await this.userRepository.findOne({ where: { id } });
+
     const phm = await this.phmRepository.findOne({
-      where: { id },
+      where: { user },
+      relations: ["user"],
     });
 
     if (!phm) {
