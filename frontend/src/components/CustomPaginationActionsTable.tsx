@@ -82,25 +82,25 @@ function TablePaginationActions(props: TablePaginationActionsProps) {
   );
 }
 
-function createData(name: string, calories: number, fat: number) {
-  return { name, calories, fat };
+function createData(patient: string, address: string, appointment: string, status: string) {
+  return { patient, address, appointment, status };
 }
 
 const rows = [
-  createData('Cupcake', 305, 3.7),
-  createData('Donut', 452, 25.0),
-  createData('Eclair', 262, 16.0),
-  createData('Frozen yoghurt', 159, 6.0),
-  createData('Gingerbread', 356, 16.0),
-  createData('Honeycomb', 408, 3.2),
-  createData('Ice cream sandwich', 237, 9.0),
-  createData('Jelly Bean', 375, 0.0),
-  createData('KitKat', 518, 26.0),
-  createData('Lollipop', 392, 0.2),
-  createData('Marshmallow', 318, 0),
-  createData('Nougat', 360, 19.0),
-  createData('Oreo', 437, 18.0),
-].sort((a, b) => (a.calories < b.calories ? -1 : 1));
+  createData('Patient_1', 'Address here', 'Appointment description', 'Completed'),
+  createData('Patient_2', 'Address here', 'Appointment description', 'Completed'),
+  createData('Patient_3', 'Address here', 'Appointment description', 'Completed'),
+  createData('Patient_4', 'Address here', 'Appointment description', 'Completed'),
+  createData('Patient_5', 'Address here', 'Appointment description', 'Completed'),
+  createData('Patient_6', 'Address here', 'Appointment description', 'Completed'),
+  createData('Patient_7', 'Address here', 'Appointment description', 'Completed'),
+  createData('Patient_8', 'Address here', 'Appointment description', 'Completed'),
+  createData('Patient_9', 'Address here', 'Appointment description', 'Completed'),
+  createData('Patient_10', 'Address here', 'Appointment description', 'Completed'),
+  createData('Patient_11', 'Address here', 'Appointment description', 'Completed'),
+  createData('Patient_12', 'Address here', 'Appointment description', 'Completed'),
+  createData('Patient_13', 'Address here', 'Appointment description', 'Completed'),
+].sort((a, b) => (a.address < b.address ? -1 : 1));
 
 export default function CustomPaginationActionsTable() {
   const [page, setPage] = React.useState(0);
@@ -128,9 +128,10 @@ export default function CustomPaginationActionsTable() {
       <Table sx={{ minWidth: 500 }} aria-label="custom pagination table">
         <TableHead>
           <TableRow>
-            <TableCell>Name</TableCell>
-            <TableCell align="right">Calories</TableCell>
-            <TableCell align="right">Fat&nbsp;(g)</TableCell>
+            <TableCell align="left">Patient</TableCell>
+            <TableCell align="left">Address</TableCell>
+            <TableCell align="left">Appointment</TableCell>
+            <TableCell align="left">Status</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -138,18 +139,19 @@ export default function CustomPaginationActionsTable() {
             ? rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
             : rows
           ).map((row) => (
-            <TableRow key={row.name}>
-              <TableCell component="th" scope="row">
-                {row.name}
+            <TableRow key={row.patient}>
+              <TableCell component="th" scope="row" align="left">
+                {row.patient}
               </TableCell>
-              <TableCell align="right">{row.calories}</TableCell>
-              <TableCell align="right">{row.fat}</TableCell>
+              <TableCell align="left">{row.address}</TableCell>
+              <TableCell align="left">{row.appointment}</TableCell>
+              <TableCell align="left">{row.status}</TableCell>
             </TableRow>
           ))}
 
           {emptyRows > 0 && (
             <TableRow style={{ height: 53 * emptyRows }}>
-              <TableCell colSpan={3} />
+              <TableCell colSpan={4} />
             </TableRow>
           )}
         </TableBody>
@@ -157,7 +159,7 @@ export default function CustomPaginationActionsTable() {
           <TableRow>
             <TablePagination
               rowsPerPageOptions={[5, 10, 25, { label: 'All', value: -1 }]}
-              colSpan={3}
+              colSpan={4}
               count={rows.length}
               rowsPerPage={rowsPerPage}
               page={page}
