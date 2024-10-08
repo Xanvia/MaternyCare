@@ -5,8 +5,10 @@ import EditAccountInfo from "../modals/AccountInfoEditPopup";
 import EditLocationInfo from "../modals/LocationInfoEditPopup";
 import ToTitle from "../components/CaseConverter";
 import axios from "axios";
+import { CircularProgress } from "@mui/material";
 
 interface Mother {
+  id: number;
   age: number;
   firstName: string;
   lastName: string;
@@ -44,14 +46,13 @@ const Profile = () => {
       setLoading(true);
       const axiosConfig = {
         method: "get",
-        url: `${BASE_URL}users/mothers/${user.id}`,
+        url: `${BASE_URL}users/${user.role}/${user.id}`,
         headers: {
           Authorization: `Bearer ${token}`,
         },
       };
       axios(axiosConfig)
         .then((response) => {
-          console.log(response.data.age);
           setMother(response.data);
         })
         .catch((err) => {
@@ -65,7 +66,9 @@ const Profile = () => {
     getMother();
   }, []);
 
-  console.log("SOmething " + mother?.age);
+  if (loading) {
+    return <CircularProgress />;
+  }
 
   return (
     <div className="xs:mx-10 mx-3 bg-white rounded-xl p-5 flex flex-col gap-8">

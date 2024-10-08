@@ -14,8 +14,10 @@ export class MotherController {
   async one(request: Request, response: Response, next: NextFunction) {
     const id = parseInt(request.params.id);
 
+    const user = await this.userRepository.findOne({ where: { id } });
+
     const mother = await this.motherRepository.findOne({
-      where: { id },
+      where: { user },
       relations: ["user"],
     });
 
@@ -25,82 +27,23 @@ export class MotherController {
     return mother;
   }
 
-  // async one(request: Request, response: Response, next: NextFunction) {
-  //   const id = parseInt(request.params.id);
-
-  //   try {
-  //     const mother = await this.motherRepository.findOne({
-  //       where: { id },
-  //       relations: ["user"], // Include user-related data
-  //     });
-
-  //     if (!mother) {
-  //       return response.status(404).json({ message: "Mother not found" });
-  //     }
-  //     return response.json(mother); // Use class-transformer to serialize
-  //   } catch (error) {
-  //     return next(error);
-  //   }
-  // }
-
-  // async save(request: Request, response: Response, next: NextFunction) {
-  //   const { age, nic, risk_type, phone_1, bio } = request.body;
-
-  //   if (request.user.userRole !== "mother") {
-  //     console.log(request.user.role);
-  //     return "You are not authorized to create a Mother";
-  //   }
-
-  //   const userId = request.user?.userId;
-
-  //   if (!userId) {
-  //     return response
-  //       .status(400)
-  //       .json({ error: "User ID is missing or invalid" });
-  //   }
-
-  //   const parsedUserId = parseInt(userId, 10);
-
-  //   if (isNaN(parsedUserId)) {
-  //     return response
-  //       .status(400)
-  //       .json({ error: "User ID is not a valid number" });
-  //   }
-
-  //   const user = await this.userRepository.findOne({
-  //     where: { id: parsedUserId }, // Use the correct property name here
-  //   });
-
-  //   if (!user) {
-  //     return response.status(404).json({ error: "User not found" });
-  //   }
-
-  //   const mother = Object.assign(new Mother(), {
-  //     age,
-  //     nic,
-  //     risk_type,
-  //     phone_1,
-  //     bio,
-  //     user_id: user.id,
-  //     firstName: user.firstName,
-  //     lastName: user.lastName,
-  //     email: user.email,
-  //     role: user.role,
-  //     isVerified: user.isVerified,
-  //     password: user.password,
-  //   });
-
-  //   return this.motherRepository.save(mother);
-  // }
-
   async save(request: Request, response: Response, next: NextFunction) {
-    const { age, nic, risk_type, phone_1, bio, userId } = request.body;
+    const { age, nic, risk_type, phone_1, bio } = request.body;
 
     if (request.user.userRole !== "mother") {
-      console.log(request.user.role);
+      console.log(request.user.userRole);
+      // return "You are not authorized to create a Mother";
       return response
         .status(403)
         .json({ message: "You are not authorized to create a Mother" });
+    }
+
+    const userId = request.user?.userId;
+
+    if (!userId) {
+      return response
+        .status(400)
+        .json({ error: "User ID is missing or invalid" });
     }
 
     try {
@@ -108,6 +51,15 @@ export class MotherController {
       if (!user) {
         return response.status(404).json({ message: "User not found" });
       }
+
+      // const mother = Object.assign(new Mother(), {
+      //   age,
+      //   nic,
+      //   risk_type,
+      //   phone_1,
+      //   bio,
+      //   user: user,
+      // });
 
       const mother = new Mother();
       mother.age = age;
@@ -118,7 +70,9 @@ export class MotherController {
       mother.user = user; // Set the user relationship
 
       await this.motherRepository.save(mother);
-      return response.status(201).json(mother); // Directly return the mother entity
+      // return response.status(201).json(mother);
+      response.send(mother);
+      return;
     } catch (error) {
       return next(error);
     }

@@ -80,7 +80,7 @@ export class UserController {
       // Return user and token
       response.send({ user: savedUser, token });
     } catch (error) {
-      console.error("Error creating user:", error);
+      console.error("Error creating user :", error);
       response.status(500).json({ message: "Internal server error" });
     }
   }
@@ -104,7 +104,10 @@ export class UserController {
       }
 
       // Generate a JWT
-      const token = jwt.sign({ userId: user.id }, process.env.JWT_SECRET);
+      const token = jwt.sign(
+        { userId: user.id, userRole: user.role },
+        process.env.JWT_SECRET
+      );
 
       // Return only necessary user details and token
       const userResponse = {
