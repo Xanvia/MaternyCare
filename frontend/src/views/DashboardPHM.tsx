@@ -82,7 +82,7 @@ const DashboardPHM = () => {
         <h1 className="text-lg">
           List of mothers (for testing axios fetching)
         </h1>
-        <div className="grid grid-cols-3 gap-2 mb-5">
+        <div className="grid grid-cols-3 gap-y-4 gap-x-6 mb-5">
           {phms.map((phm) => (
             <MotherCard
               firstName={phm.user.firstName}

@@ -12,6 +12,7 @@ import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import QuizIcon from "@mui/icons-material/Quiz";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
+import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
 
 export {
   SpaceDashboardIcon as DashboardIcon,
@@ -28,4 +29,5 @@ export {
   VisibilityOffIcon as EyeOffIcon,
   QuizIcon as Help,
   LocationOnIcon as LocationIcon,
+  RemoveCircleOutlineIcon as RemoveCircle,
 };
