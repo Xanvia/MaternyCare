@@ -15,6 +15,7 @@ import * as Yup from "yup";
 import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { format } from "date-fns";
 
 // Validation schema
 const validationSchema = Yup.object({
@@ -76,6 +77,9 @@ export default function AddMotherModal() {
             initialValues={{ title: "", subtitle: "", appointmentDate: "" }}
             validationSchema={validationSchema}
             onSubmit={(values, { setSubmitting }) => {
+              // Format the date
+              const formattedDate = format(new Date(values.appointmentDate), 'dd/MM/yyyy');
+            
               const axiosConfig = {
                 method: "post",
                 url: `${BASE_URL}notices`,
@@ -85,7 +89,7 @@ export default function AddMotherModal() {
                 data: {
                   title: values.title,
                   subtitle: values.subtitle,
-                  appointmentDate: values.appointmentDate,
+                  appointmentDate: formattedDate,
                 },
               };
               axios(axiosConfig)
