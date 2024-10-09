@@ -3,6 +3,7 @@ import { NextFunction, Request, Response } from "express";
 import { Mother } from "../entity/Mother";
 import { User } from "../entity/User";
 import { Phm } from "../entity/Phm";
+import { generateAppointmentsForMother } from "../service/mothreAppointmentGenerater";
 
 export class MotherController {
   private motherRepository = AppDataSource.getRepository(Mother);
@@ -66,6 +67,7 @@ export class MotherController {
       const mother = new Mother();
       mother.age = age;
       mother.nic = nic;
+      mother.delivery_date = delivery_date;
       mother.risk_type = risk_type;
       mother.phone_1 = phone_1;
       mother.bio = bio;
@@ -80,7 +82,7 @@ export class MotherController {
       }
 
       await this.motherRepository.save(mother);
-      // return response.status(201).json(mother);
+      generateAppointmentsForMother(mother.id); 
       response.send(mother);
       return;
     } catch (error) {

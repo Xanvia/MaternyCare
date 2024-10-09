@@ -6,9 +6,14 @@ import {
   ManyToOne,
   JoinColumn,
   CreateDateColumn,
+  OneToMany,
 } from "typeorm";
 import { User } from "./User";
+<<<<<<< HEAD
 import { Phm } from "./Phm";
+=======
+import { Appointment } from "./Appointment";
+>>>>>>> 6c43cf7 (feat:Fix appointment controller issue)
 
 @Entity()
 export class Mother {
@@ -183,4 +188,7 @@ export class Mother {
   })
   @JoinColumn()
   user: User;
+
+  @OneToMany(() => Appointment, (appointment) => appointment.mother)
+  appointments: Appointment[];
 }
