@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
 import { Search, Plus, Trash, ChevronLeft, ChevronRight } from 'lucide-react'
+import AddMotherModal from '../modals/AddMotherModal'
 
-type PatientStatus = 'Active' | 'Pending' | 'Inactive'
+type PatientStatus = 'Completed' | 'Incompleted'
 
 interface Patient {
   id: number
@@ -19,21 +20,21 @@ const mockData: Record<PatientList, Patient[]> = {
     patient: `Mother ${i + 1}`,
     address: `${i + 1} Main St`,
     appointment: `2023-10-${(i % 30) + 1}`,
-    status: i % 3 === 0 ? 'Active' : i % 3 === 1 ? 'Pending' : 'Inactive'
+    status: i % 2 === 0 ? 'Completed' : 'Incompleted' // Alternating between Completed and Incompleted
   })),
   phmList: Array.from({ length: 50 }, (_, i) => ({
     id: i + 1,
     patient: `PHM Patient ${i + 1}`,
     address: `${i + 1} Oak St`,
     appointment: `2023-11-${(i % 30) + 1}`,
-    status: i % 3 === 0 ? 'Active' : i % 3 === 1 ? 'Pending' : 'Inactive'
+    status: i % 2 === 0 ? 'Completed' : 'Incompleted' // Alternating between Completed and Incompleted
   })),
   pendingList: Array.from({ length: 50 }, (_, i) => ({
     id: i + 1,
     patient: `Pending ${i + 1}`,
     address: `${i + 1} Elm St`,
     appointment: `2023-12-${(i % 30) + 1}`,
-    status: 'Pending'
+    status: 'Incompleted' // Set to Incompleted
   })),
 }
 
@@ -57,38 +58,37 @@ export default function PatientTable() {
 
   const statusColor = (status: PatientStatus) => {
     switch (status) {
-      case 'Active':
+      case 'Completed':
         return 'bg-green-100 text-green-800'
-      case 'Pending':
-        return 'bg-yellow-100 text-yellow-800'
-      case 'Inactive':
+      case 'Incompleted':
         return 'bg-red-100 text-red-800'
     }
   }
 
   return (
     <div className="container mx-auto p-4 space-y-4">
-      <div className="flex rounded-t-lg overflow-hidden" style={{ backgroundColor: "#BA97FE" }}>
+      <div className="flex rounded-t-lg overflow-hidden" style={{ backgroundColor: "#F5F5F5" }}>
         {(['motherList', 'phmList', 'pendingList'] as const).map((tab, index) => (
           <button
-            key={tab}
-            className={`flex-1 py-2 px-4 text-sm font-medium transition-colors duration-200
-              ${activeTab === tab ? 'bg-white text-gray-800' : 'text-gray-600 hover:bg-white/10'}
-              ${index === 0 ? 'rounded-tl-lg' : ''}
-              ${index === 2 ? 'rounded-tr-lg' : ''}
-            `}
-            onClick={() => setActiveTab(tab)}
-          >
-            {tab.toUpperCase().replace('LIST', ' LIST')}
-          </button>
+          key={tab}
+          className={`flex-1 py-2 px-4 text-sm font-medium transition-colors duration-200
+            ${activeTab === tab ? 'bg-purple_primary text-gray-800 border border-purple-600' : 'bg-white text-gray-600 border border-gray-300 hover:bg-gray-100'}
+            rounded-full mx-1
+          `}
+          onClick={() => setActiveTab(tab)}
+        >
+          {tab.toUpperCase().replace('LIST', ' LIST')}
+        </button>
+        
+        
         ))}
       </div>
       <div className="space-y-4">
         <div className="flex flex-col space-y-4 sm:flex-row sm:justify-between sm:space-y-0">
           <div className="flex flex-wrap gap-2">
-            <button className="px-4 py-2 text-sm border rounded hover:bg-gray-100">Patient List</button>
-            <button className="px-4 py-2 text-sm border rounded hover:bg-gray-100">Red Patient List</button>
-            <button className="px-4 py-2 text-sm border rounded hover:bg-gray-100">Remove</button>
+            <button className="px-4 py-2 text-sm border border-gray-400 rounded-2xl hover:bg-gray-100">Patient List</button>
+            <button className="px-4 py-2 text-sm border border-gray-400 rounded-2xl hover:bg-gray-100">Red Patient List</button>
+            <button className="px-4 py-2 text-sm border border-red-600 rounded-2xl hover:bg-gray-100">Remove</button>
           </div>
           <div className="flex flex-wrap gap-2">
             <div className="relative flex-grow sm:flex-grow-0">
@@ -104,9 +104,10 @@ export default function PatientTable() {
                 }}
               />
             </div>
-            <button className="px-4 py-2 text-sm bg-blue-500 text-white rounded hover:bg-blue-600">
+            {/* <button className="px-4 py-2 text-sm bg-blue-500 text-white rounded hover:bg-blue-600">
               <Plus className="inline-block mr-2 h-4 w-4" /> Add
-            </button>
+            </button> */}
+            <AddMotherModal />
           </div>
         </div>
         <div className="overflow-x-auto border rounded">
