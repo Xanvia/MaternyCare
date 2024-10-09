@@ -6,6 +6,7 @@ import PatientsList from "../components/PatientsList";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import useRoleProtection from "../customHooks/useRoleProtection";
+import MotherCard from "../components/MotherCard";
 
 const DashboardPHM = () => {
   useRoleProtection("phm");
@@ -54,22 +55,7 @@ const DashboardPHM = () => {
   }, []);
   return (
     <div className="mx-11">
-      <div>
-        <h1 className="text-lg">
-          List of mothers (for testing axios fetching)
-        </h1>
-        <div className="grid grid-cols-5 gap-2 mb-5">
-          {phms.map((phm) => (
-            <div
-              className="bg-green-200 h-10 flex items-center justify-center"
-              key={phm.id}
-            >
-              <h1>{phm.user.firstName}</h1>
-            </div>
-          ))}
-        </div>
-      </div>
-      <div className="grid  sm:grid-cols-3 grid-cols-2 gap-8">
+      <div className="grid sm:grid-cols-3 grid-cols-2 gap-8 mb-5">
         <DashboardStatCard
           image={feet}
           color="bg-[#F9B8D0]"
@@ -91,6 +77,23 @@ const DashboardPHM = () => {
           title="Unchecked"
           subtitle="patients"
         />
+      </div>
+      <div>
+        <h1 className="text-lg">
+          List of mothers (for testing axios fetching)
+        </h1>
+        <div className="grid grid-cols-3 gap-2 mb-5">
+          {phms.map((phm) => (
+            <MotherCard
+              firstName={phm.user.firstName}
+              lastName={phm.user.lastName}
+              nic={phm.nic}
+              location="New York, USA"
+              // profileImage="https://via.placeholder.com/150"
+              // onAdd={handleAdd}
+            />
+          ))}
+        </div>
       </div>
       <div className="mt-12">
         <PatientsList />

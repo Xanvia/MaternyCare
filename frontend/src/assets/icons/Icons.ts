@@ -11,6 +11,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import QuizIcon from "@mui/icons-material/Quiz";
+import LocationOnIcon from "@mui/icons-material/LocationOn";
 
 export {
   SpaceDashboardIcon as DashboardIcon,
@@ -26,4 +27,5 @@ export {
   VisibilityIcon as EyeIcon,
   VisibilityOffIcon as EyeOffIcon,
   QuizIcon as Help,
+  LocationOnIcon as LocationIcon,
 };
