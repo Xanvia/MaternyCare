@@ -199,8 +199,10 @@ import {
   OneToOne,
   JoinColumn,
   CreateDateColumn,
+  OneToMany,
 } from "typeorm";
 import { User } from "./User";
+import { Appointment } from "./Appointment";
 
 @Entity()
 export class Mother {
@@ -369,4 +371,7 @@ export class Mother {
   })
   @JoinColumn()
   user: User;
+
+  @OneToMany(() => Appointment, (appointment) => appointment.mother)
+  appointments: Appointment[];
 }

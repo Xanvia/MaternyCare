@@ -2,6 +2,7 @@ import { AppDataSource } from "../data-source";
 import { NextFunction, Request, Response } from "express";
 import { Mother } from "../entity/Mother";
 import { User } from "../entity/User";
+import { generateAppointmentsForMother } from "../service/mothreAppointmentGenerater";
 
 export class MotherController {
   private motherRepository = AppDataSource.getRepository(Mother);
@@ -28,7 +29,7 @@ export class MotherController {
   }
 
   async save(request: Request, response: Response, next: NextFunction) {
-    const { age, nic, risk_type, phone_1, bio } = request.body;
+    const { age, nic, risk_type, phone_1, bio, delivery_date } = request.body;
 
     if (request.user.userRole !== "mother") {
       console.log(request.user.userRole);
@@ -64,13 +65,14 @@ export class MotherController {
       const mother = new Mother();
       mother.age = age;
       mother.nic = nic;
+      mother.delivery_date = delivery_date;
       mother.risk_type = risk_type;
       mother.phone_1 = phone_1;
       mother.bio = bio;
       mother.user = user; // Set the user relationship
 
       await this.motherRepository.save(mother);
-      // return response.status(201).json(mother);
+      generateAppointmentsForMother(mother.id); 
       response.send(mother);
       return;
     } catch (error) {
