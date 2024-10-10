@@ -1,13 +1,14 @@
 import React from "react";
 import ToTitle from "./CaseConverter";
-import { LocationIcon, PlusCircle, RemoveCircle } from "../assets/icons/Icons";
+import { LocationIcon, PlusCircle, TickCircle } from "../assets/icons/Icons";
 
 interface MotherCardProps {
   firstName: string;
   lastName: string;
   nic: string;
   location: string;
-  onAdd: () => void; // Added onAdd prop
+  onAdd: () => void;
+  phm: {};
 }
 
 const MotherCard: React.FC<MotherCardProps> = ({
@@ -15,7 +16,8 @@ const MotherCard: React.FC<MotherCardProps> = ({
   lastName,
   nic,
   location,
-  onAdd, // Use onAdd prop
+  onAdd,
+  phm,
 }) => {
   const [isAdded, setIsAdded] = React.useState(false);
 
@@ -47,7 +49,7 @@ const MotherCard: React.FC<MotherCardProps> = ({
         </div>
 
         <div className="flex items-center col-span-1">
-          {!isAdded ? (
+          {phm == null ? (
             <button
               onClick={handleAddClick} // Handle button click
               className="bg-green_tertiary hover:bg-green_secondary text-green_primary font-semibold p-2 rounded w-auto"
@@ -55,12 +57,12 @@ const MotherCard: React.FC<MotherCardProps> = ({
               <PlusCircle />
             </button>
           ) : (
-            <button
-              className="bg-red-300 hover:bg-red-400 text-red-600 font-semibold p-2 rounded w-auto"
-              onClick={handleRemoveClick}
-            >
-              <RemoveCircle />
-            </button>
+            // <button
+            //   className="bg-red-300 hover:bg-red-400 text-red-600 font-semibold p-2 rounded w-auto"
+            //   onClick={handleRemoveClick}
+            // >
+            <TickCircle className="text-green_primary" />
+            // </button>
           )}
         </div>
       </div>

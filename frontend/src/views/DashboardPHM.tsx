@@ -24,6 +24,7 @@ const DashboardPHM = () => {
       firstName: string;
       lastName: string;
     };
+    phm: {};
   }
 
   const [mothers, setMothers] = useState<Phm[]>([]);
@@ -52,7 +53,7 @@ const DashboardPHM = () => {
   const handleAddMother = (motherID: number) => {
     const axiosConfig = {
       method: "post",
-      url: `${BASE_URL}phm/addMother`, // Assuming this is the API to add a mother to a PHM
+      url: `${BASE_URL}users/phm/addMother`, // Assuming this is the API to add a mother to a PHM
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -107,7 +108,8 @@ const DashboardPHM = () => {
               lastName={mother.user.lastName}
               nic={mother.nic}
               location="New York, USA"
-              onAdd={() => handleAddMother(mother.id)} // Pass the handleAddMother function with the mother's NIC
+              onAdd={() => handleAddMother(mother.id)}
+              phm={mother.phm}
             />
           ))}
         </div>
