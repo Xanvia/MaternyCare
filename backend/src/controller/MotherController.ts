@@ -2,13 +2,15 @@ import { AppDataSource } from "../data-source";
 import { NextFunction, Request, Response } from "express";
 import { Mother } from "../entity/Mother";
 import { User } from "../entity/User";
+import { Phm } from "../entity/Phm";
 
 export class MotherController {
   private motherRepository = AppDataSource.getRepository(Mother);
   private userRepository = AppDataSource.getRepository(User);
+  private phmRepository = AppDataSource.getRepository(Phm);
 
   async all(request: Request, response: Response, next: NextFunction) {
-    return this.motherRepository.find({ relations: ["user"] });
+    return this.motherRepository.find({ relations: ["user", "phm"] });
   }
 
   async one(request: Request, response: Response, next: NextFunction) {
@@ -18,7 +20,7 @@ export class MotherController {
 
     const mother = await this.motherRepository.findOne({
       where: { user },
-      relations: ["user"],
+      relations: ["user", "phm"],
     });
 
     if (!mother) {
@@ -28,7 +30,7 @@ export class MotherController {
   }
 
   async save(request: Request, response: Response, next: NextFunction) {
-    const { age, nic, risk_type, phone_1, bio } = request.body;
+    const { age, nic, risk_type, phone_1, bio, phmId } = request.body;
 
     if (request.user.userRole !== "mother") {
       console.log(request.user.userRole);
@@ -68,6 +70,14 @@ export class MotherController {
       mother.phone_1 = phone_1;
       mother.bio = bio;
       mother.user = user; // Set the user relationship
+
+      if (phmId) {
+        const phm = await this.phmRepository.findOne({ where: { id: phmId } });
+        if (!phm) {
+          return response.status(404).json({ message: "PHM not found" });
+        }
+        mother.phm = phm; // Set the PHM relationship
+      }
 
       await this.motherRepository.save(mother);
       // return response.status(201).json(mother);

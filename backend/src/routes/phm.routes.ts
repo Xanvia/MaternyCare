@@ -32,4 +32,12 @@ export const PhmRoutes = [
     action: "remove",
     middlewares: [jwtMiddleware],
   },
+
+  {
+    method: "post",
+    route: "/users/phm/addMother",
+    controller: PhmController,
+    action: "addMother",
+    middlewares: [jwtMiddleware], // Only PHMs can add mothers
+  },
 ];
