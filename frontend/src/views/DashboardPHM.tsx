@@ -26,11 +26,10 @@ const DashboardPHM = () => {
     };
   }
 
-  const [phms, setPhms] = useState<Phm[]>([]);
+  const [mothers, setMothers] = useState<Phm[]>([]);
 
   useEffect(() => {
     const getPhms = () => {
-      // setLoading(true);
       const axiosConfig = {
         method: "get",
         url: `${BASE_URL}users/mother/all`,
@@ -40,19 +39,37 @@ const DashboardPHM = () => {
       };
       axios(axiosConfig)
         .then((response) => {
-          console.log("check: " + response.data);
-          setPhms(response.data);
+          setMothers(response.data);
         })
         .catch((err) => {
           console.log(err);
-        })
-        .finally(() => {
-          // setLoading(false);
         });
     };
 
     getPhms();
   }, []);
+
+  const handleAddMother = (motherID: number) => {
+    const axiosConfig = {
+      method: "post",
+      url: `${BASE_URL}phm/addMother`, // Assuming this is the API to add a mother to a PHM
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      data: {
+        motherID: motherID, // Send the NIC or any unique identifier for the mother
+      },
+    };
+
+    axios(axiosConfig)
+      .then((response) => {
+        console.log("Mother added successfully:", response.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   return (
     <div className="mx-11">
       <div className="grid sm:grid-cols-3 grid-cols-2 gap-8 mb-5">
@@ -83,14 +100,14 @@ const DashboardPHM = () => {
           List of mothers (for testing axios fetching)
         </h1>
         <div className="grid grid-cols-3 gap-y-4 gap-x-6 mb-5">
-          {phms.map((phm) => (
+          {mothers.map((mother) => (
             <MotherCard
-              firstName={phm.user.firstName}
-              lastName={phm.user.lastName}
-              nic={phm.nic}
+              key={mother.id}
+              firstName={mother.user.firstName}
+              lastName={mother.user.lastName}
+              nic={mother.nic}
               location="New York, USA"
-              // profileImage="https://via.placeholder.com/150"
-              // onAdd={handleAdd}
+              onAdd={() => handleAddMother(mother.id)} // Pass the handleAddMother function with the mother's NIC
             />
           ))}
         </div>

@@ -7,9 +7,7 @@ interface MotherCardProps {
   lastName: string;
   nic: string;
   location: string;
-
-  // profileImage: string;
-  //   onAdd: () => void;
+  onAdd: () => void; // Added onAdd prop
 }
 
 const MotherCard: React.FC<MotherCardProps> = ({
@@ -17,10 +15,19 @@ const MotherCard: React.FC<MotherCardProps> = ({
   lastName,
   nic,
   location,
-  // profileImage,
-  //   onAdd,
+  onAdd, // Use onAdd prop
 }) => {
   const [isAdded, setIsAdded] = React.useState(false);
+
+  const handleAddClick = () => {
+    onAdd(); // Call the onAdd function passed from the parent
+    setIsAdded(true); // Update UI state after adding
+  };
+
+  const handleRemoveClick = () => {
+    // onAdd();
+    setIsAdded(false); // Update UI state after adding
+  };
 
   return (
     <div className="max-w-sm rounded-md overflow-hidden shadow-lg bg-white border border-gray-200 p-4">
@@ -36,24 +43,21 @@ const MotherCard: React.FC<MotherCardProps> = ({
         <div className="text-start col-span-2">
           <h2 className="text-xl font-semibold mb-1">{firstName}</h2>
           <p className="text-gray-600 ">NIC: {nic}</p>
-          <p className="text-gray-600 mb-4">
-            <span>{/* <LocationIcon />{" "} */}</span>
-            {location}
-          </p>
+          <p className="text-gray-600 mb-4">{location}</p>
         </div>
 
         <div className="flex items-center col-span-1">
           {!isAdded ? (
             <button
-              //   onClick={onAdd}
+              onClick={handleAddClick} // Handle button click
               className="bg-green_tertiary hover:bg-green_secondary text-green_primary font-semibold p-2 rounded w-auto"
             >
               <PlusCircle />
             </button>
           ) : (
             <button
-              //   onClick={onAdd}
               className="bg-red-300 hover:bg-red-400 text-red-600 font-semibold p-2 rounded w-auto"
+              onClick={handleRemoveClick}
             >
               <RemoveCircle />
             </button>
