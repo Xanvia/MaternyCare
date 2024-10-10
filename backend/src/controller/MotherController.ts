@@ -1,8 +1,9 @@
 import { AppDataSource } from "../data-source";
 import { NextFunction, Request, Response } from "express";
 import { Mother } from "../entity/Mother";
-import { User } from "../entity/User";
+import { User, UserRole } from "../entity/User";
 import { generateAppointmentsForMother } from "../service/mothreAppointmentGenerater";
+import * as jwt from "jsonwebtoken";
 
 export class MotherController {
   private motherRepository = AppDataSource.getRepository(Mother);
@@ -40,6 +41,7 @@ export class MotherController {
     }
 
     const userId = request.user?.userId;
+    
 
     if (!userId) {
       return response
@@ -71,9 +73,15 @@ export class MotherController {
       mother.bio = bio;
       mother.user = user; // Set the user relationship
 
-      await this.motherRepository.save(mother);
-      generateAppointmentsForMother(mother.id); 
-      response.send(mother);
+      const savedMother = await this.motherRepository.save(mother);
+      
+      // Generate a JWT
+      const token = jwt.sign(
+        { motherId: savedMother.id, UserRole : savedMother.user.role},
+        process.env.JWT_SECRET!
+      );
+
+      response.send({mother: savedMother, token});
       return;
     } catch (error) {
       return next(error);
