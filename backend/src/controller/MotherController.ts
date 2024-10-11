@@ -77,7 +77,7 @@ export class MotherController {
       
       // Generate a JWT
       const token = jwt.sign(
-        { motherId: savedMother.id, UserRole : savedMother.user.role},
+        {motherId: savedMother.id},
         process.env.JWT_SECRET!
       );
 
