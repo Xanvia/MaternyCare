@@ -13,6 +13,7 @@ const Drawer: React.FC = () => {
   const theme = useTheme();
   const isLargeScreen = useMediaQuery(theme.breakpoints.up("lg"));
   const [isDrawerOpen, setDrawerOpen] = React.useState(isLargeScreen);
+  let role = localStorage.getItem("role") || "mother";
 
   const titleContext = useContext(TitleContext);
 
@@ -47,7 +48,8 @@ const Drawer: React.FC = () => {
     };
   }, []);
 
-  const navLinks = getNavLinks();
+  role = role.replace(/"/g, "");
+  const navLinks = getNavLinks({ role });
 
   return (
     <div>

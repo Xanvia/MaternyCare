@@ -24,11 +24,11 @@ import {
 // };
 
 // console.log("role from drawer " + getDashboardPath());
-export const getNavLinks = () => [
+export const getNavLinks = ({ role }: { role: string }) => [
   {
     name: "Dashboard",
     icon: DashboardIcon,
-    path: "/dashboard",
+    path: `/${role}dashboard`,
   },
   {
     name: "Notices",

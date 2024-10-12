@@ -6,64 +6,74 @@ import PatientsList from "../components/PatientsList";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import useRoleProtection from "../customHooks/useRoleProtection";
+import MotherCard from "../components/MotherCard";
 
 const DashboardPHM = () => {
   useRoleProtection("phm");
 
   const BASE_URL = "http://localhost:3000/";
+  const storedToken = localStorage.getItem("token");
+  const token = storedToken ? JSON.parse(storedToken) : null;
 
   interface Phm {
     id: number;
-    firstName: string;
-    email: string;
-    role: string;
+    nic: string;
+    phone_number: number;
+    mother_count: number;
+    user: {
+      firstName: string;
+      lastName: string;
+    };
+    phm: {};
   }
 
-  const [phms, setPhms] = useState<Phm[]>([]);
+  const [mothers, setMothers] = useState<Phm[]>([]);
 
   useEffect(() => {
     const getPhms = () => {
-      // setLoading(true);
       const axiosConfig = {
         method: "get",
-        url: `${BASE_URL}users`,
+        url: `${BASE_URL}users/mother/all`,
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
       };
       axios(axiosConfig)
         .then((response) => {
-          console.log("check: " + response.data);
-          setPhms(response.data);
+          setMothers(response.data);
         })
         .catch((err) => {
           console.log(err);
-        })
-        .finally(() => {
-          // setLoading(false);
         });
     };
 
     getPhms();
   }, []);
+
+  const handleAddMother = (motherID: number) => {
+    const axiosConfig = {
+      method: "post",
+      url: `${BASE_URL}users/phm/addMother`, // Assuming this is the API to add a mother to a PHM
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      data: {
+        motherID: motherID, // Send the NIC or any unique identifier for the mother
+      },
+    };
+
+    axios(axiosConfig)
+      .then((response) => {
+        console.log("Mother added successfully:", response.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   return (
     <div className="mx-11">
-      <div>
-        <h1 className="text-lg">
-          List of mothers (for testing axios fetching)
-        </h1>
-        <div className="grid grid-cols-5 gap-2 mb-5">
-          {phms.map(
-            (phm) =>
-              phm.role === "mother" && (
-                <div
-                  className="bg-green-200 h-10 flex items-center justify-center"
-                  key={phm.id}
-                >
-                  <h1>{phm.firstName}</h1>
-                </div>
-              )
-          )}
-        </div>
-      </div>
-      <div className="grid  sm:grid-cols-3 grid-cols-2 gap-8">
+      <div className="grid sm:grid-cols-3 grid-cols-2 gap-8 mb-5">
         <DashboardStatCard
           image={feet}
           color="bg-[#F9B8D0]"
@@ -85,6 +95,24 @@ const DashboardPHM = () => {
           title="Unchecked"
           subtitle="patients"
         />
+      </div>
+      <div>
+        <h1 className="text-lg">
+          List of mothers (for testing axios fetching)
+        </h1>
+        <div className="grid grid-cols-3 gap-y-4 gap-x-6 mb-5">
+          {mothers.map((mother) => (
+            <MotherCard
+              key={mother.id}
+              firstName={mother.user.firstName}
+              lastName={mother.user.lastName}
+              nic={mother.nic}
+              location="New York, USA"
+              onAdd={() => handleAddMother(mother.id)}
+              phm={mother.phm}
+            />
+          ))}
+        </div>
       </div>
       <div className="mt-12">
         <PatientsList />

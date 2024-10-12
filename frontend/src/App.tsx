@@ -3,7 +3,6 @@ import BaseLayout from "./layouts/BaseLayout";
 import LandingPage from "./views/LandingPage";
 import Login from "./views/LoginPage";
 import Registration from "./views/Registration";
-import Dashboard from "./views/Dashboard";
 import Notices from "./views/Notices";
 import HeartRateContextProvider from "./contexts/HeartRateContextProvider";
 import Appointments from "./views/Appointments";
@@ -19,6 +18,7 @@ import { PublicRoute } from "./routes/PublicRoute";
 import Unauthorized from "./views/UnAuthorized";
 import DashboardMOH from "./views/DashboardMOH";
 import Registration2 from "./views/Registration2";
+import MotherDashboard from "./views/Dashboard";
 
 // You can add your routes here
 // Add a baselayout too if needed
@@ -78,14 +78,14 @@ const router = createBrowserRouter([
     ],
   },
   {
-    path: "/dashboard",
+    path: "/motherdashboard",
     element: <BaseLayout />,
     children: [
       {
         index: true,
         element: (
           <PrivateRoute>
-            <Dashboard />,
+            <MotherDashboard />,
           </PrivateRoute>
         ),
       },

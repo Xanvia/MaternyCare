@@ -10,6 +10,7 @@ import { Appointment } from "./Appointment";
 import { User } from "./User";
 import { FieldArea } from "./FieldArea";
 import { Feedback } from "./Feedback";
+import { Mother } from "./Mother";
 
 @Entity()
 export class Phm {
@@ -43,6 +44,9 @@ export class Phm {
   // @OneToOne(() => FieldArea, (fielaArea) => fielaArea.id)
   // @JoinColumn()
   // fielaArea: FieldArea;
+
+  @OneToMany(() => Mother, (mother) => mother.phm)
+  mothers: Mother[];
 
   @OneToOne(() => User, {
     nullable: true,
