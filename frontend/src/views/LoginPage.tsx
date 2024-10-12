@@ -46,7 +46,7 @@ const LoginPage: React.FC = () => {
 
         switch (response.data.user.role) {
           case "mother":
-            navigate("/dashboard");
+            navigate("/motherdashboard");
             break;
           case "phm":
             navigate("/phmdashboard");

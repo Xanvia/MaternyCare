@@ -12,7 +12,7 @@ export const PublicRoute = ({ children }: PublicRouteProps) => {
   if (token) {
     switch (user.role) {
       case "mother":
-        return <Navigate to="/dashboard" />;
+        return <Navigate to="/motherdashboard" />;
       case "phm":
         return <Navigate to="/phmdashboard" />;
       case "moh":

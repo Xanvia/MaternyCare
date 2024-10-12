@@ -13,7 +13,7 @@ import toTitleCase from "../components/CaseConverter";
 import useRoleProtection from "../customHooks/useRoleProtection";
 import { quotes } from "../data/Data";
 
-const Dashboard = () => {
+const MotherDashboard = () => {
   useRoleProtection("mother");
 
   const heartRateContext = useContext(HeartRateContext);
@@ -89,4 +89,4 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+export default MotherDashboard;

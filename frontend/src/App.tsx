@@ -19,6 +19,7 @@ import { PublicRoute } from "./routes/PublicRoute";
 import Unauthorized from "./views/UnAuthorized";
 import DashboardMOH from "./views/DashboardMOH";
 import Registration2 from "./views/Registration2";
+import MotherDashboard from "./views/Dashboard";
 
 // You can add your routes here
 // Add a baselayout too if needed
@@ -78,14 +79,14 @@ const router = createBrowserRouter([
     ],
   },
   {
-    path: "/dashboard",
+    path: "/motherdashboard",
     element: <BaseLayout />,
     children: [
       {
         index: true,
         element: (
           <PrivateRoute>
-            <Dashboard />,
+            <MotherDashboard />,
           </PrivateRoute>
         ),
       },
