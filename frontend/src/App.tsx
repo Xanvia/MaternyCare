@@ -3,7 +3,6 @@ import BaseLayout from "./layouts/BaseLayout";
 import LandingPage from "./views/LandingPage";
 import Login from "./views/LoginPage";
 import Registration from "./views/Registration";
-import Dashboard from "./views/Dashboard";
 import Notices from "./views/Notices";
 import HeartRateContextProvider from "./contexts/HeartRateContextProvider";
 import Appointments from "./views/Appointments";
