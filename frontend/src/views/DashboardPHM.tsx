@@ -3,10 +3,11 @@ import feet from "../assets/images/feet.svg";
 import fire from "../assets/images/fire.svg";
 import water from "../assets/images/drops.svg";
 import PatientsList from "../components/PatientsList";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import useRoleProtection from "../customHooks/useRoleProtection";
 import MotherCard from "../components/MotherCard";
+import { toast, ToastContainer } from "react-toastify";
 
 const DashboardPHM = () => {
   useRoleProtection("phm");
@@ -15,7 +16,7 @@ const DashboardPHM = () => {
   const storedToken = localStorage.getItem("token");
   const token = storedToken ? JSON.parse(storedToken) : null;
 
-  interface Phm {
+  interface Mother {
     id: number;
     nic: string;
     phone_number: number;
@@ -27,10 +28,10 @@ const DashboardPHM = () => {
     phm: {};
   }
 
-  const [mothers, setMothers] = useState<Phm[]>([]);
+  const [mothers, setMothers] = useState<Mother[]>([]);
 
   useEffect(() => {
-    const getPhms = () => {
+    const getMothers = () => {
       const axiosConfig = {
         method: "get",
         url: `${BASE_URL}users/mother/all`,
@@ -47,8 +48,8 @@ const DashboardPHM = () => {
         });
     };
 
-    getPhms();
-  }, []);
+    getMothers();
+  }, [token]);
 
   const handleAddMother = (motherID: number) => {
     const axiosConfig = {
@@ -65,6 +66,8 @@ const DashboardPHM = () => {
     axios(axiosConfig)
       .then((response) => {
         console.log("Mother added successfully:", response.data);
+        toast.success("Mother added successfully!.");
+        setTimeout(() => window.location.reload(), 1000);
       })
       .catch((err) => {
         console.log(err);
@@ -72,52 +75,53 @@ const DashboardPHM = () => {
   };
 
   return (
-    <div className="mx-11">
-      <div className="grid sm:grid-cols-3 grid-cols-2 gap-8 mb-5">
-        <DashboardStatCard
-          image={feet}
-          color="bg-[#F9B8D0]"
-          count={5}
-          title="Ratings"
-          subtitle="/10"
-        />
-        <DashboardStatCard
-          image={fire}
-          color="bg-[#A8F0DB]"
-          count={10}
-          title="Checked"
-          subtitle="patients"
-        />
-        <DashboardStatCard
-          image={water}
-          color="bg-[#80CAFF]"
-          count={8}
-          title="Unchecked"
-          subtitle="patients"
-        />
-      </div>
-      <div>
-        <h1 className="text-lg">
-          List of mothers (for testing axios fetching)
-        </h1>
-        <div className="grid grid-cols-3 gap-y-4 gap-x-6 mb-5">
-          {mothers.map((mother) => (
-            <MotherCard
-              key={mother.id}
-              firstName={mother.user.firstName}
-              lastName={mother.user.lastName}
-              nic={mother.nic}
-              location="New York, USA"
-              onAdd={() => handleAddMother(mother.id)}
-              phm={mother.phm}
-            />
-          ))}
+    <React.Fragment>
+      <ToastContainer />
+      <div className="mx-11">
+        <div className="grid sm:grid-cols-3 grid-cols-2 gap-8 mb-5">
+          <DashboardStatCard
+            image={feet}
+            color="bg-[#F9B8D0]"
+            count={5}
+            title="Ratings"
+            subtitle="/10"
+          />
+          <DashboardStatCard
+            image={fire}
+            color="bg-[#A8F0DB]"
+            count={10}
+            title="Checked"
+            subtitle="patients"
+          />
+          <DashboardStatCard
+            image={water}
+            color="bg-[#80CAFF]"
+            count={8}
+            title="Unchecked"
+            subtitle="patients"
+          />
+        </div>
+        <div>
+          <h1 className="text-lg my-4">Mother list in your area</h1>
+          <div className="grid grid-cols-3 gap-y-4 gap-x-6 mb-5">
+            {mothers.map((mother) => (
+              <MotherCard
+                key={mother.id}
+                firstName={mother.user.firstName}
+                lastName={mother.user.lastName}
+                nic={mother.nic}
+                location="New York, USA"
+                onAdd={() => handleAddMother(mother.id)}
+                phm={mother.phm}
+              />
+            ))}
+          </div>
+        </div>
+        <div className="mt-12">
+          <PatientsList mothers={mothers} />
         </div>
       </div>
-      <div className="mt-12">
-        <PatientsList />
-      </div>
-    </div>
+    </React.Fragment>
   );
 };
 
