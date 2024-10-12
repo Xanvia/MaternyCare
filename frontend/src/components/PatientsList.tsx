@@ -42,47 +42,49 @@ const PatientsList: React.FC<PatientsListProps> = ({ mothers }) => {
                 </tr>
               </thead>
               <tbody>
-                {mothers.map((mother) => (
-                  <tr>
-                    <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                      <button>
-                        <div className="flex items-center">
-                          <div className="flex-shrink-0 w-10 h-10">
-                            <img
-                              className="w-full h-full rounded-full"
-                              src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2.2&w=160&h=160&q=80"
-                              alt=""
-                            />
+                {mothers
+                  .filter((mother) => mother.phm !== null)
+                  .map((mother) => (
+                    <tr>
+                      <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                        <button>
+                          <div className="flex items-center">
+                            <div className="flex-shrink-0 w-10 h-10">
+                              <img
+                                className="w-full h-full rounded-full"
+                                src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2.2&w=160&h=160&q=80"
+                                alt=""
+                              />
+                            </div>
+                            <div className="ml-3">
+                              <p className="text-gray-900 whitespace-no-wrap">
+                                {mother.user.firstName} {mother.user.lastName}
+                              </p>
+                            </div>
                           </div>
-                          <div className="ml-3">
-                            <p className="text-gray-900 whitespace-no-wrap">
-                              {mother.user.firstName} {mother.user.lastName}
-                            </p>
-                          </div>
-                        </div>
-                      </button>
-                    </td>
-                    <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                      <p className="text-gray-900 whitespace-no-wrap">
-                        <a href="tel:+94776337406">{mother.phone_number}</a>
-                      </p>
-                    </td>
-                    <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                      <p className="text-gray-900 whitespace-no-wrap">
-                        Jan 21 - Jan 28
-                      </p>
-                    </td>
-                    <td className="px-5 py-5 bg-white text-sm">
-                      <span className="relative inline-block px-3 py-1 font-semibold text-red-900 leading-tight">
-                        <span
-                          aria-hidden
-                          className="absolute inset-0 bg-red-200 opacity-50 rounded-full"
-                        ></span>
-                        <span className="relative">Pending</span>
-                      </span>
-                    </td>
-                  </tr>
-                ))}
+                        </button>
+                      </td>
+                      <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                        <p className="text-gray-900 whitespace-no-wrap">
+                          <a href="tel:+94776337406">{mother.phone_number}</a>
+                        </p>
+                      </td>
+                      <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                        <p className="text-gray-900 whitespace-no-wrap">
+                          Jan 21 - Jan 28
+                        </p>
+                      </td>
+                      <td className="px-5 py-5 bg-white text-sm">
+                        <span className="relative inline-block px-3 py-1 font-semibold text-red-900 leading-tight">
+                          <span
+                            aria-hidden
+                            className="absolute inset-0 bg-red-200 opacity-50 rounded-full"
+                          ></span>
+                          <span className="relative">Pending</span>
+                        </span>
+                      </td>
+                    </tr>
+                  ))}
               </tbody>
             </table>
             <div className="px-5 py-5 bg-white border-t flex flex-col xs:flex-row items-center xs:justify-between">
