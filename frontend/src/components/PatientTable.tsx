@@ -20,31 +20,41 @@ const mockData: Record<PatientList, Patient[]> = {
     patient: `Mother ${i + 1}`,
     address: `${i + 1} Main St`,
     appointment: `2023-10-${(i % 30) + 1}`,
-    status: i % 2 === 0 ? 'Completed' : 'Incompleted' // Alternating between Completed and Incompleted
+    status: i % 2 === 0 ? 'Completed' : 'Incompleted'
   })),
   phmList: Array.from({ length: 50 }, (_, i) => ({
     id: i + 1,
     patient: `PHM Patient ${i + 1}`,
     address: `${i + 1} Oak St`,
     appointment: `2023-11-${(i % 30) + 1}`,
-    status: i % 2 === 0 ? 'Completed' : 'Incompleted' // Alternating between Completed and Incompleted
+    status: i % 2 === 0 ? 'Completed' : 'Incompleted'
   })),
   pendingList: Array.from({ length: 50 }, (_, i) => ({
     id: i + 1,
     patient: `Pending ${i + 1}`,
     address: `${i + 1} Elm St`,
     appointment: `2023-12-${(i % 30) + 1}`,
-    status: 'Incompleted' // Set to Incompleted
+    status: 'Incompleted'
   })),
 }
 
+const patientListData = mockData['motherList'].filter((_, i) => i % 2 === 0);
+const redPatientListData = mockData['motherList'].filter((_, i) => i % 2 !== 0);
+
 export default function PatientTable() {
   const [activeTab, setActiveTab] = useState<PatientList>('motherList')
+  const [motherSubList, setMotherSubList] = useState<'patientList' | 'redPatientList'>('patientList')
   const [searchTerm, setSearchTerm] = useState('')
   const [currentPage, setCurrentPage] = useState(1)
   const itemsPerPage = 10
 
-  const filteredData = mockData[activeTab].filter((item) =>
+  const filteredData = (
+    activeTab === 'motherList' 
+      ? motherSubList === 'patientList'
+        ? patientListData
+        : redPatientListData
+      : mockData[activeTab]
+  ).filter((item) =>
     Object.values(item).some((value) =>
       value.toString().toLowerCase().includes(searchTerm.toLowerCase())
     )
@@ -68,7 +78,7 @@ export default function PatientTable() {
   return (
     <div className="container mx-auto p-4 space-y-4">
       <div className="flex rounded-t-lg overflow-hidden" style={{ backgroundColor: "#F5F5F5" }}>
-        {(['motherList', 'phmList', 'pendingList'] as const).map((tab, index) => (
+        {(['motherList', 'phmList', 'pendingList'] as const).map((tab) => (
           <button
             key={tab}
             className={`flex-1 py-2 px-4 text-sm font-medium transition-colors duration-200
@@ -82,17 +92,25 @@ export default function PatientTable() {
         ))}
       </div>
       <div className="space-y-4">
-        <div className="flex flex-col space-y-4 sm:flex-row sm:justify-between sm:space-y-0">
-          <div className="flex flex-wrap gap-2">
-            {activeTab === 'motherList' && (
-              <>
-                <button className="px-4 py-2 text-sm border border-gray-400 rounded-2xl hover:bg-gray-100">Patient List</button>
-                <button className="px-4 py-2 text-sm border border-gray-400 rounded-2xl hover:bg-gray-100">Red Patient List</button>
-              </>
-            )}
-          </div>
-          <div className="flex flex-wrap gap-2">
-            <div className="relative flex-grow sm:flex-grow-0">
+        <div className="flex justify-between items-center">
+          {activeTab === 'motherList' && (
+            <div className="flex gap-2">
+              <button
+                className={`px-4 py-2 text-sm border ${motherSubList === 'patientList' ? 'border-blue-600' : 'border-gray-400'} rounded-2xl hover:bg-gray-100`}
+                onClick={() => setMotherSubList('patientList')}
+              >
+                Patient List
+              </button>
+              <button
+                className={`px-4 py-2 text-sm border ${motherSubList === 'redPatientList' ? 'border-red-600' : 'border-gray-400'} rounded-2xl hover:bg-gray-100`}
+                onClick={() => setMotherSubList('redPatientList')}
+              >
+                Red Patient List
+              </button>
+            </div>
+          )}
+          <div className="flex items-center gap-2">
+            <div className="relative">
               <Search className="absolute left-2 top-2.5 h-4 w-4 text-gray-400" />
               <input
                 type="text"
