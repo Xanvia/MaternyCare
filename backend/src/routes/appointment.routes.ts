@@ -1,4 +1,5 @@
 import { AppointmentController } from "../controller/AppointmentController";
+import { jwtMiddleware } from "../middlewear/jwtMiddleware";
 
 export const AppointmentRoutes = [
   {
@@ -20,7 +21,7 @@ export const AppointmentRoutes = [
     route: "/appointments",
     controller: AppointmentController,
     action: "save",
-    middlewares: [],
+    middlewares: [jwtMiddleware],
   },
   {
     method: "put",
