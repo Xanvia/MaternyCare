@@ -7,7 +7,8 @@ const MotherGuide: React.FC = () => {
 
   return (
     <div className="mx-10">
-      <div className="flex items-center justify-between py-4 md:py-8 flex-wrap">.
+      <div className="flex items-center justify-between py-4 md:py-8 flex-wrap">
+        .
         <div className="flex items-center flex-wrap">
           {categories.map((category, index) => (
             <button

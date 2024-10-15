@@ -21,10 +21,10 @@ export class MotherController {
   async one(request: Request, response: Response, next: NextFunction) {
     const id = parseInt(request.params.id);
 
-    const user = await this.userRepository.findOne({ where: { id } });
-
+    // const user = await this.userRepository.findOne({ where: { id } });
+    // console.log("mother from single: " + user);
     const mother = await this.motherRepository.findOne({
-      where: { user },
+      where: { id },
       relations: ["user", "phm"],
     });
 
