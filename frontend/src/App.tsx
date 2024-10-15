@@ -19,6 +19,7 @@ import Unauthorized from "./views/UnAuthorized";
 import DashboardMOH from "./views/DashboardMOH";
 import Registration2 from "./views/Registration2";
 import MotherDashboard from "./views/Dashboard";
+import SingleMother from "./views/SingleMother";
 
 // You can add your routes here
 // Add a baselayout too if needed
@@ -183,6 +184,16 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <Notification />,
+      },
+    ],
+  },
+  {
+    path: "/mother-singleview/:id",
+    element: <BaseLayout />,
+    children: [
+      {
+        index: true,
+        element: <SingleMother />,
       },
     ],
   },

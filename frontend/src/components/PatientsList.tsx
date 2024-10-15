@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 interface Mother {
   id: number;
@@ -16,6 +17,12 @@ interface PatientsListProps {
   mothers: Mother[];
 }
 const PatientsList: React.FC<PatientsListProps> = ({ mothers }) => {
+  const navigate = useNavigate();
+
+  const handleButtonClick = ({ id }: { id: number }) => {
+    navigate(`/mother-singleview/${id}`);
+  };
+
   return (
     <div className="container mx-auto antialiased">
       <div className="py-4">
@@ -47,7 +54,9 @@ const PatientsList: React.FC<PatientsListProps> = ({ mothers }) => {
                   .map((mother) => (
                     <tr>
                       <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                        <button>
+                        <button
+                          onClick={() => handleButtonClick({ id: mother.id })}
+                        >
                           <div className="flex items-center">
                             <div className="flex-shrink-0 w-10 h-10">
                               <img
