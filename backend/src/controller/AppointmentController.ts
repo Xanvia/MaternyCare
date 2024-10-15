@@ -2,7 +2,6 @@ import { AppDataSource } from "../data-source";
 import { NextFunction, Request, Response } from "express";
 import { Appointment } from "../entity/Appointment";
 
-
 export class AppointmentController {
   private appointmentRepository = AppDataSource.getRepository(Appointment);
 
@@ -32,7 +31,7 @@ export class AppointmentController {
       appointment_type,
       endDate,
       startDate,
-      month
+      month,
     });
 
     return this.appointmentRepository.save(appointment);
@@ -73,7 +72,7 @@ export class AppointmentController {
     appointmentToUpdate.startDate = startDate;
     appointmentToUpdate.endDate = endDate;
     appointmentToUpdate.month = month;
-    
+
     // Save the updated notice
     await this.appointmentRepository.save(appointmentToUpdate);
 
