@@ -70,32 +70,33 @@ export default function PatientTable() {
       <div className="flex rounded-t-lg overflow-hidden" style={{ backgroundColor: "#F5F5F5" }}>
         {(['motherList', 'phmList', 'pendingList'] as const).map((tab, index) => (
           <button
-          key={tab}
-          className={`flex-1 py-2 px-4 text-sm font-medium transition-colors duration-200
-            ${activeTab === tab ? 'bg-purple_primary text-gray-800 border border-purple-600' : 'bg-white text-gray-600 border border-gray-300 hover:bg-gray-100'}
-            rounded-full mx-1
-          `}
-          onClick={() => setActiveTab(tab)}
-        >
-          {tab.toUpperCase().replace('LIST', ' LIST')}
-        </button>
-        
-        
+            key={tab}
+            className={`flex-1 py-2 px-4 text-sm font-medium transition-colors duration-200
+              ${activeTab === tab ? 'bg-purple_primary text-gray-800 border border-purple-600' : 'bg-white text-gray-600 border border-gray-300 hover:bg-gray-100'}
+              rounded-full mx-1
+            `}
+            onClick={() => setActiveTab(tab)}
+          >
+            {tab.toUpperCase().replace('LIST', ' LIST')}
+          </button>
         ))}
       </div>
       <div className="space-y-4">
         <div className="flex flex-col space-y-4 sm:flex-row sm:justify-between sm:space-y-0">
           <div className="flex flex-wrap gap-2">
-            <button className="px-4 py-2 text-sm border border-gray-400 rounded-2xl hover:bg-gray-100">Patient List</button>
-            <button className="px-4 py-2 text-sm border border-gray-400 rounded-2xl hover:bg-gray-100">Red Patient List</button>
-            <button className="px-4 py-2 text-sm border border-red-600 rounded-2xl hover:bg-gray-100">Remove</button>
+            {activeTab === 'motherList' && (
+              <>
+                <button className="px-4 py-2 text-sm border border-gray-400 rounded-2xl hover:bg-gray-100">Patient List</button>
+                <button className="px-4 py-2 text-sm border border-gray-400 rounded-2xl hover:bg-gray-100">Red Patient List</button>
+              </>
+            )}
           </div>
           <div className="flex flex-wrap gap-2">
             <div className="relative flex-grow sm:flex-grow-0">
               <Search className="absolute left-2 top-2.5 h-4 w-4 text-gray-400" />
               <input
                 type="text"
-                placeholder="Search patients..."
+                placeholder="Search..."
                 className="pl-8 w-full border rounded py-2 px-3"
                 value={searchTerm}
                 onChange={(e) => {
@@ -104,9 +105,6 @@ export default function PatientTable() {
                 }}
               />
             </div>
-            {/* <button className="px-4 py-2 text-sm bg-blue-500 text-white rounded hover:bg-blue-600">
-              <Plus className="inline-block mr-2 h-4 w-4" /> Add
-            </button> */}
             <AddMotherModal />
           </div>
         </div>
