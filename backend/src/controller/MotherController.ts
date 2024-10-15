@@ -1,8 +1,13 @@
 import { AppDataSource } from "../data-source";
 import { NextFunction, Request, Response } from "express";
 import { Mother } from "../entity/Mother";
-import { User } from "../entity/User";
+import { User, UserRole } from "../entity/User";
+<<<<<<< HEAD
 import { Phm } from "../entity/Phm";
+=======
+>>>>>>> 3e822c78ec434cfd129e23f1ef75f7787b39521e
+import { generateAppointmentsForMother } from "../service/mothreAppointmentGenerater";
+import * as jwt from "jsonwebtoken";
 
 export class MotherController {
   private motherRepository = AppDataSource.getRepository(Mother);
@@ -30,7 +35,11 @@ export class MotherController {
   }
 
   async save(request: Request, response: Response, next: NextFunction) {
+<<<<<<< HEAD
     const { age, nic, risk_type, phone_1, bio, phmId } = request.body;
+=======
+    const { age, nic, risk_type, phone_1, bio, delivery_date } = request.body;
+>>>>>>> 3e822c78ec434cfd129e23f1ef75f7787b39521e
 
     if (request.user.userRole !== "mother") {
       console.log(request.user.userRole);
@@ -41,6 +50,7 @@ export class MotherController {
     }
 
     const userId = request.user?.userId;
+    
 
     if (!userId) {
       return response
@@ -66,22 +76,30 @@ export class MotherController {
       const mother = new Mother();
       mother.age = age;
       mother.nic = nic;
+<<<<<<< HEAD
+      //mother.delivery_date = delivery_date;
+=======
+      mother.delivery_date = delivery_date;
+>>>>>>> 3e822c78ec434cfd129e23f1ef75f7787b39521e
       mother.risk_type = risk_type;
       mother.phone_1 = phone_1;
       mother.bio = bio;
       mother.user = user; // Set the user relationship
 
-      if (phmId) {
-        const phm = await this.phmRepository.findOne({ where: { id: phmId } });
-        if (!phm) {
-          return response.status(404).json({ message: "PHM not found" });
-        }
-        mother.phm = phm; // Set the PHM relationship
-      }
+<<<<<<< HEAD
+=======
+      
 
-      await this.motherRepository.save(mother);
-      // return response.status(201).json(mother);
-      response.send(mother);
+>>>>>>> 3e822c78ec434cfd129e23f1ef75f7787b39521e
+      const savedMother = await this.motherRepository.save(mother);
+      
+      // Generate a JWT
+      const token = jwt.sign(
+        {motherId: savedMother.id},
+        process.env.JWT_SECRET!
+      );
+
+      response.send({mother: savedMother, token});
       return;
     } catch (error) {
       return next(error);
