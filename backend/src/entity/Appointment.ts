@@ -19,10 +19,10 @@ export class Appointment {
   @Column({ nullable: true })
   appointment_type: string;
 
-  @Column({ type: 'date', nullable: true })
+  @Column({ type: "date", nullable: true })
   startDate: Date; // Use Date type for startDate
 
-  @Column({ type: 'date', nullable: true })
+  @Column({ type: "date", nullable: true })
   endDate: Date;
 
   // @Column({ nullable: true })
@@ -36,10 +36,10 @@ export class Appointment {
   updateMonth() {
     if (this.startDate) {
       const date = new Date(this.startDate);
-      const month = date.toLocaleString('default', { month: 'long' });
+      const month = date.toLocaleString("default", { month: "long" });
       this.month = month;
-    }
-  }
+    }
+  }
 
   @DeleteDateColumn({ nullable: true })
   deletedAt: Date | null;

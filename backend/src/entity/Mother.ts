@@ -9,15 +9,8 @@ import {
   OneToMany,
 } from "typeorm";
 import { User } from "./User";
-<<<<<<< HEAD
-<<<<<<< HEAD
 import { Phm } from "./Phm";
-=======
 import { Appointment } from "./Appointment";
->>>>>>> 6c43cf7 (feat:Fix appointment controller issue)
-=======
-import { Appointment } from "./Appointment";
->>>>>>> 3e822c78ec434cfd129e23f1ef75f7787b39521e
 
 @Entity()
 export class Mother {
@@ -180,6 +173,9 @@ export class Mother {
   @Column({ type: "date", nullable: true })
   Date_of_result_informed_to_mother: Date;
 
+  @OneToMany(() => Appointment, (appointment) => appointment.mother)
+  appointments: Appointment[];
+
   @ManyToOne(() => Phm, (phm) => phm.mothers, {
     nullable: true,
     onDelete: "SET NULL", // When PHM is deleted, mothers can remain with no assigned PHM
@@ -192,7 +188,4 @@ export class Mother {
   })
   @JoinColumn()
   user: User;
-
-  @OneToMany(() => Appointment, (appointment) => appointment.mother)
-  appointments: Appointment[];
 }
