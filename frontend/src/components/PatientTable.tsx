@@ -96,13 +96,13 @@ export default function PatientTable() {
           {activeTab === 'motherList' && (
             <div className="flex gap-2">
               <button
-                className={`px-4 py-2 text-sm border ${motherSubList === 'patientList' ? 'border-blue-600' : 'border-gray-400'} rounded-2xl hover:bg-gray-100`}
+                className={`px-4 py-2 text-sm border ${motherSubList === 'patientList' ? 'border-blue-800' : 'border-gray-300'} rounded-2xl hover:bg-gray-100`}
                 onClick={() => setMotherSubList('patientList')}
               >
                 Patient List
               </button>
               <button
-                className={`px-4 py-2 text-sm border ${motherSubList === 'redPatientList' ? 'border-red-600' : 'border-gray-400'} rounded-2xl hover:bg-gray-100`}
+                className={`px-4 py-2 text-sm border ${motherSubList === 'redPatientList' ? 'border-red-800' : 'border-gray-300'} rounded-2xl hover:bg-gray-100`}
                 onClick={() => setMotherSubList('redPatientList')}
               >
                 Red Patient List
