@@ -4,6 +4,8 @@ import {
   Column,
   DeleteDateColumn,
   ManyToOne,
+  BeforeInsert,
+  BeforeUpdate,
 } from "typeorm";
 import { Mother } from "./Mother";
 import { Phm } from "./Phm";
@@ -23,8 +25,21 @@ export class Appointment {
   @Column({ type: 'date', nullable: true })
   endDate: Date;
 
+  // @Column({ nullable: true })
+  // month: string;
+
   @Column({ nullable: true })
   month: string;
+
+  @BeforeInsert()
+  @BeforeUpdate()
+  updateMonth() {
+    if (this.startDate) {
+      const date = new Date(this.startDate);
+      const month = date.toLocaleString('default', { month: 'long' });
+      this.month = month;
+    }
+  }
 
   @DeleteDateColumn({ nullable: true })
   deletedAt: Date | null;
@@ -37,7 +52,7 @@ export class Appointment {
 
   @ManyToOne(() => Mother, (mother) => mother.appointments)
   mother: Mother;
-  appointment: Date;
+  //appointment: Date;
 
   // @ManyToOne(() => Phm, (phm) => phm.appointments)
   // phm: Phm;

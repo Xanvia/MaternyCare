@@ -69,23 +69,21 @@ export class MotherController {
       const mother = new Mother();
       mother.age = age;
       mother.nic = nic;
-      mother.delivery_date = delivery_date;
+      //mother.delivery_date = delivery_date;
       mother.risk_type = risk_type;
       mother.phone_1 = phone_1;
       mother.bio = bio;
       mother.user = user; // Set the user relationship
 
-      if (phmId) {
-        const phm = await this.phmRepository.findOne({ where: { id: phmId } });
-        if (!phm) {
-          return response.status(404).json({ message: "PHM not found" });
-        }
-        mother.phm = phm; // Set the PHM relationship
-      }
+      const savedMother = await this.motherRepository.save(mother);
+      
+      // Generate a JWT
+      const token = jwt.sign(
+        {motherId: savedMother.id},
+        process.env.JWT_SECRET!
+      );
 
-      await this.motherRepository.save(mother);
-      generateAppointmentsForMother(mother.id); 
-      response.send(mother);
+      response.send({mother: savedMother, token});
       return;
     } catch (error) {
       return next(error);
