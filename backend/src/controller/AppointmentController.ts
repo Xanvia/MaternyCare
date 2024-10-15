@@ -23,15 +23,15 @@ export class AppointmentController {
   async one(request: Request, response: Response, next: NextFunction) {
     const id = parseInt(request.params.id);
 
-    const user = await this.userRepository.findOne({where:{id}});
+    // const user = await this.userRepository.findOne({where:{id}});
 
-    const mother = await this.motherRepository.findOne({
-      where:{user},
-      relations:["user",]
-    });
+    // const mother = await this.motherRepository.findOne({
+    //   where:{user},
+    //   relations:["user",]
+    // });
 
     const appointment = await this.appointmentRepository.findOne({
-      where: { mother },
+      where: { id },
       relations:["mother"],
     });
 
@@ -42,23 +42,31 @@ export class AppointmentController {
   }
 
   async save(request: Request, response: Response, next: NextFunction){
-    const{id, appointment_type, startDate, endDate, month, deletedAt, checkedByMother, checkedByPHM} = request.body;
+    const{appointment_type, startDate, endDate, month, deletedAt, checkedByMother, checkedByPHM} = request.body;
 
-    const motherId = request.user?.motherId;
+    const userId = request.user?.userId;
 
-    if(!motherId){
+    const user = await this.userRepository.findOne({where: { id : userId}});
+
+    const mother = await this.motherRepository.findOne({ 
+      where: { user }, 
+      relations: ["user"],
+  });
+    
+    console.log("userIdcdf"+userId+" mother"+mother.id);
+    
+    if(!mother.id){
       return response
         .status(400)
         .json({error: "Mother Id is missing or invalid"});
     }
 
    try{
-    const mother = await this.motherRepository.findOne({where: {id: motherId}});
-    if(!mother){
-      return response.status(404).json({message:"Mother not found"});
-    }
+    //const mother = await this.motherRepository.findOne({where: { id : }});
+    // if(!mother){
+    //   return response.status(404).json({message:"user not found"});
+    // }
     const appointment = new Appointment();
-    appointment.id = id;
     appointment.appointment_type = appointment_type;
     appointment.startDate = startDate;
     appointment.endDate = endDate;
@@ -66,6 +74,7 @@ export class AppointmentController {
     appointment.deletedAt = deletedAt;
     appointment.checkedByMother = checkedByMother;
     appointment.checkedByPHM = checkedByPHM;
+    appointment.mother = mother;
 
     await this.appointmentRepository.save(appointment);
     
@@ -77,4 +86,20 @@ export class AppointmentController {
    }
 
   }
+
+  async remove(request: Request, response: Response, next: NextFunction) {
+    const id = parseInt(request.params.id);
+
+    let appointmentToRemove = await this.appointmentRepository.findOneBy({ id });
+
+    if (!appointmentToRemove) {
+      return "this appointment not exist";
+    }
+
+    await this.appointmentRepository.remove(appointmentToRemove);
+
+    return "appointment has been removed";
+  }
+
+  
 }
