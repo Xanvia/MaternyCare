@@ -5,8 +5,9 @@ import AddAppointmentModal from "../modals/AddAppointmentModal";
 
 const Appointments = () => {
 
-  // let userItem = localStorage.getItem("user");
-  // const user = userItem ? JSON.parse(userItem) : null;
+  let userItem = localStorage.getItem("user");
+  const user = userItem ? JSON.parse(userItem) : null;
+  
   const BASE_URL = "http://localhost:3000/";
   const [appointments, setAppointments] = useState([]);
   const [loading, setLoading] = useState(false);
