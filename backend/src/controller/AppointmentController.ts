@@ -69,10 +69,7 @@ export class AppointmentController {
     }
 
     try {
-      //const mother = await this.motherRepository.findOne({where: { id : }});
-      // if(!mother){
-      //   return response.status(404).json({message:"user not found"});
-      // }
+      
       const appointment = new Appointment();
       appointment.appointment_type = appointment_type;
       appointment.startDate = startDate;
@@ -90,6 +87,21 @@ export class AppointmentController {
     } catch (error) {
       return next(error);
     }
+  }
+
+  async getMotherAppoinments(request: Request, response: Response, next: NextFunction){
+    const motherId = parseInt(request.params.id);
+   
+    const mother = await this.motherRepository.findOne({
+      where: { id: motherId },
+    });
+    
+    const appointments = await this.appointmentRepository.find({
+      where: { mother: { id: motherId } },
+      relations: ["mother"],
+    });
+    
+     return appointments;
   }
 
   async remove(request: Request, response: Response, next: NextFunction) {
