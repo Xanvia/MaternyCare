@@ -38,6 +38,10 @@ export class Appointment {
       const date = new Date(this.startDate);
       const month = date.toLocaleString("default", { month: "long" });
       this.month = month;
+
+      const endDate = new Date(this.startDate);
+      endDate.setDate(endDate.getDate() + 10);
+      this.endDate = endDate;
     }
   }
 
