@@ -92,9 +92,9 @@ export class AppointmentController {
   async getMotherAppoinments(request: Request, response: Response, next: NextFunction){
     const motherId = parseInt(request.params.id);
    
-    const mother = await this.motherRepository.findOne({
-      where: { id: motherId },
-    });
+    // const mother = await this.motherRepository.findOne({
+    //   where: { id: motherId },
+    // });
     
     const appointments = await this.appointmentRepository.find({
       where: { mother: { id: motherId } },
