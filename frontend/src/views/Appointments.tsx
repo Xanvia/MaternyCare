@@ -8,6 +8,8 @@ const Appointments = () => {
   let userItem = localStorage.getItem("user");
   const user = userItem ? JSON.parse(userItem) : null;
   
+  const userId = user.id;
+
   const BASE_URL = "http://localhost:3000/";
   const [appointments, setAppointments] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -18,7 +20,7 @@ const Appointments = () => {
       setLoading(true);
       const axiosConfig = {
         method: "get",
-        url: `${BASE_URL}appointments`,
+        url: `${BASE_URL}appointments/mother/${userId}`,
         // headers: {
         //   Authorization: `Bearer`,
         // },
@@ -38,6 +40,7 @@ const Appointments = () => {
 
     getAppointments();
   }, []);
+
 
   return (
     <div className="mx-11 my ">
@@ -88,7 +91,7 @@ const Appointments = () => {
                  <button  className='sm:w-36 w-full  items-center justify-center'>
                     <div  className='flex flex-col items-center justify-center pt-1'>
                     <header className='xs:text-base text-blue_primary mt-1 text-lg'>{2024}</header>
-                    <header className='text-xl md:text-xl sm:text-lg xs:text-base text-pink_primary font-bold'>{appointment.mother.id}</header>
+                    <header className='text-xl md:text-xl sm:text-lg xs:text-base text-pink_primary font-bold'>{appointment.id}</header>
                     </div>
                     <div className='flex justify-center w-full'>
                     <hr className='mt-2 w-10/12 border-1 border-gray-300' />
