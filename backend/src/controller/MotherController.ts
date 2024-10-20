@@ -30,7 +30,7 @@ export class MotherController {
   }
 
   async save(request: Request, response: Response, next: NextFunction) {
-    const { age, nic, risk_type, phone_1, bio, phmId } = request.body;
+    const { age, nic, risk_type, phone_1, bio, phmId, delivery_date} = request.body;
 
     if (request.user.userRole !== "mother") {
       console.log(request.user.userRole);
@@ -69,7 +69,8 @@ export class MotherController {
       mother.risk_type = risk_type;
       mother.phone_1 = phone_1;
       mother.bio = bio;
-      mother.user = user; // Set the user relationship
+      mother.user = user;
+      mother.delivery_date = delivery_date; // Set the user relationship
 
       if (phmId) {
         const phm = await this.phmRepository.findOne({ where: { id: phmId } });

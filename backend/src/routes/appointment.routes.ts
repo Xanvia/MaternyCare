@@ -31,6 +31,13 @@ export const AppointmentRoutes = [
     middlewares: [jwtMiddleware],
   },
   {
+    method: "post",
+    route: "/appointments/generate",
+    controller: AppointmentController,
+    action: "generateAppointment",
+    middlewares: [jwtMiddleware],
+  },
+  {
     method: "put",
     route: "/appointments/:id",
     controller: AppointmentController,
