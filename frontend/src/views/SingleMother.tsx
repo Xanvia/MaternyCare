@@ -55,45 +55,72 @@ const SingleMother = () => {
             {/* Left Side Fields */}
             <div>
               <label
-                htmlFor="name"
+                htmlFor="bloodtype"
                 className="block text-sm font-medium text-gray-700"
               >
-                Name
+                Blood Type
               </label>
               <input
                 type="text"
-                id="name"
-                name="name"
-                className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
-                placeholder="Enter your name"
+                id="bloodtype"
+                name="bloodtype"
+                className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 text-sm"
+                placeholder="Blood Type"
               />
 
               <label
-                htmlFor="nic"
+                htmlFor="height"
                 className="block text-sm font-medium text-gray-700 mt-4"
               >
-                NIC
+                Height(cm)
               </label>
               <input
                 type="text"
-                id="nic"
-                name="nic"
-                className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
-                placeholder="Enter your NIC"
+                id="height"
+                name="height"
+                className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 text-sm"
+                placeholder="Height"
               />
 
               <label
-                htmlFor="address"
+                htmlFor="alergies"
                 className="block text-sm font-medium text-gray-700 mt-4"
               >
-                Address
+                Allergies
+              </label>
+              <textarea
+                id="alergies"
+                name="alergies"
+                className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                placeholder="Allergies"
+              />
+
+              <label
+                htmlFor="gsdivision"
+                className="block text-sm font-medium text-gray-700 mt-4"
+              >
+                Grama Niladhari Division
               </label>
               <input
                 type="text"
-                id="address"
-                name="address"
-                className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
-                placeholder="Enter your address"
+                id="gsdivision"
+                name="gsdivision"
+                className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 text-sm"
+                placeholder="Grama Niladhari Division"
+              />
+
+              <label
+                htmlFor="hospitalclinic"
+                className="block text-sm font-medium text-gray-700 mt-4"
+              >
+                Name of the Hospital Clinic
+              </label>
+              <input
+                type="text"
+                id="hospitalclinic"
+                name="hospitalclinic"
+                className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 text-sm"
+                placeholder="Name of the Hospital Clinic"
               />
             </div>
 
@@ -103,42 +130,56 @@ const SingleMother = () => {
                 htmlFor="phone"
                 className="block text-sm font-medium text-gray-700"
               >
-                Phone Number
+                MOH Area
               </label>
               <input
                 type="text"
-                id="phone"
-                name="phone"
-                className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
-                placeholder="Enter your phone number"
+                id="moharea"
+                name="moharea"
+                className="text-sm mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                placeholder="MOH Area"
               />
 
               <label
-                htmlFor="email"
+                htmlFor="phmarea"
                 className="block text-sm font-medium text-gray-700 mt-4"
               >
-                Email
-              </label>
-              <input
-                type="email"
-                id="email"
-                name="email"
-                className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
-                placeholder="Enter your email"
-              />
-
-              <label
-                htmlFor="occupation"
-                className="block text-sm font-medium text-gray-700 mt-4"
-              >
-                Occupation
+                PHM area
               </label>
               <input
                 type="text"
-                id="occupation"
-                name="occupation"
+                id="phmarea"
+                name="phmarea"
                 className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
-                placeholder="Enter your occupation"
+                placeholder="Enter your PHM area"
+              />
+
+              <label
+                htmlFor="fieldclinic"
+                className="block text-sm font-medium text-gray-700 mt-4"
+              >
+                Field Clinic Name
+              </label>
+              <input
+                type="text"
+                id="fieldclinic"
+                name="fieldclinic"
+                className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                placeholder="Enter Field Clinic Name"
+              />
+
+              <label
+                htmlFor="consulatantobstetrician"
+                className="block text-sm font-medium text-gray-700 mt-4"
+              >
+                Name of the Consultant Obstetrician
+              </label>
+              <input
+                type="text"
+                id="consulatantobstetrician"
+                name="consulatantobstetrician"
+                className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 text-sm"
+                placeholder="Name of the Consultant Obstetrician"
               />
             </div>
           </div>
@@ -147,7 +188,7 @@ const SingleMother = () => {
           <div className="mt-6">
             <button
               type="submit"
-              className="w-full md:w-auto px-6 py-2 bg-blue-600 text-white rounded-md shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+              className="w-full md:w-auto px-6 py-2 bg-blue_primary text-white rounded-md shadow-sm hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
             >
               Update
             </button>
