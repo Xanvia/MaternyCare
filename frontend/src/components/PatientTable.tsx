@@ -48,6 +48,26 @@ export default function PatientTable() {
   const [currentPage, setCurrentPage] = useState(1)
   const itemsPerPage = 10
 
+  // New states for delete confirmation modal
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false)
+  const [patientToDelete, setPatientToDelete] = useState<Patient | null>(null)
+
+  // Handle delete button click to open the confirmation modal
+  const handleDeleteClick = (patient: Patient) => {
+    setPatientToDelete(patient)
+    setIsDeleteModalOpen(true)
+  }
+
+  // Confirm and delete the selected patient
+  const confirmDeletePatient = () => {
+    if (patientToDelete) {
+      mockData[activeTab] = mockData[activeTab].filter((p) => p.id !== patientToDelete.id)
+      setPatientToDelete(null)
+      setIsDeleteModalOpen(false)
+      setCurrentPage(1) // Reset to the first page if the list length changes
+    }
+  }
+
   const filteredData = (
     activeTab === 'motherList' 
       ? motherSubList === 'patientList'
@@ -149,7 +169,7 @@ export default function PatientTable() {
                     </span>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                    <button className="text-red-600 hover:text-red-900" aria-label="Remove patient">
+                    <button className="text-red-600 hover:text-red-900" aria-label="Remove patient" onClick={() => handleDeleteClick(row)}>
                       <Trash className="h-4 w-4" />
                     </button>
                   </td>
@@ -185,6 +205,30 @@ export default function PatientTable() {
           </div>
         </div>
       </div>
+
+      {/* Delete Confirmation Modal */}
+      {isDeleteModalOpen && (
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
+          <div className="bg-white p-6 rounded-lg shadow-lg w-80">
+            <h2 className="text-lg font-medium text-gray-900 mb-4">Confirm Deletion</h2>
+            <p className="text-gray-700 mb-6">Are you sure you want to delete this patient?</p>
+            <div className="flex justify-end space-x-2">
+              <button
+                className="px-4 py-2 bg-gray-200 rounded hover:bg-gray-300"
+                onClick={() => setIsDeleteModalOpen(false)}
+              >
+                Cancel
+              </button>
+              <button
+                className="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700"
+                onClick={confirmDeletePatient}
+              >
+                Delete
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   )
 }
