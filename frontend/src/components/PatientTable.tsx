@@ -38,9 +38,6 @@ const mockData: Record<PatientList, Patient[]> = {
   })),
 }
 
-const patientListData = mockData['motherList'].filter((_, i) => i % 2 === 0);
-const redPatientListData = mockData['motherList'].filter((_, i) => i % 2 !== 0);
-
 export default function PatientTable() {
   const [activeTab, setActiveTab] = useState<PatientList>('motherList')
   const [motherSubList, setMotherSubList] = useState<'patientList' | 'redPatientList'>('patientList')
@@ -52,6 +49,10 @@ export default function PatientTable() {
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false)
   const [patientToDelete, setPatientToDelete] = useState<Patient | null>(null)
 
+  // Separate state to track patientListData and redPatientListData
+  const [patientListData, setPatientListData] = useState<Patient[]>(mockData['motherList'].filter((_, i) => i % 2 === 0))
+  const [redPatientListData, setRedPatientListData] = useState<Patient[]>(mockData['motherList'].filter((_, i) => i % 2 !== 0))
+
   // Handle delete button click to open the confirmation modal
   const handleDeleteClick = (patient: Patient) => {
     setPatientToDelete(patient)
@@ -61,7 +62,18 @@ export default function PatientTable() {
   // Confirm and delete the selected patient
   const confirmDeletePatient = () => {
     if (patientToDelete) {
-      mockData[activeTab] = mockData[activeTab].filter((p) => p.id !== patientToDelete.id)
+      if (activeTab === 'motherList') {
+        // Delete from patientListData or redPatientListData based on selected sublist
+        if (motherSubList === 'patientList') {
+          setPatientListData(patientListData.filter((p) => p.id !== patientToDelete.id))
+        } else if (motherSubList === 'redPatientList') {
+          setRedPatientListData(redPatientListData.filter((p) => p.id !== patientToDelete.id))
+        }
+      } else {
+        // Update mockData directly for other lists
+        mockData[activeTab] = mockData[activeTab].filter((p) => p.id !== patientToDelete.id)
+      }
+
       setPatientToDelete(null)
       setIsDeleteModalOpen(false)
       setCurrentPage(1) // Reset to the first page if the list length changes
