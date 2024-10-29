@@ -9,7 +9,7 @@ interface Patient {
   patient: string
   address: string
   appointment: string
-  status: PatientStatus
+  status?: PatientStatus // Make 'status' optional
 }
 
 type PatientList = 'motherList' | 'phmList' | 'pendingList'
@@ -34,7 +34,7 @@ const mockData: Record<PatientList, Patient[]> = {
     patient: `Pending ${i + 1}`,
     address: `${i + 1} Elm St`,
     appointment: `2023-12-${(i % 30) + 1}`,
-    status: 'Incompleted'
+    
   })),
 }
 
@@ -78,6 +78,12 @@ export default function PatientTable() {
       setIsDeleteModalOpen(false)
       setCurrentPage(1) // Reset to the first page if the list length changes
     }
+  }
+
+  const acceptPatient = (patient: Patient) => {
+    setPatientListData((prev) => [...prev, { ...patient, status: 'Incompleted' }])
+    mockData.pendingList = mockData.pendingList.filter((p) => p.id !== patient.id)
+    setCurrentPage(1)
   }
 
   const filteredData = (
@@ -167,7 +173,9 @@ export default function PatientTable() {
                 {activeTab !== 'phmList' && (
                   <>
                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Appointment</th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                    {activeTab !== 'pendingList' && (
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                    )}
                   </>
                 )}
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
@@ -182,9 +190,18 @@ export default function PatientTable() {
                     <>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{row.appointment}</td>
                       <td className="px-6 py-4 whitespace-nowrap">
-                        <span className={`px-2 py-1 text-xs font-semibold rounded-full ${statusColor(row.status)}`}>
+                      {activeTab === 'pendingList' ? (
+                        <button
+                          onClick={() => acceptPatient(row)}
+                          className="bg-blue-500 text-white px-3 py-1 rounded-full text-xs font-medium"
+                        >
+                          Accept
+                        </button>
+                      ) : (
+                        <span className={`px-2 py-1 text-xs font-semibold rounded-full ${statusColor(row.status!)}`}>
                           {row.status}
                         </span>
+                      )}
                       </td>
                     </>
                   )}
