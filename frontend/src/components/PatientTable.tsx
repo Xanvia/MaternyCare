@@ -9,7 +9,7 @@ interface Patient {
   patient: string
   address: string
   appointment: string
-  status?: PatientStatus // Make 'status' optional
+  status?: PatientStatus
 }
 
 type PatientList = 'motherList' | 'phmList' | 'pendingList'
@@ -33,8 +33,7 @@ const mockData: Record<PatientList, Patient[]> = {
     id: i + 1,
     patient: `Pending ${i + 1}`,
     address: `${i + 1} Elm St`,
-    appointment: `2023-12-${(i % 30) + 1}`,
-    
+    appointment: `2023-12-${(i % 30) + 1}`
   })),
 }
 
@@ -45,11 +44,12 @@ export default function PatientTable() {
   const [currentPage, setCurrentPage] = useState(1)
   const itemsPerPage = 10
 
-  // New states for delete confirmation modal
+  // New states for delete and accept confirmation modals
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false)
+  const [isAcceptModalOpen, setIsAcceptModalOpen] = useState(false)
   const [patientToDelete, setPatientToDelete] = useState<Patient | null>(null)
+  const [patientToAccept, setPatientToAccept] = useState<Patient | null>(null)
 
-  // Separate state to track patientListData and redPatientListData
   const [patientListData, setPatientListData] = useState<Patient[]>(mockData['motherList'].filter((_, i) => i % 2 === 0))
   const [redPatientListData, setRedPatientListData] = useState<Patient[]>(mockData['motherList'].filter((_, i) => i % 2 !== 0))
 
@@ -63,27 +63,35 @@ export default function PatientTable() {
   const confirmDeletePatient = () => {
     if (patientToDelete) {
       if (activeTab === 'motherList') {
-        // Delete from patientListData or redPatientListData based on selected sublist
         if (motherSubList === 'patientList') {
           setPatientListData(patientListData.filter((p) => p.id !== patientToDelete.id))
         } else if (motherSubList === 'redPatientList') {
           setRedPatientListData(redPatientListData.filter((p) => p.id !== patientToDelete.id))
         }
       } else {
-        // Update mockData directly for other lists
         mockData[activeTab] = mockData[activeTab].filter((p) => p.id !== patientToDelete.id)
       }
-
       setPatientToDelete(null)
       setIsDeleteModalOpen(false)
-      setCurrentPage(1) // Reset to the first page if the list length changes
+      setCurrentPage(1)
     }
   }
 
-  const acceptPatient = (patient: Patient) => {
-    setPatientListData((prev) => [...prev, { ...patient, status: 'Incompleted' }])
-    mockData.pendingList = mockData.pendingList.filter((p) => p.id !== patient.id)
-    setCurrentPage(1)
+  // Handle accept button click to open the confirmation modal
+  const handleAcceptClick = (patient: Patient) => {
+    setPatientToAccept(patient)
+    setIsAcceptModalOpen(true)
+  }
+
+  // Confirm the accept action
+  const confirmAcceptPatient = () => {
+    if (patientToAccept) {
+      setPatientListData((prev) => [...prev, { ...patientToAccept, status: 'Incompleted' }])
+      mockData.pendingList = mockData.pendingList.filter((p) => p.id !== patientToAccept.id)
+      setPatientToAccept(null)
+      setIsAcceptModalOpen(false)
+      setCurrentPage(1)
+    }
   }
 
   const filteredData = (
@@ -197,9 +205,9 @@ export default function PatientTable() {
                       <td className="px-6 py-4 whitespace-nowrap">
                       {activeTab === 'pendingList' ? (
                         <button
-                          onClick={() => acceptPatient(row)}
-                          className="bg-blue-500 text-white px-3 py-1 rounded-full text-xs font-medium"
-                        >
+                        onClick={() => handleAcceptClick(row)}
+                        className="bg-blue-500 text-white px-3 py-1 rounded-full text-xs font-medium"
+                      >
                           Accept
                         </button>
                       ) : (
@@ -266,6 +274,24 @@ export default function PatientTable() {
                 onClick={confirmDeletePatient}
               >
                 Delete
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Accept Confirmation Modal */}
+      {isAcceptModalOpen && (
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
+          <div className="bg-white p-6 rounded-lg shadow-lg w-80">
+            <h2 className="text-lg font-medium text-gray-900 mb-4">Confirm Acceptance</h2>
+            <p className="text-gray-700 mb-6">Are you sure you want to accept this patient?</p>
+            <div className="flex justify-end space-x-2">
+              <button className="px-4 py-2 bg-gray-200 rounded hover:bg-gray-300" onClick={() => setIsAcceptModalOpen(false)}>
+                Cancel
+              </button>
+              <button className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700" onClick={confirmAcceptPatient}>
+                Accept
               </button>
             </div>
           </div>
