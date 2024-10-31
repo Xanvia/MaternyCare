@@ -8,6 +8,7 @@ import axios from "axios";
 import useRoleProtection from "../customHooks/useRoleProtection";
 import MotherCard from "../components/MotherCard";
 import { toast, ToastContainer } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 const DashboardPHM = () => {
   useRoleProtection("phm");
@@ -16,6 +17,7 @@ const DashboardPHM = () => {
   const storedToken = localStorage.getItem("token");
   const token = storedToken ? JSON.parse(storedToken) : null;
   const [isCollapsed, setIsCollapsed] = useState(true);
+  const navigate = useNavigate();
 
   interface Mother {
     id: number;

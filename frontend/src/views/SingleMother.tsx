@@ -33,6 +33,13 @@ const SingleMother = () => {
     return <div>Loading...</div>;
   }
 
+  const handleNavigate = (sectionId: string) => {
+    const section = document.getElementById(sectionId);
+    if (section) {
+      section.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
   return (
     <div>
       <div className="max-w-full mx-4 flex bg-white shadow-lg rounded-lg overflow-hidden border border-gray-200">
@@ -56,7 +63,34 @@ const SingleMother = () => {
         </div>
       </div>
 
-      <div className="max-w-full mx-4 my-4 bg-white shadow-lg rounded-lg p-6 border border-gray-200">
+      <div className="m-4 bg-white shadow-lg rounded-lg p-6 grid grid-cols-5 gap-5 sticky top-4 z-10">
+        <button
+          className="bg-blue_primary text-white p-3 rounded-lg text-md"
+          onClick={() => handleNavigate("basic-details")}
+        >
+          Basic Details
+        </button>
+        <button
+          onClick={() => handleNavigate("second-details")}
+          className="bg-blue_primary text-white p-3 rounded-lg text-md"
+        >
+          Second Details
+        </button>
+        <button className="bg-blue_primary text-white p-3 rounded-lg text-md">
+          Basic Details
+        </button>
+        <button className="bg-blue_primary text-white p-3 rounded-lg text-md">
+          Basic Details
+        </button>
+        <button className="bg-blue_primary text-white p-3 rounded-lg text-md">
+          Basic Details
+        </button>
+      </div>
+
+      <div
+        id="basic-details"
+        className="max-w-full mx-4 my-4 bg-white shadow-lg rounded-lg p-6 border border-gray-200"
+      >
         <form>
           <h2 className="my-2 font-medium text-lg">Basic Details</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -364,7 +398,10 @@ const SingleMother = () => {
         </form>
       </div>
 
-      <div className="max-w-full mx-4 my-4 bg-white shadow-lg rounded-lg p-6 border border-gray-200">
+      <div
+        id="second-details"
+        className="max-w-full mx-4 my-4 bg-white shadow-lg rounded-lg p-6 border border-gray-200"
+      >
         <form>
           <h2 className="my-2 font-medium text-lg">Basic Details</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
