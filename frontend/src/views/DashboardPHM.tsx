@@ -15,6 +15,7 @@ const DashboardPHM = () => {
   const BASE_URL = "http://localhost:3000/";
   const storedToken = localStorage.getItem("token");
   const token = storedToken ? JSON.parse(storedToken) : null;
+  const [isCollapsed, setIsCollapsed] = useState(true);
 
   interface Mother {
     id: number;
@@ -29,6 +30,7 @@ const DashboardPHM = () => {
   }
 
   const [mothers, setMothers] = useState<Mother[]>([]);
+  const visibleMothers = isCollapsed ? mothers.slice(0, 3) : mothers;
 
   useEffect(() => {
     const getMothers = () => {
@@ -104,7 +106,7 @@ const DashboardPHM = () => {
         <div>
           <h1 className="text-lg my-4">Mother list in your area</h1>
           <div className="grid grid-cols-3 gap-y-4 gap-x-6 mb-5">
-            {mothers.map((mother) => (
+            {visibleMothers.map((mother) => (
               <MotherCard
                 key={mother.id}
                 firstName={mother.user.firstName}
@@ -116,6 +118,12 @@ const DashboardPHM = () => {
               />
             ))}
           </div>
+          <button
+            onClick={() => setIsCollapsed(!isCollapsed)}
+            className="mt-4 p-3 rounded-lg text-blue_primary hover:text-white bg-blue_tertiary hover:bg-blue_primary"
+          >
+            {isCollapsed ? "Show More" : "Show Less"}
+          </button>
         </div>
         <div className="mt-12">
           <PatientsList mothers={mothers} />
