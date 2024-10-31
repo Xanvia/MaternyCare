@@ -4,6 +4,12 @@ import { Rings } from "react-loader-spinner";
 import AddAppointmentModal from "../modals/AddAppointmentModal";
 
 const Appointments = () => {
+
+  let userItem = localStorage.getItem("user");
+  const user = userItem ? JSON.parse(userItem) : null;
+  
+  const userId = user.id;
+
   const BASE_URL = "http://localhost:3000/";
   const [appointments, setAppointments] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -14,7 +20,7 @@ const Appointments = () => {
       setLoading(true);
       const axiosConfig = {
         method: "get",
-        url: `${BASE_URL}appointments`,
+        url: `${BASE_URL}appointments/mother/${userId}`,
         // headers: {
         //   Authorization: `Bearer`,
         // },
@@ -35,8 +41,14 @@ const Appointments = () => {
     getAppointments();
   }, []);
 
+
   return (
     <div className="mx-11 my ">
+      {/* <div>
+        {appointments.map((item) =>(
+          1
+        )) }
+      </div> */}
       <div className="flex justify-between my-4 items-center ">
         <h1 className="mt-9 mb-4">Appointments</h1>
         <div className="flex justify-end">
@@ -55,32 +67,41 @@ const Appointments = () => {
             wrapperClass=""
           />
         ) : (
-          appointments.map(
+          appointments
+          //.filter((appointment) => appointment.mother?.id) 
+          .map(
             (
               appointment: {
                 appointment_type: string;
                 startDate: string;
                 endDate: string;
                 month: string;
+                id: string;
+                mother :{
+                  id: string;
+                };
+                
               },
               index: number
             ) => {
             
-
+              const appointmentYear = new Date(appointment.startDate).getFullYear();
+              const start_date = new Date(appointment.startDate).getDate();
+              const end_date = new Date(appointment.endDate).getDate();
               return (
                 <div key={index} className='sm:w-36 w-full bg-white rounded-3xl pb-2'>
-                <button  className='sm:w-36 w-full  items-center justify-center'>
+                 <button  className='sm:w-36 w-full  items-center justify-center'>
                     <div  className='flex flex-col items-center justify-center pt-1'>
-                    <header className='xs:text-base text-blue_primary mt-1 text-lg'>{2024}</header>
+                    <header className='xs:text-base text-blue_primary mt-1 text-lg'>{appointmentYear}</header>
                     <header className='text-xl md:text-xl sm:text-lg xs:text-base text-pink_primary font-bold'>{appointment.month}</header>
                     </div>
                     <div className='flex justify-center w-full'>
                     <hr className='mt-2 w-10/12 border-1 border-gray-300' />
                     </div>
                     <div className='flex flex-row items-center justify-center mt-2 m-2'>
-                    <div className='md:text-3xl sm:text-3xl xs:text-2xl text-3xl text-blue_primary font-bold'>{appointment.startDate}</div>
+                    <div className='md:text-3xl sm:text-3xl xs:text-2xl text-3xl text-blue_primary font-bold'>{start_date}</div>
                     <hr className='w-2 border-2 border-gray-300 mx-1'/>
-                    <div className='md:text-3xl sm:text-3xl xs:text-2xl text-3xl text-blue_primary font-bold'>{appointment.endDate}</div>
+                    <div className='md:text-3xl sm:text-3xl xs:text-2xl text-3xl text-blue_primary font-bold'>{end_date}</div>
                     </div>
                     <header className=' flex mt-2 justify-center pb-1 text-pink_primary text-sm'>{appointment.appointment_type}</header>
                 </button>
