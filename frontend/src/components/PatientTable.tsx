@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { Search, Plus, Trash, ChevronLeft, ChevronRight } from 'lucide-react'
 import AddMotherModal from '../modals/AddMotherModal'
+import { Link } from 'react-router-dom'
 
 type PatientStatus = 'Completed' | 'Incompleted'
 
@@ -195,19 +196,23 @@ export default function PatientTable() {
               </tr>
             </thead>
             <tbody className="bg-white divide-y divide-gray-200">
-              {currentData.map((row) => (
-                <tr key={row.id}>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{row.patient}</td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{row.address}</td>
-                  {activeTab !== 'phmList' && (
-                    <>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{row.appointment}</td>
-                      <td className="px-6 py-4 whitespace-nowrap">
+            {currentData.map((row) => (
+              <tr key={row.id} className="hover:bg-gray-100">
+                <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                  <Link to={`/mohdashboard/patient/${row.id}`} className="block w-full h-full">
+                    {row.patient}
+                  </Link>
+                </td>
+                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{row.address}</td>
+                {activeTab !== 'phmList' && (
+                  <>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{row.appointment}</td>
+                    <td className="px-6 py-4 whitespace-nowrap">
                       {activeTab === 'pendingList' ? (
                         <button
-                        onClick={() => handleAcceptClick(row)}
-                        className="bg-blue-500 text-white px-3 py-1 rounded-full text-xs font-medium"
-                      >
+                          onClick={() => handleAcceptClick(row)}
+                          className="bg-blue-500 text-white px-3 py-1 rounded-full text-xs font-medium"
+                        >
                           Accept
                         </button>
                       ) : (
@@ -215,16 +220,16 @@ export default function PatientTable() {
                           {row.status}
                         </span>
                       )}
-                      </td>
-                    </>
-                  )}
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                    <button className="text-red-600 hover:text-red-900" aria-label="Remove patient" onClick={() => handleDeleteClick(row)}>
-                      <Trash className="h-4 w-4" />
-                    </button>
-                  </td>
-                </tr>
-              ))}
+                    </td>
+                  </>
+                )}
+                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                  <button className="text-red-600 hover:text-red-900" aria-label="Remove patient" onClick={() => handleDeleteClick(row)}>
+                    <Trash className="h-4 w-4" />
+                  </button>
+                </td>
+              </tr>
+            ))}
             </tbody>
           </table>
         </div>

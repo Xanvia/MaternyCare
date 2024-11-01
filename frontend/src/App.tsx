@@ -151,6 +151,10 @@ const router = createBrowserRouter([
           </PrivateRoute>
         ),
       },
+      {
+        path: "patient/:id",
+        element: <div>hello</div>,
+      }
     ],
   },
   {
