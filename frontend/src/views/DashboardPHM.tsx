@@ -1,14 +1,13 @@
+import React, { useEffect, useState } from "react";
 import DashboardStatCard from "../components/DashboardStatCard";
 import feet from "../assets/images/feet.svg";
 import fire from "../assets/images/fire.svg";
 import water from "../assets/images/drops.svg";
 import PatientsList from "../components/PatientsList";
-import React, { useEffect, useState } from "react";
 import axios from "axios";
 import useRoleProtection from "../customHooks/useRoleProtection";
 import MotherCard from "../components/MotherCard";
 import { toast, ToastContainer } from "react-toastify";
-import { useNavigate } from "react-router-dom";
 
 const DashboardPHM = () => {
   useRoleProtection("phm");
@@ -17,7 +16,6 @@ const DashboardPHM = () => {
   const storedToken = localStorage.getItem("token");
   const token = storedToken ? JSON.parse(storedToken) : null;
   const [isCollapsed, setIsCollapsed] = useState(true);
-  const navigate = useNavigate();
 
   interface Mother {
     id: number;
@@ -58,19 +56,18 @@ const DashboardPHM = () => {
   const handleAddMother = (motherID: number) => {
     const axiosConfig = {
       method: "post",
-      url: `${BASE_URL}users/phm/addMother`, // Assuming this is the API to add a mother to a PHM
+      url: `${BASE_URL}users/phm/addMother`,
       headers: {
         Authorization: `Bearer ${token}`,
       },
       data: {
-        motherID: motherID, // Send the NIC or any unique identifier for the mother
+        motherID: motherID,
       },
     };
 
     axios(axiosConfig)
       .then((response) => {
-        console.log("Mother added successfully:", response.data);
-        toast.success("Mother added successfully!.");
+        toast.success("Mother added successfully!");
         setTimeout(() => window.location.reload(), 1000);
       })
       .catch((err) => {
@@ -108,21 +105,29 @@ const DashboardPHM = () => {
         <div>
           <h1 className="text-lg my-4">Mother list in your area</h1>
           <div className="grid grid-cols-3 gap-y-4 gap-x-6 mb-5">
-            {visibleMothers.map((mother) => (
-              <MotherCard
+            {mothers.map((mother, index) => (
+              <div
                 key={mother.id}
-                firstName={mother.user.firstName}
-                lastName={mother.user.lastName}
-                nic={mother.nic}
-                location="New York, USA"
-                onAdd={() => handleAddMother(mother.id)}
-                phm={mother.phm}
-              />
+                className={`transform transition-all duration-500 ease-in-out ${
+                  index >= 3 && isCollapsed
+                    ? "h-0 opacity-0 scale-95 overflow-hidden"
+                    : "h-auto opacity-100 scale-100"
+                }`}
+              >
+                <MotherCard
+                  firstName={mother.user.firstName}
+                  lastName={mother.user.lastName}
+                  nic={mother.nic}
+                  location="New York, USA"
+                  onAdd={() => handleAddMother(mother.id)}
+                  phm={mother.phm}
+                />
+              </div>
             ))}
           </div>
           <button
             onClick={() => setIsCollapsed(!isCollapsed)}
-            className="mt-4 p-3 rounded-lg text-blue_primary hover:text-white bg-blue_tertiary hover:bg-blue_primary"
+            className="mt-4 p-3 rounded-lg text-white hover:text-white bg-blue_primary hover:bg-blue_primary transition-all duration-300 ease-in-out transform hover:scale-105 active:scale-95"
           >
             {isCollapsed ? "Show More" : "Show Less"}
           </button>

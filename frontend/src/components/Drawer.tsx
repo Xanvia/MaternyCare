@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useContext } from "react";
 import { ChevronLeft, Menu, LogOut } from "lucide-react";
 import { getNavLinks } from "../data/Data"; // Import the navigation data function
-import { SvgIconProps } from "@mui/material"; // Import MUI types
 import { useMatch } from "react-router-dom";
 import { NavLink } from "react-router-dom";
 import { TitleContext } from "../contexts/TitleContextProvider";
+import logo from "../assets/images/logo.png";
 
 interface DrawerProps {
   isCollapsed: boolean;
@@ -13,11 +13,11 @@ interface DrawerProps {
 }
 
 // Define a type for our nav item that includes the MUI icon
-interface NavItem {
-  name: string;
-  icon: React.ComponentType<SvgIconProps>;
-  path: string;
-}
+// interface NavItem {
+//   name: string;
+//   icon: React.ComponentType<SvgIconProps>;
+//   path: string;
+// }
 
 let role = localStorage.getItem("role") || "mother";
 role = role.replace(/"/g, "");
@@ -96,8 +96,8 @@ const Drawer: React.FC<DrawerProps> = ({ isCollapsed, onCollapsedChange }) => {
             isCollapsed ? "py-4" : "py-8"
           }`}
         >
-          <div className="w-12 h-12 bg-blue-500 rounded-full flex items-center justify-center">
-            <span className="text-white text-xl font-bold">MC</span>
+          <div>
+            <img src={logo} className="w-24 h-auto" />
           </div>
           {!isCollapsed && (
             <h1 className="mt-3 text-pink-400 text-2xl font-medium">
