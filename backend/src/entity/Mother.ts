@@ -99,6 +99,9 @@ export class Mother {
   field_clinic: string;
 
   @Column({ type: "varchar", length: 255, nullable: true })
+  gs_division: string;
+
+  @Column({ type: "varchar", length: 255, nullable: true })
   hospital_clinic: string;
 
   @Column({ type: "varchar", length: 255, nullable: true })
