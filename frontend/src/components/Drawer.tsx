@@ -1,128 +1,160 @@
-import React, { useEffect, useContext } from "react";
-import useMediaQuery from "@mui/material/useMediaQuery";
-import { useTheme } from "@mui/material//styles";
-import { LogoutIcon, MenuIcon } from "../assets/icons/Icons";
-import { getNavLinks } from "../data/Data";
-import { NavLink } from "react-router-dom";
-import logo from "../assets/images/logo.png";
+import React, { useState, useEffect, useContext } from "react";
+import { ChevronLeft, Menu, LogOut } from "lucide-react";
+import { getNavLinks } from "../data/Data"; // Import the navigation data function
+import { SvgIconProps } from "@mui/material"; // Import MUI types
 import { useMatch } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { TitleContext } from "../contexts/TitleContextProvider";
 
-const Drawer: React.FC = () => {
-  const LARGE_SCREEN_WIDTH = 1024;
-  const theme = useTheme();
-  const isLargeScreen = useMediaQuery(theme.breakpoints.up("lg"));
-  const [isDrawerOpen, setDrawerOpen] = React.useState(isLargeScreen);
-  let role = localStorage.getItem("role") || "mother";
+interface DrawerProps {
+  isCollapsed: boolean;
+  onCollapsedChange: (collapsed: boolean) => void;
+  userRole?: string;
+}
+
+// Define a type for our nav item that includes the MUI icon
+interface NavItem {
+  name: string;
+  icon: React.ComponentType<SvgIconProps>;
+  path: string;
+}
+
+let role = localStorage.getItem("role") || "mother";
+role = role.replace(/"/g, "");
+
+const Drawer: React.FC<DrawerProps> = ({ isCollapsed, onCollapsedChange }) => {
+  const [isDrawerOpen, setDrawerOpen] = useState(true);
+  const [isMobile, setIsMobile] = useState(false);
 
   const titleContext = useContext(TitleContext);
 
-  const checkScreenSize = () => {
-    if (window.innerWidth >= LARGE_SCREEN_WIDTH) {
-      setDrawerOpen(true);
-    } else {
-      setDrawerOpen(false);
-    }
-  };
+  // Get navigation links based on user role
+  const navLinks = getNavLinks({ role: role });
+
+  useEffect(() => {
+    const checkScreenSize = () => {
+      setIsMobile(window.innerWidth < 1024);
+      if (window.innerWidth >= 1024) {
+        setDrawerOpen(true);
+      } else {
+        setDrawerOpen(false);
+        onCollapsedChange(false);
+      }
+    };
+
+    window.addEventListener("resize", checkScreenSize);
+    checkScreenSize();
+
+    return () => window.removeEventListener("resize", checkScreenSize);
+  }, [onCollapsedChange]);
 
   const toggleDrawer = () => {
     setDrawerOpen(!isDrawerOpen);
   };
 
+  const toggleCollapse = () => {
+    onCollapsedChange(!isCollapsed);
+  };
+
   const handleTitle = (title: string) => {
     titleContext?.updatePageTitle(title);
-    console.log("from drawer " + title);
   };
-
-  const logout = () => {
-    localStorage.removeItem("token");
-    window.location.href = "/login";
-  };
-
-  useEffect(() => {
-    window.addEventListener("resize", checkScreenSize);
-    checkScreenSize(); // Initial check
-
-    return () => {
-      window.removeEventListener("resize", checkScreenSize);
-    };
-  }, []);
-
-  role = role.replace(/"/g, "");
-  const navLinks = getNavLinks({ role });
 
   return (
     <div>
-      {" "}
-      <div className="text-center absolute right-3 top-5 lg:hidden ">
+      {/* Mobile Menu Button */}
+      <div className="absolute right-3 top-5 lg:hidden">
         <button
-          className="text-[#0D99FF] bg-[#B3DFFF] focus:ring-2 focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-3 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
-          type="button"
           onClick={toggleDrawer}
+          className="p-3 rounded-lg bg-blue-100 text-blue-500 hover:bg-blue-200 focus:outline-none focus:ring-2 focus:ring-blue-300"
         >
-          <MenuIcon className="" />
+          <Menu size={20} />
         </button>
       </div>
+
+      {/* Drawer */}
       <div
-        id="drawer-navigation"
-        className={`fixed top-0 left-0 z-40 h-screen p-8 overflow-y-auto transition-transform w-[300px] ${
-          isDrawerOpen ? "translate-x-0" : "-translate-x-full"
-        } bg-white w-64 dark:bg-gray-800`}
-        tabIndex={-1}
-        aria-labelledby="drawer-navigation-label"
+        className={`fixed top-0 left-0 z-40 h-screen bg-white shadow-lg transition-all duration-300 
+          ${isDrawerOpen ? "translate-x-0" : "-translate-x-full"}
+          ${isCollapsed ? "w-20" : "w-64"}`}
       >
-        <div className="flex flex-col items-center justify-center">
-          <img src={logo} className="h-36"></img>
-          <h1 className="text-[#F580AB] text-2xl font-medium	">Materny Care</h1>
-        </div>
+        {/* Collapse Toggle Button (desktop only) */}
         <button
-          type="button"
-          onClick={toggleDrawer}
-          aria-controls="drawer-navigation"
-          className="text-gray-400 bg-transparent lg:hidden hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 absolute top-2.5 end-2.5 inline-flex items-center justify-center dark:hover:bg-gray-600 dark:hover:text-white"
+          onClick={toggleCollapse}
+          className="absolute -right-3 top-1/2 transform -translate-y-1/2 bg-white rounded-full p-1 shadow-md border border-gray-200 hidden lg:block hover:bg-gray-50"
         >
-          <svg
-            className="w-3 h-3"
-            aria-hidden="true"
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 14 14"
-          >
-            <path
-              stroke="currentColor"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"
-            />
-          </svg>
-          <span className="sr-only">Close menu</span>
+          <ChevronLeft
+            className={`w-4 h-4 text-gray-600 transition-transform duration-300 ${
+              isCollapsed ? "rotate-180" : ""
+            }`}
+          />
         </button>
-        <div className="mt-10 flex flex-col space-y-8 text-[#666666] ">
-          {navLinks.map((item, index) => {
-            const match = useMatch(item.path);
 
-            return (
-              <NavLink to={item.path} key={index}>
-                <button
-                  className={`flex items-center space-x-2 py-3 px-3 rounded-xl w-full ${
-                    match ? "text-[#0D99FF] bg-[#CAE9FF]" : ""
-                  }`}
-                  onClick={() => handleTitle(item.name)}
-                >
-                  <item.icon />
-                  <span className="pl-1 ">{item.name}</span>
-                </button>
-              </NavLink>
-            );
-          })}
+        {/* Logo Area */}
+        <div
+          className={`flex flex-col items-center justify-center p-4 ${
+            isCollapsed ? "py-4" : "py-8"
+          }`}
+        >
+          <div className="w-12 h-12 bg-blue-500 rounded-full flex items-center justify-center">
+            <span className="text-white text-xl font-bold">MC</span>
+          </div>
+          {!isCollapsed && (
+            <h1 className="mt-3 text-pink-400 text-2xl font-medium">
+              Materny Care
+            </h1>
+          )}
+        </div>
 
+        {/* Mobile Close Button */}
+        {isMobile && (
           <button
-            className={`flex items-center space-x-2 py-3 px-3 rounded-xl w-full}`}
-            onClick={logout}
+            onClick={toggleDrawer}
+            className="absolute top-4 right-4 p-2 text-gray-400 hover:bg-gray-100 rounded-lg lg:hidden"
           >
-            <LogoutIcon className="text-blue_primary" />
-            <span className="pl-1 text-blue_primary">Logout</span>
+            <svg
+              className="w-4 h-4"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M6 18L18 6M6 6l12 12"
+              />
+            </svg>
+          </button>
+        )}
+
+        {/* Navigation Links */}
+        <div className="mt-8 px-4">
+          <nav className="space-y-4">
+            {navLinks.map((item, index) => {
+              const match = useMatch(item.path);
+              const Icon = item.icon;
+              return (
+                <NavLink to={item.path} key={index}>
+                  <button
+                    className={`flex items-center w-full p-3 mb-3 rounded-xl hover:bg-blue-50 text-gray-600 hover:text-blue-500 ${
+                      match && "text-blue_primary bg-[#CAE9FF]"
+                    } transition-colors`}
+                    onClick={() => handleTitle(item.name)}
+                  >
+                    <Icon className="w-5 h-5" />{" "}
+                    {/* Using MUI icon with className instead of size prop */}
+                    {!isCollapsed && <span className="ml-3">{item.name}</span>}
+                  </button>
+                </NavLink>
+              );
+            })}
+          </nav>
+
+          {/* Logout Button */}
+          <button className="flex items-center w-full p-3 mt-8 rounded-xl hover:bg-blue-50 text-blue-500 transition-colors">
+            <LogOut size={20} />
+            {!isCollapsed && <span className="ml-3">Logout</span>}
           </button>
         </div>
       </div>
