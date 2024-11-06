@@ -25,6 +25,10 @@ export class Appointment {
   @Column({ type: "date", nullable: true })
   endDate: Date;
 
+
+  @Column({ type: "date", nullable: true })
+  fixedDate: Date;
+
   // @Column({ nullable: true })
   // month: string;
 
