@@ -172,13 +172,13 @@ export class AppointmentController {
   // }
 
   async generateAppointment(request: Request, response: Response, next: NextFunction) {
-    const {
-      appointment_type,
-      month,
-      deletedAt,
-      checkedByMother,
-      checkedByPHM,
-    } = request.body;
+    // const {
+    //   appointment_type,
+    //   month,
+    //   deletedAt,
+    //   checkedByMother,
+    //   checkedByPHM,
+    // } = request.body;
   
     const userId = request.user?.userId;
   
@@ -205,13 +205,13 @@ export class AppointmentController {
         const endDate = new Date(startDate); // Assuming startDate and endDate are the same
   
         const newAppointment = new Appointment();
-        newAppointment.appointment_type = appointment_type || "Check-up"; // Default to "Check-up" if not provided
+        // newAppointment.appointment_type = appointment_type || "Check-up"; // Default to "Check-up" if not provided
         newAppointment.startDate = startDate; // Format as YYYY-MM-DD
         newAppointment.endDate = endDate;
-        newAppointment.month = month;
-        newAppointment.deletedAt = deletedAt;
-        newAppointment.checkedByMother = checkedByMother;
-        newAppointment.checkedByPHM = checkedByPHM;
+        // newAppointment.month = month;
+        // newAppointment.deletedAt = deletedAt;
+        // newAppointment.checkedByMother = checkedByMother;
+        // newAppointment.checkedByPHM = checkedByPHM;
         newAppointment.mother = mother;
   
         appointments.push(newAppointment);
