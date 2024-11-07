@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import Drawer from "../components/Drawer";
 import RightBar from "../components/RightBar";
 import TitleContextProvider from "../contexts/TitleContextProvider";
