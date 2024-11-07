@@ -27,6 +27,14 @@ export const MotherRoutes = [
     middlewares: [jwtMiddleware],
   },
   {
+    method: "put",
+    route: "/users/mother/:id/basic-details",
+    controller: MotherController,
+    action: "updateBasicDetails",
+    // middlewares: [jwtMiddleware, roleMiddleware("mother")],
+    middlewares: [jwtMiddleware],
+  },
+  {
     method: "delete",
     route: "/users/mother/:id",
     controller: MotherController,

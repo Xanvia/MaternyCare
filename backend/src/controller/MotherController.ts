@@ -89,6 +89,78 @@ export class MotherController {
     }
   }
 
+  async updateBasicDetails(
+    request: Request,
+    response: Response,
+    next: NextFunction
+  ) {
+    const id = parseInt(request.params.id);
+    const {
+      mother_blood_type,
+      mother_height,
+      allergies,
+      moh_area,
+      phm_area,
+      field_clinic,
+      consultant_obstetrician,
+      antenatal_risk_conditions,
+      eligible_family_register,
+      pregnant_mother_register,
+      gs_division,
+    } = request.body;
+
+    const userId = request.user?.userId;
+
+    try {
+      const mother = await this.motherRepository.findOne({
+        where: { id },
+        relations: ["user", "phm"],
+      });
+
+      if (!mother) {
+        return response.status(404).json({ message: "Mother not found" });
+      }
+
+      // Update the mother's details
+      mother.mother_blood_type = mother_blood_type ?? mother.mother_blood_type;
+      mother.mother_height = mother_height ?? mother.mother_height;
+      mother.allergies = allergies ?? mother.allergies;
+      mother.moh_area = moh_area ?? mother.moh_area;
+      mother.phm_area = phm_area ?? mother.phm_area;
+      mother.field_clinic = field_clinic ?? mother.field_clinic;
+      mother.consultant_obstetrician =
+        consultant_obstetrician ?? mother.consultant_obstetrician;
+      mother.antenatal_risk_conditions =
+        antenatal_risk_conditions ?? mother.antenatal_risk_conditions;
+      mother.eligible_family_register =
+        eligible_family_register ?? mother.eligible_family_register;
+      mother.pregnant_mother_register =
+        pregnant_mother_register ?? mother.pregnant_mother_register;
+      mother.gs_division = gs_division ?? mother.gs_division;
+
+      console.log("phm ", userId);
+      if (userId) {
+        const user = await this.userRepository.findOne({
+          where: { id: userId },
+        });
+        const phm = await this.phmRepository.findOne({
+          where: { user },
+          relations: ["user"],
+        });
+        if (!phm) {
+          return response.status(404).json({ message: "PHM not found" });
+        }
+        mother.phm = phm; // Update the PHM relationship
+      }
+
+      await this.motherRepository.save(mother);
+      response.send(mother);
+      return;
+    } catch (error) {
+      return next(error);
+    }
+  }
+
   async remove(request: Request, response: Response, next: NextFunction) {
     const id = parseInt(request.params.id);
 
