@@ -48,7 +48,7 @@ importers:
         version: 0.1.14
       typeorm:
         specifier: 0.3.20
-        version: 0.3.20(pg@8.13.0)(ts-node@10.9.1)
+        version: 0.3.20(pg@8.13.0)(ts-node@10.9.1(@types/node@16.18.113)(typescript@4.5.2))
     devDependencies:
       "@types/bcrypt":
         specifier: ^5.0.2
@@ -2318,6 +2318,7 @@ snapshots:
   debug@4.3.7(supports-color@5.5.0):
     dependencies:
       ms: 2.1.3
+    optionalDependencies:
       supports-color: 5.5.0
 
   define-data-property@1.1.4:
@@ -2985,7 +2986,7 @@ snapshots:
       media-typer: 0.3.0
       mime-types: 2.1.35
 
-  typeorm@0.3.20(pg@8.13.0)(ts-node@10.9.1):
+  typeorm@0.3.20(pg@8.13.0)(ts-node@10.9.1(@types/node@16.18.113)(typescript@4.5.2)):
     dependencies:
       "@sqltools/formatter": 1.2.5
       app-root-path: 3.1.0
@@ -3004,6 +3005,9 @@ snapshots:
       tslib: 2.7.0
       uuid: 9.0.1
       yargs: 17.7.2
+    optionalDependencies:
+      pg: 8.13.0
+      ts-node: 10.9.1(@types/node@16.18.113)(typescript@4.5.2)
     transitivePeerDependencies:
       - supports-color
 
@@ -3011,6 +3015,7 @@ snapshots:
 
   undefsafe@2.0.5: {}
 
+  universal-cookie@7.2.1:
   universal-cookie@7.2.1:
     dependencies:
       "@types/cookie": 0.6.0
