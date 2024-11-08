@@ -18,7 +18,7 @@ const BasicDetailsPreview = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
-  const  id = 19 // hard coded
+  const id = 19; // hard coded
   const token = JSON.parse(localStorage.getItem("token") || '""');
 
   useEffect(() => {
@@ -78,8 +78,9 @@ const BasicDetailsPreview = () => {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {/* Left Column */}
         <div>
-          <PreviewField label="Blood Type" value={data.mother_blood_type} />
+          <PreviewField label="Mother's Name" value={data.mother_blood_type} />
           <PreviewField label="Height (cm)" value={data.mother_height} />
+          <PreviewField label="BMI" value={data.mother_height} />
           <PreviewField label="Allergies" value={data.allergies} />
           <PreviewField
             label="Grama Niladhari Division"
@@ -90,6 +91,10 @@ const BasicDetailsPreview = () => {
             value={data.eligible_family_register}
           />
           <PreviewField
+            label="Hospital Clinic"
+            value={data.pregnant_mother_register}
+          />
+          <PreviewField
             label="Pregnant Mother Register"
             value={data.pregnant_mother_register}
           />
@@ -97,6 +102,9 @@ const BasicDetailsPreview = () => {
 
         {/* Right Column */}
         <div>
+          <PreviewField label="Age" value={data.moh_area} />
+          <PreviewField label="Weight" value={data.moh_area} />
+          <PreviewField label="Blood Group" value={data.mother_blood_type} />
           <PreviewField label="MOH Area" value={data.moh_area} />
           <PreviewField label="PHM Area" value={data.phm_area} />
           <PreviewField label="Field Clinic" value={data.field_clinic} />
@@ -108,6 +116,7 @@ const BasicDetailsPreview = () => {
             label="Antenatal Risk Conditions"
             value={data.antenatal_risk_conditions}
           />
+         
         </div>
       </div>
     </div>
