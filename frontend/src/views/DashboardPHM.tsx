@@ -114,14 +114,14 @@ const DashboardPHM = () => {
                     : "h-auto opacity-100 scale-100"
                 }`}
               >
-                <MotherCard
-                  firstName={mother.user.firstName}
-                  lastName={mother.user.lastName}
-                  nic={mother.nic}
+                {mother.user && <MotherCard
+                  firstName={mother?.user.firstName}
+                  lastName={mother?.user.lastName}
+                  nic={mother?.nic}
                   location="New York, USA"
-                  onAdd={() => handleAddMother(mother.id)}
-                  phm={mother.phm}
-                />
+                  onAdd={() => handleAddMother(mother?.id)}
+                  phm={mother?.phm}
+                />}
               </div>
             ))}
           </div>
