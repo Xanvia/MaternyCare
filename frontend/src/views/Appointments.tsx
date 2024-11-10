@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { Rings } from "react-loader-spinner";
-import AddAppointmentModal from "../modals/AddAppointmentModal";
+import AddFixAppointmentModal from "../modals/FixAppointmentDatePopu";
+import FixAppointmentDatePopup from "../modals/FixAppointmentDatePopu";
 
 const Appointments = () => {
 
@@ -52,7 +53,7 @@ const Appointments = () => {
       <div className="flex justify-between my-4 items-center ">
         <h1 className="mt-9 mb-4">Appointments</h1>
         <div className="flex justify-end">
-          <AddAppointmentModal />
+          <AddFixAppointmentModal />
         </div>
       </div>
       <div className="grid grid-cols-2 sm:grid-cols-5 gap-5 ">
@@ -88,9 +89,10 @@ const Appointments = () => {
               const appointmentYear = new Date(appointment.startDate).getFullYear();
               const start_date = new Date(appointment.startDate).getDate();
               const end_date = new Date(appointment.endDate).getDate();
+              
               return (
                 <div key={index} className='sm:w-36 w-full bg-white rounded-3xl pb-2'>
-                 <button  className='sm:w-36 w-full  items-center justify-center'>
+                 <div className='sm:w-36 w-full  items-center justify-center'>
                     <div  className='flex flex-col items-center justify-center pt-1'>
                     <header className='xs:text-base text-blue_primary mt-1 text-lg'>{appointmentYear}</header>
                     <header className='text-xl md:text-xl sm:text-lg xs:text-base text-pink_primary font-bold'>{appointment.month}</header>
@@ -104,7 +106,9 @@ const Appointments = () => {
                     <div className='md:text-3xl sm:text-3xl xs:text-2xl text-3xl text-blue_primary font-bold'>{end_date}</div>
                     </div>
                     <header className=' flex mt-2 justify-center pb-1 text-pink_primary text-sm'>{appointment.appointment_type}</header>
-                </button>
+                    
+                    <div><FixAppointmentDatePopup /></div>
+                </div>
                 
                 </div>
               );
