@@ -1,6 +1,4 @@
 import React, { useEffect, useState } from "react";
-import DashboardStatCard from "../components/DashboardStatCard";
-import feet from "../assets/images/feet.svg";
 import fire from "../assets/images/fire.svg";
 import water from "../assets/images/drops.svg";
 import PatientsList from "../components/PatientsList";
