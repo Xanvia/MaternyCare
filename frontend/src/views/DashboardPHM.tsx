@@ -26,6 +26,7 @@ const DashboardPHM = () => {
     user: {
       firstName: string;
       lastName: string;
+      isVerified: boolean;
     };
     phm: {};
   }
@@ -129,30 +130,51 @@ const DashboardPHM = () => {
           </div>
           <div className="grid grid-cols-3 gap-y-4 gap-x-6 mb-5">
             {activeTab === "pending" &&
-              mothers.map((mother, index) => (
-                <div
-                  key={mother.id}
-                  className={`transform transition-all duration-500 ease-in-out ${
-                    index >= 3 && isCollapsed
-                      ? "h-0 opacity-0 scale-95 overflow-hidden"
-                      : "h-auto opacity-100 scale-100"
-                  }`}
-                >
-                  <MotherCard
-                    firstName={mother.user.firstName}
-                    lastName={mother.user.lastName}
-                    nic={mother.nic}
-                    location="New York, USA"
-                    onAdd={() => handleAddMother(mother.id)}
-                    phm={mother.phm}
-                  />
-                </div>
-              ))}
-            {activeTab === "verified" && (
-              <div className="col-span-3 text-center text-gray-500">
-                No verified mothers.
-              </div>
-            )}
+              mothers
+                .filter((mother) => !mother.user.isVerified)
+                .map((mother, index) => (
+                  <div
+                    key={mother.id}
+                    className={`transform transition-all duration-500 ease-in-out ${
+                      index >= 3 && isCollapsed
+                        ? "h-0 opacity-0 scale-95 overflow-hidden"
+                        : "h-auto opacity-100 scale-100"
+                    }`}
+                  >
+                    <MotherCard
+                      firstName={mother.user.firstName}
+                      lastName={mother.user.lastName}
+                      nic={mother.nic}
+                      location="New York, USA"
+                      onAdd={() => handleAddMother(mother.id)}
+                      phm={mother.phm}
+                      isVerified={mother.user.isVerified}
+                    />
+                  </div>
+                ))}
+            {activeTab === "verified" &&
+              mothers
+                .filter((mother) => mother.user.isVerified)
+                .map((mother, index) => (
+                  <div
+                    key={mother.id}
+                    className={`transform transition-all duration-500 ease-in-out ${
+                      index >= 3 && isCollapsed
+                        ? "h-0 opacity-0 scale-95 overflow-hidden"
+                        : "h-auto opacity-100 scale-100"
+                    }`}
+                  >
+                    <MotherCard
+                      firstName={mother.user.firstName}
+                      lastName={mother.user.lastName}
+                      nic={mother.nic}
+                      location="New York, USA"
+                      onAdd={() => handleAddMother(mother.id)}
+                      phm={mother.phm}
+                      isVerified={mother.user.isVerified}
+                    />
+                  </div>
+                ))}
           </div>
           <button
             onClick={() => setIsCollapsed(!isCollapsed)}
