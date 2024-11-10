@@ -8,6 +8,7 @@ import axios from "axios";
 import useRoleProtection from "../customHooks/useRoleProtection";
 import MotherCard from "../components/MotherCard";
 import { toast, ToastContainer } from "react-toastify";
+import PhmDashboardStatCard from "../components/PhmDashboardCard";
 
 const DashboardPHM = () => {
   useRoleProtection("phm");
@@ -84,27 +85,48 @@ const DashboardPHM = () => {
       <ToastContainer />
       <div className="mx-11">
         <div className="grid sm:grid-cols-3 grid-cols-2 gap-8 mb-5">
-          <DashboardStatCard
+          {/* <DashboardStatCard
             image={feet}
             color="bg-[#F9B8D0]"
             count={5}
             title="Ratings"
             subtitle="/10"
-          />
-          <DashboardStatCard
+          /> */}
+          <PhmDashboardStatCard
             image={fire}
             color="bg-[#A8F0DB]"
             count={10}
             title="Checked"
             subtitle="patients"
           />
-          <DashboardStatCard
+          <PhmDashboardStatCard
             image={water}
             color="bg-[#80CAFF]"
             count={8}
             title="Unchecked"
             subtitle="patients"
           />
+          <div className="bg-white py-8 xs:px-6 px-4 h-42 rounded-lg">
+            <div className="grid xs:grid-cols-2 grid-cols-1 gap-2 items-center">
+              <div
+                className={` xl:col-span-1 rounded-full bg-[#80CAFF] w-16 h-16 p-4 flex justify-center m-auto`}
+              >
+                <img src={fire} alt="Stat Icon" />
+              </div>
+
+              <div className="flex items-center llg:justify-start justify-center">
+                <button className=" p-3 rounded-lg text-white hover:text-white bg-blue_primary hover:bg-blue_primary transition-all duration-300 ease-in-out transform hover:scale-105 active:scale-95">
+                  Appointments
+                </button>
+              </div>
+            </div>
+            {/* <div className="flex justify-center mt-6">
+        {updateComponent &&
+          React.cloneElement(updateComponent as React.ReactElement<any>, {
+            onUpdate: handleUpdate,
+          })}
+      </div> */}
+          </div>
         </div>
         <div>
           <h1 className="text-lg my-4">Mother list in your area</h1>
