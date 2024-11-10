@@ -53,8 +53,7 @@ export class UserController {
   //   return { user: savedUser, token };
   // }
   async createUser(request: Request, response: Response, next: NextFunction) {
-    const { firstName, lastName, email, password, role, isVerified } =
-      request.body;
+    const { firstName, lastName, email, password, role } = request.body;
 
     try {
       // Hash the password
@@ -66,7 +65,6 @@ export class UserController {
         lastName,
         email,
         password: hashedPassword,
-        isVerified,
         role,
       });
       const savedUser = await this.userRepository.save(user);
@@ -116,6 +114,7 @@ export class UserController {
         firstName: user.firstName,
         lastName: user.lastName,
         role: user.role,
+        isVerified: user.isVerified,
       };
 
       response.json({ user: userResponse, token });
@@ -159,6 +158,26 @@ export class UserController {
     await this.userRepository.save(userToUpdate);
 
     return "user has been updated";
+  }
+
+  // create a put request to update isVerified
+  async verifyUser(request: Request, response: Response, next: NextFunction) {
+    const id = parseInt(request.params.id);
+    // const { isVerified } = request.body;
+
+    const userToUpdate = await this.userRepository.findOneBy({ id });
+
+    if (!userToUpdate) {
+      return "this user not exist";
+    }
+
+    if (userToUpdate) {
+      userToUpdate.isVerified = true;
+    }
+
+    await this.userRepository.save(userToUpdate);
+
+    return "user has been verified";
   }
 
   async removeUser(request: Request, response: Response, next: NextFunction) {
