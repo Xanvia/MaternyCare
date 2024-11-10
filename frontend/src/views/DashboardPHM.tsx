@@ -16,6 +16,7 @@ const DashboardPHM = () => {
   const storedToken = localStorage.getItem("token");
   const token = storedToken ? JSON.parse(storedToken) : null;
   const [isCollapsed, setIsCollapsed] = useState(true);
+  const [activeTab, setActiveTab] = useState("pending");
 
   interface Mother {
     id: number;
@@ -104,26 +105,54 @@ const DashboardPHM = () => {
         </div>
         <div>
           <h1 className="text-lg my-4">Mother list in your area</h1>
+          <div className="flex space-x-4 mb-4">
+            <button
+              onClick={() => setActiveTab("pending")}
+              className={`p-2 rounded-lg ${
+                activeTab === "pending"
+                  ? "bg-blue_primary text-white"
+                  : "bg-gray-200"
+              }`}
+            >
+              Pending
+            </button>
+            <button
+              onClick={() => setActiveTab("verified")}
+              className={`p-2 rounded-lg ${
+                activeTab === "verified"
+                  ? "bg-blue_primary text-white"
+                  : "bg-gray-200"
+              }`}
+            >
+              Verified
+            </button>
+          </div>
           <div className="grid grid-cols-3 gap-y-4 gap-x-6 mb-5">
-            {mothers.map((mother, index) => (
-              <div
-                key={mother.id}
-                className={`transform transition-all duration-500 ease-in-out ${
-                  index >= 3 && isCollapsed
-                    ? "h-0 opacity-0 scale-95 overflow-hidden"
-                    : "h-auto opacity-100 scale-100"
-                }`}
-              >
-                {mother.user && <MotherCard
-                  firstName={mother?.user.firstName}
-                  lastName={mother?.user.lastName}
-                  nic={mother?.nic}
-                  location="New York, USA"
-                  onAdd={() => handleAddMother(mother?.id)}
-                  phm={mother?.phm}
-                />}
+            {activeTab === "pending" &&
+              mothers.map((mother, index) => (
+                <div
+                  key={mother.id}
+                  className={`transform transition-all duration-500 ease-in-out ${
+                    index >= 3 && isCollapsed
+                      ? "h-0 opacity-0 scale-95 overflow-hidden"
+                      : "h-auto opacity-100 scale-100"
+                  }`}
+                >
+                  <MotherCard
+                    firstName={mother.user.firstName}
+                    lastName={mother.user.lastName}
+                    nic={mother.nic}
+                    location="New York, USA"
+                    onAdd={() => handleAddMother(mother.id)}
+                    phm={mother.phm}
+                  />
+                </div>
+              ))}
+            {activeTab === "verified" && (
+              <div className="col-span-3 text-center text-gray-500">
+                No verified mothers.
               </div>
-            ))}
+            )}
           </div>
           <button
             onClick={() => setIsCollapsed(!isCollapsed)}
