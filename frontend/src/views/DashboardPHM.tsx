@@ -15,7 +15,9 @@ const DashboardPHM = () => {
   const BASE_URL = "http://localhost:3000/";
   const storedToken = localStorage.getItem("token");
   const token = storedToken ? JSON.parse(storedToken) : null;
-  const [isCollapsed, setIsCollapsed] = useState(true);
+  // const [isCollapsed, setIsCollapsed] = useState(true);
+  const [isPendingCollapsed, setIsPendingCollapsed] = useState(true);
+  const [isVerifiedCollapsed, setIsVerifiedCollapsed] = useState(true);
   const [activeTab, setActiveTab] = useState("pending");
 
   interface Mother {
@@ -32,7 +34,7 @@ const DashboardPHM = () => {
   }
 
   const [mothers, setMothers] = useState<Mother[]>([]);
-  const visibleMothers = isCollapsed ? mothers.slice(0, 3) : mothers;
+  // const visibleMothers = isCollapsed ? mothers.slice(0, 3) : mothers;
 
   useEffect(() => {
     const getMothers = () => {
@@ -128,7 +130,7 @@ const DashboardPHM = () => {
               Verified
             </button>
           </div>
-          <div className="grid grid-cols-3 gap-y-4 gap-x-6 mb-5">
+          {/* <div className="grid grid-cols-3 gap-y-4 gap-x-6 mb-5">
             {activeTab === "pending" &&
               mothers
                 .filter((mother) => !mother.user.isVerified)
@@ -136,7 +138,7 @@ const DashboardPHM = () => {
                   <div
                     key={mother.id}
                     className={`transform transition-all duration-500 ease-in-out ${
-                      index >= 3 && isCollapsed
+                      index >= 3 && isPendingCollapsed
                         ? "h-0 opacity-0 scale-95 overflow-hidden"
                         : "h-auto opacity-100 scale-100"
                     }`}
@@ -151,6 +153,7 @@ const DashboardPHM = () => {
                       isVerified={mother.user.isVerified}
                     />
                   </div>
+                  
                 ))}
             {activeTab === "verified" &&
               mothers
@@ -159,7 +162,7 @@ const DashboardPHM = () => {
                   <div
                     key={mother.id}
                     className={`transform transition-all duration-500 ease-in-out ${
-                      index >= 3 && isCollapsed
+                      index >= 3 && isVerifiedCollapsed
                         ? "h-0 opacity-0 scale-95 overflow-hidden"
                         : "h-auto opacity-100 scale-100"
                     }`}
@@ -175,13 +178,87 @@ const DashboardPHM = () => {
                     />
                   </div>
                 ))}
-          </div>
-          <button
+          </div> */}
+          {activeTab === "pending" && (
+            <>
+              <div className="grid grid-cols-3 gap-y-4 gap-x-6 mb-5">
+                {mothers
+                  .filter((mother) => !mother.user.isVerified)
+                  .map((mother, index) => (
+                    <div
+                      key={mother.id}
+                      className={`transform transition-all duration-500 ease-in-out ${
+                        index >= 3 && isPendingCollapsed
+                          ? "h-0 opacity-0 scale-95 overflow-hidden"
+                          : "h-auto opacity-100 scale-100"
+                      }`}
+                    >
+                      <MotherCard
+                        firstName={mother.user.firstName}
+                        lastName={mother.user.lastName}
+                        nic={mother.nic}
+                        location="New York, USA"
+                        onAdd={() => handleAddMother(mother.id)}
+                        phm={mother.phm}
+                        isVerified={mother.user.isVerified}
+                      />
+                    </div>
+                  ))}
+              </div>
+              {mothers.filter((mother) => !mother.user.isVerified).length >=
+                4 && (
+                <button
+                  onClick={() => setIsPendingCollapsed(!isPendingCollapsed)}
+                  className="mt-4 p-3 rounded-lg text-white hover:text-white bg-blue_primary hover:bg-blue_primary transition-all duration-300 ease-in-out transform hover:scale-105 active:scale-95"
+                >
+                  {isPendingCollapsed ? "Show More" : "Show Less"}
+                </button>
+              )}
+            </>
+          )}
+          {activeTab === "verified" && (
+            <>
+              <div className="grid grid-cols-3 gap-y-4 gap-x-6 mb-5">
+                {mothers
+                  .filter((mother) => mother.user.isVerified)
+                  .map((mother, index) => (
+                    <div
+                      key={mother.id}
+                      className={`transform transition-all duration-500 ease-in-out ${
+                        index >= 3 && isVerifiedCollapsed
+                          ? "h-0 opacity-0 scale-95 overflow-hidden"
+                          : "h-auto opacity-100 scale-100"
+                      }`}
+                    >
+                      <MotherCard
+                        firstName={mother.user.firstName}
+                        lastName={mother.user.lastName}
+                        nic={mother.nic}
+                        location="New York, USA"
+                        onAdd={() => handleAddMother(mother.id)}
+                        phm={mother.phm}
+                        isVerified={mother.user.isVerified}
+                      />
+                    </div>
+                  ))}
+              </div>
+              {mothers.filter((mother) => mother.user.isVerified).length >=
+                4 && (
+                <button
+                  onClick={() => setIsVerifiedCollapsed(!isVerifiedCollapsed)}
+                  className="mt-4 p-3 rounded-lg text-white hover:text-white bg-blue_primary hover:bg-blue_primary transition-all duration-300 ease-in-out transform hover:scale-105 active:scale-95"
+                >
+                  {isVerifiedCollapsed ? "Show More" : "Show Less"}
+                </button>
+              )}
+            </>
+          )}
+          {/* <button
             onClick={() => setIsCollapsed(!isCollapsed)}
             className="mt-4 p-3 rounded-lg text-white hover:text-white bg-blue_primary hover:bg-blue_primary transition-all duration-300 ease-in-out transform hover:scale-105 active:scale-95"
           >
             {isCollapsed ? "Show More" : "Show Less"}
-          </button>
+          </button> */}
         </div>
         <div className="mt-12">
           <PatientsList mothers={mothers} />
