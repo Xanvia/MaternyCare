@@ -20,6 +20,7 @@ import DashboardMOH from "./views/DashboardMOH";
 import Registration2 from "./views/Registration2";
 import SingleMother from "./views/SingleMother";
 import MotherDashboard from "./views/MotherDashboard";
+import WelcomePage from "./views/WelcomePage";
 
 // You can add your routes here
 // Add a baselayout too if needed
@@ -27,6 +28,20 @@ import MotherDashboard from "./views/MotherDashboard";
 const router = createBrowserRouter([
   {
     path: "/",
+    children: [
+      {
+        index: true,
+        element: (
+          <PublicRoute>
+            <WelcomePage />
+          </PublicRoute>
+        ),
+      },
+    ],
+  },
+
+  {
+    path: "/landing",
     children: [
       {
         index: true,
