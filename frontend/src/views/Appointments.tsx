@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { Rings } from "react-loader-spinner";
-import AddFixAppointmentModal from "../modals/FixAppointmentDatePopu";
+//import AddFixAppointmentModal from "../modals/FixAppointmentDatePopu";
 import FixAppointmentDatePopup from "../modals/FixAppointmentDatePopu";
 
 const Appointments = () => {
@@ -52,9 +52,9 @@ const Appointments = () => {
       </div> */}
       <div className="flex justify-between my-4 items-center ">
         <h1 className="mt-9 mb-4">Appointments</h1>
-        <div className="flex justify-end">
+        {/* <div className="flex justify-end">
           <AddFixAppointmentModal />
-        </div>
+        </div> */}
       </div>
       <div className="grid grid-cols-2 sm:grid-cols-5 gap-5 ">
         {loading ? (
@@ -76,6 +76,7 @@ const Appointments = () => {
                 appointment_type: string;
                 startDate: string;
                 endDate: string;
+                fixedDate: string;
                 month: string;
                 id: string;
                 mother :{
@@ -107,7 +108,10 @@ const Appointments = () => {
                     </div>
                     <header className=' flex mt-2 justify-center pb-1 text-pink_primary text-sm'>{appointment.appointment_type}</header>
                     
-                    <div><FixAppointmentDatePopup /></div>
+                    <div><FixAppointmentDatePopup 
+                      appointmentId={appointment.id}
+                      appointment_type={appointment.appointment_type} 
+                      fixedDate={appointment.fixedDate} /></div>
                 </div>
                 
                 </div>

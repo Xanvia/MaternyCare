@@ -16,22 +16,33 @@ import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
-//import dayjs, { Dayjs } from "dayjs";
+import dayjs from "dayjs";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 
 // Validation schema
 const validationSchema = Yup.object({
   fixedDate: Yup.string().required("Date is required"),
-  //appointment_type: Yup.string().required("Description is required"),
+  appointment_type: Yup.string().required("Description is required"),
 });
 
-export default function FixAppointmentDatePopup() {
+interface FixAppointmentDatePopupProps {
+  appointmentId: string;
+  fixedDate: string;
+  appointment_type: string;
+}
+
+export default function FixAppointmentDatePopup({
+  appointmentId,
+  fixedDate,
+  appointment_type,
+}:FixAppointmentDatePopupProps) {
+  //console.log("Appointment ID:", appointmentId);
   const [open, setOpen] = React.useState<boolean>(false);
   const token = localStorage.getItem("token");
   //const [value, setValue] = React.useState<Dayjs | null>(dayjs('2022-04-17'));
 
   const BASE_URL = "http://localhost:3000/";
-
+  
   return (
     <React.Fragment>
       <ToastContainer />
@@ -76,12 +87,12 @@ export default function FixAppointmentDatePopup() {
           </DialogTitle>
           <Divider />
           <Formik
-            initialValues={{ fixedDate: "", appointment_type: ""}}
+            initialValues={{ fixedDate: fixedDate, appointment_type: appointment_type}}
             validationSchema={validationSchema}
             onSubmit={(values, { setSubmitting }) => {
               const axiosConfig = {
-                method: "post",
-                url: `${BASE_URL}appointments`,
+                method: "put",
+                url: `${BASE_URL}appointments/${appointmentId}`,
                 headers: {
                   Authorization: `Bearer ${token}`,
                 },
@@ -95,16 +106,18 @@ export default function FixAppointmentDatePopup() {
                   console.log(response.data);
                   setSubmitting(false);
                   setOpen(false);
-                  toast.success("The notice has been added successfully!.");
+                  toast.success("The appointment has been added successfully Updated!.");
                   setTimeout(() => window.location.reload(), 1500);
                 })
                 .catch((err) => {
                   console.log(err);
                   setSubmitting(false);
+                  toast.error("Failed to update the appointment.");
                 });
             }}
+            
           >
-            {({ isSubmitting, errors, touched }) => (
+            {({ isSubmitting, errors, touched , setFieldValue}) => (
               <Form>
                 <DialogContent
                   sx={{
@@ -126,11 +139,18 @@ export default function FixAppointmentDatePopup() {
                   <LocalizationProvider dateAdapter={AdapterDayjs}>
                     <DatePicker
                       name="fixedDate"
-                      //label="Controlled picker"
-                      // value={value}
-                      // onChange={(value) => setValue(value)}
+                      value={dayjs(fixedDate)}
+                      onChange={(value) => setFieldValue("fixedDate", value?.toISOString())}
+                      // renderInput={(params) => (
+                      //   <TextField
+                      //     {...params}
+                      //     fullWidth
+                      //     error={touched.fixedDate && Boolean(errors.fixedDate)}
+                      //     helperText={touched.fixedDate && errors.fixedDate}
+                      //   />
+                      // )}
                     />
-                </LocalizationProvider>
+                  </LocalizationProvider>
                 </Box>
                 <DialogContent
                   sx={{
@@ -151,7 +171,7 @@ export default function FixAppointmentDatePopup() {
                 >
                   <Field
                     as={TextField}
-                    name="subtitle"
+                    name="appointment_type"
                     fullWidth
                     size="small"
                     variant="outlined"
@@ -211,7 +231,7 @@ export default function FixAppointmentDatePopup() {
                     type="submit"
                     disabled={isSubmitting}
                   >
-                    Create
+                    Update
                   </Button>
                   <Button
                     variant="outlined"
