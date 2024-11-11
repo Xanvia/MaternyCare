@@ -42,7 +42,7 @@ export const AppointmentRoutes = [
     route: "/appointments/:id",
     controller: AppointmentController,
     action: "update",
-    middlewares: [jwtMiddleware],
+    middlewares: [],
   },
   {
     method: "delete",
