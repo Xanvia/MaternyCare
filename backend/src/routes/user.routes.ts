@@ -31,4 +31,13 @@ export const UserRoutes = [
     action: "removeUser",
     middlewares: [jwtMiddleware],
   },
+
+  {
+    method: "put",
+    route: "/users/:id/verify",
+    controller: UserController,
+    action: "verifyUser",
+    middlewares: [jwtMiddleware],
+  },
+ 
 ];

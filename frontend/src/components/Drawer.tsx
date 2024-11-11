@@ -60,6 +60,15 @@ const Drawer: React.FC<DrawerProps> = ({ isCollapsed, onCollapsedChange }) => {
     titleContext?.updatePageTitle(title);
   };
 
+  const handleLogout = () => {
+    // Clear the token and other relevant data from local storage
+    localStorage.removeItem("token");
+    localStorage.removeItem("role");
+
+    // Redirect to the login page
+    window.location.href = "/login";
+  };
+
   return (
     <div>
       {/* Mobile Menu Button */}
@@ -152,7 +161,10 @@ const Drawer: React.FC<DrawerProps> = ({ isCollapsed, onCollapsedChange }) => {
           </nav>
 
           {/* Logout Button */}
-          <button className="flex items-center w-full p-3 mt-8 rounded-xl hover:bg-blue-50 text-blue-500 transition-colors">
+          <button
+            onClick={handleLogout}
+            className="flex items-center w-full p-3 mt-8 rounded-xl hover:bg-blue-50 text-blue-500 transition-colors"
+          >
             <LogOut size={20} />
             {!isCollapsed && <span className="ml-3">Logout</span>}
           </button>

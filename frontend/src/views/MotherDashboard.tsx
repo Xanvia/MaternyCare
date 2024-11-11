@@ -12,6 +12,7 @@ import { HeartRateContext } from "../contexts/HeartRateContextProvider";
 import toTitleCase from "../components/CaseConverter";
 import useRoleProtection from "../customHooks/useRoleProtection";
 import { quotes } from "../data/Data";
+import BasicDetailsPreview from "./forms/BasicDetailsPreview";
 
 const MotherDashboard = () => {
   useRoleProtection("mother");
@@ -35,9 +36,9 @@ const MotherDashboard = () => {
     setRandom(Math.floor(Math.random() * 4));
   }, []);
 
-  // if (heartRateContext == null) {
-  //   return;
-  // }
+  if (heartRateContext == null) {
+    return;
+  }
 
   return (
     <div className="mx-11">
@@ -84,6 +85,9 @@ const MotherDashboard = () => {
       </div>
       <div className="mt-12 h-96 w-auto">
         <LineChart />
+      </div>
+      <div className="py-6">
+        <BasicDetailsPreview />
       </div>
     </div>
   );

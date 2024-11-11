@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const storedToken = localStorage.getItem("token");
 const token = storedToken ? JSON.parse(storedToken) : null;
@@ -21,6 +23,7 @@ const BasicDetails = () => {
   });
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
+  const [isUpdating, setIsUpdating] = useState(false);
 
   const { id } = useParams<{ id: string }>();
   // Fetch existing data when component mounts
@@ -77,6 +80,7 @@ const BasicDetails = () => {
     try {
       setLoading(true);
       setSuccess(false);
+      setIsUpdating(true);
 
       console.log("id from form ", id);
 
@@ -103,10 +107,13 @@ const BasicDetails = () => {
       );
 
       setSuccess(true);
+      setIsUpdating(false);
+      toast.success("Update successful!");
       // Clear success message after 3 seconds
       setTimeout(() => setSuccess(false), 3000);
     } catch (err) {
       console.error("Error updating basic details:", err);
+      toast.error("Update failed!");
     } finally {
       setLoading(false);
     }
@@ -440,7 +447,7 @@ const BasicDetails = () => {
             type="submit"
             className="w-full md:w-auto px-6 py-2 bg-blue_primary text-white rounded-md shadow-sm hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
           >
-            Update
+            {isUpdating ? "Updating..." : "Update"}
           </button>
         </div>
       </form>

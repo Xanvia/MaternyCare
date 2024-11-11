@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import Drawer from "../components/Drawer";
 import RightBar from "../components/RightBar";
 import TitleContextProvider from "../contexts/TitleContextProvider";
 import FeedLayout from "./FeedLayout";
 import { Outlet, useLocation } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
 
 const BaseLayout = () => {
   const location = useLocation();
@@ -11,6 +12,7 @@ const BaseLayout = () => {
 
   return (
     <TitleContextProvider>
+      <ToastContainer />
       <div className="flex bg-[#F5F5F5]">
         <Drawer
           isCollapsed={isDrawerCollapsed}

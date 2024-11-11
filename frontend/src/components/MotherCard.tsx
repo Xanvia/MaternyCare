@@ -9,6 +9,7 @@ interface MotherCardProps {
   location: string;
   onAdd: () => void;
   phm: {};
+  isVerified: boolean;
 }
 
 const MotherCard: React.FC<MotherCardProps> = ({
@@ -18,6 +19,7 @@ const MotherCard: React.FC<MotherCardProps> = ({
   location,
   onAdd,
   phm,
+  isVerified,
 }) => {
   const [isAdded, setIsAdded] = React.useState(false);
 
@@ -49,7 +51,7 @@ const MotherCard: React.FC<MotherCardProps> = ({
         </div>
 
         <div className="flex items-center col-span-1">
-          {phm == null ? (
+          {phm == null && !isVerified ? (
             <button
               onClick={handleAddClick} // Handle button click
               className="bg-green_tertiary hover:bg-green_secondary text-green_primary font-semibold p-2 rounded w-auto"

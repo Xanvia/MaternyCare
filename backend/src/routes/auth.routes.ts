@@ -17,4 +17,6 @@ export const AuthRoutes = [
     action: "createUser",
     middlewares: [],
   },
+
+  
 ];
