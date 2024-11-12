@@ -146,15 +146,7 @@ export default function FixAppointmentDatePopup({
                     <DatePicker
                       name="fixedDate"
                       value={dayjs(fixedDate)}
-                      onChange={(value) => setFieldValue("fixedDate", value?.toISOString())}
-                      // renderInput={(params) => (
-                      //   <TextField
-                      //     {...params}
-                      //     fullWidth
-                      //     error={touched.fixedDate && Boolean(errors.fixedDate)}
-                      //     helperText={touched.fixedDate && errors.fixedDate}
-                      //   />
-                      // )}
+                      onChange={(value) => setFieldValue("fixedDate", value?.format("YYYY-MM-DD"))}
                     />
                   </LocalizationProvider>
                 </Box>
