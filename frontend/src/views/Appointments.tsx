@@ -29,8 +29,18 @@ const Appointments = () => {
       };
       axios(axiosConfig)
         .then((response) => {
+          const sortedAppointments = response.data.sort((a: { fixedDate: any; startDate: any; }, b: { fixedDate: any; startDate: any; }) => {
+
+            if (a.fixedDate && !b.fixedDate) return -1;
+            if (!a.fixedDate && b.fixedDate) return 1;
+
+            const dateA = new Date(a.fixedDate || a.startDate).getTime();
+            const dateB = new Date(b.fixedDate || b.startDate).getTime();
+            return dateA - dateB;
+          });
+          setAppointments(sortedAppointments);
           console.log(response.data);
-          setAppointments(response.data);
+          //setAppointments(response.data);
         })
         .catch((err) => {
           console.log(err);
