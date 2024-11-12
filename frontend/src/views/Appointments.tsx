@@ -6,15 +6,7 @@ import FixAppointmentDatePopup from "../modals/FixAppointmentDatePopu";
 import { useParams } from "react-router-dom";
 
 const Appointments = () => {
-
-  const { id: paramId } = useParams<{ id: string }>();
-
-  let userItem = localStorage.getItem("user");
-  const user = userItem ? JSON.parse(userItem) : null;
-  //const userId = user.id;
-
-  const userId = user && user.role === "mother" ? user.id : paramId;
-
+  
   const BASE_URL = "http://localhost:3000/";
   const [appointments, setAppointments] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -25,12 +17,25 @@ const Appointments = () => {
   console.log("role from appointment page: " + role);
 //   const colors = ["#BA97FE", "#0D99FF", "#F580AB", "#F1CB3A", "#3AF16C"];
 
+  // get id from route 
+  const { id: motherId } = useParams<{ id: string }>();
+
+  let userItem = localStorage.getItem("user");
+  const user = userItem ? JSON.parse(userItem) : null;
+  //const userId = user.id;
+
+  const Id = user && user.role === "mother" ? user.id : motherId;
+
+
   useEffect(() => {
     const getAppointments = () => {
       setLoading(true);
+      const url = role === "mother"
+        ? `${BASE_URL}appointments/user/${Id}`
+        : `${BASE_URL}appointments/mother/${Id}`;
       const axiosConfig = {
         method: "get",
-        url: `${BASE_URL}appointments/mother/${userId}`,
+        url: url,
         // headers: {
         //   Authorization: `Bearer`,
         // },
