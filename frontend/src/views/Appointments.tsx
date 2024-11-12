@@ -3,13 +3,17 @@ import axios from "axios";
 import { Rings } from "react-loader-spinner";
 //import AddFixAppointmentModal from "../modals/FixAppointmentDatePopu";
 import FixAppointmentDatePopup from "../modals/FixAppointmentDatePopu";
+import { useParams } from "react-router-dom";
 
 const Appointments = () => {
 
+  const { id: paramId } = useParams<{ id: string }>();
+
   let userItem = localStorage.getItem("user");
   const user = userItem ? JSON.parse(userItem) : null;
-  
-  const userId = user.id;
+  //const userId = user.id;
+
+  const userId = user && user.role === "mother" ? user.id : paramId;
 
   const BASE_URL = "http://localhost:3000/";
   const [appointments, setAppointments] = useState([]);
