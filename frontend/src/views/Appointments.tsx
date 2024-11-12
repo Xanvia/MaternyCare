@@ -14,6 +14,7 @@ const Appointments = () => {
   const BASE_URL = "http://localhost:3000/";
   const [appointments, setAppointments] = useState([]);
   const [loading, setLoading] = useState(false);
+  const role = (localStorage.getItem("role") || "")
 //   const colors = ["#BA97FE", "#0D99FF", "#F580AB", "#F1CB3A", "#3AF16C"];
 
   useEffect(() => {
@@ -108,12 +109,14 @@ const Appointments = () => {
                     </div>
                     <header className=' flex mt-2 justify-center pb-1 text-pink_primary text-sm'>{appointment.appointment_type}</header>
                     
-                    <div><FixAppointmentDatePopup 
+                    {role !== "mother" && (
+                      <FixAppointmentDatePopup 
                       appointmentId={appointment.id}
                       appointment_type={appointment.appointment_type} 
-                      fixedDate={appointment.fixedDate} /></div>
-                </div>
-                
+                      fixedDate={appointment.fixedDate} 
+                      />
+                    )}
+                  </div>
                 </div>
               );
             }
