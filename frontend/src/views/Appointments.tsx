@@ -88,34 +88,48 @@ const Appointments = () => {
               index: number
             ) => {
             
-              const appointmentYear = new Date(appointment.startDate).getFullYear();
               const start_date = new Date(appointment.startDate).getDate();
               const end_date = new Date(appointment.endDate).getDate();
+              const fixedDate = new Date(appointment.fixedDate).getDate();
+              const appointmentYear = appointment.fixedDate !== null ? new Date(appointment.fixedDate).getFullYear() : new Date(appointment.startDate).getFullYear();
+              const appointmentMonth = appointment.fixedDate !== null 
+              ? new Date(appointment.fixedDate).toLocaleString('en-US', { month: 'long' })
+              : new Date(appointment.startDate).toLocaleString('en-US', { month: 'long' });
+
               
               return (
-                <div key={index} className='sm:w-36 w-full bg-white rounded-3xl pb-2'>
-                 <div className='sm:w-36 w-full  items-center justify-center'>
+                <div key={index} className='sm:w-40 w-full bg-white rounded-3xl pb-2'>
+                 <div className='sm:w-40 w-full  items-center justify-center'>
                     <div  className='flex flex-col items-center justify-center pt-1'>
                     <header className='xs:text-base text-blue_primary mt-1 text-lg'>{appointmentYear}</header>
-                    <header className='text-xl md:text-xl sm:text-lg xs:text-base text-pink_primary font-bold'>{appointment.month}</header>
+                    <header className='text-xl md:text-xl sm:text-lg xs:text-base text-pink_primary font-bold'>{appointmentMonth}</header>
                     </div>
                     <div className='flex justify-center w-full'>
                     <hr className='mt-2 w-10/12 border-1 border-gray-300' />
                     </div>
+                    {appointment.fixedDate === null ?(
                     <div className='flex flex-row items-center justify-center mt-2 m-2'>
-                    <div className='md:text-3xl sm:text-3xl xs:text-2xl text-3xl text-blue_primary font-bold'>{start_date}</div>
-                    <hr className='w-2 border-2 border-gray-300 mx-1'/>
+                      <div className='md:text-3xl sm:text-3xl xs:text-2xl text-3xl text-blue_primary font-bold'>{start_date}</div>
+                      <hr className='w-2 border-2 border-gray-300 mx-1'/>
                     <div className='md:text-3xl sm:text-3xl xs:text-2xl text-3xl text-blue_primary font-bold'>{end_date}</div>
                     </div>
+                    ):(
+                      <div className='flex flex-row items-center justify-center mt-2 m-2'>
+                        <div className='md:text-3xl sm:text-3xl xs:text-2xl text-3xl text-blue_primary font-bold'>{fixedDate}</div>
+                      </div>
+                    ) }
                     <header className=' flex mt-2 justify-center pb-1 text-pink_primary text-sm'>{appointment.appointment_type}</header>
                     
-                    {role !== "mother" && (
+                    <div className="flex w-full justify-center">
+                      {role !== "mother" && (
                       <FixAppointmentDatePopup 
                       appointmentId={appointment.id}
                       appointment_type={appointment.appointment_type} 
                       fixedDate={appointment.fixedDate} 
                       />
                     )}
+                    </div>
+                    
                   </div>
                 </div>
               );

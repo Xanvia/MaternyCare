@@ -48,9 +48,15 @@ export default function FixAppointmentDatePopup({
       <ToastContainer />
       <Button
         variant="outlined"
+        className="w-10/12"
         onClick={() => setOpen(true)}
         sx={{
+          minHeight: "20px",
+          padding:"0 12px",
+          fontSize:"12px",
+          borderRadius:"5px",
           borderColor: "#0D99FF",
+          //backgroundColor: "#f5f5f5",
           color: "#0D99FF",
           "&:hover": {
             borderColor: "#80CAFF",
@@ -58,7 +64,7 @@ export default function FixAppointmentDatePopup({
           },
         }}
       >
-        Fix Appointment
+        {fixedDate === null ? "Set" : "Update"}
       </Button>
       <Modal open={open} onClose={() => setOpen(false)}>
         <ModalDialog variant="outlined" role="alertdialog">
@@ -83,7 +89,7 @@ export default function FixAppointmentDatePopup({
               color: "#333333",
             }}
           >
-            Set Appointment Date
+            {fixedDate === null ? "Set Appointment" : "Update Appointment"}
           </DialogTitle>
           <Divider />
           <Formik
@@ -128,7 +134,7 @@ export default function FixAppointmentDatePopup({
                     fontWeight: "bold",
                   }}
                 >
-                  Set fix Date:
+                  {fixedDate === null ? "Set Appointment Date:" : "Update Appointment Date:"}
                 </DialogContent>
                 <Box
                   sx={{
@@ -161,7 +167,7 @@ export default function FixAppointmentDatePopup({
                     fontWeight: "bold",
                   }}
                 >
-                  Set Appointment type:
+                  {fixedDate === null ? "Set Appointment type:" : "Update Appointment type:"}
                 </DialogContent>
                 <Box
                   sx={{
