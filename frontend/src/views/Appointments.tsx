@@ -15,6 +15,10 @@ const Appointments = () => {
   const [appointments, setAppointments] = useState([]);
   const [loading, setLoading] = useState(false);
   const role = (localStorage.getItem("role") || "")
+  .replace(/"/g, "")
+    .trim()
+    .toLowerCase();
+  console.log("role from appointment page: " + role);
 //   const colors = ["#BA97FE", "#0D99FF", "#F580AB", "#F1CB3A", "#3AF16C"];
 
   useEffect(() => {
