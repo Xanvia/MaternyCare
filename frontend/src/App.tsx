@@ -23,6 +23,8 @@ import MotherDashboard from "./views/MotherDashboard";
 import WelcomePage from "./views/WelcomePage";
 import PhmSingleMotherAppointment from "./views/PhmSingleMotherAppointment";
 //import phmSingleMotherAppointment from "./views/phmSingleMotherAppointment";
+import MotherRegistrationPage from "./views/MotherRegistrationPage";
+// import MotherRegistration from "./views/MotherReg";
 
 // You can add your routes here
 // Add a baselayout too if needed
@@ -77,6 +79,19 @@ const router = createBrowserRouter([
         element: (
           <PublicRoute>
             <Registration />
+          </PublicRoute>
+        ),
+      },
+    ],
+  },
+  {
+    path: "/Mother/Registration",
+    children: [
+      {
+        index: true,
+        element: (
+          <PublicRoute>
+           <MotherRegistrationPage/>
           </PublicRoute>
         ),
       },

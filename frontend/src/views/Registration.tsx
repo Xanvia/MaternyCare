@@ -30,7 +30,10 @@ const Registration = () => {
         form
       );
       console.log(response.data);
-      navigate("/login");
+      localStorage.setItem("role", JSON.stringify(response.data.user.role));
+      localStorage.setItem("user", JSON.stringify(response.data.user));
+      localStorage.setItem("token", JSON.stringify(response.data.token));
+      navigate("/Mother/Registration");
       // Handle successful registration here
     } catch (error) {
       console.error(error);
@@ -77,7 +80,7 @@ const Registration = () => {
           type="submit"
           className="block w-full p-2 bg-blue-500 text-white rounded"
         >
-          Register
+          Next
         </button>
       </form>
     </div>
