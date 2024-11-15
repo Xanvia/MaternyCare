@@ -145,8 +145,22 @@ export default function FixAppointmentDatePopup({
                   <LocalizationProvider dateAdapter={AdapterDayjs}>
                     <DatePicker
                       name="fixedDate"
-                      value={dayjs(fixedDate)}
-                      onChange={(value) => setFieldValue("fixedDate", value?.format("YYYY-MM-DD"))}
+                      value={fixedDate ? dayjs(fixedDate) : null}
+                      onChange={(value) => setFieldValue("fixedDate", value? value.format("YYYY-MM-DD") : null)}
+                      slotProps={{
+                        textField: {
+                          error: touched.fixedDate && Boolean(errors.fixedDate),
+                          helperText: touched.fixedDate && errors.fixedDate,
+                          sx: {
+                            '& .MuiOutlinedInput-root': {
+                              '&:focus-within': {
+                                outline: 'none', // Remove focus outline
+                                borderColor: 'inherit', // Maintain border color
+                              },
+                            },
+                          },
+                        },
+                      }}
                     />
                   </LocalizationProvider>
                 </Box>
@@ -159,7 +173,7 @@ export default function FixAppointmentDatePopup({
                     fontWeight: "bold",
                   }}
                 >
-                  {fixedDate === null ? "Set Appointment type:" : "Update Appointment type:"}
+                  {fixedDate === null ? "Set Appointment Description:" : "Update Appointment Description:"}
                 </DialogContent>
                 <Box
                   sx={{
