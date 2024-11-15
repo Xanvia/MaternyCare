@@ -19,8 +19,13 @@ import Unauthorized from "./views/UnAuthorized";
 import DashboardMOH from "./views/DashboardMOH";
 import Registration2 from "./views/Registration2";
 import SingleMother from "./views/SingleMother";
+<<<<<<< HEAD
 import MotherDashboard from "./views/MotherDashboard";
 import WelcomePage from "./views/WelcomePage";
+=======
+import PhmSingleMotherAppointment from "./views/PhmSingleMotherAppointment";
+//import phmSingleMotherAppointment from "./views/phmSingleMotherAppointment";
+>>>>>>> b099265a (feat:create appointment page to view single-mother appointments)
 
 // You can add your routes here
 // Add a baselayout too if needed
@@ -209,6 +214,16 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <SingleMother />,
+      },
+    ],
+  },
+  {
+    path: "/mother-appointment-singleview/:id",
+    element: <BaseLayout />,
+    children: [
+      {
+        index: true,
+        element: <PhmSingleMotherAppointment />,
       },
     ],
   },

@@ -117,6 +117,22 @@ export class AppointmentController {
      return appointments;
   }
 
+  async getMotherAppoinmentsfromMotherId(request: Request, response: Response, next: NextFunction){
+
+    const motherId = parseInt(request.params.id);
+   
+    const mother = await this.motherRepository.findOne({
+      where: { id: motherId },
+    });
+    
+    const appointments = await this.appointmentRepository.find({
+      where: { mother: { id: mother.id } },
+      relations: ["mother"],
+    });
+    
+     return appointments;
+  }
+
   // async generateAppointment(request: Request, response: Response, next: NextFunction) {
     
   //   const {
@@ -241,5 +257,33 @@ export class AppointmentController {
     await this.appointmentRepository.remove(appointmentToRemove);
 
     return "appointment has been removed";
+  }
+
+  async update(request: Request, response: Response, next: NextFunction) {
+    const id = parseInt(request.params.id);
+    const { startDate, endDate, fixedDate, month, checkedByMother, checkedByPHM, appointment_type } = request.body;
+
+    // Fetch the notice to update, making sure it’s not soft-deleted
+    let appointmentToUpdate = await this.appointmentRepository.findOne({
+      where: { id, deletedAt: null },
+    });
+
+    if (!appointmentToUpdate) {
+      return "this notice does not exist or is already deleted";
+    }
+
+    // Update the fields
+    appointmentToUpdate.startDate = startDate;
+    appointmentToUpdate.endDate = endDate;
+    appointmentToUpdate.fixedDate = fixedDate;
+    appointmentToUpdate.month = month;
+    appointmentToUpdate.checkedByPHM = checkedByPHM;
+    appointmentToUpdate.checkedByMother = checkedByMother;
+    appointmentToUpdate.appointment_type = appointment_type;
+
+    // Save the updated notice
+    await this.appointmentRepository.save(appointmentToUpdate);
+
+    return "Appointment has been updated";
   }
 }

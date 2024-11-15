@@ -31,6 +31,8 @@ const SingleMother = () => {
     fetchMother();
   }, [id]);
 
+    
+
   if (!mother) {
     return <div>Loading...</div>;
   }
