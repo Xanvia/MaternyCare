@@ -20,7 +20,7 @@ export const TitleContext = React.createContext<TitleContextType | undefined>(
 const TitleContextProvider: React.FC<TitleContextProviderProps> = ({
   children,
 }) => {
-  const [pageTitle, setPageTitle] = useState("Dashboard");
+  const [pageTitle, setPageTitle] = useState("");
 
   const updatePageTitle = (newTitle: string) => {
     setPageTitle(newTitle);

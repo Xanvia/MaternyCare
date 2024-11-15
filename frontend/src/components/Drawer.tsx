@@ -19,10 +19,8 @@ interface DrawerProps {
 //   path: string;
 // }
 
-let role = localStorage.getItem("role") || "mother";
-role = role.replace(/"/g, "");
-
 const Drawer: React.FC<DrawerProps> = ({ isCollapsed, onCollapsedChange }) => {
+  const role = localStorage.getItem("role")?.replace(/"/g, "") || "";
   const [isDrawerOpen, setDrawerOpen] = useState(true);
   const [isMobile, setIsMobile] = useState(false);
 
@@ -41,7 +39,7 @@ const Drawer: React.FC<DrawerProps> = ({ isCollapsed, onCollapsedChange }) => {
         onCollapsedChange(false);
       }
     };
-
+    console.log("role handle here, :", role);
     window.addEventListener("resize", checkScreenSize);
     checkScreenSize();
 
