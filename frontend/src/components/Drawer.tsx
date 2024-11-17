@@ -61,9 +61,9 @@ const Drawer: React.FC<DrawerProps> = ({ isCollapsed, onCollapsedChange }) => {
   const handleLogout = () => {
     // Clear the token and other relevant data from local storage
     localStorage.removeItem("token");
+    localStorage.removeItem("regToken");
+    localStorage.removeItem("user");
     localStorage.removeItem("role");
-
-    // Redirect to the login page
     window.location.href = "/login";
   };
 

@@ -27,9 +27,10 @@ const Registration = () => {
     try {
       const response = await axios.post("http://localhost:3000/register", form);
       console.log("user reg data ", response.data);
-      localStorage.setItem("role", JSON.stringify(response.data.user.role));
-      localStorage.setItem("user", JSON.stringify(response.data.user));
-      localStorage.setItem("token", JSON.stringify(response.data.token));
+      // localStorage.setItem("role", JSON.stringify(response.data.user.role));
+      // localStorage.setItem("user", JSON.stringify(response.data.user));
+      localStorage.setItem("regToken", JSON.stringify(response.data.token));
+      console.log("reg token from user reg ", response.data.token);
       console.log("Registration successful");
       navigate("/mother/registration");
       // Handle successful registration here
