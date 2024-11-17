@@ -25,15 +25,13 @@ const Registration = () => {
     // Perform validation and submit form
 
     try {
-      const response = await axios.post(
-        "http://localhost:3000/register/",
-        form
-      );
-      console.log(response.data);
+      const response = await axios.post("http://localhost:3000/register", form);
+      console.log("user reg data ", response.data);
       localStorage.setItem("role", JSON.stringify(response.data.user.role));
       localStorage.setItem("user", JSON.stringify(response.data.user));
       localStorage.setItem("token", JSON.stringify(response.data.token));
-      navigate("/Mother/Registration");
+      console.log("Registration successful");
+      navigate("/mother/registration");
       // Handle successful registration here
     } catch (error) {
       console.error(error);

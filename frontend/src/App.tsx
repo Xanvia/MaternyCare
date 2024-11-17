@@ -85,26 +85,13 @@ const router = createBrowserRouter([
     ],
   },
   {
-    path: "/Mother/Registration",
+    path: "/mother/registration",
     children: [
       {
         index: true,
         element: (
           <PublicRoute>
            <MotherRegistrationPage/>
-          </PublicRoute>
-        ),
-      },
-    ],
-  },
-  {
-    path: "/registration2",
-    children: [
-      {
-        index: true,
-        element: (
-          <PublicRoute>
-            <Registration2 />
           </PublicRoute>
         ),
       },
