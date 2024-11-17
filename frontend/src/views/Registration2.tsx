@@ -17,6 +17,8 @@ interface FormValues {
 
 const Registration2: React.FC = () => {
   const navigate = useNavigate();
+  const storedToken = localStorage.getItem("token");
+  const token = storedToken ? JSON.parse(storedToken) : null;
   const [stage, setStage] = useState(1);
 
   const formik = useFormik<FormValues>({
@@ -29,34 +31,36 @@ const Registration2: React.FC = () => {
     validationSchema: loginSchema,
     onSubmit: async (values) => {
       console.log("Form data", values);
+
       try {
         const response = await axios.post(
-          "http://localhost:3000/Registration/",
+          "http://localhost:3000/users/mother",
           values,
           {
             headers: {
-              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
             },
           }
         );
-        console.log(response.data);
-        localStorage.setItem("user", JSON.stringify(response.data.user));
-        localStorage.setItem("token", JSON.stringify(response.data.token));
-        console.log(response.data.user.role);
+        console.log("from mother reg ", response.data);
+        navigate("/login");
+        // localStorage.setItem("user", JSON.stringify(response.data.user));
+        // localStorage.setItem("token", JSON.stringify(response.data.token));
+        // console.log(response.data.user.role);
 
-        switch (response.data.user.role) {
-          case "mother":
-            navigate("/dashboard");
-            break;
-          case "phm":
-            navigate("/phmdashboard");
-            break;
-          case "moh":
-            navigate("/phmdashboard");
-            break;
-          default:
-            navigate("/dashboard");
-        }
+        // switch (response.data.user.role) {
+        //   case "mother":
+        //     navigate("/dashboard");
+        //     break;
+        //   case "phm":
+        //     navigate("/phmdashboard");
+        //     break;
+        //   case "moh":
+        //     navigate("/phmdashboard");
+        //     break;
+        //   default:
+        //     navigate("/dashboard");
+        // }
       } catch (error) {
         console.error(error);
         if ((error as any).response && (error as any).response.status === 401) {

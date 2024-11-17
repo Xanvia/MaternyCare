@@ -32,6 +32,9 @@ export class Mother {
   @Column({ type: "varchar", length: 20, nullable: true })
   nic: string;
 
+  @Column({ type: "varchar", length: 20, nullable: true })
+  address: string;
+
   @Column({ type: "varchar", length: 255, nullable: true })
   location: string;
 
