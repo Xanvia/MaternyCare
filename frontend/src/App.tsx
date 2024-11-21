@@ -141,7 +141,7 @@ const router = createBrowserRouter([
     ],
   },
   {
-    path: "/phmappointment",
+    path: "/phmappointments",
     element: <BaseLayout />,
     children: [
       {
@@ -187,7 +187,7 @@ const router = createBrowserRouter([
     ],
   },
   {
-    path: "/appointments",
+    path: "/motherappointments",
     element: <BaseLayout />,
     children: [
       {

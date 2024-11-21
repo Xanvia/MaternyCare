@@ -19,7 +19,7 @@ const PatientsList: React.FC<PatientsListProps> = ({ mothers }) => {
   const navigate = useNavigate();
 
   const handleButtonClick = ({ id }: { id: number }) => {
-    navigate(`/mother-singleview/${id}`);
+    navigate(`/mother-appointment-singleview/${id}`);
   };
 
   return (
