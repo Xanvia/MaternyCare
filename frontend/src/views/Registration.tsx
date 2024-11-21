@@ -32,7 +32,21 @@ const Registration = () => {
       localStorage.setItem("regToken", JSON.stringify(response.data.token));
       console.log("reg token from user reg ", response.data.token);
       console.log("Registration successful");
-      navigate("/mother/registration");
+
+      switch (response.data.user.role) {
+        case "mother":
+          navigate("/mother/registration");
+          break;
+        case "phm":
+          navigate("/phmdashboard");
+          break;
+        case "moh":
+          navigate("/mohregistration");
+          break;
+        default:
+          navigate("/dashboard");
+      }
+
       // Handle successful registration here
     } catch (error) {
       console.error(error);
