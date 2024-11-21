@@ -35,6 +35,13 @@ export class Moh {
   @Column({ nullable: true })
   starPoints: number;
 
+  @OneToOne(() => User, {
+    nullable: true,
+    onDelete: "CASCADE",
+  })
+  @JoinColumn()
+  user: User;
+
   // @OneToMany(() => Appointment, (appointment) => appointment.moh)
   // appointments: Appointment[];
 }

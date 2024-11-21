@@ -3,6 +3,7 @@ import BaseLayout from "./layouts/BaseLayout";
 import LandingPage from "./views/LandingPage";
 import Login from "./views/LoginPage";
 import Registration from "./views/Registration";
+import MOHRegistration from "./views/MohRegistration";
 import Notices from "./views/Notices";
 import HeartRateContextProvider from "./contexts/HeartRateContextProvider";
 import Appointments from "./views/Appointments";
@@ -92,6 +93,19 @@ const router = createBrowserRouter([
         element: (
           <PublicRoute>
            <MotherRegistrationPage/>
+          </PublicRoute>
+        ),
+      },
+    ],
+  },
+  {
+    path: "/mohregistration",
+    children: [
+      {
+        index: true,
+        element: (
+          <PublicRoute>
+            <MOHRegistration />
           </PublicRoute>
         ),
       },
