@@ -8,8 +8,8 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 interface FormValues {
-  email: string;
-  password: string;
+  NIC: string;
+  mohArea: string; // Updated from password to mohArea
   phoneNumber: string;
   mohID: string;
 }
@@ -17,8 +17,8 @@ interface FormValues {
 const MOHRegistration: React.FC = () => {
   const formik = useFormik<FormValues>({
     initialValues: {
-      email: "",
-      password: "",
+      NIC: "",
+      mohArea: "", // Updated from password to mohArea
       phoneNumber: "",
       mohID: "",
     },
@@ -65,7 +65,7 @@ const MOHRegistration: React.FC = () => {
         <header className="text-blue_primary lg:text-4xl ss:text-4xl text-2xl lg:mb-8 mb-6">
           Materny<span className="text-pink_primary">Care</span>
         </header>
-        {["email", "password", "phoneNumber", "mohID"].map((field) => (
+        {["NIC", "mohArea", "phoneNumber", "mohID"].map((field) => (
           <div key={field} className="w-full flex flex-col items-center lg:mb-6 mb-4">
             <input
               className={`shadow appearance-none rounded-b-xl py-4 px-4 w-11/12 lg:w-5/12 sm:w-8/12 ss:w-10/12 text-gray-700 leading-tight focus:shadow-outline 
@@ -77,10 +77,14 @@ const MOHRegistration: React.FC = () => {
                 : "border-none"
             }`}
               value={formik.values[field as keyof FormValues]}
-              placeholder={field.charAt(0).toUpperCase() + field.slice(1)}
+              placeholder={
+                field === "mohArea"
+                  ? "MOH Area" // Custom placeholder for MOH Area
+                  : field.charAt(0).toUpperCase() + field.slice(1)
+              }
               id={field}
               name={field}
-              type={field === "password" ? "password" : "text"}
+              type={field === "NIC" || field === "phoneNumber" ? "text" : "text"} // Updated password to text for MOH Area
               onChange={formik.handleChange}
             />
             <div className="w-11/12 lg:w-5/12 sm:w-8/12 ss:w-10/12 mb-2 flex flex-col items-start mt-1">
