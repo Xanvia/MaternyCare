@@ -5,7 +5,6 @@ interface Mother {
   id: number;
   nic: string;
   phone_number: number;
-  mother_count: number;
   user: {
     firstName: string;
     lastName: string;
