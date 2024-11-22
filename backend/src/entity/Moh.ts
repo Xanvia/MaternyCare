@@ -15,13 +15,13 @@ export class Moh {
   id: number;
 
   @Column({ nullable: true })
-  phone: number;
+  phoneNumber: number;
 
   @Column({ nullable: true })
-  mohId: string;
+  mohID: string;
 
   @Column({ nullable: true })
-  nic: string;
+  NIC: string;
 
   @Column({ nullable: true })
   mohArea: string;

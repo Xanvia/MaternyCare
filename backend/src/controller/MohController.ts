@@ -31,13 +31,48 @@ export class MohController {
   }
 
   async save(request: Request, response: Response, next: NextFunction) {
-    const { phone_number, moh_id, nic, mother_count, baby_count } =
-      request.body;
+    const { NIC, mohArea, phoneNumber, mohID } = request.body;
 
     if (request.user.userRole !== "moh") {
-      console.log(request.user.role);
-      return "You are not authorized to create a MOH";
+      console.log(request.user.userRole);
+      // return "You are not authorized to create a MOH";
+      return response
+        .status(403)
+        .json({ message: "You are not authorized to create a Mother" });
     }
+
+    // const userId = request.user?.userId;
+
+    // if (!userId) {
+    //   return response
+    //     .status(400)
+    //     .json({ error: "User ID is missing or invalid" });
+    // }
+
+    // const parsedUserId = parseInt(userId, 10);
+
+    // if (isNaN(parsedUserId)) {
+    //   return response
+    //     .status(400)
+    //     .json({ error: "User ID is not a valid number" });
+    // }
+
+    // const user = await this.userRepository.findOne({
+    //   where: { id: parsedUserId }, // Use the correct property name here
+    // });
+
+    // if (!user) {
+    //   return response.status(404).json({ error: "User not found" });
+    // }
+
+    // const moh = Object.assign(new Moh(), {
+    //   NIC,
+    //   mohArea,
+    //   phoneNumber,
+    //   mohID,
+    // });
+
+    // return this.mohRepository.save(moh);
 
     const userId = request.user?.userId;
 
@@ -47,32 +82,25 @@ export class MohController {
         .json({ error: "User ID is missing or invalid" });
     }
 
-    const parsedUserId = parseInt(userId, 10);
+    try {
+      const user = await this.userRepository.findOne({ where: { id: userId } });
+      if (!user) {
+        return response.status(404).json({ message: "User not found" });
+      }
 
-    if (isNaN(parsedUserId)) {
-      return response
-        .status(400)
-        .json({ error: "User ID is not a valid number" });
+      const moh = new Moh();
+      moh.NIC = NIC;
+      moh.mohArea = mohArea;
+      moh.phoneNumber = phoneNumber;
+      moh.mohID = mohID;
+
+      await this.motherRepository.save(moh);
+      // return response.status(201).json(mother);
+      response.send(moh);
+      return;
+    } catch (error) {
+      return next(error);
     }
-
-    const user = await this.userRepository.findOne({
-      where: { id: parsedUserId }, // Use the correct property name here
-    });
-
-    if (!user) {
-      return response.status(404).json({ error: "User not found" });
-    }
-
-    const moh = Object.assign(new Moh(), {
-      phone_number,
-      moh_id,
-      nic,
-      mother_count,
-      baby_count,
-      user: user,
-    });
-
-    return this.mohRepository.save(moh);
   }
 
   async remove(request: Request, response: Response, next: NextFunction) {
