@@ -15,6 +15,8 @@ interface FormValues {
 }
 
 const MOHRegistration: React.FC = () => {
+  const token = localStorage.getItem("regToken");
+  const parsedToken = token ? JSON.parse(token) : null;
   const formik = useFormik<FormValues>({
     initialValues: {
       NIC: "",
@@ -27,11 +29,11 @@ const MOHRegistration: React.FC = () => {
       console.log("Form data", values);
       try {
         const response = await axios.post(
-          "http://localhost:3000/moh-registration/",
+          "http://localhost:3000/users/moh",
           values,
           {
             headers: {
-              "Content-Type": "application/json",
+              "Content-Type": "application/json",Authorization: `Bearer ${parsedToken}`
             },
           }
         );
