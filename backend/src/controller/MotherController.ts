@@ -10,7 +10,7 @@ export class MotherController {
   private phmRepository = AppDataSource.getRepository(Phm);
 
   async all(request: Request, response: Response, next: NextFunction) {
-    return this.motherRepository.find({ relations: ["user", "phm"] });
+    return this.motherRepository.find({ relations: ["user", "phm", "appointments"] });
   }
 
   async one(request: Request, response: Response, next: NextFunction) {
@@ -267,7 +267,7 @@ export class MotherController {
     console.log(phm.id)
     const mothers = await this.motherRepository.find({
       where: { phm: {id:phm.id} },
-      relations: ["user", "phm"],
+      relations: ["user", "phm", "appointments"],
     });
 
     if (!phm) {
