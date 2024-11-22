@@ -33,7 +33,7 @@ const MOHRegistration: React.FC = () => {
           values,
           {
             headers: {
-              "Content-Type": "application/json",Authorization: `Bearer ${parsedToken}`
+             Authorization: `Bearer ${parsedToken}`
             },
           }
         );
