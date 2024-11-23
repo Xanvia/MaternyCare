@@ -27,6 +27,7 @@ export default {
       },
       animation: {
         "fade-in": "fadeIn 0.8s ease-in forwards",
+        "collapse-expand": "collapseExpand 0.5s ease-in-out forwards",
       },
       keyframes: {
         fadeIn: {

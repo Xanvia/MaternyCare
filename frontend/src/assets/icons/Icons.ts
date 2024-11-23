@@ -14,6 +14,8 @@ import QuizIcon from "@mui/icons-material/Quiz";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
 import TaskAltIcon from "@mui/icons-material/TaskAlt";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 
 export {
   SpaceDashboardIcon as DashboardIcon,
@@ -32,4 +34,6 @@ export {
   LocationOnIcon as LocationIcon,
   RemoveCircleOutlineIcon as RemoveCircle,
   TaskAltIcon as TickCircle,
+  ExpandMoreIcon as ExpandMore,
+  ExpandLessIcon as ExpandLess,
 };

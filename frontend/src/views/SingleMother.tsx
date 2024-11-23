@@ -3,11 +3,13 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import ToTitle from "../components/CaseConverter";
 import BasicDetails from "./forms/BasicDetails";
-import { TickCircle } from "../assets/icons/Icons";
+import { ExpandLess, ExpandMore, TickCircle } from "../assets/icons/Icons";
 
 const SingleMother = () => {
   const { id } = useParams<{ id: string }>();
   const [mother, setMother] = useState<any>(null);
+  const [isCollapsed, setIsCollapsed] = useState(true);
+
   const BASE_URL = "http://localhost:3000/";
 
   useEffect(() => {
@@ -30,6 +32,19 @@ const SingleMother = () => {
 
     fetchMother();
   }, [id]);
+  
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth >= 768) {
+        setIsCollapsed(false);
+      }
+    };
+
+    window.addEventListener("resize", handleResize);
+    handleResize(); // Check initial screen size
+
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   if (!mother) {
     return <div>Loading...</div>;
@@ -40,6 +55,7 @@ const SingleMother = () => {
     if (section) {
       section.scrollIntoView({ behavior: "smooth" });
     }
+    setIsCollapsed(true);
   };
 
   return (
@@ -100,27 +116,37 @@ const SingleMother = () => {
         </button>
       </div>
 
-      <div className="m-4 bg-white shadow-lg rounded-lg p-6 grid grid-cols-5 gap-5 sticky top-4 z-10">
+      <div className="m-4 bg-white shadow-lg rounded-lg p-6 grid xs:grid-cols-5 gap-5 sticky top-4 z-10">
         <button
           className="bg-purple_primary text-white p-3 rounded-lg text-md"
           onClick={() => handleNavigate("basic-details")}
         >
           Basic Details
         </button>
+        {!isCollapsed && (
+          <>
+            <button
+              onClick={() => handleNavigate("second-details")}
+              className="bg-purple_primary text-white p-3 rounded-lg text-md"
+            >
+              Present Obsteric History
+            </button>
+            <button className="bg-purple_primary text-white p-3 rounded-lg text-md">
+              Family Details
+            </button>
+            <button className="bg-purple_primary text-white p-3 rounded-lg text-md">
+              History Details
+            </button>
+            <button className="bg-purple_primary text-white p-3 rounded-lg text-md">
+              Past Obsteric History
+            </button>
+          </>
+        )}
         <button
-          onClick={() => handleNavigate("second-details")}
-          className="bg-purple_primary text-white p-3 rounded-lg text-md"
+          className="bg-purple_primary text-white p-3 rounded-lg text-md xs:hidden"
+          onClick={() => setIsCollapsed(!isCollapsed)}
         >
-          Present Obsteric History
-        </button>
-        <button className="bg-purple_primary text-white p-3 rounded-lg text-md">
-          Family Details
-        </button>
-        <button className="bg-purple_primary text-white p-3 rounded-lg text-md">
-          History Details
-        </button>
-        <button className="bg-purple_primary text-white p-3 rounded-lg text-md">
-          Past Obsteric History
+          {isCollapsed ? <ExpandMore /> : <ExpandLess />}
         </button>
       </div>
       {/* Basic Details form */}
