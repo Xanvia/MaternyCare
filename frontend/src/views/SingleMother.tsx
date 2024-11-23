@@ -31,8 +31,6 @@ const SingleMother = () => {
     fetchMother();
   }, [id]);
 
-    
-
   if (!mother) {
     return <div>Loading...</div>;
   }
@@ -66,7 +64,7 @@ const SingleMother = () => {
           </p>
         </div>
       </div> */}
-      <div className="max-w-full mx-4 flex bg-white shadow-lg rounded-lg overflow-hidden border border-gray-200 justify-between items-center">
+      <div className="max-w-full mx-4 grid grid-cols-2 sm:flex bg-white shadow-lg rounded-lg overflow-hidden border border-gray-200 justify-between items-center">
         <div className="w-24 h-24 m-3 border rounded-md flex items-center justify-center">
           <span className="font-medium text-2xl text-gray-600 dark:text-gray-300">
             {`${ToTitle(mother.user.firstName[0])} ${ToTitle(
@@ -75,7 +73,7 @@ const SingleMother = () => {
           </span>
         </div>
 
-        <div className="px-6 py-4 flex-grow">
+        <div className="sm:px-6 py-4 flex-grow">
           <h2 className="text-xl font-semibold text-gray-800 mb-2">
             {mother.user.firstName} {mother.user.lastName}
           </h2>
@@ -87,12 +85,19 @@ const SingleMother = () => {
           </p>
         </div>
 
-        <div className="m-3">
+        <div className="m-3 hidden sm:flex ">
           <button className="flex items-center px-4 py-2 bg-green_primary text-white rounded-md hover:bg-green-400">
             <TickCircle className="mr-2" />
             Complete Appointment
           </button>
         </div>
+      </div>
+
+      <div className="px-4 py-3 sm:hidden w-full">
+        <button className="flex items-center px-4 py-2 bg-green_primary text-white rounded-md hover:bg-green-400 w-full">
+          <TickCircle className="mr-2" />
+          Complete Appointment
+        </button>
       </div>
 
       <div className="m-4 bg-white shadow-lg rounded-lg p-6 grid grid-cols-5 gap-5 sticky top-4 z-10">
@@ -106,16 +111,16 @@ const SingleMother = () => {
           onClick={() => handleNavigate("second-details")}
           className="bg-purple_primary text-white p-3 rounded-lg text-md"
         >
-          Second Details
+          Present Obsteric History
         </button>
         <button className="bg-purple_primary text-white p-3 rounded-lg text-md">
-          Basic Details
+          Family Details
         </button>
         <button className="bg-purple_primary text-white p-3 rounded-lg text-md">
-          Basic Details
+          History Details
         </button>
         <button className="bg-purple_primary text-white p-3 rounded-lg text-md">
-          Basic Details
+          Past Obsteric History
         </button>
       </div>
       {/* Basic Details form */}
