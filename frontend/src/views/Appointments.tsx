@@ -127,7 +127,7 @@ const Appointments = () => {
                     <button className='flex flex-col w-full items-center'
                     disabled={appointment.fixedDate === null}
                     onClick={() =>
-                      navigate(`/mother-singleview/${motherId}`)
+                      navigate(`/mother-singleview/${motherId}/appointment/${appointment.id}`)
                     }>
                       <div  className='flex flex-col items-center justify-center pt-1'>
                         <header className='xs:text-base text-blue_primary mt-1 text-lg'>{appointmentYear}</header>

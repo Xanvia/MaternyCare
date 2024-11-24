@@ -240,7 +240,7 @@ const router = createBrowserRouter([
     ],
   },
   {
-    path: "/mother-singleview/:id",
+    path: "/mother-singleview/:id/appointment/:appointmentid",
     element: <BaseLayout />,
     children: [
       {
