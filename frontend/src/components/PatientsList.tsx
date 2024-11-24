@@ -5,6 +5,7 @@ interface Mother {
   id: number;
   nic: string;
   phone_number: number;
+  location: string;
   delivery_date: string;
   user: {
     firstName: string;
@@ -52,10 +53,10 @@ const PatientsList: React.FC<PatientsListProps> = ({ mothers }) => {
     <div className="container mx-auto antialiased">
       <div className="py-4">
         <div>
-          <h2 className="text-2xl font-semibold leading-tight">Appointments</h2>
+          <h2 className="text-2xl font-semibold leading-tight mx-12">Appointments</h2>
         </div>
         <div className="-mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto">
-          <div className="inline-block min-w-full shadow rounded-lg overflow-hidden">
+          <div className="flex flex-col justify-center inline-block min-w-11/12 shadow rounded-lg overflow-hidden mx-12">
             <table className="min-w-full leading-normal">
               <thead>
                 <tr>
@@ -63,7 +64,7 @@ const PatientsList: React.FC<PatientsListProps> = ({ mothers }) => {
                     User
                   </th>
                   <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                    Contact
+                    Address
                   </th>
                   <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
                     Expected Date
@@ -107,7 +108,7 @@ const PatientsList: React.FC<PatientsListProps> = ({ mothers }) => {
                         <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                           <p className="text-gray-900 whitespace-no-wrap">
                             <a href={`tel:${mother.phone_number}`}>
-                              {mother.phone_number}
+                              {mother.location}
                             </a>
                           </p>
                         </td>
@@ -140,11 +141,11 @@ const PatientsList: React.FC<PatientsListProps> = ({ mothers }) => {
                   })}
               </tbody>
             </table>
-            <div className="px-5 py-5 bg-white border-t flex flex-col xs:flex-row items-center xs:justify-between">
+            {/* <div className="px-5 py-5 bg-white border-t flex flex-col xs:flex-row items-center xs:justify-between">
               <span className="text-xs xs:text-sm text-gray-900">
                 Showing results from 2024 Jan - Mar
               </span>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>

@@ -125,6 +125,7 @@ const Appointments = () => {
                 <div key={index} className='sm:w-40 w-full bg-white rounded-3xl pb-2'>
                  <div className='sm:w-40 w-full  items-center justify-center'>
                     <button className='flex flex-col w-full items-center'
+                    disabled={appointment.fixedDate === null}
                     onClick={() =>
                       navigate(`/mother-singleview/${motherId}`)
                     }>
