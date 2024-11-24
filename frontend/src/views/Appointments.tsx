@@ -185,7 +185,7 @@ const Appointments = () => {
                     )}
                     </div>
 
-                    {appointment.checkedByPHM && (
+                    {appointment.checkedByPHM && role !== "mother" && (
                     <div
                         className="flex justify-center items-center gap-2 text-blue_primary rounded-md text-xs font-medium py-0.5 w-5/6 ml-3.5" style={{ border: '0.5px solid #0d99ff' }}
                       >
