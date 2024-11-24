@@ -16,15 +16,17 @@ import { Edit } from "../assets/icons/Icons";
 import axios from "axios";
 
 interface Moh {
-    NIC: string;
+  user: {
     firstName: string;
     lastName: string;
     email: string;
-    phoneNumber: string;
-    mohArea: string;
-    mohID: string;
     password: string;
   }
+  NIC: string;
+  phoneNumber: string;
+  mohArea: string;
+  mohID: string;
+}
 
 // Validation schema
 const validationSchema = Yup.object({
@@ -56,15 +58,15 @@ export default function MohEditPersonalInfo() {
   const storedToken = localStorage.getItem("token");
 const token = storedToken ? JSON.parse(storedToken) : null;
 
-const [moh, setMoh] = React.useState<Moh | null>(null);
+const [moh, setMoh] = React.useState<Moh >();
 
   // Mock function to fetch current data
   const fetchCurrentData = () => {
     // Replace this with actual data fetching logic
     return {
-      firstName: user.firstName,
-      lastName: user.lastName,
-      email: user.email,
+      firstName: moh?.user.firstName,
+      lastName: moh?.user.lastName,
+      email: moh?.user.email,
       phoneNumber: moh?.phoneNumber,
       mohArea: moh?.mohArea,
       mohID: moh?.mohID,
@@ -82,7 +84,7 @@ const [moh, setMoh] = React.useState<Moh | null>(null);
       setLoading(true);
       const axiosConfig = {
         method: "get",
-        url: `${BASE_URL}users/moh/5`,
+        url: `${BASE_URL}users/moh/${user.id}`,
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -322,11 +324,6 @@ const [moh, setMoh] = React.useState<Moh | null>(null);
                     fullWidth
                     size="small"
                     variant="outlined"
-                    inputProps={{
-                      type: "number",
-                      min: 0,
-                      step: 1,
-                    }}
                     error={touched.mohArea && Boolean(errors.mohArea)}
                     helperText={touched.mohArea && errors.mohArea}
                   />
