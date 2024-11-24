@@ -15,7 +15,7 @@ const FeedLayout = () => {
           <span className="text-text_color_2"> {titleContext?.pageTitle}</span>
         </p>
 
-        <button className="flex items-center bg-red-500 text-white px-4 py-2 rounded mr-10">
+        <button className="flex items-center bg-red-500 text-white px-4 py-2 rounded mr-11">
           <ReportProblem />
           <span className="ml-2">Report Health Issue</span>
         </button>
