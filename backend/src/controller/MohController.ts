@@ -17,11 +17,11 @@ export class MohController {
   async one(request: Request, response: Response, next: NextFunction) {
     const id = parseInt(request.params.id);
 
-    // const user = await this.userRepository.findOne({ where: { id } });
+    const user = await this.userRepository.findOne({ where: { id } });
 
     // console.log("middd, ", user);
     const moh = await this.mohRepository.findOne({
-      where: { id },
+      where: { user },
       relations: ["user"],
     });
     if (!moh) {
