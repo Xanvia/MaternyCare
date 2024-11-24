@@ -6,6 +6,7 @@ import EditLocationInfo from "../modals/LocationInfoEditPopup";
 import ToTitle from "../components/CaseConverter";
 import axios from "axios";
 import { CircularProgress } from "@mui/material";
+import MohEditPersonalInfo from "../modals/MohPersonalInfoEditPopup";
 
 interface Moh {
   NIC: string;
@@ -89,7 +90,7 @@ const MohProfile = () => {
       <div className="border-solid border-2 rounded-lg py-5 px-5 ">
         <div className="flex justify-between items-center">
           <h5 className="text-xl mb-5">Personal information</h5>
-          <EditPersonalInfo />
+          <MohEditPersonalInfo />
         </div>
         <div className="grid xs:grid-cols-2 grid-cols-1">
           <div className="text-text_color_2">

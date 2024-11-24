@@ -1,0 +1,412 @@
+import * as React from "react";
+import Button from "@mui/joy/Button";
+import Divider from "@mui/joy/Divider";
+import DialogTitle from "@mui/joy/DialogTitle";
+import DialogContent from "@mui/joy/DialogContent";
+import DialogActions from "@mui/joy/DialogActions";
+import Modal from "@mui/joy/Modal";
+import ModalDialog from "@mui/joy/ModalDialog";
+import TextField from "@mui/material/TextField";
+import IconButton from "@mui/joy/IconButton";
+import CloseIcon from "@mui/icons-material/Close";
+import { Box } from "@mui/material";
+import { Formik, Form, Field } from "formik";
+import * as Yup from "yup";
+import { Edit } from "../assets/icons/Icons";
+import axios from "axios";
+
+interface Moh {
+    NIC: string;
+    firstName: string;
+    lastName: string;
+    email: string;
+    phoneNumber: string;
+    mohArea: string;
+    mohID: string;
+    password: string;
+  }
+
+// Validation schema
+const validationSchema = Yup.object({
+  firstName: Yup.string().required("First Name is required"),
+  lastName: Yup.string().required("Last Name is required"),
+  email: Yup.string().required("Email is required"),
+  phoneNumber: Yup.string().required("Phone number is required"),
+  mohArea: Yup.string().required("MOH Area is required"),
+  mohID: Yup.string().required("MOH ID is required"),
+});
+
+
+
+export default function MohEditPersonalInfo() {
+  const [open, setOpen] = React.useState<boolean>(false);
+  const [loading, setLoading] = React.useState(false);
+  const [initialValues, setInitialValues] = React.useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    phoneNumber: "",
+    mohArea: "",
+    mohID: "",
+  });
+
+  let userItem = localStorage.getItem("user");
+  const user = userItem ? JSON.parse(userItem) : null;
+  const BASE_URL = "http://localhost:3000/";
+  const storedToken = localStorage.getItem("token");
+const token = storedToken ? JSON.parse(storedToken) : null;
+
+const [moh, setMoh] = React.useState<Moh | null>(null);
+
+  // Mock function to fetch current data
+  const fetchCurrentData = () => {
+    // Replace this with actual data fetching logic
+    return {
+      firstName: user.firstName,
+      lastName: user.lastName,
+      email: user.email,
+      phoneNumber: moh?.phoneNumber,
+      mohArea: moh?.mohArea,
+      mohID: moh?.mohID,
+    };
+  };
+
+  const handleOpen = () => {
+    const currentData = fetchCurrentData();
+    setInitialValues(currentData);
+    setOpen(true);
+  };
+
+  React.useEffect(() => {
+    const getMoh = () => {
+      setLoading(true);
+      const axiosConfig = {
+        method: "get",
+        url: `${BASE_URL}users/moh/5`,
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      };
+      axios(axiosConfig)
+        .then((response) => {
+          console.log(response.data.age);
+          setMoh(response.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        })
+        .finally(() => {
+          setLoading(false);
+        });
+    };
+  
+    getMoh();
+  }, []);
+
+  return (
+    <React.Fragment>
+      <Button
+        variant="outlined"
+        onClick={handleOpen}
+        sx={{
+          color: "#0D99FF",
+          borderColor: "#0D99FF",
+          "&:hover": {
+            color: "#ffffff",
+            backgroundColor: "#0D99FF",
+            borderColor: "#0D99FF",
+          },
+          "&:focus": {
+            outline: "none",
+            boxShadow: "0 0 0 4px rgba(128, 202, 255, 0.5)",
+          },
+          fontSize: "0.875rem", // text-sm
+          fontWeight: "500", // font-medium
+          borderRadius: "0.5rem", // rounded-lg
+          padding: "0.25rem 0.75rem", // px-3 py-1
+          textAlign: "center",
+          marginRight: "0.5rem", // mr-2
+          marginBottom: "0.5rem", // mb-2
+          height: "auto", // h-1/2
+          width: "auto", // w-auto
+        }}
+      >
+        <div style={{ display: "flex", alignItems: "center" }}>
+          <Edit style={{ marginRight: "8px", padding: "2px" }} />
+          <p className="xs:block hidden">Edit</p>
+        </div>
+      </Button>
+
+      <Modal open={open} onClose={() => setOpen(false)}>
+        <ModalDialog
+          variant="outlined"
+          role="alertdialog"
+          sx={{
+            maxHeight: '80vh', // Limit the modal height to 80% of the viewport height
+            overflowY: 'auto' // Add vertical scroll if content overflows
+          }}
+        >
+          <IconButton
+            aria-label="close"
+            onClick={() => setOpen(false)}
+            sx={{
+              position: "absolute",
+              top: "8px",
+              right: "8px",
+              color: "#666666",
+            }}
+          >
+            <CloseIcon />
+          </IconButton>
+          <DialogTitle
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              gap: 1,
+              color: "#333333",
+            }}
+          >
+            Edit Personal information
+          </DialogTitle>
+          <Divider />
+          <Formik
+            initialValues={initialValues}
+            validationSchema={validationSchema}
+            onSubmit={(values, { setSubmitting }) => {
+              console.log("Form data:", values);
+              setSubmitting(false);
+              setOpen(false);
+            }}
+            enableReinitialize={true} // Add this line to reinitialize the form when initialValues change
+          >
+            {({ isSubmitting, errors, touched }) => (
+              <Form>
+                <DialogContent
+                  sx={{
+                    display: "flex",
+                    justifyContent: "center",
+                    gap: 1,
+                    color: "#666666",
+                    fontWeight: "bold",
+                  }}
+                >
+                  First Name:
+                </DialogContent>
+                <Box
+                  sx={{
+                    width: 500,
+                    maxWidth: "100%",
+                    mb: 2,
+                  }}
+                >
+                  <Field
+                    as={TextField}
+                    name="firstName"
+                    fullWidth
+                    size="small"
+                    variant="outlined"
+                    error={touched.firstName && Boolean(errors.firstName)}
+                    helperText={touched.firstName && errors.firstName}
+                  />
+                </Box>
+
+                <DialogContent
+                  sx={{
+                    display: "flex",
+                    justifyContent: "center",
+                    gap: 1,
+                    color: "#666666",
+                    fontWeight: "bold",
+                  }}
+                >
+                  Last Name:
+                </DialogContent>
+                <Box
+                  sx={{
+                    width: 500,
+                    maxWidth: "100%",
+                    mb: 2,
+                  }}
+                >
+                  <Field
+                    as={TextField}
+                    name="lastName"
+                    fullWidth
+                    size="small"
+                    variant="outlined"
+                    error={touched.lastName && Boolean(errors.lastName)}
+                    helperText={touched.lastName && errors.lastName}
+                  />
+                </Box>
+
+                <DialogContent
+                  sx={{
+                    display: "flex",
+                    justifyContent: "center",
+                    gap: 1,
+                    color: "#666666",
+                    fontWeight: "bold",
+                  }}
+                >
+                  Email address:
+                </DialogContent>
+                <Box
+                  sx={{
+                    width: 500,
+                    maxWidth: "100%",
+                    mb: 2,
+                  }}
+                >
+                  <Field
+                    as={TextField}
+                    name="email"
+                    fullWidth
+                    size="small"
+                    variant="outlined"
+                    error={touched.email && Boolean(errors.email)}
+                    helperText={touched.email && errors.email}
+                  />
+                </Box>
+
+                <DialogContent
+                  sx={{
+                    display: "flex",
+                    justifyContent: "center",
+                    gap: 1,
+                    color: "#666666",
+                    fontWeight: "bold",
+                  }}
+                >
+                  Phone:
+                </DialogContent>
+                <Box
+                  sx={{
+                    width: 500,
+                    maxWidth: "100%",
+                    mb: 2,
+                  }}
+                >
+                  <Field
+                    as={TextField}
+                    name="phoneNumber"
+                    fullWidth
+                    size="small"
+                    variant="outlined"
+                    error={touched.phoneNumber && Boolean(errors.phoneNumber)}
+                    helperText={touched.phoneNumber && errors.phoneNumber}
+                  />
+                </Box>
+
+                <DialogContent
+                  sx={{
+                    display: "flex",
+                    justifyContent: "center",
+                    gap: 1,
+                    color: "#666666",
+                    fontWeight: "bold",
+                  }}
+                >
+                  MOH Area:
+                </DialogContent>
+                <Box
+                  sx={{
+                    width: 500,
+                    maxWidth: "100%",
+                    mb: 2,
+                  }}
+                >
+                  <Field
+                    as={TextField}
+                    name="mohArea"
+                    fullWidth
+                    size="small"
+                    variant="outlined"
+                    inputProps={{
+                      type: "number",
+                      min: 0,
+                      step: 1,
+                    }}
+                    error={touched.mohArea && Boolean(errors.mohArea)}
+                    helperText={touched.mohArea && errors.mohArea}
+                  />
+                </Box>
+
+                <DialogContent
+                  sx={{
+                    display: "flex",
+                    justifyContent: "center",
+                    gap: 1,
+                    color: "#666666",
+                    fontWeight: "bold",
+                  }}
+                >
+                  MOH ID:
+                </DialogContent>
+                <Box
+                  sx={{
+                    width: 500,
+                    maxWidth: "100%",
+                    mb: 2,
+                  }}
+                >
+                  <Field
+                    as={TextField}
+                    name="mohID"
+                    fullWidth
+                    size="small"
+                    variant="outlined"
+                    error={touched.mohID && Boolean(errors.mohID)}
+                    helperText={touched.mohID && errors.mohID}
+                  />
+                </Box>
+
+                <DialogActions
+                  sx={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    gap: 1,
+                    color: "#666666",
+                  }}
+                >
+                  <Button
+                    variant="solid"
+                    sx={{
+                      backgroundColor: "#0D99FF",
+                      color: "#ffffff",
+                      "&:hover": {
+                        backgroundColor: "#80CAFF",
+                      },
+                      width: { xs: "50%", md: "100%" },
+                      fontSize: "1rem",
+                    }}
+                    type="submit"
+                    disabled={isSubmitting}
+                  >
+                    Update
+                  </Button>
+                  <Button
+                    variant="outlined"
+                    sx={{
+                      borderColor: "#0D99FF",
+                      color: "#000000",
+                      "&:hover": {
+                        borderColor: "#80CAFF",
+                      },
+                      width: { xs: "50%", md: "100%" },
+                      fontSize: "1rem",
+                    }}
+                    onClick={() => setOpen(false)}
+                  >
+                    Cancel
+                  </Button>
+                </DialogActions>
+              </Form>
+            )}
+          </Formik>
+        </ModalDialog>
+      </Modal>
+    </React.Fragment>
+  );
+}
