@@ -16,6 +16,7 @@ import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
 import TaskAltIcon from "@mui/icons-material/TaskAlt";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
+import ReportProblemIcon from "@mui/icons-material/ReportProblem";
 
 export {
   SpaceDashboardIcon as DashboardIcon,
@@ -36,4 +37,5 @@ export {
   TaskAltIcon as TickCircle,
   ExpandMoreIcon as ExpandMore,
   ExpandLessIcon as ExpandLess,
+  ReportProblemIcon as ReportProblem,
 };

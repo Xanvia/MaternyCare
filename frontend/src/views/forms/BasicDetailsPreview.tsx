@@ -72,7 +72,7 @@ const BasicDetailsPreview = () => {
   );
 
   return (
-    <div className="max-w-full mx-4 my-4 bg-white shadow-lg rounded-lg p-6 border border-gray-200">
+    <div className="max-w-full my-4 bg-white shadow-lg rounded-lg p-6 border border-gray-200">
       <h2 className="text-xl font-semibold mb-6">Basic Details Preview</h2>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">

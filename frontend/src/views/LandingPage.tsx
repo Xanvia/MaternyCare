@@ -17,9 +17,7 @@ const LandingPage = () => {
         </div>
 
         <div className="mt-0 text-center leading-9 font-semibold">
-
-          <h1 className="text-3xl md:text-4xl" style={{ fontFamily: "Ubuntu"}}>
-
+          <h1 className="text-3xl md:text-4xl" style={{ fontFamily: "Ubuntu" }}>
             <span style={{ color: "#0D99FF" }}>Materny</span>
             <span style={{ color: "#F580AB" }}>Care</span>
           </h1>
@@ -30,7 +28,6 @@ const LandingPage = () => {
             The stage is set! Choose your role.
           </h2>
         </div>
-
 
         <div className="mt-4 w-full md:w-1/2">
           <Carousel />
