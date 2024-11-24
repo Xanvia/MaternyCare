@@ -243,7 +243,7 @@ export default function FixAppointmentDatePopup({
                     type="submit"
                     disabled={isSubmitting}
                   >
-                    Update
+                    {fixedDate === null ? "Set" : "Update"}
                   </Button>
                   <Button
                     variant="outlined"

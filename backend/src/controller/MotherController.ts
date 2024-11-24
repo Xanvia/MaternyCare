@@ -10,7 +10,7 @@ export class MotherController {
   private phmRepository = AppDataSource.getRepository(Phm);
 
   async all(request: Request, response: Response, next: NextFunction) {
-    return this.motherRepository.find({ relations: ["user", "phm"] });
+    return this.motherRepository.find({ relations: ["user", "phm", "appointments"] });
   }
 
   async one(request: Request, response: Response, next: NextFunction) {
@@ -20,7 +20,7 @@ export class MotherController {
 
     const mother = await this.motherRepository.findOne({
       where: { id },
-      relations: ["user", "phm"],
+      relations: ["user", "phm", "appointments"],
     });
 
     if (!mother) {
@@ -121,6 +121,7 @@ export class MotherController {
       mother_height,
       allergies,
       moh_area,
+      location,
       phm_area,
       field_clinic,
       consultant_obstetrician,
@@ -144,6 +145,7 @@ export class MotherController {
 
       // Update the mother's details
       mother.mother_blood_type = mother_blood_type ?? mother.mother_blood_type;
+      mother.location = location ?? mother.location;
       mother.mother_height = mother_height ?? mother.mother_height;
       mother.allergies = allergies ?? mother.allergies;
       mother.moh_area = moh_area ?? mother.moh_area;
@@ -230,5 +232,54 @@ export class MotherController {
     await this.motherRepository.remove(motherToRemove);
 
     return "mother has been removed";
+  }
+
+  async getPhmAllMothersByPhmId(request: Request, response: Response, next: NextFunction){
+
+    const phmId = parseInt(request.params.id);
+
+    const phm = await this.phmRepository.findOne({
+      where: { id:phmId },
+    });
+
+    const mothers = await this.motherRepository.find({
+      where: { phm: {id:phmId} },
+      relations: ["user", "phm"],
+    });
+
+    if (!phm) {
+      return response.status(404).json({ message: "PHM not found for the given Phm ID" });
+    }
+
+    if (!mothers.length) {
+      return response.status(404).json({ message: "No mothers found for the given PHM ID" });
+    }
+    
+     return mothers;
+  }
+
+  async getPhmAllMothersByUserId(request: Request, response: Response, next: NextFunction){
+
+    const userId = parseInt(request.params.id);
+    console.log(userId)
+
+    const phm = await this.phmRepository.findOne({
+      where: { user: {id:userId} },
+    });
+    console.log(phm.id)
+    const mothers = await this.motherRepository.find({
+      where: { phm: {id:phm.id} },
+      relations: ["user", "phm", "appointments"],
+    });
+
+    if (!phm) {
+      return response.status(404).json({ message: "PHM not found for the given User ID" });
+    }
+
+    if (!mothers.length) {
+      return response.status(404).json({ message: "No mothers found for the associated PHM" });
+    }
+    
+     return mothers;
   }
 }

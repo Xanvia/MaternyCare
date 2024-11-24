@@ -23,6 +23,7 @@ import SingleMother from "./views/SingleMother";
 import MotherDashboard from "./views/MotherDashboard";
 import WelcomePage from "./views/WelcomePage";
 import PhmSingleMotherAppointment from "./views/PhmSingleMotherAppointment";
+import PhmAppointment from "./views/PhmAppointment";
 //import phmSingleMotherAppointment from "./views/phmSingleMotherAppointment";
 import MotherRegistrationPage from "./views/MotherRegistrationPage";
 // import MotherRegistration from "./views/MotherReg";
@@ -140,6 +141,20 @@ const router = createBrowserRouter([
     ],
   },
   {
+    path: "/phmappointments",
+    element: <BaseLayout />,
+    children: [
+      {
+        index: true,
+        element: (
+          <PrivateRoute>
+            <PhmAppointment />
+          </PrivateRoute>
+        ),
+      },
+    ],
+  },
+  {
     path: "/mohdashboard",
     element: <BaseLayout />,
     children: [
@@ -172,7 +187,7 @@ const router = createBrowserRouter([
     ],
   },
   {
-    path: "/appointments",
+    path: "/motherappointments",
     element: <BaseLayout />,
     children: [
       {
@@ -225,7 +240,7 @@ const router = createBrowserRouter([
     ],
   },
   {
-    path: "/mother-singleview/:id",
+    path: "/mother-singleview/:id/appointment/:appointmentid",
     element: <BaseLayout />,
     children: [
       {

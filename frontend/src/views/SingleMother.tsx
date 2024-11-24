@@ -7,9 +7,11 @@ import { ExpandLess, ExpandMore, TickCircle } from "../assets/icons/Icons";
 
 const SingleMother = () => {
   const { id } = useParams<{ id: string }>();
+  const { appointmentid } = useParams<{ appointmentid: string }>();
   const [mother, setMother] = useState<any>(null);
   const [isCollapsed, setIsCollapsed] = useState(true);
 
+  const [appointment, setAppointment] = useState<any>(null);
   const BASE_URL = "http://localhost:3000/";
 
   useEffect(() => {
@@ -45,6 +47,34 @@ const SingleMother = () => {
 
     return () => window.removeEventListener("resize", handleResize);
   }, []);
+  useEffect(() => {
+    const getAppointment = async () => {
+      try {
+        
+        const response = await axios.get(`${BASE_URL}appointments/${appointmentid}`, {
+        });
+        setAppointment(response.data);
+        console.log(response.data);
+      } catch (error) {
+        console.error("Error fetching mother data:", error);
+      }
+    };
+
+    getAppointment();
+  }, [id]);
+
+  const updateAppointment = async() => {
+    try{
+        await axios.put(`${BASE_URL}appointments/${appointmentid}}`,{
+        checkedByPHM : true
+      });
+    window.location.reload()
+  }
+  catch (error) {
+    console.error("Error posting appointment data:", error);
+    }
+  }
+    
 
   if (!mother) {
     return <div>Loading...</div>;
@@ -101,10 +131,10 @@ const SingleMother = () => {
           </p>
         </div>
 
-        <div className="m-3 hidden sm:flex ">
-          <button className="flex items-center px-4 py-2 bg-green_primary text-white rounded-md hover:bg-green-400">
+        <div className="m-3">
+          <button onClick={updateAppointment} disabled={appointment?.checkedByPHM} className="flex items-center px-4 py-2 bg-green_primary text-white rounded-md hover:bg-green-400">
             <TickCircle className="mr-2" />
-            Complete Appointment
+            {appointment?.checkedByPHM ? "Completed":"Mark As Completed"}
           </button>
         </div>
       </div>
