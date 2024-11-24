@@ -24,7 +24,6 @@ export class MohController {
       where: { id },
       relations: ["user"],
     });
-    console.log("middd, ", moh);
     if (!moh) {
       return "unlisted moh";
     }
@@ -39,7 +38,7 @@ export class MohController {
       // return "You are not authorized to create a MOH";
       return response
         .status(403)
-        .json({ message: "You are not authorized to create a Mother" });
+        .json({ message: "You are not authorized to create a Moh" });
     }
 
     const userId = request.user?.userId;
