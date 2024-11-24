@@ -7,16 +7,19 @@ import ToTitle from "../components/CaseConverter";
 import axios from "axios";
 import { CircularProgress } from "@mui/material";
 import MohEditPersonalInfo from "../modals/MohPersonalInfoEditPopup";
+import MohEditAccountInfo from "../modals/MohAccountInfoEditPopup";
 
 interface Moh {
+  user: {
+    firstName: string;
+    lastName: string;
+    email: string;
+    password: string;
+  }
   NIC: string;
-  firstName: string;
-  lastName: string;
-  email: string;
   phoneNumber: string;
   mohArea: string;
   mohID: string;
-  password: string;
 }
 
 const MohProfile = () => {
@@ -26,7 +29,7 @@ const MohProfile = () => {
 
   const BASE_URL = "http://localhost:3000/";
   // const [moh, setMoh] = useState([]);
-  const [moh, setMoh] = useState<Moh | null>(null);
+  const [moh, setMoh] = useState<Moh >();
   const [loading, setLoading] = useState(false);
 
   // const token = JSON.parse(localStorage.getItem("token"));
@@ -39,14 +42,14 @@ const MohProfile = () => {
       setLoading(true);
       const axiosConfig = {
         method: "get",
-        url: `${BASE_URL}users/${user.role}/${user.id}`,
+        url: `${BASE_URL}users/moh/${user.id}`,
         headers: {
           Authorization: `Bearer ${token}`,
         },
       };
       axios(axiosConfig)
         .then((response) => {
-          console.log(response.data); // Debug the structure
+          console.log("mokakhari", response.data); // Debug the structure
           setMoh(response.data); // Save the entire response to state
         })
         .catch((err) => {
@@ -64,6 +67,8 @@ const MohProfile = () => {
   if (loading) {
     return <CircularProgress />;
   }
+
+  console.log("something", moh);
 
   return (
     <div className="xs:mx-10 mx-3 bg-white rounded-xl p-5 flex flex-col gap-8">
@@ -154,7 +159,7 @@ const MohProfile = () => {
       <div className="border-solid border-2 rounded-lg py-5 px-5 ">
         <div className="flex justify-between ">
           <h5 className="text-xl mb-5">Account information</h5>
-          <EditAccountInfo />
+          <MohEditAccountInfo />
         </div>
         <div className="grid xs:grid-cols-2 grid-cols-1">
           <div className="text-text_color_2">
