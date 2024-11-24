@@ -121,6 +121,7 @@ export class MotherController {
       mother_height,
       allergies,
       moh_area,
+      location,
       phm_area,
       field_clinic,
       consultant_obstetrician,
@@ -144,6 +145,7 @@ export class MotherController {
 
       // Update the mother's details
       mother.mother_blood_type = mother_blood_type ?? mother.mother_blood_type;
+      mother.location = location ?? mother.location;
       mother.mother_height = mother_height ?? mother.mother_height;
       mother.allergies = allergies ?? mother.allergies;
       mother.moh_area = moh_area ?? mother.moh_area;
