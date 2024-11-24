@@ -60,7 +60,8 @@ export class MohController {
       moh.mohArea = mohArea;
       moh.phoneNumber = phoneNumber;
       moh.mohID = mohID;
-      moh.user = user;
+      moh.user = user; // Linking the User entity
+      await this.mohRepository.save(moh);
 
       await this.mohRepository.save(moh);
       // return response.status(201).json(mother);
