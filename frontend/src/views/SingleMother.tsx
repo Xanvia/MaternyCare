@@ -9,12 +9,9 @@ const SingleMother = () => {
   const { id } = useParams<{ id: string }>();
   const { appointmentid } = useParams<{ appointmentid: string }>();
   const [mother, setMother] = useState<any>(null);
-<<<<<<< HEAD
   const [isCollapsed, setIsCollapsed] = useState(true);
 
-=======
   const [appointment, setAppointment] = useState<any>(null);
->>>>>>> 312bb57d (integrate Complete Mother appointment button)
   const BASE_URL = "http://localhost:3000/";
 
   useEffect(() => {
@@ -45,13 +42,11 @@ const SingleMother = () => {
       }
     };
 
-<<<<<<< HEAD
     window.addEventListener("resize", handleResize);
     handleResize(); // Check initial screen size
 
     return () => window.removeEventListener("resize", handleResize);
   }, []);
-=======
   useEffect(() => {
     const getAppointment = async () => {
       try {
@@ -80,7 +75,6 @@ const SingleMother = () => {
     }
   }
     
->>>>>>> 312bb57d (integrate Complete Mother appointment button)
 
   if (!mother) {
     return <div>Loading...</div>;
