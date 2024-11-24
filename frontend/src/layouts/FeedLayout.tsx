@@ -2,13 +2,14 @@ import SearchIcon from "@mui/icons-material/Search";
 import { Outlet } from "react-router-dom";
 import { useContext } from "react";
 import { TitleContext } from "../contexts/TitleContextProvider";
+import logo from "../assets/images/logo.png";
 
 const FeedLayout = () => {
   const titleContext = useContext(TitleContext);
   console.log("from feed layout" + titleContext?.pageTitle);
   return (
     <div>
-      <div className="flex justify-between ml-10 my-3">
+      <div className="flex justify-between ml-10 my-4">
         <p className="hidden lg:block text-lg">
           Pages /{" "}
           <span className="text-text_color_2"> {titleContext?.pageTitle}</span>
@@ -24,9 +25,12 @@ const FeedLayout = () => {
           />
         </div>
       </div>
-      <h1 className="text-center text-3xl text-[#0D99FF] lg:hidden mb-7">
-        {titleContext?.pageTitle}
-      </h1>
+      <div className="lg:hidden flex justify-center items-center">
+        <img src={logo} alt="logo" width={40} height={20} />
+        <h1 className="text-center text-3xl text-[#0D99FF] ml-6">
+          {titleContext?.pageTitle}
+        </h1>
+      </div>
       <Outlet />
     </div>
   );

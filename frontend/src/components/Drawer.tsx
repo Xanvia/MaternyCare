@@ -70,7 +70,7 @@ const Drawer: React.FC<DrawerProps> = ({ isCollapsed, onCollapsedChange }) => {
   return (
     <div>
       {/* Mobile Menu Button */}
-      <div className="absolute right-3 top-5 lg:hidden">
+      <div className="absolute right-3 top-10 lg:hidden">
         <button
           onClick={toggleDrawer}
           className="p-3 rounded-lg bg-blue-100 text-blue-500 hover:bg-blue-200 focus:outline-none focus:ring-2 focus:ring-blue-300"
