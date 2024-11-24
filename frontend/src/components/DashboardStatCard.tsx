@@ -1,9 +1,10 @@
-import React, { ReactNode, useState } from "react";
+import axios from "axios";
+import React, { ReactNode, useEffect, useState } from "react";
 
 interface DashboardStatCardProps {
   image: string;
   color: string;
-  count?: number;
+  count: number;
   title: string;
   subtitle: string;
   updateComponent?: ReactNode;

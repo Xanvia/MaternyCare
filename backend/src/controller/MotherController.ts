@@ -29,76 +29,28 @@ export class MotherController {
     return mother;
   }
 
-  // async one(request: Request, response: Response, next: NextFunction) {
-  //   const id = parseInt(request.params.id);
+  async getMotherByUserId(
+    request: Request,
+    response: Response,
+    next: NextFunction
+  ) {
+    const id = parseInt(request.params.id);
 
-  //   try {
-  //     const mother = await this.motherRepository.findOne({
-  //       where: { id },
-  //       relations: ["user"], // Include user-related data
-  //     });
+    const user = await this.userRepository.findOne({ where: { id } });
 
-  //     if (!mother) {
-  //       return response.status(404).json({ message: "Mother not found" });
-  //     }
-  //     return response.json(mother); // Use class-transformer to serialize
-  //   } catch (error) {
-  //     return next(error);
-  //   }
-  // }
+    const mother = await this.motherRepository.findOne({
+      where: { user },
+      relations: ["user", "phm"],
+    });
 
-  // async save(request: Request, response: Response, next: NextFunction) {
-  //   const { age, nic, risk_type, phone_1, bio } = request.body;
-
-  //   if (request.user.userRole !== "mother") {
-  //     console.log(request.user.role);
-  //     return "You are not authorized to create a Mother";
-  //   }
-
-  //   const userId = request.user?.userId;
-
-  //   if (!userId) {
-  //     return response
-  //       .status(400)
-  //       .json({ error: "User ID is missing or invalid" });
-  //   }
-
-  //   const parsedUserId = parseInt(userId, 10);
-
-  //   if (isNaN(parsedUserId)) {
-  //     return response
-  //       .status(400)
-  //       .json({ error: "User ID is not a valid number" });
-  //   }
-
-  //   const user = await this.userRepository.findOne({
-  //     where: { id: parsedUserId }, // Use the correct property name here
-  //   });
-
-  //   if (!user) {
-  //     return response.status(404).json({ error: "User not found" });
-  //   }
-
-  //   const mother = Object.assign(new Mother(), {
-  //     age,
-  //     nic,
-  //     risk_type,
-  //     phone_1,
-  //     bio,
-  //     user_id: user.id,
-  //     firstName: user.firstName,
-  //     lastName: user.lastName,
-  //     email: user.email,
-  //     role: user.role,
-  //     isVerified: user.isVerified,
-  //     password: user.password,
-  //   });
-
-  //   return this.motherRepository.save(mother);
-  // }
+    if (!mother) {
+      return "unlisted mother";
+    }
+    return mother;
+  }
 
   async save(request: Request, response: Response, next: NextFunction) {
-    const { age, nic, phone_1, bio, delivery_date,address} = request.body;
+    const { age, nic, phone_1, bio, delivery_date, address } = request.body;
 
     if (request.user.userRole !== "mother") {
       console.log(request.user.userRole);
@@ -221,6 +173,42 @@ export class MotherController {
         }
         mother.phm = phm; // Update the PHM relationship
       }
+
+      await this.motherRepository.save(mother);
+      response.send(mother);
+      return;
+    } catch (error) {
+      return next(error);
+    }
+  }
+
+  async updateDashboard(
+    request: Request,
+    response: Response,
+    next: NextFunction
+  ) {
+    const id = parseInt(request.params.id);
+    console.log("id", id);
+    const { kick_count, fetal_heart_rate } = request.body;
+
+    const user = await this.userRepository.findOne({ where: { id } });
+    console.log("user", user);
+
+    try {
+      const mother = await this.motherRepository.findOne({
+        where: { user },
+        relations: ["user"],
+      });
+
+      console.log("mother", mother);
+
+      if (!mother) {
+        return response.status(404).json({ message: "Mother not found" });
+      }
+
+      // Update the mother's details
+      mother.kick_count = kick_count ?? mother.kick_count;
+      mother.fetal_heart_rate = fetal_heart_rate ?? mother.fetal_heart_rate;
 
       await this.motherRepository.save(mother);
       response.send(mother);

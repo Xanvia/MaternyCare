@@ -25,9 +25,9 @@ const MotherGuide: React.FC = () => {
             </button>
           ))}
         </div>
-        <div className="flex justify-end">
+        {/* <div className="flex justify-end">
           <AddGuide />
-        </div>
+        </div> */}
       </div>
       <div>
         {categories

@@ -12,7 +12,7 @@ const WelcomePage: React.FC = () => {
     navigate("/login");
   };
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gradient-to-r from-blue-100 to-blue-200">
+    <div className="flex min-h-screen items-center justify-center bg-gradient-to-r from-blue-100 to-blue-200 px-4">
       <div className="flex w-full max-w-5xl mx-auto bg-white shadow-2xl rounded-3xl overflow-hidden">
         {/* Left Side Image */}
         <div className="w-1/2 hidden md:block">

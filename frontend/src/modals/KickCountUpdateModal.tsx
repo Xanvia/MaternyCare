@@ -6,14 +6,50 @@ import DialogContent from "@mui/joy/DialogContent";
 import DialogActions from "@mui/joy/DialogActions";
 import Modal from "@mui/joy/Modal";
 import ModalDialog from "@mui/joy/ModalDialog";
-
 import IconButton from "@mui/joy/IconButton";
 import TextField from "@mui/material/TextField";
-import { CloseIcon } from "../assets/icons/Icons";
-import { PlusCircle } from "../assets/icons/Icons";
+import { CloseIcon, PlusCircle } from "../assets/icons/Icons";
+import axios from "axios";
 
 export default function KickCountUpdateModal() {
   const [open, setOpen] = React.useState<boolean>(false);
+  const [kickCount, setKickCount] = React.useState<number[]>([]);
+  const [newKickCount, setNewKickCount] = React.useState<number>(0);
+
+  let userItem = localStorage.getItem("user");
+  const user = userItem ? JSON.parse(userItem) : null;
+
+  const storedToken = localStorage.getItem("token");
+  const token = storedToken ? JSON.parse(storedToken) : null;
+
+  const handleKickCountChange = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    setNewKickCount(Number(event.target.value));
+  };
+
+  const handleUpdateKickCount = async () => {
+    try {
+      console.log("Token:", token); // Debug log to check the token
+      const response = await axios.put(
+        `http://localhost:3000/users/mother/${user.id}/update-dashboard`,
+        {
+          kick_count: [...kickCount, newKickCount],
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      console.log("Kick count updated successfully:", response.data);
+      setKickCount(response.data.kick_count);
+      setOpen(false);
+    } catch (error) {
+      console.error("Error updating kick count:", error);
+    }
+  };
+
   return (
     <React.Fragment>
       <Button
@@ -90,16 +126,17 @@ export default function KickCountUpdateModal() {
                 width: { xs: "50%", md: "40%" },
                 fontSize: "1rem",
               }}
-              onClick={() => setOpen(false)}
+              onClick={handleUpdateKickCount}
             >
               Update
-            </Button>
-
+            </Button>{" "}
             <TextField
               id="outlined-number-small"
               label=""
               type="number"
               size="small"
+              value={newKickCount}
+              onChange={handleKickCountChange}
               InputLabelProps={{
                 shrink: true,
               }}

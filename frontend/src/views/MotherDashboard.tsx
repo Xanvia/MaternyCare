@@ -6,13 +6,19 @@ import LineChart from "../components/LineChart";
 import { useEffect, useState, useContext } from "react";
 import KickCountUpdateModal from "../modals/KickCountUpdateModal";
 import HeartRateUpdate from "../modals/HeartRateUpdate";
-import WaterAmountUpdate from "../modals/WaterAmountUpdate";
+// import WaterAmountUpdate from "../modals/WaterAmountUpdate";
 import { HeartRateContext } from "../contexts/HeartRateContextProvider";
+import axios from "axios";
 
 import toTitleCase from "../components/CaseConverter";
 import useRoleProtection from "../customHooks/useRoleProtection";
 import { quotes } from "../data/Data";
 import BasicDetailsPreview from "./forms/BasicDetailsPreview";
+
+interface Mother {
+  fetal_heart_rate: number;
+  kick_count: number[];
+}
 
 const MotherDashboard = () => {
   useRoleProtection("mother");
@@ -25,7 +31,13 @@ const MotherDashboard = () => {
   let role = localStorage.getItem("role");
   let userItem = localStorage.getItem("user");
   const user = userItem ? JSON.parse(userItem) : null;
-  console.log("from dash user: " + user.firstName);
+
+  const BASE_URL = "http://localhost:3000/";
+  const storedToken = localStorage.getItem("token");
+  const token = storedToken ? JSON.parse(storedToken) : null;
+
+  const [mother, setMother] = useState<Mother>();
+
   if (user.firstName) {
     name = toTitleCase(user.firstName);
   } else {
@@ -39,6 +51,35 @@ const MotherDashboard = () => {
   if (heartRateContext == null) {
     return;
   }
+  console.log("tokennn", token);
+
+  useEffect(() => {
+    const getMothers = () => {
+      const axiosConfig = {
+        method: "get",
+        url: `${BASE_URL}users/motherbyuser/${user.id}`,
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      };
+      axios(axiosConfig)
+        .then((response) => {
+          setMother(response.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    };
+
+    getMothers();
+  }, []);
+
+  const kicks = mother?.kick_count[mother.kick_count.length - 1];
+  console.log("kciksss", kicks);
+
+  useEffect(() => {
+    console.log("Updated kicks value:", kicks);
+  }, []);
 
   return (
     <div className="mx-11">
@@ -61,7 +102,7 @@ const MotherDashboard = () => {
         <DashboardStatCard
           image={feet}
           color="bg-[#F9B8D0]"
-          count={5}
+          count={kicks ?? 0}
           title="Kick Count"
           subtitle="kicks"
           updateComponent={<KickCountUpdateModal />}
@@ -69,7 +110,7 @@ const MotherDashboard = () => {
         <DashboardStatCard
           image={fire}
           color="bg-[#A8F0DB]"
-          count={heartRate}
+          count={heartRate ?? 0}
           title="Heart Rate"
           subtitle="bpm"
           updateComponent={<HeartRateUpdate />}
@@ -80,7 +121,7 @@ const MotherDashboard = () => {
           count={8}
           title="Water Amount"
           subtitle="litres"
-          updateComponent=<WaterAmountUpdate />
+          // updateComponent=<WaterAmountUpdate />
         />
       </div>
       <div className="mt-12 h-96 w-auto">
