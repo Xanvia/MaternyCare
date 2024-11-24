@@ -7,23 +7,15 @@ import ToTitle from "../components/CaseConverter";
 import axios from "axios";
 import { CircularProgress } from "@mui/material";
 
-interface Mother {
-  id: number;
-  age: number;
+interface Moh {
+  NIC: string;
   firstName: string;
   lastName: string;
   email: string;
-  phone_1: string;
-  location: {
-    country: string;
-    state: string;
-    city: string;
-    postalCode: string;
-    gsDivisionNumber: string;
-  };
-  bio: string;
-  stage: string;
-  babyCount: number;
+  phoneNumber: string;
+  mohArea: string;
+  mohID: string;
+  password: string;
 }
 
 const MohProfile = () => {
@@ -32,8 +24,8 @@ const MohProfile = () => {
   const user = userItem ? JSON.parse(userItem) : null;
 
   const BASE_URL = "http://localhost:3000/";
-  // const [mother, setMother] = useState([]);
-  const [mother, setMother] = useState<Mother | null>(null);
+  // const [moh, setMoh] = useState([]);
+  const [moh, setMoh] = useState<Moh | null>(null);
   const [loading, setLoading] = useState(false);
 
   // const token = JSON.parse(localStorage.getItem("token"));
@@ -42,7 +34,7 @@ const MohProfile = () => {
   const token = storedToken ? JSON.parse(storedToken) : null;
 
   useEffect(() => {
-    const getMother = () => {
+    const getMoh = () => {
       setLoading(true);
       const axiosConfig = {
         method: "get",
@@ -53,18 +45,20 @@ const MohProfile = () => {
       };
       axios(axiosConfig)
         .then((response) => {
-          setMother(response.data);
+          console.log(response.data); // Debug the structure
+          setMoh(response.data); // Save the entire response to state
         })
         .catch((err) => {
-          console.log(err);
+          console.error("Error fetching MOH data:", err);
         })
         .finally(() => {
           setLoading(false);
         });
     };
-
-    getMother();
+  
+    getMoh();
   }, []);
+  
 
   if (loading) {
     return <CircularProgress />;
@@ -76,7 +70,7 @@ const MohProfile = () => {
         <div className="flex flex-col items-center bg-white xs:flex-row xs:max-w-xl">
           <img
             className="object-cover w-24 rounded-full h-24"
-            src="https://randomuser.me/api/portraits/women/94.jpg"
+            src="https://randomuser.me/api/portraits/lego/3.jpg"
             alt=""
           />
           <div className="flex flex-col  justify-between p-4 leading-normal">
@@ -84,11 +78,11 @@ const MohProfile = () => {
               {`${user.firstName} ${user.lastName}`}
             </h5>
             <p className="mb-1 font-normal text-text_color_2 dark:text-gray-400">
-              30 years old
+              Medical Officer of Health (MOH)
             </p>
-            <p className="mb-1 font-normal text-text_color_2 dark:text-gray-400">
+            {/* <p className="mb-1 font-normal text-text_color_2 dark:text-gray-400">
               Badulla, Srilanka
-            </p>
+            </p> */}
           </div>
         </div>
       </div>
@@ -111,16 +105,20 @@ const MohProfile = () => {
             <p className="font-semibold mt-2 mb-4">{user.email}</p>
           </div>
           <div className="text-text_color_2">
+            <h5 className="">NIC</h5>
+            <p className="font-semibold mt-2 mb-4">{moh?.NIC}</p>
+          </div>
+          <div className="text-text_color_2">
             <h5 className="">Phone</h5>
-            <p className="font-semibold mt-2 mb-4">{mother?.phone_1}</p>
+            <p className="font-semibold mt-2 mb-4">{moh?.phoneNumber}</p>
           </div>
           <div className="text-text_color_2">
             <h5 className="">MOH ID</h5>
-            <p className="font-semibold mt-2 mb-4">{mother?.age}</p>
+            <p className="font-semibold mt-2 mb-4">{moh?.mohID}</p>
           </div>
           <div className="text-text_color_2">
             <h5 className="">MOH Area</h5>
-            <p className="font-semibold mt-2 mb-4">{mother?.bio}</p>
+            <p className="font-semibold mt-2 mb-4">{moh?.mohArea}</p>
           </div>
         </div>
       </div>
@@ -169,7 +167,7 @@ const MohProfile = () => {
                 type={showPassword ? "text" : "password"}
                 id="password"
                 className="bg-gray-50 border border-none pl-0 text-gray-900 text-sm rounded-lg disabled:opacity-50 focus:ring-0 focus:outline-none w-full"
-                value="qwerty123"
+                value={(user.password)}
                 required
               />
               <button
