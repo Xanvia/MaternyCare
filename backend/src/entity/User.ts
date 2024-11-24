@@ -46,6 +46,7 @@
 
 import { Entity, PrimaryGeneratedColumn, Column, OneToOne } from "typeorm";
 import { Mother } from "./Mother";
+import { Moh } from "./Moh";
 
 export enum UserRole {
   ADMIN = "admin",
@@ -83,4 +84,7 @@ export class User {
 
   @OneToOne(() => Mother, (mother) => mother.user)
   mother: Mother;
+
+  @OneToOne(() => Moh, (moh) => moh.user)
+  moh: Moh;
 }
