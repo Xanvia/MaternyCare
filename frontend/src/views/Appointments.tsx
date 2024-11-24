@@ -4,6 +4,7 @@ import { Rings } from "react-loader-spinner";
 //import AddFixAppointmentModal from "../modals/FixAppointmentDatePopu";
 import FixAppointmentDatePopup from "../modals/FixAppointmentDatePopu";
 import { useNavigate, useParams } from "react-router-dom";
+import { TickCircle } from "../assets/icons/Icons";
 
 const Appointments = () => {
   
@@ -28,6 +29,9 @@ const Appointments = () => {
 
   const navigate = useNavigate();
 
+  const [mother, setMother] = useState<any>(null);
+
+  // console.log(mother.user.firstName);
 
   useEffect(() => {
     const getAppointments = () => {
@@ -68,6 +72,22 @@ const Appointments = () => {
     getAppointments();
   }, []);
 
+  useEffect(() => {
+    const getMother = async () => {
+      try {
+        
+        const response = await axios.get(`${BASE_URL}users/mother/${motherId}`, {
+        });
+        setMother(response.data);
+        console.log(response.data);
+      } catch (error) {
+        console.error("Error fetching mother data:", error);
+      }
+    };
+
+    getMother();
+  }, [motherId]);
+
   return (
     <div className="mx-11 my ">
       {/* <div>
@@ -76,7 +96,11 @@ const Appointments = () => {
         )) }
       </div> */}
       <div className="flex justify-between my-4 items-center ">
-        <h1 className="mt-9 mb-4">Appointments</h1>
+      <h1 className="mt-9 mb-4">
+        {role !== "mother"
+        ? `${mother?.user?.firstName} ${mother?.user?.lastName} / Appointments`
+        : "Appointments"}
+      </h1>
         {/* <div className="flex justify-end">
           <AddFixAppointmentModal />
         </div> */}
@@ -103,6 +127,7 @@ const Appointments = () => {
                 endDate: string;
                 fixedDate: string;
                 month: string;
+                checkedByPHM: boolean;
                 id: string;
                 mother :{
                   id: string;
@@ -151,7 +176,7 @@ const Appointments = () => {
                     </button>
                     
                     <div className="flex w-full justify-center">
-                      {role !== "mother" && (
+                      {(role !== "mother" && appointment.checkedByPHM !== true) && (
                       <FixAppointmentDatePopup 
                       appointmentId={appointment.id}
                       appointment_type={appointment.appointment_type} 
@@ -159,6 +184,17 @@ const Appointments = () => {
                       />
                     )}
                     </div>
+
+                    {appointment.checkedByPHM && (
+                    <div
+                        className="flex justify-center items-center gap-2 text-blue_primary rounded-md text-xs font-medium py-0.5 w-5/6 ml-3.5" style={{ border: '0.5px solid #0d99ff' }}
+                      >
+                      Completed
+                      <TickCircle style={{ fontSize: '12px', color: 'blue_primary' }} />
+                    </div>
+
+                    )}
+
                     
                   </div>
                 </div>

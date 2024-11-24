@@ -140,7 +140,7 @@ const SingleMother = () => {
         <div className="m-3">
           <button onClick={updateAppointment} disabled={appointment?.checkedByPHM} className="flex items-center px-4 py-2 bg-green_primary text-white rounded-md hover:bg-green-400">
             <TickCircle className="mr-2" />
-            {appointment?.checkedByPHM ? "Completed":"Mark As Completed+"}
+            {appointment?.checkedByPHM ? "Completed":"Mark As Completed"}
           </button>
         </div>
       </div>
