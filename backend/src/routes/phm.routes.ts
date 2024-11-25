@@ -18,6 +18,16 @@ export const PhmRoutes = [
     // middlewares: [jwtMiddleware, roleMiddleware("phm")],
     middlewares: [jwtMiddleware],
   },
+
+  {
+    method: "get",
+    route: "/users/phm/bymother/:id",
+    controller: PhmController,
+    action: "getByMother",
+    // middlewares: [jwtMiddleware, roleMiddleware("phm")],
+    middlewares: [],
+  },
+
   {
     method: "post",
     route: "/users/phm",

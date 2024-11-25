@@ -29,6 +29,50 @@ export class PhmController {
     return phm;
   }
 
+  async getByMother(request: Request, response: Response, next: NextFunction) {
+    const id = parseInt(request.params.id);
+    // const userId = request.user?.userId;
+
+    // const user = await this.userRepository.findOne({
+    //   where: { id: userId },
+    // });
+
+    try {
+      // Find the mother by ID
+      const mother = await this.motherRepository.findOne({
+        where: { id },
+        relations: ["phm"], // Include the related PHM entity
+      });
+
+      if (!mother) {
+        return response.status(404).json({ message: "Mother not found" });
+      }
+
+      // Access the related PHM
+      const phm = await this.phmRepository.findOne({
+        where: { id: mother.phm.id },
+        relations: ["user"], // Include the related user entity
+      });
+
+      if (!phm) {
+        return response.status(404).json({ message: "PHM not found" });
+      }
+
+      // Return the required details
+      const result = {
+        firstName: phm.user.firstName,
+        email: phm.user.email,
+        phoneNumber: phm.phone_number,
+      };
+
+      response.status(200).json(result);
+      return;
+    } catch (error) {
+      console.error("Error fetching PHM by mother ID:", error);
+      return response.status(500).json({ message: "Internal server error" });
+    }
+  }
+
   async save(request: Request, response: Response, next: NextFunction) {
     const { phone_number, phm_id, nic, mother_count, baby_count, star_points } =
       request.body;
@@ -88,8 +132,6 @@ export class PhmController {
 
     return "phm has been removed";
   }
-
-  
 
   async addMother(request: Request, response: Response, next: NextFunction) {
     const userId = request.user?.userId;

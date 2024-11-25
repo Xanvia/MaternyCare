@@ -14,10 +14,18 @@ import toTitleCase from "../components/CaseConverter";
 import useRoleProtection from "../customHooks/useRoleProtection";
 import { quotes } from "../data/Data";
 import BasicDetailsPreview from "./forms/BasicDetailsPreview";
+import { ReportProblem } from "../assets/icons/Icons";
+import ReportHealthIssueModal from "../modals/ReportHealthIssueModal";
 
 interface Mother {
+  id: number;
   fetal_heart_rate: number;
   kick_count: number[];
+}
+interface Phm {
+  firstName: string;
+  email: string;
+  phoneNumber: number;
 }
 
 const MotherDashboard = () => {
@@ -37,6 +45,8 @@ const MotherDashboard = () => {
   const token = storedToken ? JSON.parse(storedToken) : null;
 
   const [mother, setMother] = useState<Mother>();
+  const [phm, setPhm] = useState<Phm>();
+  const [openModal, setOpenModal] = useState(true);
 
   if (user.firstName) {
     name = toTitleCase(user.firstName);
@@ -74,6 +84,27 @@ const MotherDashboard = () => {
     getMothers();
   }, []);
 
+  useEffect(() => {
+    const getPhm = () => {
+      const axiosConfig = {
+        method: "get",
+        url: `${BASE_URL}users/phm/bymother/${mother?.id}`,
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      };
+      axios(axiosConfig)
+        .then((response) => {
+          setPhm(response.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    };
+
+    getPhm();
+  }, []);
+
   const kicks = mother?.kick_count[mother.kick_count.length - 1];
   console.log("kciksss", kicks);
 
@@ -83,6 +114,22 @@ const MotherDashboard = () => {
 
   return (
     <div className="mx-11">
+      <div className="w-full justify-end flex ">
+        {" "}
+        <button
+          className="flex items-center bg-red-500 text-white px-4 py-2 rounded mb-3"
+          onClick={() => setOpenModal(true)}
+        >
+          <ReportProblem />
+          <span className="ml-2">Report Health Issue</span>
+        </button>
+      </div>
+      <ReportHealthIssueModal
+        open={openModal}
+        onClose={() => setOpenModal(false)}
+        phm={phm || { firstName: "", phoneNumber: 0 }}
+      />
+
       <div className="mt-14 lg:mt-0 h-auto min-h-44 px-8 py-5 text-white bg-[#BA97FE] rounded-2xl mb-8 w-auto">
         <h1 className="mb-2 text-lg">
           Hello{" "}

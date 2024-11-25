@@ -17,6 +17,7 @@ import TaskAltIcon from "@mui/icons-material/TaskAlt";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 import ReportProblemIcon from "@mui/icons-material/ReportProblem";
+import CallIcon from "@mui/icons-material/Call";
 
 export {
   SpaceDashboardIcon as DashboardIcon,
@@ -38,4 +39,5 @@ export {
   ExpandMoreIcon as ExpandMore,
   ExpandLessIcon as ExpandLess,
   ReportProblemIcon as ReportProblem,
+  CallIcon as CallIcon,
 };
