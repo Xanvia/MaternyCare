@@ -68,7 +68,7 @@ const MohProfile = () => {
     return <CircularProgress />;
   }
 
-  console.log("something", moh);
+  console.log("check", moh);
 
   return (
     <div className="xs:mx-10 mx-3 bg-white rounded-xl p-5 flex flex-col gap-8">

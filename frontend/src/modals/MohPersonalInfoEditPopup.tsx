@@ -34,6 +34,7 @@ const validationSchema = Yup.object({
   lastName: Yup.string().required("Last Name is required"),
   email: Yup.string().required("Email is required"),
   phoneNumber: Yup.string().required("Phone number is required"),
+  NIC: Yup.string().required("NIC is required"),
   mohArea: Yup.string().required("MOH Area is required"),
   mohID: Yup.string().required("MOH ID is required"),
 });
@@ -48,6 +49,7 @@ export default function MohEditPersonalInfo() {
     lastName: "",
     email: "",
     phoneNumber: "",
+    NIC: "",
     mohArea: "",
     mohID: "",
   });
@@ -68,6 +70,7 @@ const [moh, setMoh] = React.useState<Moh >();
       lastName: moh?.user.lastName,
       email: moh?.user.email,
       phoneNumber: moh?.phoneNumber,
+      NIC: moh?.NIC,
       mohArea: moh?.mohArea,
       mohID: moh?.mohID,
     };
@@ -297,6 +300,35 @@ const [moh, setMoh] = React.useState<Moh >();
                     variant="outlined"
                     error={touched.phoneNumber && Boolean(errors.phoneNumber)}
                     helperText={touched.phoneNumber && errors.phoneNumber}
+                  />
+                </Box>
+
+                <DialogContent
+                  sx={{
+                    display: "flex",
+                    justifyContent: "center",
+                    gap: 1,
+                    color: "#666666",
+                    fontWeight: "bold",
+                  }}
+                >
+                  NIC:
+                </DialogContent>
+                <Box
+                  sx={{
+                    width: 500,
+                    maxWidth: "100%",
+                    mb: 2,
+                  }}
+                >
+                  <Field
+                    as={TextField}
+                    name="NIC"
+                    fullWidth
+                    size="small"
+                    variant="outlined"
+                    error={touched.NIC && Boolean(errors.NIC)}
+                    helperText={touched.NIC && errors.NIC}
                   />
                 </Box>
 
