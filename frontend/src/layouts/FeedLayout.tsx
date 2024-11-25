@@ -1,9 +1,12 @@
-import SearchIcon from "@mui/icons-material/Search";
+// import SearchIcon from "@mui/icons-material/Search";
 import { Outlet } from "react-router-dom";
 import { useContext } from "react";
 import { TitleContext } from "../contexts/TitleContextProvider";
 import logo from "../assets/images/logo.png";
-import { ReportProblem } from "../assets/icons/Icons";
+
+let role = localStorage.getItem("role");
+
+console.log("rooooooooooooooooooole ", role);
 
 const FeedLayout = () => {
   const titleContext = useContext(TitleContext);
@@ -14,11 +17,6 @@ const FeedLayout = () => {
           Pages /{" "}
           <span className="text-text_color_2"> {titleContext?.pageTitle}</span>
         </p>
-
-        <button className="flex items-center bg-red-500 text-white px-4 py-2 rounded mr-11">
-          <ReportProblem />
-          <span className="ml-2">Report Health Issue</span>
-        </button>
 
         {/* <div className="lg:flex items-center relative hidden mr-10">
           <SearchIcon className="absolute left-3 " />

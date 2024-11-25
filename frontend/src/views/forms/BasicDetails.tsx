@@ -22,7 +22,7 @@ const BasicDetails = () => {
     gs_division: "",
   });
   const [loading, setLoading] = useState(false);
-  const [success, setSuccess] = useState(false);
+  // const [success, setSuccess] = useState(false);
   const [isUpdating, setIsUpdating] = useState(false);
 
   const { id } = useParams<{ id: string }>();
@@ -79,7 +79,7 @@ const BasicDetails = () => {
     e.preventDefault();
     try {
       setLoading(true);
-      setSuccess(false);
+      // setSuccess(false);
       setIsUpdating(true);
 
       console.log("id from form ", id);
@@ -106,11 +106,11 @@ const BasicDetails = () => {
         }
       );
 
-      setSuccess(true);
+      // setSuccess(true);
       setIsUpdating(false);
-      toast.success("Update successful!");
+      toast.success("Basic Detials Updated successful!");
       // Clear success message after 3 seconds
-      setTimeout(() => setSuccess(false), 3000);
+      // setTimeout(() => setSuccess(false), 3000);
     } catch (err) {
       console.error("Error updating basic details:", err);
       toast.error("Update failed!");

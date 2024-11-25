@@ -5,6 +5,7 @@ import { Rings } from "react-loader-spinner";
 import FixAppointmentDatePopup from "../modals/FixAppointmentDatePopu";
 import { useNavigate, useParams } from "react-router-dom";
 import { TickCircle } from "../assets/icons/Icons";
+import FeedbackPopup from "../modals/FeedbackPopup";
 
 const Appointments = () => {
   
@@ -123,6 +124,7 @@ const Appointments = () => {
             (
               appointment: {
                 appointment_type: string;
+                feedback: string;
                 startDate: string;
                 endDate: string;
                 fixedDate: string;
@@ -185,7 +187,17 @@ const Appointments = () => {
                     )}
                     </div>
 
-                    {appointment.checkedByPHM && role !== "mother" && (
+                    <div className="flex w-full justify-center">
+                      {(role === "mother" && appointment.checkedByPHM === true && appointment.feedback === null) && (
+                      <FeedbackPopup 
+                      appointmentId={appointment.id} 
+                      checkedByphm={appointment.checkedByPHM}
+                      feedback= {appointment.feedback} 
+                      />
+                    )}
+                    </div>
+
+                    {appointment.checkedByPHM && appointment.feedback !== null && (
                     <div
                         className="flex justify-center items-center gap-2 text-blue_primary rounded-md text-xs font-medium py-0.5 w-5/6 ml-3.5" style={{ border: '0.5px solid #0d99ff' }}
                       >

@@ -1,18 +1,29 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, OneToOne, JoinColumn, DeleteDateColumn } from "typeorm";
 import { Mother } from "./Mother";
 import { Phm } from "./Phm";
+import { Appointment } from "./Appointment";
 
 @Entity()
 export class Feedback {
   @PrimaryGeneratedColumn()
   id: number;
 
-  // @ManyToOne(() => Mother, (mother) => mother.feedbacks)
-  // mother: Mother;
+  @Column({ nullable: true })
+  feedback_content: string;
 
-  // @ManyToOne(() => Phm, (phm) => phm.feedbacks)
-  // phm: Phm;
+  @DeleteDateColumn({ nullable: true })
+  deletedAt: Date | null;
 
-  @Column({ type: "varchar", length: 255 })
-  content: string;
+  @ManyToOne(() => Mother, (mother) => mother.feedbacks)
+  mother: Mother;
+
+  @ManyToOne(() => Phm, (phm) => phm.feedbacks)
+  phm: Phm;
+
+  // @OneToOne(() => Appointment, {
+  //   nullable: true,
+  //   onDelete: "CASCADE",
+  // })
+  // @JoinColumn()
+  // appointment: Appointment;
 }

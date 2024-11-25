@@ -205,6 +205,7 @@ import {
 import { User } from "./User";
 import { Phm } from "./Phm";
 import { Appointment } from "./Appointment";
+import { Feedback } from "./Feedback";
 
 @Entity()
 export class Mother {
@@ -375,6 +376,9 @@ export class Mother {
 
   @OneToMany(() => Appointment, (appointment) => appointment.mother)
   appointments: Appointment[];
+
+  @OneToMany(() => Feedback, (feedback) => feedback.mother)
+  feedbacks: Feedback[];
 
   @ManyToOne(() => Phm, (phm) => phm.mothers, {
     nullable: true,
