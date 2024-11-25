@@ -13,7 +13,7 @@ interface Patient {
   status?: PatientStatus
 }
 
-type PatientList = 'motherList' | 'phmList' | 'pendingList'
+type PatientList = 'motherList' | 'phmList'
 
 const mockData: Record<PatientList, Patient[]> = {
   motherList: Array.from({ length: 50 }, (_, i) => ({
@@ -30,12 +30,12 @@ const mockData: Record<PatientList, Patient[]> = {
     appointment: `2023-11-${(i % 30) + 1}`,
     status: i % 2 === 0 ? 'Completed' : 'Incompleted'
   })),
-  pendingList: Array.from({ length: 50 }, (_, i) => ({
-    id: i + 1,
-    patient: `Pending ${i + 1}`,
-    address: `${i + 1} Elm St`,
-    appointment: `2023-12-${(i % 30) + 1}`
-  })),
+  // pendingList: Array.from({ length: 50 }, (_, i) => ({
+  //   id: i + 1,
+  //   patient: `Pending ${i + 1}`,
+  //   address: `${i + 1} Elm St`,
+  //   appointment: `2023-12-${(i % 30) + 1}`
+  // })),
 }
 
 export default function PatientTable() {
@@ -85,15 +85,15 @@ export default function PatientTable() {
   }
 
   // Confirm the accept action
-  const confirmAcceptPatient = () => {
-    if (patientToAccept) {
-      setPatientListData((prev) => [...prev, { ...patientToAccept, status: 'Incompleted' }])
-      mockData.pendingList = mockData.pendingList.filter((p) => p.id !== patientToAccept.id)
-      setPatientToAccept(null)
-      setIsAcceptModalOpen(false)
-      setCurrentPage(1)
-    }
-  }
+  // const confirmAcceptPatient = () => {
+  //   if (patientToAccept) {
+  //     setPatientListData((prev) => [...prev, { ...patientToAccept, status: 'Incompleted' }])
+  //     mockData.pendingList = mockData.pendingList.filter((p) => p.id !== patientToAccept.id)
+  //     setPatientToAccept(null)
+  //     setIsAcceptModalOpen(false)
+  //     setCurrentPage(1)
+  //   }
+  // }
 
   const filteredData = (
     activeTab === 'motherList' 
@@ -125,7 +125,7 @@ export default function PatientTable() {
   return (
     <div className="container mx-auto p-4 space-y-4">
       <div className="flex rounded-t-lg overflow-hidden" style={{ backgroundColor: "#F5F5F5" }}>
-        {(['motherList', 'phmList', 'pendingList'] as const).map((tab) => (
+        {(['motherList', 'phmList'] as const).map((tab) => (
           <button
             key={tab}
             className={`flex-1 py-2 px-4 text-sm font-medium transition-colors duration-200
@@ -182,14 +182,14 @@ export default function PatientTable() {
                 {activeTab !== 'phmList' && (
                   <>
                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Appointment</th>
-                    {activeTab !== 'pendingList' && (
+                    {/* {activeTab !== 'pendingList' && ( */}
                       <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
-                    )}
+                    {/* )} */}
                   </>
                 )}
                 <th
                   className="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider"
-                  colSpan={activeTab === 'pendingList' ? 2 : 1}  // Adjust colSpan based on activeTab
+                  // colSpan={activeTab === 'pendingList' ? 2 : 1}  // Adjust colSpan based on activeTab
                 >
                   Actions
                 </th>
@@ -208,18 +208,18 @@ export default function PatientTable() {
                   <>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{row.appointment}</td>
                     <td className="px-6 py-4 whitespace-nowrap">
-                      {activeTab === 'pendingList' ? (
-                        <button
+                      {/* {activeTab === 'pendingList' ? ( */}
+                        {/* <button
                           onClick={() => handleAcceptClick(row)}
                           className="bg-blue-500 text-white px-3 py-1 rounded-full text-xs font-medium"
                         >
                           Accept
-                        </button>
-                      ) : (
+                        </button> */}
+                      {/* ) : ( */}
                         <span className={`px-2 py-1 text-xs font-semibold rounded-full ${statusColor(row.status!)}`}>
                           {row.status}
                         </span>
-                      )}
+                      {/* )} */}
                     </td>
                   </>
                 )}
@@ -295,9 +295,9 @@ export default function PatientTable() {
               <button className="px-4 py-2 bg-gray-200 rounded hover:bg-gray-300" onClick={() => setIsAcceptModalOpen(false)}>
                 Cancel
               </button>
-              <button className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700" onClick={confirmAcceptPatient}>
+              {/* <button className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700" onClick={confirmAcceptPatient}>
                 Accept
-              </button>
+              </button> */}
             </div>
           </div>
         </div>
