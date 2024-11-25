@@ -33,7 +33,7 @@ export const AppDataSource = new DataSource({
   database: "test",
   synchronize: true,
   logging: false,
-  entities: [User, Notice, Mother, Phm, Appointment, Feedback, FieldArea, AttendanceAntenatalClasses, DentalCare, FamilyHistory, FetalHeartRate, HealthAssessment, Investigation, KickCount, Location, MedicalSurgicalHistory, Moh, PastObstetricHistory, PersonalInformation, SyphilisScreening, TetanusToxoidImmunization, WeightGainChart, MotherGuide],
+  entities: [User, Notice, Mother, Phm, Appointment, Feedback, FieldArea, AttendanceAntenatalClasses, DentalCare, FamilyHistory, FetalHeartRate, HealthAssessment, Investigation, KickCount, Location, MedicalSurgicalHistory, Moh, PastObstetricHistory, PersonalInformation, SyphilisScreening, TetanusToxoidImmunization, WeightGainChart, MotherGuide, Feedback],
   migrations: [],
   subscribers: [],
 });
