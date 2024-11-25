@@ -16,6 +16,22 @@ export const MotherRoutes = [
     controller: MotherController,
     action: "one",
     // middlewares: [jwtMiddleware, roleMiddleware("mother")],
+    middlewares: [],
+  },
+  {
+    method: "get",
+    route: "/phm/mothers/:id",
+    controller: MotherController,
+    action: "getPhmAllMothersByPhmId",
+    // middlewares: [jwtMiddleware, roleMiddleware("mother")],
+    middlewares: [jwtMiddleware],
+  },
+  {
+    method: "get",
+    route: "/phm/user/mothers/:id",
+    controller: MotherController,
+    action: "getPhmAllMothersByUserId",
+    // middlewares: [jwtMiddleware, roleMiddleware("mother")],
     middlewares: [jwtMiddleware],
   },
   {
@@ -33,6 +49,14 @@ export const MotherRoutes = [
     action: "updateBasicDetails",
     // middlewares: [jwtMiddleware, roleMiddleware("mother")],
     middlewares: [jwtMiddleware],
+  },
+  {
+    method: "put",
+    route: "/users/mother/:id/update-dashboard",
+    controller: MotherController,
+    action: "updateDashboard",
+    // middlewares: [jwtMiddleware, roleMiddleware("mother")],
+    middlewares: [],
   },
   {
     method: "delete",

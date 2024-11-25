@@ -10,7 +10,7 @@ export class MotherController {
   private phmRepository = AppDataSource.getRepository(Phm);
 
   async all(request: Request, response: Response, next: NextFunction) {
-    return this.motherRepository.find({ relations: ["user", "phm"] });
+    return this.motherRepository.find({ relations: ["user", "phm", "appointments"] });
   }
 
   async one(request: Request, response: Response, next: NextFunction) {
@@ -20,6 +20,26 @@ export class MotherController {
 
     const mother = await this.motherRepository.findOne({
       where: { id },
+      relations: ["user", "phm", "appointments"],
+    });
+
+    if (!mother) {
+      return "unlisted mother";
+    }
+    return mother;
+  }
+
+  async getMotherByUserId(
+    request: Request,
+    response: Response,
+    next: NextFunction
+  ) {
+    const id = parseInt(request.params.id);
+
+    const user = await this.userRepository.findOne({ where: { id } });
+
+    const mother = await this.motherRepository.findOne({
+      where: { user },
       relations: ["user", "phm"],
     });
 
@@ -29,76 +49,8 @@ export class MotherController {
     return mother;
   }
 
-  // async one(request: Request, response: Response, next: NextFunction) {
-  //   const id = parseInt(request.params.id);
-
-  //   try {
-  //     const mother = await this.motherRepository.findOne({
-  //       where: { id },
-  //       relations: ["user"], // Include user-related data
-  //     });
-
-  //     if (!mother) {
-  //       return response.status(404).json({ message: "Mother not found" });
-  //     }
-  //     return response.json(mother); // Use class-transformer to serialize
-  //   } catch (error) {
-  //     return next(error);
-  //   }
-  // }
-
-  // async save(request: Request, response: Response, next: NextFunction) {
-  //   const { age, nic, risk_type, phone_1, bio } = request.body;
-
-  //   if (request.user.userRole !== "mother") {
-  //     console.log(request.user.role);
-  //     return "You are not authorized to create a Mother";
-  //   }
-
-  //   const userId = request.user?.userId;
-
-  //   if (!userId) {
-  //     return response
-  //       .status(400)
-  //       .json({ error: "User ID is missing or invalid" });
-  //   }
-
-  //   const parsedUserId = parseInt(userId, 10);
-
-  //   if (isNaN(parsedUserId)) {
-  //     return response
-  //       .status(400)
-  //       .json({ error: "User ID is not a valid number" });
-  //   }
-
-  //   const user = await this.userRepository.findOne({
-  //     where: { id: parsedUserId }, // Use the correct property name here
-  //   });
-
-  //   if (!user) {
-  //     return response.status(404).json({ error: "User not found" });
-  //   }
-
-  //   const mother = Object.assign(new Mother(), {
-  //     age,
-  //     nic,
-  //     risk_type,
-  //     phone_1,
-  //     bio,
-  //     user_id: user.id,
-  //     firstName: user.firstName,
-  //     lastName: user.lastName,
-  //     email: user.email,
-  //     role: user.role,
-  //     isVerified: user.isVerified,
-  //     password: user.password,
-  //   });
-
-  //   return this.motherRepository.save(mother);
-  // }
-
   async save(request: Request, response: Response, next: NextFunction) {
-    const { age, nic, phone_1, bio, delivery_date,address} = request.body;
+    const { age, nic, phone_1, bio, delivery_date, address } = request.body;
 
     if (request.user.userRole !== "mother") {
       console.log(request.user.userRole);
@@ -169,6 +121,7 @@ export class MotherController {
       mother_height,
       allergies,
       moh_area,
+      location,
       phm_area,
       field_clinic,
       consultant_obstetrician,
@@ -192,6 +145,7 @@ export class MotherController {
 
       // Update the mother's details
       mother.mother_blood_type = mother_blood_type ?? mother.mother_blood_type;
+      mother.location = location ?? mother.location;
       mother.mother_height = mother_height ?? mother.mother_height;
       mother.allergies = allergies ?? mother.allergies;
       mother.moh_area = moh_area ?? mother.moh_area;
@@ -230,6 +184,42 @@ export class MotherController {
     }
   }
 
+  async updateDashboard(
+    request: Request,
+    response: Response,
+    next: NextFunction
+  ) {
+    const id = parseInt(request.params.id);
+    console.log("id", id);
+    const { kick_count, fetal_heart_rate } = request.body;
+
+    const user = await this.userRepository.findOne({ where: { id } });
+    console.log("user", user);
+
+    try {
+      const mother = await this.motherRepository.findOne({
+        where: { user },
+        relations: ["user"],
+      });
+
+      console.log("mother", mother);
+
+      if (!mother) {
+        return response.status(404).json({ message: "Mother not found" });
+      }
+
+      // Update the mother's details
+      mother.kick_count = kick_count ?? mother.kick_count;
+      mother.fetal_heart_rate = fetal_heart_rate ?? mother.fetal_heart_rate;
+
+      await this.motherRepository.save(mother);
+      response.send(mother);
+      return;
+    } catch (error) {
+      return next(error);
+    }
+  }
+
   async remove(request: Request, response: Response, next: NextFunction) {
     const id = parseInt(request.params.id);
 
@@ -242,5 +232,54 @@ export class MotherController {
     await this.motherRepository.remove(motherToRemove);
 
     return "mother has been removed";
+  }
+
+  async getPhmAllMothersByPhmId(request: Request, response: Response, next: NextFunction){
+
+    const phmId = parseInt(request.params.id);
+
+    const phm = await this.phmRepository.findOne({
+      where: { id:phmId },
+    });
+
+    const mothers = await this.motherRepository.find({
+      where: { phm: {id:phmId} },
+      relations: ["user", "phm"],
+    });
+
+    if (!phm) {
+      return response.status(404).json({ message: "PHM not found for the given Phm ID" });
+    }
+
+    if (!mothers.length) {
+      return response.status(404).json({ message: "No mothers found for the given PHM ID" });
+    }
+    
+     return mothers;
+  }
+
+  async getPhmAllMothersByUserId(request: Request, response: Response, next: NextFunction){
+
+    const userId = parseInt(request.params.id);
+    console.log(userId)
+
+    const phm = await this.phmRepository.findOne({
+      where: { user: {id:userId} },
+    });
+    console.log(phm.id)
+    const mothers = await this.motherRepository.find({
+      where: { phm: {id:phm.id} },
+      relations: ["user", "phm", "appointments"],
+    });
+
+    if (!phm) {
+      return response.status(404).json({ message: "PHM not found for the given User ID" });
+    }
+
+    if (!mothers.length) {
+      return response.status(404).json({ message: "No mothers found for the associated PHM" });
+    }
+    
+     return mothers;
   }
 }

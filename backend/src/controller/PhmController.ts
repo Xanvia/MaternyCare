@@ -89,6 +89,8 @@ export class PhmController {
     return "phm has been removed";
   }
 
+  
+
   async addMother(request: Request, response: Response, next: NextFunction) {
     const userId = request.user?.userId;
 
@@ -111,13 +113,13 @@ export class PhmController {
 
     console.log("ad mother: " + mother.age);
 
-    if (!phm) {
-      return response.status(404).json({ error: "PHM not found" });
-    }
+    // if (!phm) {
+    //   return response.status(404).json({ error: "PHM not found" });
+    // }
 
-    if (!mother) {
-      return response.status(404).json({ error: "Mother not found" });
-    }
+    // if (!mother) {
+    //   return response.status(404).json({ error: "Mother not found" });
+    // }
 
     mother.phm = phm; // Assign the mother to the PHM
     return this.motherRepository.save(mother);

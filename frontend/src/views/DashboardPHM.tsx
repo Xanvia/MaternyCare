@@ -201,7 +201,7 @@ const DashboardPHM = () => {
           </div> */}
           {activeTab === "pending" && (
             <>
-              <div className="grid grid-cols-3 gap-y-4 gap-x-6 mb-5">
+              <div className="grid lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-y-4 gap-x-6 mb-5">
                 {mothers
                   .filter((mother) => !mother.user.isVerified)
                   .map((mother, index) => (
@@ -238,7 +238,7 @@ const DashboardPHM = () => {
           )}
           {activeTab === "verified" && (
             <>
-              <div className="grid grid-cols-3 gap-y-4 gap-x-6 mb-5">
+              <div className="grid lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-y-4 gap-x-6 mb-5">
                 {mothers
                   .filter((mother) => mother.user.isVerified)
                   .map((mother, index) => (
