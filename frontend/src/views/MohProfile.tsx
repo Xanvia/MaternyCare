@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { EyeIcon, EyeOffIcon } from "../assets/icons/Icons";
-import EditPersonalInfo from "../modals/PersonalInfoEditPopup";
-import EditAccountInfo from "../modals/AccountInfoEditPopup";
-import EditLocationInfo from "../modals/LocationInfoEditPopup";
+// import EditPersonalInfo from "../modals/PersonalInfoEditPopup";
+// import EditAccountInfo from "../modals/AccountInfoEditPopup";
+// import EditLocationInfo from "../modals/LocationInfoEditPopup";
 import ToTitle from "../components/CaseConverter";
 import axios from "axios";
 import { CircularProgress } from "@mui/material";
@@ -49,7 +49,7 @@ const MohProfile = () => {
       };
       axios(axiosConfig)
         .then((response) => {
-          console.log("mokakhari", response.data); // Debug the structure
+          console.log(response.data); // Debug the structure
           setMoh(response.data); // Save the entire response to state
         })
         .catch((err) => {
@@ -69,6 +69,7 @@ const MohProfile = () => {
   }
 
   console.log("check", moh);
+  console.log("check1", user);
 
   return (
     <div className="xs:mx-10 mx-3 bg-white rounded-xl p-5 flex flex-col gap-8">
@@ -81,7 +82,7 @@ const MohProfile = () => {
           />
           <div className="flex flex-col  justify-between p-4 leading-normal">
             <h5 className="mb-2 text-2xl font-bold tracking-tight text-text_color_1 dark:text-white">
-              {`${user.firstName} ${user.lastName}`}
+              {`${moh?.user.firstName} ${moh?.user.lastName}`}
             </h5>
             <p className="mb-1 font-normal text-text_color_2 dark:text-gray-400">
               Medical Officer of Health (MOH)
@@ -146,7 +147,7 @@ const MohProfile = () => {
                 type={showPassword ? "text" : "password"}
                 id="password"
                 className="bg-gray-50 border border-none pl-0 text-gray-900 text-sm rounded-lg disabled:opacity-50 focus:ring-0 focus:outline-none w-full"
-                value={(user.password || "")}
+                value={(user.password)}
                 required
               />
               <button
