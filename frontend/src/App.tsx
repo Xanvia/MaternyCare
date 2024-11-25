@@ -202,7 +202,7 @@ const router = createBrowserRouter([
     ],
   },
   {
-    path: "/profile",
+    path: "/motherprofile",
     element: <BaseLayout />,
     children: [
       {
@@ -216,7 +216,7 @@ const router = createBrowserRouter([
     ],
   },
   {
-    path: "/MohProfile",
+    path: "/mohprofile",
     element: <BaseLayout />,
     children: [
       {
