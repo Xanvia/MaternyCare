@@ -28,9 +28,9 @@ export const MohRoutes = [
   },
   {
     method: "put",
-    route: "/users/moh/:id/basic-details",
+    route: "/users/moh/:id/personal-info",
     controller: MohController,
-    action: "updateBasicDetails",
+    action: "updateMohPersonalInfo",
     // middlewares: [jwtMiddleware, roleMiddleware("mother")],
     middlewares: [jwtMiddleware],
   },
