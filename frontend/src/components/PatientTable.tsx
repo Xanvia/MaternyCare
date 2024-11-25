@@ -130,7 +130,7 @@ export default function PatientTable() {
             key={tab}
             className={`flex-1 py-2 px-4 text-sm font-medium transition-colors duration-200
               ${activeTab === tab ? 'bg-purple_primary text-gray-800 border border-purple-600' : 'bg-white text-gray-600 border border-gray-300 hover:bg-gray-100'}
-              rounded-full mx-1
+              rounded-2xl mx-1
             `}
             onClick={() => setActiveTab(tab)}
           >
