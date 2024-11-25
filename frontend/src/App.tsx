@@ -26,6 +26,7 @@ import PhmSingleMotherAppointment from "./views/PhmSingleMotherAppointment";
 import PhmAppointment from "./views/PhmAppointment";
 //import phmSingleMotherAppointment from "./views/phmSingleMotherAppointment";
 import MotherRegistrationPage from "./views/MotherRegistrationPage";
+import MohProfile from "./views/MohProfile";
 // import MotherRegistration from "./views/MotherReg";
 
 // You can add your routes here
@@ -209,6 +210,20 @@ const router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <Profile />
+          </PrivateRoute>
+        ),
+      },
+    ],
+  },
+  {
+    path: "/MohProfile",
+    element: <BaseLayout />,
+    children: [
+      {
+        index: true,
+        element: (
+          <PrivateRoute>
+            <MohProfile />
           </PrivateRoute>
         ),
       },
