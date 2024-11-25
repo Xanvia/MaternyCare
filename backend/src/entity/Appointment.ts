@@ -6,10 +6,12 @@ import {
   ManyToOne,
   BeforeInsert,
   BeforeUpdate,
+  OneToOne,
 } from "typeorm";
 import { Mother } from "./Mother";
 import { Phm } from "./Phm";
 import { Moh } from "./Moh";
+import { Feedback } from "./Feedback";
 
 @Entity()
 export class Appointment {
@@ -18,6 +20,9 @@ export class Appointment {
 
   @Column({ nullable: true })
   appointment_type: string;
+
+  @Column({ nullable: true })
+  feedback: string;
 
   @Column({ type: "date", nullable: true })
   startDate: Date; // Use Date type for startDate
@@ -61,6 +66,9 @@ export class Appointment {
   @ManyToOne(() => Mother, (mother) => mother.appointments)
   mother: Mother;
   //appointment: Date;
+
+  // @OneToOne(() => Feedback, (feedback) => feedback.appointment)
+  // feedback: Feedback;
 
   // @ManyToOne(() => Phm, (phm) => phm.appointments)
   // phm: Phm;

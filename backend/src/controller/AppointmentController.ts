@@ -42,6 +42,7 @@ export class AppointmentController {
 
   async save(request: Request, response: Response, next: NextFunction) {
     const {
+      feedback,
       appointment_type,
       startDate,
       endDate,
@@ -79,6 +80,7 @@ export class AppointmentController {
       appointment.checkedByMother = checkedByMother;
       appointment.checkedByPHM = checkedByPHM;
       appointment.mother = mother;
+      appointment.feedback = feedback;
 
       await this.appointmentRepository.save(appointment);
 
@@ -261,7 +263,7 @@ export class AppointmentController {
 
   async update(request: Request, response: Response, next: NextFunction) {
     const id = parseInt(request.params.id);
-    const { startDate, endDate, fixedDate, month, checkedByMother, checkedByPHM, appointment_type } = request.body;
+    const { startDate, endDate, fixedDate, month, checkedByMother, checkedByPHM, appointment_type, feedback } = request.body;
 
     // Fetch the notice to update, making sure it’s not soft-deleted
     let appointmentToUpdate = await this.appointmentRepository.findOne({
@@ -280,6 +282,7 @@ export class AppointmentController {
     appointmentToUpdate.checkedByPHM = checkedByPHM;
     appointmentToUpdate.checkedByMother = checkedByMother;
     appointmentToUpdate.appointment_type = appointment_type;
+    appointmentToUpdate.feedback = feedback;
 
     // Save the updated notice
     await this.appointmentRepository.save(appointmentToUpdate);

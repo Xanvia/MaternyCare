@@ -48,6 +48,9 @@ export class Phm {
   @OneToMany(() => Mother, (mother) => mother.phm)
   mothers: Mother[];
 
+  @OneToMany(() => Feedback, (feedback) => feedback.phm)
+  feedbacks: Feedback[];
+
   @OneToOne(() => User, {
     nullable: true,
     onDelete: "CASCADE",
