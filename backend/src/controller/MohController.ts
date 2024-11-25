@@ -72,6 +72,59 @@ export class MohController {
     }
   }
 
+  async updateMohPersonalInfo(
+    request: Request,
+    response: Response,
+    next: NextFunction
+  ) {
+    const id = parseInt(request.params.id);
+    const { firstName, lastName, email, phoneNumber, NIC, mohID, mohArea } =
+      request.body;
+
+    const userId = request.user?.userId;
+
+    try {
+      const moh = await this.mohRepository.findOne({
+        where: { id },
+        relations: ["user"],
+      });
+
+      if (!moh) {
+        return response.status(404).json({ message: "Moh not found" });
+      }
+
+      // Update the moh's details
+      moh.user.firstName = firstName ?? moh.user.firstName;
+      moh.user.lastName = lastName ?? moh.user.lastName;
+      moh.user.email = email ?? moh.user.email;
+      moh.NIC = NIC ?? moh.NIC;
+      moh.mohArea = mohArea ?? moh.mohArea;
+      moh.phoneNumber = phoneNumber ?? moh.phoneNumber;
+      moh.mohID = mohID ?? moh.mohID;
+
+      // console.log("phm ", userId);
+      // if (userId) {
+      //   const user = await this.userRepository.findOne({
+      //     where: { id: userId },
+      //   });
+      //   const phm = await this.phmRepository.findOne({
+      //     where: { user },
+      //     relations: ["user"],
+      //   });
+      //   if (!phm) {
+      //     return response.status(404).json({ message: "PHM not found" });
+      //   }
+      //   moh.phm = phm; // Update the PHM relationship
+      // }
+
+      await this.mohRepository.save(moh);
+      response.send(moh);
+      return;
+    } catch (error) {
+      return next(error);
+    }
+  }
+
   async remove(request: Request, response: Response, next: NextFunction) {
     const id = parseInt(request.params.id);
 
