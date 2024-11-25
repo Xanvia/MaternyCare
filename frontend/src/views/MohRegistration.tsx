@@ -3,6 +3,7 @@ import { useFormik } from "formik";
 import logo from "../assets/images/logo.png";
 import { mohRegistrationSchema } from "../schemas/Schemas";
 import { ErrorIcon } from "../assets/icons/Icons";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -15,6 +16,9 @@ interface FormValues {
 }
 
 const MOHRegistration: React.FC = () => {
+  const token = localStorage.getItem("regToken");
+  const parsedToken = token ? JSON.parse(token) : null;
+  const navigate = useNavigate();
   const formik = useFormik<FormValues>({
     initialValues: {
       NIC: "",
@@ -27,16 +31,17 @@ const MOHRegistration: React.FC = () => {
       console.log("Form data", values);
       try {
         const response = await axios.post(
-          "http://localhost:3000/moh-registration/",
+          "http://localhost:3000/users/moh",
           values,
           {
             headers: {
-              "Content-Type": "application/json",
+             Authorization: `Bearer ${parsedToken}`
             },
           }
         );
         console.log(response.data);
         toast.success("Registration successful!");
+        navigate("/login");
         // Additional actions after successful registration
       } catch (error) {
         console.error(error);
