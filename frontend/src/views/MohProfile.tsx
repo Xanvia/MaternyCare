@@ -10,12 +10,13 @@ import MohEditPersonalInfo from "../modals/MohPersonalInfoEditPopup";
 import MohEditAccountInfo from "../modals/MohAccountInfoEditPopup";
 
 interface Moh {
+  // moh: string;
   user: {
     firstName: string;
     lastName: string;
     email: string;
     password: string;
-  }
+  } 
   NIC: string;
   phoneNumber: string;
   mohArea: string;
@@ -29,7 +30,7 @@ const MohProfile = () => {
 
   const BASE_URL = "http://localhost:3000/";
   // const [moh, setMoh] = useState([]);
-  const [moh, setMoh] = useState<Moh >();
+  const [moh, setMoh] = useState<Moh>();
   const [loading, setLoading] = useState(false);
 
   // const token = JSON.parse(localStorage.getItem("token"));
@@ -100,32 +101,33 @@ const MohProfile = () => {
         <div className="grid xs:grid-cols-2 grid-cols-1">
           <div className="text-text_color_2">
             <h5 className="">First Name</h5>
-            <p className="font-semibold mt-2 mb-4">{ToTitle(user.firstName)}</p>
+            <p className="font-semibold mt-2 mb-4">{ToTitle(user.firstName || "")}</p>
           </div>
           <div className="text-text_color_2">
             <h5 className="">Last Name</h5>
-            <p className="font-semibold mt-2 mb-4">{ToTitle(user.lastName)}</p>
+            <p className="font-semibold mt-2 mb-4">{ToTitle(user.lastName || "")}</p>
           </div>
           <div className="text-text_color_2">
-            <h5 className="">Email address</h5>
-            <p className="font-semibold mt-2 mb-4">{user.email}</p>
+            <h5 className="">Email</h5>
+            <p className="font-semibold mt-2 mb-4">{ToTitle(user.email || "")}</p>
           </div>
           <div className="text-text_color_2">
             <h5 className="">NIC</h5>
-            <p className="font-semibold mt-2 mb-4">{moh?.NIC}</p>
+            <p className="font-semibold mt-2 mb-4">{moh?.NIC || "N/A"}</p>
           </div>
           <div className="text-text_color_2">
             <h5 className="">Phone</h5>
-            <p className="font-semibold mt-2 mb-4">{moh?.phoneNumber}</p>
+            <p className="font-semibold mt-2 mb-4">{moh?.phoneNumber || "N/A"}</p>
           </div>
           <div className="text-text_color_2">
             <h5 className="">MOH ID</h5>
-            <p className="font-semibold mt-2 mb-4">{moh?.mohID}</p>
+            <p className="font-semibold mt-2 mb-4">{moh?.mohID || "N/A"}</p>
           </div>
           <div className="text-text_color_2">
             <h5 className="">MOH Area</h5>
-            <p className="font-semibold mt-2 mb-4">{moh?.mohArea}</p>
+            <p className="font-semibold mt-2 mb-4">{moh?.mohArea || "N/A"}</p>
           </div>
+
         </div>
       </div>
       {/* <div className="border-solid border-2 rounded-lg py-5 px-5 ">
