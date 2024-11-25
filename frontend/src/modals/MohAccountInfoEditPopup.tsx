@@ -406,9 +406,9 @@ const [moh, setMoh] = React.useState<Moh >();
   const fetchCurrentData = () => {
     // Replace this with actual data fetching logic
     return {
-      firstName: moh?.user.firstName,
-      password: moh?.user.password,
-      repassword: moh?.user.password,
+      firstName: user.firstName,
+      password: user.password,
+      repassword: user.password,
     };
   };
 
@@ -444,7 +444,16 @@ const [moh, setMoh] = React.useState<Moh >();
     getMoh();
   }, []);
 
-  function handleClickShowPassword() {
+  const handleClickShowPassword = () => {
+  setShowPassword((prev) => !prev);
+
+  // const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
+  //   event.preventDefault();
+  // };
+};
+
+
+  function handleMouseDownPassword(event: MouseEvent<HTMLAnchorElement, MouseEvent>): void {
     throw new Error("Function not implemented.");
   }
 
@@ -574,41 +583,37 @@ const [moh, setMoh] = React.useState<Moh >();
                     mb: 2,
                   }}
                 >
-                  <FormControl sx={{ width: "100%" }} variant="outlined">
-                    <InputLabel htmlFor="outlined-adornment-password"></InputLabel>
-                    <Field
-                      as={OutlinedInput}
-                      name="password"
-                      id="outlined-adornment-password"
-                      type={showPassword ? "text" : "password"}
-                      fullWidth
-                      size="small"
-                      variant="outlined"
-                      error={touched.password && Boolean(errors.password)}
-                      endAdornment={
-                        <InputAdornment position="end">
-                          <IconButton
-                            aria-label="toggle password visibility"
-                            onClick={handleClickShowPassword}
-                            onMouseDown={(
-                              event: React.MouseEvent<HTMLButtonElement>
-                            ) => {
-                              event.preventDefault();
-                              handleClickShowPassword();
-                            }}
-                          >
-                            {showPassword ? <VisibilityOff /> : <Visibility />}
-                          </IconButton>
-                        </InputAdornment>
-                      }
-                      label="Password"
-                    />
-                    {touched.password && errors.password && (
-                      <Typography variant="body2" color="error" sx={{ mt: 1 }}>
-                        {errors.password}
-                      </Typography>
-                    )}
-                  </FormControl>
+                <FormControl sx={{ width: "100%" }} variant="outlined">
+                  <InputLabel htmlFor="outlined-adornment-password"></InputLabel>
+                  <Field
+                    as={OutlinedInput}
+                    name="password"
+                    id="outlined-adornment-password"
+                    type={showPassword ? "text" : "password"}
+                    fullWidth
+                    size="small"
+                    variant="outlined"
+                    error={touched.password && Boolean(errors.password)}
+                    endAdornment={
+                      <InputAdornment position="end">
+                        <IconButton
+                          aria-label="toggle password visibility"
+                          onClick={handleClickShowPassword}
+                          onMouseDown={handleMouseDownPassword}
+                        >
+                          {showPassword ? <VisibilityOff /> : <Visibility />}
+                        </IconButton>
+                      </InputAdornment>
+                    }
+                    label="Password"
+                  />
+                  {touched.password && errors.password && (
+                    <Typography variant="body2" color="error" sx={{ mt: 1 }}>
+                      {errors.password}
+                    </Typography>
+                  )}
+                </FormControl>
+
                 </Box>
 
                 <DialogContent

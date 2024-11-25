@@ -10,7 +10,6 @@ import MohEditPersonalInfo from "../modals/MohPersonalInfoEditPopup";
 import MohEditAccountInfo from "../modals/MohAccountInfoEditPopup";
 
 interface Moh {
-  // moh: string;
   user: {
     firstName: string;
     lastName: string;
@@ -130,34 +129,6 @@ const MohProfile = () => {
 
         </div>
       </div>
-      {/* <div className="border-solid border-2 rounded-lg py-5 px-5 ">
-        <div className="flex justify-between ">
-          <h5 className="text-xl mb-5">Location information</h5>
-          <EditLocationInfo />
-        </div>
-        <div className="grid xs:grid-cols-2 grid-cols-1">
-          <div className="text-text_color_2">
-            <h5 className="">Country</h5>
-            <p className="font-semibold mt-2 mb-4">Srilanka</p>
-          </div>
-          <div className="text-text_color_2">
-            <h5 className="">State / Province</h5>
-            <p className="font-semibold mt-2 mb-4">Uva</p>
-          </div>
-          <div className="text-text_color_2">
-            <h5 className="">City / District</h5>
-            <p className="font-semibold mt-2 mb-4">Badulla</p>
-          </div>
-          <div className="text-text_color_2">
-            <h5 className="">Postal Code</h5>
-            <p className="font-semibold mt-2 mb-4">90048</p>
-          </div>
-          <div className="text-text_color_2">
-            <h5 className="">GS Division Number</h5>
-            <p className="font-semibold mt-2 mb-4">80B-ILUKTHENNA</p>
-          </div>
-        </div>
-      </div> */}
       <div className="border-solid border-2 rounded-lg py-5 px-5 ">
         <div className="flex justify-between ">
           <h5 className="text-xl mb-5">Account information</h5>
@@ -166,7 +137,7 @@ const MohProfile = () => {
         <div className="grid xs:grid-cols-2 grid-cols-1">
           <div className="text-text_color_2">
             <h5 className="">User Name</h5>
-            <p className="font-semibold mt-2 mb-4">{ToTitle(user.firstName)}</p>
+            <p className="font-semibold mt-2 mb-4">{ToTitle(user.firstName || "")}</p>
           </div>
           <div className="text-text_color_2 pr-4 xs:pr-0">
             <h5 className="">Password</h5>
@@ -175,7 +146,7 @@ const MohProfile = () => {
                 type={showPassword ? "text" : "password"}
                 id="password"
                 className="bg-gray-50 border border-none pl-0 text-gray-900 text-sm rounded-lg disabled:opacity-50 focus:ring-0 focus:outline-none w-full"
-                value={(user.password)}
+                value={(user.password || "")}
                 required
               />
               <button
