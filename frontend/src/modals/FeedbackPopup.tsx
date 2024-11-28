@@ -126,6 +126,12 @@ export default function FeedbackPopup({
                   }}
                 >
                   Write your feedback about appointment
+                  <div className="text-xs">
+                  (This feedback is visible only to MOH)
+                  </div>
+                  <div>
+                    
+                  </div>
                 </DialogContent>
                 <Box
                   sx={{
