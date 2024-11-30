@@ -4,7 +4,7 @@ import { Mother } from "../entity/Mother";
 import { User } from "../entity/User";
 import { generateAppointmentsForMother } from "../service/mothreAppointmentGenerater";
 import { DataSource } from "typeorm";
-import { Appointment } from "../entity/Appointment";
+import { Appointment, AppointmentState } from "../entity/Appointment";
 import { error } from "console";
 
 export class AppointmentController {
@@ -43,7 +43,8 @@ export class AppointmentController {
   async save(request: Request, response: Response, next: NextFunction) {
     const {
       feedback,
-      appointment_type,
+      appointment_description,
+      appointment_state,
       startDate,
       endDate,
       month,
@@ -72,7 +73,7 @@ export class AppointmentController {
     try {
       
       const appointment = new Appointment();
-      appointment.appointment_type = appointment_type;
+      appointment.appointment_description = appointment_description;
       appointment.startDate = startDate;
       appointment.endDate = endDate;
       appointment.month = month;
@@ -81,6 +82,7 @@ export class AppointmentController {
       appointment.checkedByPHM = checkedByPHM;
       appointment.mother = mother;
       appointment.feedback = feedback;
+      appointment.appointment_state = appointment_state
 
       await this.appointmentRepository.save(appointment);
 
@@ -138,7 +140,7 @@ export class AppointmentController {
   // async generateAppointment(request: Request, response: Response, next: NextFunction) {
     
   //   const {
-  //     appointment_type,
+  //     appointment_description,
   //     startDate,
   //     endDate,
   //     month,
@@ -171,7 +173,7 @@ export class AppointmentController {
   //   try {
       
   //     const appointment = new Appointment();
-  //     appointment.appointment_type = appointment_type;
+  //     appointment.appointment_description = appointment_description;
   //     appointment.startDate = startDate;
   //     appointment.endDate = endDate;
   //     appointment.month = month;
@@ -191,7 +193,7 @@ export class AppointmentController {
 
   async generateAppointment(request: Request, response: Response, next: NextFunction) {
     // const {
-    //   appointment_type,
+    //   appointment_description,
     //   month,
     //   deletedAt,
     //   checkedByMother,
@@ -223,9 +225,10 @@ export class AppointmentController {
         const endDate = new Date(startDate); // Assuming startDate and endDate are the same
   
         const newAppointment = new Appointment();
-        // newAppointment.appointment_type = appointment_type || "Check-up"; // Default to "Check-up" if not provided
+        // newAppointment.appointment_description = appointment_description || "Check-up"; // Default to "Check-up" if not provided
         newAppointment.startDate = startDate; // Format as YYYY-MM-DD
         newAppointment.endDate = endDate;
+        newAppointment.appointment_state = AppointmentState.PRENATAL; // Set appointment_type as prenatal
         // newAppointment.month = month;
         // newAppointment.deletedAt = deletedAt;
         // newAppointment.checkedByMother = checkedByMother;
@@ -244,6 +247,50 @@ export class AppointmentController {
     }
   }
   
+  async generatePostnatalAppointment(request: Request, response: Response, next: NextFunction) {
+  
+    const userId = request.user?.userId;
+  
+    const user = await this.userRepository.findOne({ where: { id: userId } });
+  
+    const mother = await this.motherRepository.findOne({
+      where: { user },
+      relations: ["user"],
+    });
+  
+    if (!mother || !mother.delivery_date) {
+      return response.status(400).json({ error: "Mother or delivery date not found" });
+    }
+  
+    try {
+      const deliveryDate = new Date(mother.delivery_date); // Mother's delivery date
+      const appointments = [];
+  
+      // Generate 10 appointments, spaced 1 week apart
+      for (let i = 0; i < 3; i++) {
+        const startDate = new Date(deliveryDate);
+        startDate.setDate(startDate.getDate() + i * 30); 
+  
+        const endDate = new Date(startDate); // Assuming startDate and endDate are the same
+  
+        const newAppointment = new Appointment();
+        newAppointment.startDate = startDate; // Format as YYYY-MM-DD
+        newAppointment.endDate = endDate;
+        newAppointment.mother = mother;
+        newAppointment.appointment_state = AppointmentState.POSTNATAL;
+  
+        appointments.push(newAppointment);
+      }
+  
+      // Save all generated appointments in bulk
+      await this.appointmentRepository.save(appointments);
+  
+      response.status(201).json(appointments); // Return the generated appointments
+    } catch (error) {
+      return next(error);
+    }
+  }
+
 
   async remove(request: Request, response: Response, next: NextFunction) {
     const id = parseInt(request.params.id);
@@ -263,7 +310,7 @@ export class AppointmentController {
 
   async update(request: Request, response: Response, next: NextFunction) {
     const id = parseInt(request.params.id);
-    const { startDate, endDate, fixedDate, month, checkedByMother, checkedByPHM, appointment_type, feedback } = request.body;
+    const { startDate, endDate, fixedDate, month, checkedByMother, checkedByPHM, appointment_description, feedback } = request.body;
 
     // Fetch the notice to update, making sure it’s not soft-deleted
     let appointmentToUpdate = await this.appointmentRepository.findOne({
@@ -281,7 +328,7 @@ export class AppointmentController {
     appointmentToUpdate.month = month;
     appointmentToUpdate.checkedByPHM = checkedByPHM;
     appointmentToUpdate.checkedByMother = checkedByMother;
-    appointmentToUpdate.appointment_type = appointment_type;
+    appointmentToUpdate.appointment_description = appointment_description;
     appointmentToUpdate.feedback = feedback;
 
     // Save the updated notice
