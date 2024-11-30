@@ -216,9 +216,9 @@ export class AppointmentController {
       const appointments = [];
   
       // Generate 10 appointments, spaced 1 week apart
-      for (let i = 0; i < 10; i++) {
+      for (let i = 1; i < 10; i++) {
         const startDate = new Date(deliveryDate);
-        startDate.setDate(startDate.getDate() + i * 30); 
+        startDate.setDate(startDate.getDate() - i * 30); 
   
         const endDate = new Date(startDate); // Assuming startDate and endDate are the same
   
