@@ -7,6 +7,8 @@ import DialogActions from "@mui/joy/DialogActions";
 import Modal from "@mui/joy/Modal";
 import ModalDialog from "@mui/joy/ModalDialog";
 import TextField from "@mui/material/TextField";
+import Select from "@mui/material/Select";
+import MenuItem from "@mui/material/MenuItem";
 import IconButton from "@mui/joy/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
 import { Box } from "@mui/material";
@@ -17,18 +19,24 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { LocalizationProvider } from "@mui/x-date-pickers";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs"; // This adapter is required
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import dayjs from "dayjs";
 
 // Validation schema
 const validationSchema = Yup.object({
-  appointment_type: Yup.string().required("Appointment type is required"),
-  startDate: Yup.string().required("Date is required"),
+  appointment_description: Yup.string().required("Appointment description is required"),
+  appointment_state: Yup.string().required("Appointment state is required"),
+  fixedDate: Yup.string().required("Date is required"),
 });
 
-export default function AddAppointmentModal() {
+interface AddAppointmentModalProps {
+  userId: string;
+}
+
+export default function AddAppointmentModal({
+  userId,
+}: AddAppointmentModalProps) {
   const [open, setOpen] = React.useState<boolean>(false);
-  const token = localStorage.getItem("token");
 
   const BASE_URL = "http://localhost:3000/";
 
@@ -77,24 +85,19 @@ export default function AddAppointmentModal() {
           <Divider />
           <Formik
             initialValues={{
-              appointment_type: "",
-              startDate: "",
-              endDate: "",
-              month: "",
+              appointment_description: "",
+              appointment_state: "",
+              fixedDate: "",
             }}
             validationSchema={validationSchema}
             onSubmit={(values, { setSubmitting }) => {
               const axiosConfig = {
                 method: "post",
-                url: `${BASE_URL}appointments`,
-                headers: {
-                  Authorization: `Bearer ${token}`,
-                },
+                url: `${BASE_URL}appointments/${userId}`,
                 data: {
-                  appointment_type: values.appointment_type,
-                  startDate: values.startDate,
-                  endDate: values.endDate,
-                  month: values.month,
+                  appointment_description: values.appointment_description,
+                  appointment_state: values.appointment_state,
+                  fixedDate: values.fixedDate,
                 },
               };
               axios(axiosConfig)
@@ -134,19 +137,65 @@ export default function AddAppointmentModal() {
                 >
                   <Field
                     as={TextField}
-                    name="appointment_type"
+                    name="appointment_description"
                     fullWidth
                     size="small"
                     variant="outlined"
                     error={
-                      touched.appointment_type &&
-                      Boolean(errors.appointment_type)
+                      touched.appointment_description &&
+                      Boolean(errors.appointment_description)
                     }
                     helperText={
-                      touched.appointment_type && errors.appointment_type
+                      touched.appointment_description && errors.appointment_description
                     }
                   />
                 </Box>
+
+                {/* Dropdown for Appointment State */}
+                <DialogContent
+                  sx={{
+                    display: "flex",
+                    justifyContent: "center",
+                    gap: 1,
+                    color: "#666666",
+                    fontWeight: "bold",
+                  }}
+                >
+                  Select Mother's State:
+                </DialogContent>
+                <Box
+                  sx={{
+                    width: 500,
+                    maxWidth: "100%",
+                  }}
+                >
+                  <Field
+                    as={Select}
+                    name="appointment_state"
+                    fullWidth
+                    size="small"
+                    variant="outlined"
+                    displayEmpty
+                    onChange={(event: any) =>
+                      setFieldValue("appointment_state", event.target.value)
+                    }
+                    error={
+                      touched.appointment_state &&
+                      Boolean(errors.appointment_state)
+                    }
+                  >
+                    {/* <MenuItem value="" disabled>
+                      Select Mother's State
+                    </MenuItem> */}
+                    <MenuItem value="postnatal">Postnatal</MenuItem>
+                    <MenuItem value="prenatal">Prenatal</MenuItem>
+                  </Field>
+                </Box>
+                {touched.appointment_state && errors.appointment_state && (
+                  <Box sx={{ color: "red", fontSize: "0.875rem", mt: 1 }}>
+                    {errors.appointment_state}
+                  </Box>
+                )}
 
                 {/* Date Picker */}
                 <DialogContent
@@ -158,7 +207,7 @@ export default function AddAppointmentModal() {
                     fontWeight: "bold",
                   }}
                 >
-                  Date:
+                  Appointment Date:
                 </DialogContent>
                 <Box
                   sx={{
@@ -168,28 +217,17 @@ export default function AddAppointmentModal() {
                 >
                   <LocalizationProvider dateAdapter={AdapterDayjs}>
                     <DatePicker
-                      label="Start Date"
                       onChange={(date) => {
-                        const formattedDate = dayjs(date).format("DD");
-                        const endDate = dayjs(date).add(5, "day").format("DD");
-                        const month = dayjs(date).format("MMMM").toUpperCase();
-
-                        setFieldValue("startDate", formattedDate);
-                        setFieldValue("endDate", endDate);
-                        setFieldValue("month", month);
+                        const formattedDate = dayjs(date).format("YYYY-MM-DD");
+                        setFieldValue("fixedDate", formattedDate);
                       }}
-                      //   renderInput={(params) => (
-                      //     <TextField
-                      //       {...params}
-                      //       fullWidth
-                      //       size="small"
-                      //       variant="outlined"
-                      //       error={touched.startDate && Boolean(errors.startDate)}
-                      //       helperText={touched.startDate && errors.startDate}
-                      //     />
-                      //   )}
                     />
                   </LocalizationProvider>
+                  {touched.fixedDate && errors.fixedDate && (
+                    <Box sx={{ color: "red", fontSize: "0.875rem", mt: 1 }}>
+                      {errors.fixedDate}
+                    </Box>
+                  )}
                 </Box>
 
                 <DialogActions

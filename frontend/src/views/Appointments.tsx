@@ -7,6 +7,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { TickCircle } from "../assets/icons/Icons";
 import FeedbackPopup from "../modals/FeedbackPopup";
 import PostnatalAppointment from "../components/PostnatalAppointment";
+import AddAppointmentModal from "../modals/AddAppointmentModal";
 
 const Appointments = () => {
   
@@ -107,18 +108,22 @@ const Appointments = () => {
       </div> */}
       <div className="flex flex-col justify-between my-4 items-left ">
         {role !== "mother" &&(
-          <div className="flex flex-col mt-9 mb-4 text-sm">
-          <div>
-          <strong>Mother's Name: </strong> {`${mother?.user?.firstName} ${mother?.user?.lastName}`}
+          <div className="flex flex-row justify-between mt-9 mb-4 text-sm">
+            <div>
+            <div>
+            <strong>Mother's Name: </strong> {`${mother?.user?.firstName} ${mother?.user?.lastName}`}
+            </div>
+            <div>
+            <strong>Address: </strong>{` ${mother?.address}`}
+            </div>
+            <div>
+            <strong>Expected Delivery Date: </strong>{` ${mother?.delivery_date}`}
+            </div>
           </div>
-          {/* <div>
-          <strong>Age: </strong>{` ${mother?.age}`}
-          </div> */}
           <div>
-          <strong>Address: </strong>{` ${mother?.address}`}
-          </div>
-          <div>
-          <strong>Expected Delivery Date: </strong>{` ${mother?.delivery_date}`}
+            <AddAppointmentModal 
+            userId={mother?.user?.id}
+            />
           </div>
         </div>
         )}
