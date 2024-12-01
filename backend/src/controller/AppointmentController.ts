@@ -197,6 +197,8 @@ export class AppointmentController {
     const userId = request.user?.userId;
   
     const user = await this.userRepository.findOne({ where: { id: userId } });
+
+    // console.log(userId);
   
     const mother = await this.motherRepository.findOne({
       where: { user },

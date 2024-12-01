@@ -39,7 +39,7 @@ export const AppointmentRoutes = [
   },
   {
     method: "post",
-    route: "/appointments/generate",
+    route: "/appointments/generate/prenatal",
     controller: AppointmentController,
     action: "generateAppointment",
     middlewares: [jwtMiddleware],

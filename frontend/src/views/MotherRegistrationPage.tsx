@@ -40,7 +40,7 @@ const MotherRegistrationPage: React.FC = () => {
           headers: { Authorization: `Bearer ${parsedToken}` },
         });
 
-        await axios.post("http://localhost:3000/appointments/generate/", values, {
+        await axios.post("http://localhost:3000/appointments/generate/prenatal", values, {
           headers: { Authorization: `Bearer ${parsedToken}` },
         });
 
