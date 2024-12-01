@@ -13,13 +13,25 @@ import { Phm } from "./Phm";
 import { Moh } from "./Moh";
 import { Feedback } from "./Feedback";
 
+export enum AppointmentState {
+  PRENATAL = "prenatal",
+  POSTNATAL = "postnatal",
+}
+
 @Entity()
 export class Appointment {
   @PrimaryGeneratedColumn()
   id: number;
 
+  @Column({
+    type: "enum", // Specify the column type as enum
+    enum: AppointmentState, // Use the defined enum
+    nullable: true,
+  })
+  appointment_state: AppointmentState;
+
   @Column({ nullable: true })
-  appointment_type: string;
+  appointment_description  : string;
 
   @Column({ nullable: true })
   feedback: string;

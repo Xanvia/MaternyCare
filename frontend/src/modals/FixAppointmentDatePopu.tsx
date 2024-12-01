@@ -22,19 +22,19 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 // Validation schema
 const validationSchema = Yup.object({
   fixedDate: Yup.string().required("Date is required"),
-  appointment_type: Yup.string().required("Description is required"),
+  appointment_description: Yup.string().required("Description is required"),
 });
 
 interface FixAppointmentDatePopupProps {
   appointmentId: string;
   fixedDate: string;
-  appointment_type: string;
+  appointment_description: string;
 }
 
 export default function FixAppointmentDatePopup({
   appointmentId,
   fixedDate,
-  appointment_type,
+  appointment_description,
 }:FixAppointmentDatePopupProps) {
   //console.log("Appointment ID:", appointmentId);
   const [open, setOpen] = React.useState<boolean>(false);
@@ -93,7 +93,7 @@ export default function FixAppointmentDatePopup({
           </DialogTitle>
           <Divider />
           <Formik
-            initialValues={{ fixedDate: fixedDate, appointment_type: appointment_type}}
+            initialValues={{ fixedDate: fixedDate, appointment_description: appointment_description}}
             validationSchema={validationSchema}
             onSubmit={(values, { setSubmitting }) => {
               const axiosConfig = {
@@ -104,7 +104,7 @@ export default function FixAppointmentDatePopup({
                 },
                 data: {
                   fixedDate: values.fixedDate,
-                  appointment_type: values.appointment_type,
+                  appointment_description: values.appointment_description,
                 },
               };
               axios(axiosConfig)
@@ -183,12 +183,12 @@ export default function FixAppointmentDatePopup({
                 >
                   <Field
                     as={TextField}
-                    name="appointment_type"
+                    name="appointment_description"
                     fullWidth
                     size="small"
                     variant="outlined"
-                    error={touched.appointment_type && Boolean(errors.appointment_type)}
-                    helperText={touched.appointment_type && errors.appointment_type}
+                    error={touched.appointment_description && Boolean(errors.appointment_description)}
+                    helperText={touched.appointment_description && errors.appointment_description}
                   />
                 </Box>
                 {/* <DialogContent
