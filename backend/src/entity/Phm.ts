@@ -5,12 +5,14 @@ import {
   OneToMany,
   OneToOne,
   JoinColumn,
+  ManyToOne,
 } from "typeorm";
 import { Appointment } from "./Appointment";
 import { User } from "./User";
 import { FieldArea } from "./FieldArea";
 import { Feedback } from "./Feedback";
 import { Mother } from "./Mother";
+import { Moh } from "./Moh";
 
 @Entity()
 export class Phm {
@@ -55,6 +57,13 @@ export class Phm {
     nullable: true,
     onDelete: "CASCADE",
   })
+  @ManyToOne(() => Moh, (moh) => moh.phms, {
+    nullable: true,
+    onDelete: "SET NULL", // When PHM is deleted, mothers can remain with no assigned PHM
+  })
+  phm: Phm;
+
   @JoinColumn()
   user: User;
+  moh: any;
 }
