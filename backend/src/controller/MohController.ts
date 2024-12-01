@@ -8,6 +8,7 @@ import { Mother } from "../entity/Mother";
 export class MohController {
   private mohRepository = AppDataSource.getRepository(Moh);
   private userRepository = AppDataSource.getRepository(User);
+  private phmRepository = AppDataSource.getRepository(Phm);
   // private motherRepository = AppDataSource.getRepository(Mother);s
 
   async all(request: Request, response: Response, next: NextFunction) {
@@ -137,5 +138,43 @@ export class MohController {
     await this.mohRepository.remove(mohToRemove);
 
     return "MOH has been removed";
+  }
+
+  async addPhm(request: Request, response: Response, next: NextFunction) {
+    const userId = request.user?.userId;
+
+    const parsedUserId = parseInt(userId, 10);
+
+    const user = await this.userRepository.findOne({
+      where: { id: parsedUserId },
+    });
+
+    const moh = await this.mohRepository.findOne({
+      where: { user },
+      relations: ["user"],
+    });
+
+    const phmId = request.body.phmID; // ID of the phm to be added
+
+    const phm = await this.phmRepository.findOne({
+      where: { id: phmId },
+    });
+
+    console.log("ad phm: " + phm.id);
+
+    // if (!phm) {
+    //   return response.status(404).json({ error: "PHM not found" });
+    // }
+
+    // if (!mother) {
+    //   return response.status(404).json({ error: "Mother not found" });
+    // }
+
+    phm.moh = moh; // Assign the phm to the MOH
+    return this.phmRepository.save(phm);
+
+    // return response
+    //   .status(200)
+    //   .json({ message: "Mother added to PHM successfully" });
   }
 }
