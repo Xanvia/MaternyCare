@@ -20,7 +20,7 @@ export class PhmController {
 
     const phm = await this.phmRepository.findOne({
       where: { user },
-      relations: ["user"],
+      relations: ["user", "moh"],
     });
 
     if (!phm) {

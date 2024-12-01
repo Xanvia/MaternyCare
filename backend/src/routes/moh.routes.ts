@@ -35,6 +35,14 @@ export const MohRoutes = [
     middlewares: [jwtMiddleware],
   },
   {
+    method: "post",
+    route: "/users/moh/addphm",
+    controller: MohController,
+    action: "save",
+    // middlewares: [jwtMiddleware, roleMiddleware("mother")],
+    middlewares: [jwtMiddleware],
+  },
+  {
     method: "delete",
     route: "/users/moh/:id",
     controller: MohController,
