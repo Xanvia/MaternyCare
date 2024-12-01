@@ -73,6 +73,50 @@ export class MohController {
     }
   }
 
+  async getByPhm(request: Request, response: Response, next: NextFunction) {
+    const id = parseInt(request.params.id);
+    // const userId = request.user?.userId;
+
+    // const user = await this.userRepository.findOne({
+    //   where: { id: userId },
+    // });
+
+    try {
+      // Find the mother by ID
+      const phm = await this.phmRepository.findOne({
+        where: { id },
+        relations: ["moh"], // Include the related PHM entity
+      });
+
+      if (!phm) {
+        return response.status(404).json({ message: "PHM not found" });
+      }
+
+      // Access the related PHM
+      const moh = await this.mohRepository.findOne({
+        where: { id: phm.moh.id },
+        relations: ["user"], // Include the related user entity
+      });
+
+      if (!moh) {
+        return response.status(404).json({ message: "MOH not found" });
+      }
+
+      // Return the required details
+      const result = {
+        firstName: moh.user.firstName,
+        email: moh.user.email,
+        phoneNumber: moh.phoneNumber,
+      };
+
+      response.status(200).json(result);
+      return;
+    } catch (error) {
+      console.error("Error fetching MOH by phm ID:", error);
+      return response.status(500).json({ message: "Internal server error" });
+    }
+  }
+
   async updateMohPersonalInfo(
     request: Request,
     response: Response,

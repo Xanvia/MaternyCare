@@ -19,6 +19,14 @@ export const MohRoutes = [
     middlewares: [jwtMiddleware],
   },
   {
+    method: "get",
+    route: "/users/moh/byphm/:id",
+    controller: MohController,
+    action: "getByPhm",
+    // middlewares: [jwtMiddleware, roleMiddleware("mother")],
+    middlewares: [],
+  },
+  {
     method: "post",
     route: "/users/moh",
     controller: MohController,
