@@ -5,12 +5,76 @@ import Box from '@mui/material/Box';
 import AddMotherModal from '../modals/AddMotherModal';
 import CustomPaginationActionsTable from '../components/CustomPaginationActionsTable';
 import PatientTable from '../components/PatientTable';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
+import { toast } from 'react-toastify';
 
 const DashboardMOH = () => {
   const [value, setValue] = React.useState('mother'); // Default tab is 'MOTHER LIST'
+  const BASE_URL = "http://localhost:3000/";
+  const storedToken = localStorage.getItem("token");
+  const token = storedToken ? JSON.parse(storedToken) : null;
 
   const handleChange = (_event: React.SyntheticEvent, newValue: string) => {
     setValue(newValue);
+  };
+
+  interface Phm {
+    id: number;
+    nic: string;
+    phone_number: number;
+    mother_count: number;
+    user: {
+      firstName: string;
+      lastName: string;
+      isVerified: boolean;
+    };
+    moh: {};
+  }
+
+  const [phms, setPhms] = useState<Phm[]>([]);
+
+  useEffect(() => {
+    const getPhms = () => {
+      const axiosConfig = {
+        method: "get",
+        url: `${BASE_URL}users/phm/all`,
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      };
+      axios(axiosConfig)
+        .then((response) => {
+          setPhms(response.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    };
+
+    getPhms();
+  }, [token]);
+
+  const handleAddPhm = (phmID: number) => {
+    const axiosConfig = {
+      method: "post",
+      url: `${BASE_URL}users/moh/addPhm`,
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      data: {
+        phmID: phmID,
+      },
+    };
+
+    axios(axiosConfig)
+      .then((response) => {
+        toast.success("PHM added successfully!");
+        setTimeout(() => window.location.reload(), 1000);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   return (
@@ -18,48 +82,7 @@ const DashboardMOH = () => {
       <h1 className='font-sans text-lg text-text_color_2 ml-5'>Dashboard Overview</h1>
 
       <PatientTable />
-      {/* Tabs to switch between Mother, PHM, and Pending List */}
-      {/* <div className='flex flex-row justify-center border-b mb-5 mt-8'>
-        <Box sx={{ width: '100%' }}>
-          <Tabs
-            value={value}
-            onChange={handleChange}
-            textColor="secondary"
-            indicatorColor="secondary"
-            aria-label="dashboard tabs"
-            centered
-          >
-            <Tab value="mother" label="MOTHER LIST" />
-            <Tab value="phm" label="PHM LIST" />
-            <Tab value="pending" label="PENDING LIST" />
-          </Tabs>
-        </Box>
-      </div> */}
-
-      {/* Search bar and add mother button */}
-      {/* <div className="flex bg-white w-full justify-between items-center p-4">
-        <div className="flex space-x-4">
-          <button className="px-5">Patient List</button>
-          <button className="px-5">Red Patient List</button>
-          <button className="px-5">Remove</button>
-        </div>
-
-        <div className="flex items-center space-x-4">
-          <input
-            type="text"
-            placeholder="Search any keywords"
-            className="border p-2 rounded-md shadow-sm w-52 bg-background text-sm"
-          />
-          <AddMotherModal />
-        </div>
-      </div> */}
-
-      {/* Tab Panels with the Custom Table */}
-      {/* <div className="mt-5 px-4">
-        {value === 'mother' && <CustomPaginationActionsTable />}
-        {value === 'phm' && <CustomPaginationActionsTable />}
-        {value === 'pending' && <CustomPaginationActionsTable />}
-      </div> */}
+      
     </div>
   );
 };
