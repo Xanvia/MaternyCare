@@ -45,15 +45,13 @@ export class AppointmentController {
       feedback,
       appointment_description,
       appointment_state,
-      startDate,
-      endDate,
-      month,
       deletedAt,
       checkedByMother,
       checkedByPHM,
+      fixedDate,
     } = request.body;
 
-    const userId = request.user?.userId;
+    const userId = parseInt(request.params.userId);
 
     const user = await this.userRepository.findOne({ where: { id: userId } });
 
@@ -61,8 +59,6 @@ export class AppointmentController {
       where: { user },
       relations: ["user"],
     });
-
-    console.log("userIdcdf" + userId + " mother" + mother.id);
 
     if (!mother.id) {
       return response
@@ -74,9 +70,7 @@ export class AppointmentController {
       
       const appointment = new Appointment();
       appointment.appointment_description = appointment_description;
-      appointment.startDate = startDate;
-      appointment.endDate = endDate;
-      appointment.month = month;
+      appointment.fixedDate = fixedDate;
       appointment.deletedAt = deletedAt;
       appointment.checkedByMother = checkedByMother;
       appointment.checkedByPHM = checkedByPHM;
@@ -87,7 +81,7 @@ export class AppointmentController {
       await this.appointmentRepository.save(appointment);
 
       response.send(appointment);
-      return;
+
     } catch (error) {
       return next(error);
     }

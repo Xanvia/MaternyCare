@@ -32,10 +32,10 @@ export const AppointmentRoutes = [
   },
   {
     method: "post",
-    route: "/appointments",
+    route: "/appointments/:userId",
     controller: AppointmentController,
     action: "save",
-    middlewares: [jwtMiddleware],
+    middlewares: [],
   },
   {
     method: "post",
