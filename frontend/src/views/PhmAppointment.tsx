@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import PatientsList from "../components/PatientsList";
+import { Mother } from "../components/Mother";
 
 const PhmAppointment = () => {
 
@@ -12,27 +13,27 @@ const PhmAppointment = () => {
   const userId = user.id;
 
 
-  interface Mother {
-    id: number;
-    nic: string;
-    phone_number: number;
-    delivery_date: string;
-    user: {
-      firstName: string;
-      lastName: string;
-    };
-    phm: {};
-    appointments: {
-      id: number;
-      appointment_type: string;
-      startDate: string;
-      endDate: string;
-      fixedDate: string;
-      month: string;
-      checkedByMother: boolean;
-      checkedByPHM: boolean;
-    }[];
-  }
+  // interface Mother {
+  //   id: number;
+  //   nic: string;
+  //   phone_number: number;
+  //   delivery_date: string;
+  //   user: {
+  //     firstName: string;
+  //     lastName: string;
+  //   };
+  //   phm: {};
+  //   appointments: {
+  //     id: number;
+  //     appointment_type: string;
+  //     startDate: string;
+  //     endDate: string;
+  //     fixedDate: string;
+  //     month: string;
+  //     checkedByMother: boolean;
+  //     checkedByPHM: boolean;
+  //   }[];
+  // }
 
   const [mothers, setMothers] = useState<Mother[]>([]);
   // const visibleMothers = isCollapsed ? mothers.slice(0, 3) : mothers;
