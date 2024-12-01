@@ -40,12 +40,11 @@ export class Moh {
     nullable: true,
     onDelete: "CASCADE",
   })
-  @OneToMany(() => Phm, (phm) => phm.moh)
-  phms: Phm[];
-
   @JoinColumn()
   user: User;
-  phm: any;
+
+  @OneToMany(() => Phm, (phm) => phm.moh)
+  phms: Phm[];
 
   // @OneToMany(() => Appointment, (appointment) => appointment.moh)
   // appointments: Appointment[];

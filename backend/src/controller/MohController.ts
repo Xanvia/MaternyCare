@@ -142,7 +142,6 @@ export class MohController {
 
   async addPhm(request: Request, response: Response, next: NextFunction) {
     const userId = request.user?.userId;
-
     const parsedUserId = parseInt(userId, 10);
 
     const user = await this.userRepository.findOne({

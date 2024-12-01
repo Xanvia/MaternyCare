@@ -57,13 +57,12 @@ export class Phm {
     nullable: true,
     onDelete: "CASCADE",
   })
+  @JoinColumn()
+  user: User;
+
   @ManyToOne(() => Moh, (moh) => moh.phms, {
     nullable: true,
     onDelete: "SET NULL", // When PHM is deleted, mothers can remain with no assigned PHM
   })
-  phm: Phm;
-
-  @JoinColumn()
-  user: User;
-  moh: any;
+  moh: Moh;
 }

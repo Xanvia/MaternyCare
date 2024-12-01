@@ -38,7 +38,7 @@ export const MohRoutes = [
     method: "post",
     route: "/users/moh/addphm",
     controller: MohController,
-    action: "save",
+    action: "addPhm",
     // middlewares: [jwtMiddleware, roleMiddleware("mother")],
     middlewares: [jwtMiddleware],
   },
