@@ -12,6 +12,7 @@ import PhmDashboardStatCard from "../components/PhmDashboardCard";
 import fire from "../assets/images/fire.svg";
 import water from "../assets/images/drops.svg";
 import MohDashboardStatCard from '../components/MohDashboardCard';
+import PhmCard from '../components/PhmCard';
 
 const DashboardMOH = () => {
   const [value, setValue] = React.useState('mother'); // Default tab is 'MOTHER LIST'
@@ -230,7 +231,7 @@ const DashboardMOH = () => {
                         nic={phm.nic}
                         location="New York, USA"
                         onAdd={() => handleAddPhm(phm.id)}
-                        phm={phm.moh}
+                        moh={phm.moh}
                         isVerified={phm.user.isVerified}
                       />
                     </div>
@@ -267,7 +268,7 @@ const DashboardMOH = () => {
                         nic={phm.nic}
                         location="New York, USA"
                         onAdd={() => handleAddPhm(phm.id)}
-                        phm={phm.moh}
+                        moh={phm.moh}
                         isVerified={phm.user.isVerified}
                       />
                     </div>
