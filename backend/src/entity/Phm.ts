@@ -26,6 +26,12 @@ export class Phm {
   @Column({ type: "varchar", length: 255, nullable: true })
   nic: string;
 
+  @Column({ type: "varchar", length: 255, nullable: true })
+  phm_area: string;
+
+  @Column({ type: "varchar", length: 255, nullable: true })
+  moh_division: string;
+
   @Column({ type: "int", nullable: true })
   mother_count: number;
 
