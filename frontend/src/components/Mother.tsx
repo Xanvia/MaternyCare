@@ -11,7 +11,7 @@ export interface Mother {
     phm: {};
     appointments: {
       id: number;
-      appointment_type: string;
+      appointment_description: string;
       startDate: string;
       endDate: string;
       fixedDate: string;
