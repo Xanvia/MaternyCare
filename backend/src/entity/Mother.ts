@@ -336,7 +336,13 @@ export class Mother {
   last_family_planing_method: string;
 
   @Column({ type: "int", nullable: true })
-  gravidity: number;
+  gravidity_G: number;
+
+  @Column({ type: "int", nullable: true })
+  gravidity_P: number;
+
+  @Column({ type: "int", nullable: true })
+  gravidity_C: number;
 
   @Column({ type: "int", nullable: true })
   age_of_youngest_child: number;
