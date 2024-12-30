@@ -16,6 +16,7 @@ import { Moh } from "./entity/Moh";
 import { Appointment } from "./entity/Appointment";
 import { MotherGuideRoutes } from "./routes/motherGuide.routes";
 import { MohRoutes } from "./routes/moh.routes";
+import { VogRoutes } from "./routes/vog.routes";
 
 const cors = require("cors");
 require("dotenv").config();
@@ -45,6 +46,7 @@ AppDataSource.initialize()
       ...PhmRoutes,
       ...MotherRoutes,
       ...MohRoutes,
+      ...VogRoutes,
     ];
 
     AllRoutes.forEach((route) => {

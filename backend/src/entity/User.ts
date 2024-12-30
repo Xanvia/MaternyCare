@@ -54,6 +54,7 @@ export enum UserRole {
   MOTHER = "mother",
   MOH = "moh",
   PHM = "phm",
+  VOG = "vog",
 }
 
 @Entity()
