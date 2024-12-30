@@ -28,6 +28,7 @@ import PhmAppointment from "./views/PhmAppointment";
 import MotherRegistrationPage from "./views/MotherRegistrationPage";
 import MohProfile from "./views/MohProfile";
 import PhmProfile from "./views/PhmProfile";
+import DashboardVOG from "./views/DashboardVOG";
 // import MotherRegistration from "./views/MotherReg";
 
 // You can add your routes here
@@ -95,7 +96,7 @@ const router = createBrowserRouter([
         index: true,
         element: (
           <PublicRoute>
-           <MotherRegistrationPage/>
+            <MotherRegistrationPage />
           </PublicRoute>
         ),
       },
@@ -143,6 +144,20 @@ const router = createBrowserRouter([
     ],
   },
   {
+    path: "/vogdashboard",
+    element: <BaseLayout />,
+    children: [
+      {
+        index: true,
+        element: (
+          <PrivateRoute>
+            <DashboardVOG />
+          </PrivateRoute>
+        ),
+      },
+    ],
+  },
+  {
     path: "/phmappointments",
     element: <BaseLayout />,
     children: [
@@ -171,7 +186,7 @@ const router = createBrowserRouter([
       {
         path: "patient/:id",
         element: <div>hello</div>,
-      }
+      },
     ],
   },
   {
