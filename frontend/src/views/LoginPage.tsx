@@ -54,6 +54,9 @@ const LoginPage: React.FC = () => {
           case "moh":
             navigate("/mohdashboard");
             break;
+          case "vog":
+            navigate("/vogdashboard");
+            break;
           default:
             navigate("/dashboard");
         }

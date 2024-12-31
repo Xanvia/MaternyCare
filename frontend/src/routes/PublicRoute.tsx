@@ -17,6 +17,8 @@ export const PublicRoute = ({ children }: PublicRouteProps) => {
         return <Navigate to="/phmdashboard" />;
       case "moh":
         return <Navigate to="/mohdashboard" />;
+      case "vog":
+        return <Navigate to="/vogdashboard" />;
       default:
         return <Navigate to="/unauthorized" />;
     }
