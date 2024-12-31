@@ -29,7 +29,9 @@ export default function RedPatientTable() {
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [patientToDelete, setPatientToDelete] = useState<Patient | null>(null);
 
-  const redPatientListData = mockData.filter((_, i) => i % 2 !== 0);
+  const [redPatientListData, setRedPatientListData] = useState(
+    mockData.filter((_, i) => i % 2 !== 0)
+  );
 
   // Handle delete button click to open the confirmation modal
   const handleDeleteClick = (patient: Patient) => {
