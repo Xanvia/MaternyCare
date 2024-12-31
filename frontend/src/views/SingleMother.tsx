@@ -36,7 +36,7 @@ const SingleMother = () => {
 
     fetchMother();
   }, [id]);
-  
+
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth >= 768) {
@@ -52,9 +52,10 @@ const SingleMother = () => {
   useEffect(() => {
     const getAppointment = async () => {
       try {
-        
-        const response = await axios.get(`${BASE_URL}appointments/${appointmentid}`, {
-        });
+        const response = await axios.get(
+          `${BASE_URL}appointments/${appointmentid}`,
+          {}
+        );
         setAppointment(response.data);
         console.log(response.data);
       } catch (error) {
@@ -65,18 +66,16 @@ const SingleMother = () => {
     getAppointment();
   }, [id]);
 
-  const updateAppointment = async() => {
-    try{
-        await axios.put(`${BASE_URL}appointments/${appointmentid}}`,{
-        checkedByPHM : true
+  const updateAppointment = async () => {
+    try {
+      await axios.put(`${BASE_URL}appointments/${appointmentid}}`, {
+        checkedByPHM: true,
       });
-    window.location.reload()
-  }
-  catch (error) {
-    console.error("Error posting appointment data:", error);
+      window.location.reload();
+    } catch (error) {
+      console.error("Error posting appointment data:", error);
     }
-  }
-    
+  };
 
   if (!mother) {
     return <div>Loading...</div>;
@@ -134,9 +133,13 @@ const SingleMother = () => {
         </div>
 
         <div className="m-3">
-          <button onClick={updateAppointment} disabled={appointment?.checkedByPHM} className="flex items-center px-4 py-2 bg-green_primary text-white rounded-md hover:bg-green-400">
+          <button
+            onClick={updateAppointment}
+            disabled={appointment?.checkedByPHM}
+            className="flex items-center px-4 py-2 bg-green_primary text-white rounded-md hover:bg-green-400"
+          >
             <TickCircle className="mr-2" />
-            {appointment?.checkedByPHM ? "Completed":"Mark As Completed"}
+            {appointment?.checkedByPHM ? "Completed" : "Mark As Completed"}
           </button>
         </div>
       </div>
@@ -183,8 +186,8 @@ const SingleMother = () => {
       </div>
       {/* Basic Details form */}
       <BasicDetails />
-      <PresentObstetricHistory/>
-      <ClinicCare/>
+      <PresentObstetricHistory />
+      <ClinicCare />
     </div>
   );
 };
