@@ -39,7 +39,7 @@ const RightBar: React.FC = () => {
       </div>
       <div className="bg-[#F7FBFF] rounded-2xl text-center py-4 px-8 mt-8">
         <div className="justify-center flex">
-          {user.image ? (
+          {user?.image ? (
             <img
               className="rounded-full border-2 border-white w-24 h-24"
               src="https://randomuser.me/api/portraits/women/94.jpg"
@@ -53,7 +53,7 @@ const RightBar: React.FC = () => {
           )}
         </div>
         <h1 className="text-[#0D99FF] font-medium text-lg">
-          {`${ToTitle(user.firstName)} ${ToTitle(user.lastName)}`}
+          {`${ToTitle(user?.firstName)} ${ToTitle(user?.lastName)}`}
         </h1>
         <p className="text-xs text-[#666666]">
           30 years old
