@@ -266,8 +266,8 @@ export class Mother {
   @Column({ type: "int", nullable: true })
   mother_weight: number;
 
-  @Column({ type: "int", nullable: true })
-  mother_height: number;
+  @Column({ type: "varchar", nullable: true })
+  mother_height: string;
 
   @Column({ type: "int", array: true, nullable: true })
   appointment: number[];
