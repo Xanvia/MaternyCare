@@ -59,7 +59,7 @@ const PresentObstetricHistory = () => {
             response.data.eligible_family_register || "",
           pregnant_mother_register:
             response.data.pregnant_mother_register || "",
-          gs_division: response.data.gs_division || "",
+          gs_division: response.data.gs_division || "" ,
         });
       } catch (err) {
         console.error("Error fetching basic details:", err);
