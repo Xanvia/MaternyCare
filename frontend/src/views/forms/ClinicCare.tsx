@@ -7,7 +7,7 @@ import "react-toastify/dist/ReactToastify.css";
 const storedToken = localStorage.getItem("token");
 const token = storedToken ? JSON.parse(storedToken) : null;
 
-const PresentObstetricHistory = () => {
+const ClinicCare = () => {
   const [formData, setFormData] = useState({
     mother_gravidity_G: "",
     mother_gravidity_P: "",
@@ -131,159 +131,102 @@ const PresentObstetricHistory = () => {
       className="max-w-full mx-4 my-4 bg-white shadow-lg rounded-lg p-6 border border-gray-200"
     >
       <form onSubmit={handleSubmit}>
-        <h2 className="my-2 font-medium text-lg">Present Obstetric History</h2>
-        <h2 className="my-2 font-medium text-lg">වර්තමාන ගර්භ ඉතිහාසය</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <h2 className="my-2 font-medium text-lg">Clinic Care</h2>
+        <h2 className="my-2 font-medium text-lg">සායනික සංරක්ෂණය</h2>
+        <div className="grid grid-cols-1 md:grid-cols-1 gap-6">
           {/* Left Side Fields */}
-          <div>
-            <label
-              htmlFor="bloodtype"
-              className="block text-sm font-medium text-gray-700 mt-3"
-            >
-              Gravidity
-            </label>
-            <label
-              htmlFor="bloodtype"
-              className="block text-sm font-medium text-gray-700"
-            >
-              කීවෙනි ගර්භයද
-            </label>
-            <div className="flex">
-            <input
-              type="number"
-              id="gravidity_G"
-              name="mother_gravidity_G"
-              value={formData.mother_gravidity_G}
-              onChange={handleChange}
-              className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
-              placeholder="G"
-            />
-            <input
-              type="number"
-              id="gravidity_P"
-              name="mother_gravidity_G"
-              value={formData.mother_gravidity_P}
-              onChange={handleChange}
-              className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
-              placeholder="P"
-            />
-            <input
-              type="number"
-              id="gravidity_C"
-              name="mother_gravidity_C"
-              value={formData.mother_gravidity_C}
-              onChange={handleChange}
-              className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
-              placeholder="C"
-            />
-            </div>
-
-            <label
-              htmlFor="height"
-              className="block text-sm font-medium text-gray-700 mt-4"
-            >
-              <div>Age of youngest child</div>
-              <div>බාලම ළමයාගේ වයස</div>
-            </label>
-            <input
-              type="number"
-              id="height"
-              name="mother_height"
-              value={formData.mother_height}
-              onChange={handleChange}
-              className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 text-sm"
-              placeholder="Age"
-            />
-
-            <label
-              htmlFor="hospitalclinic"
-              className="block text-sm font-medium text-gray-700 mt-4"
-            >
-              <div>LRMP</div>
-              <div>අන්තිමට ක්‍රමවත්ව ඔසප් වූ දිනය</div>
-            </label>
-            <input
-              type="date"
-              id="regdate"
-              name="regdate"
-              className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 text-sm"
-              placeholder="Registration Date"
-            />
-            <div className="pt-6">
-              <div className="flex items-center justify-between h-auto mt-4">
-                <label
-                  htmlFor="hospitalclinic"
-                  className="block text-sm font-medium text-gray-700 mr-4"
-                >
-                  POA at dating scan
-                </label>
-
-                <label className="relative flex items-center cursor-pointer">
-                  <input type="checkbox" value="" className="sr-only peer" />
-                  <div className="w-9 h-5 bg-gray-200 hover:bg-gray-300 peer-focus:outline-0 rounded-full peer transition-all ease-in-out duration-500 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-indigo-600 hover:peer-checked:bg-indigo-700"></div>
-                </label>
-              </div>
-              <div className="flex items-center justify-between h-auto mt-4 ">
-                <label
-                  htmlFor="hospitalclinic"
-                  className="block text-sm font-medium text-gray-700 mr-4"
-                >
-                  Signature
-                </label>
-
-                <label className="relative flex items-center cursor-pointer">
-                  <input type="checkbox" value="" className="sr-only peer" />
-                  <div className="w-9 h-5 bg-gray-200 hover:bg-gray-300 peer-focus:outline-0 rounded-full peer transition-all ease-in-out duration-500 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-indigo-600 hover:peer-checked:bg-indigo-700"></div>
-                </label>
-              </div>
-            </div>
-          </div>
-
-          {/* Right Side Fields */}
           <div>
           <label
               htmlFor="hospitalclinic"
               className="block text-sm font-medium text-gray-700 mt-4"
             >
-              <div>Expected delivery date (Date of 40 weeks completion)</div>
-              <div>බලාපොරොත්තු වන ප්‍රසූත දිනය (සති 40 සම්පූර්ණවන දිනය)</div>
+              <div>Date of visit</div>
+              <div>සායනයට පැමිණි දිනය</div>
             </label>
+            <div className="flex ">
             <input
               type="date"
               id="regdate"
               name="regdate"
-              className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 text-sm"
+              onChange={handleChange}
+              className="mt-1 block w-full px-1 py-1 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 text-xs"
               placeholder="Registration Date"
             />
+            <input
+              type="date"
+              id="regdate"
+              name="regdate"
+              onChange={handleChange}
+              className="mt-1 block w-full px-1 py-1 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 text-xs"
+              placeholder="Registration Date"
+            />
+            <input
+              type="date"
+              id="regdate"
+              name="regdate"
+              onChange={handleChange}
+              className="mt-1 block w-full px-1 py-1 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 text-xs"
+              placeholder="Registration Date"
+            />
+            <input
+              type="date"
+              id="regdate"
+              name="regdate"
+              onChange={handleChange}
+              className="mt-1 block w-full px-1 py-1 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 text-xs"
+              placeholder="Registration Date"
+            />
+            <input
+              type="date"
+              id="regdate"
+              name="regdate"
+              onChange={handleChange}
+              className="mt-1 block w-full px-1 py-1 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 text-xs"
+              placeholder="Registration Date"
+            />
+            <input
+              type="date"
+              id="regdate"
+              name="regdate"
+              onChange={handleChange}
+              className="mt-1 block w-full px-1 py-1 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 text-xs"
+              placeholder="Registration Date"
+            />
+            <input
+              type="date"
+              id="regdate"
+              name="regdate"
+              onChange={handleChange}
+              className="mt-1 block w-full px-1 py-1 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 text-xs"
+              placeholder="Registration Date"
+            />
+            <input
+              type="date"
+              id="regdate"
+              name="regdate"
+              onChange={handleChange}
+              className="mt-1 block w-full px-1 py-1 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 text-xs"
+              placeholder="Registration Date"
+            />
+            <input
+              type="date"
+              id="regdate"
+              name="regdate"
+              onChange={handleChange}
+              className="mt-1 block w-full px-1 py-1 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 text-xs"
+              placeholder="Registration Date"
+            />
+            <input
+              type="date"
+              id="regdate"
+              name="regdate"
+              onChange={handleChange}
+              className="mt-1 block w-full px-1 py-1 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 text-xs"
+              placeholder="Registration Date"
+            />
+            
+            </div>
 
-            <label
-              htmlFor="hospitalclinic"
-              className="block text-sm font-medium text-gray-700 mt-4"
-            >
-              <div>US corrected EDD (To be filled by VOG/MO)</div>
-              <div>US නිවැරදි කළ බලපොරොත්තු ප්‍රසූත දිනය</div>
-            </label>
-            <input
-              type="date"
-              id="regdate"
-              name="regdate"
-              className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 text-sm"
-              placeholder="Registration Date"
-            />
-            <label
-              htmlFor="hospitalclinic"
-              className="block text-sm font-medium text-gray-700 mt-4"
-            >
-              <div>Date of quickening</div>
-              <div>භ්‍රෑණ චලන පළමුවෙන්ම දැණුන දිනය</div>
-            </label>
-            <input
-              type="date"
-              id="regdate"
-              name="regdate"
-              className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 text-sm"
-              placeholder="Registration Date"
-            />
             <label
             htmlFor="poa"
             className="block text-sm font-medium text-gray-700 mt-4"
@@ -292,12 +235,13 @@ const PresentObstetricHistory = () => {
             <div>ලියාපදිංචි කරන විට ගර්භයට සති ගණන</div>
             </label>
 
-            <div className="flex gap-4">
+            <div className="flex">
+            <div className="flex flex-col gap-1">
             <input
                 type="number"
                 id="weeks"
                 name="weeks"
-                className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 text-sm"
+                className="mt-1 block w-full px-1 py-1 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 text-xs"
                 placeholder="Weeks"
                 min="0"
                 // value={formData.weeks} // Bind to weeks in state
@@ -308,7 +252,7 @@ const PresentObstetricHistory = () => {
                 type="number"
                 id="days"
                 name="days"
-                className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 text-sm"
+                className="mt-1 block w-full px-1 py-1 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 text-xs"
                 placeholder="Days"
                 min="0"
                 max="6" // Maximum 6 days to maintain proper week-day format
@@ -316,6 +260,35 @@ const PresentObstetricHistory = () => {
                 // onChange={handleChange} // Handle changes
             />
             </div>
+            <div className="flex flex-col gap-1">
+            <input
+                type="number"
+                id="weeks"
+                name="weeks"
+                className="mt-1 block w-full px-1 py-1 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 text-xs"
+                placeholder="Weeks"
+                min="0"
+                // value={formData.weeks} // Bind to weeks in state
+                // onChange={handleChange} // Handle changes
+            />
+            
+            <input
+                type="number"
+                id="days"
+                name="days"
+                className="mt-1 block w-full px-1 py-1 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 text-xs"
+                placeholder="Days"
+                min="0"
+                max="6" // Maximum 6 days to maintain proper week-day format
+                // value={formData.days} // Bind to days in state
+                // onChange={handleChange} // Handle changes
+            />
+            </div>
+
+            </div>
+
+            
+            
           </div>
         </div>
 
@@ -333,4 +306,4 @@ const PresentObstetricHistory = () => {
   );
 };
 
-export default PresentObstetricHistory;
+export default ClinicCare;
