@@ -6,8 +6,6 @@ import FixAppointmentDatePopup from "../modals/FixAppointmentDatePopu";
 import { useNavigate, useParams } from "react-router-dom";
 import { TickCircle } from "../assets/icons/Icons";
 import FeedbackPopup from "../modals/FeedbackPopup";
-import PostnatalAppointment from "../components/PostnatalAppointment";
-import AddAppointmentModal from "../modals/AddAppointmentModal";
 
 const Appointments = () => {
   
@@ -55,7 +53,7 @@ const Appointments = () => {
 
           .filter(
             (appointment: { appointment_state: string }) =>
-              appointment.appointment_state === "prenatal" // Filter for prenatal appointments
+              appointment.appointment_state === "postnatal" // Filter for prenatal appointments
           )
           
           .sort((a: { fixedDate: any; startDate: any; }, b: { fixedDate: any; startDate: any; }) => {
@@ -100,36 +98,15 @@ const Appointments = () => {
   }, [motherId]);
 
   return (
-    <div className="mx-11 my ">
+    <div>
       {/* <div>
         {appointments.map((item) =>(
           1
         )) }
       </div> */}
-      <div className="flex flex-col justify-between my-4 items-left ">
-        {role !== "mother" &&(
-          <div className="flex flex-row justify-between mt-9 mb-4 text-sm">
-            <div>
-            <div>
-            <strong>Mother's Name: </strong> {`${mother?.user?.firstName} ${mother?.user?.lastName}`}
-            </div>
-            <div>
-            <strong>Address: </strong>{` ${mother?.address}`}
-            </div>
-            <div>
-            <strong>Expected Delivery Date: </strong>{` ${mother?.delivery_date}`}
-            </div>
-          </div>
-          <div>
-            <AddAppointmentModal 
-            userId={mother?.user?.id}
-            />
-          </div>
-        </div>
-        )}
-        
-      <h1 className="mt-4 mb-4 text-sm">
-        Prenatal Appointments
+      <div className="flex justify-between my-4 items-center ">
+      <h1 className="mt-9 mb-4 text-sm">
+        Postnatal Appointments
       </h1>
         {/* <div className="flex justify-end">
           <AddFixAppointmentModal />
@@ -201,7 +178,7 @@ const Appointments = () => {
                       </div>
                       ):(
                         <div className='flex flex-row items-center justify-center mt-2 m-2'>
-                          <div className='md:text-3xl sm:text-3xl xs:text-2xl text-3xl text-blue_primary font-bold'>{fixedDate}</div>
+                          <div className='md:text-3xl sm:text-3xl xs:text-2xl text-3xl text-blue_primary font-bold' >{fixedDate}</div>
                         </div>
                       ) }
                       <header className=' flex mt-2 justify-center pb-1 text-pink_primary text-sm'>{appointment.appointment_description}</header>
@@ -255,11 +232,6 @@ const Appointments = () => {
           )
         )}
       </div>
-
-      <div>
-      <PostnatalAppointment/>
-      </div>
-                    
     </div>
   );
 };

@@ -23,6 +23,7 @@ import { SyphilisScreening } from "./entity/SyphilisScreening";
 import { TetanusToxoidImmunization } from "./entity/TetanusToxoidImmunization";
 import { WeightGainChart } from "./entity/WeightGainChart";
 import { MotherGuide } from "./entity/MotherGuide";
+import { Vog } from "./entity/Vog";
 
 export const AppDataSource = new DataSource({
   type: "postgres",
@@ -33,7 +34,33 @@ export const AppDataSource = new DataSource({
   database: "test",
   synchronize: true,
   logging: false,
-  entities: [User, Notice, Mother, Phm, Appointment, Feedback, FieldArea, AttendanceAntenatalClasses, DentalCare, FamilyHistory, FetalHeartRate, HealthAssessment, Investigation, KickCount, Location, MedicalSurgicalHistory, Moh, PastObstetricHistory, PersonalInformation, SyphilisScreening, TetanusToxoidImmunization, WeightGainChart, MotherGuide, Feedback],
+  entities: [
+    User,
+    Notice,
+    Mother,
+    Phm,
+    Appointment,
+    Feedback,
+    FieldArea,
+    AttendanceAntenatalClasses,
+    DentalCare,
+    FamilyHistory,
+    FetalHeartRate,
+    HealthAssessment,
+    Investigation,
+    KickCount,
+    Location,
+    MedicalSurgicalHistory,
+    Moh,
+    PastObstetricHistory,
+    PersonalInformation,
+    SyphilisScreening,
+    TetanusToxoidImmunization,
+    WeightGainChart,
+    MotherGuide,
+    Feedback,
+    Vog,
+  ],
   migrations: [],
   subscribers: [],
 });

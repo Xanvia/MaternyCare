@@ -266,8 +266,8 @@ export class Mother {
   @Column({ type: "int", nullable: true })
   mother_weight: number;
 
-  @Column({ type: "int", nullable: true })
-  mother_height: number;
+  @Column({ type: "varchar", nullable: true })
+  mother_height: string;
 
   @Column({ type: "int", array: true, nullable: true })
   appointment: number[];
@@ -336,7 +336,13 @@ export class Mother {
   last_family_planing_method: string;
 
   @Column({ type: "int", nullable: true })
-  gravidity: number;
+  gravidity_G: number;
+
+  @Column({ type: "int", nullable: true })
+  gravidity_P: number;
+
+  @Column({ type: "int", nullable: true })
+  gravidity_C: number;
 
   @Column({ type: "int", nullable: true })
   age_of_youngest_child: number;
@@ -379,6 +385,9 @@ export class Mother {
 
   @OneToMany(() => Feedback, (feedback) => feedback.mother)
   feedbacks: Feedback[];
+
+  @Column({ type: "text", nullable: true })
+  signature: string; // New column for storing the signature
 
   @ManyToOne(() => Phm, (phm) => phm.mothers, {
     nullable: true,

@@ -47,12 +47,14 @@
 import { Entity, PrimaryGeneratedColumn, Column, OneToOne } from "typeorm";
 import { Mother } from "./Mother";
 import { Moh } from "./Moh";
+import { Vog } from "./Vog";
 
 export enum UserRole {
   ADMIN = "admin",
   MOTHER = "mother",
   MOH = "moh",
   PHM = "phm",
+  VOG = "vog",
 }
 
 @Entity()
@@ -87,4 +89,7 @@ export class User {
 
   @OneToOne(() => Moh, (moh) => moh.user)
   moh: Moh;
+
+  @OneToOne(() => Vog, (vog) => vog.user)
+  vog: Vog;
 }

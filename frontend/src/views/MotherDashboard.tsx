@@ -46,7 +46,7 @@ const MotherDashboard = () => {
 
   const [mother, setMother] = useState<Mother>();
   const [phm, setPhm] = useState<Phm>();
-  const [openModal, setOpenModal] = useState(true);
+  const [openModal, setOpenModal] = useState(false);
 
   if (user.firstName) {
     name = toTitleCase(user.firstName);
@@ -86,9 +86,10 @@ const MotherDashboard = () => {
 
   useEffect(() => {
     const getPhm = () => {
+      if (!mother) return;
       const axiosConfig = {
         method: "get",
-        url: `${BASE_URL}users/phm/bymother/${mother?.id}`,
+        url: `${BASE_URL}users/phm/bymother/${mother.id}`,
         headers: {
           Authorization: `Bearer ${token}`,
         },

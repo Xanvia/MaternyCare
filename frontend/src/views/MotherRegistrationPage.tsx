@@ -39,6 +39,16 @@ const MotherRegistrationPage: React.FC = () => {
         await axios.post("http://localhost:3000/users/mother/", values, {
           headers: { Authorization: `Bearer ${parsedToken}` },
         });
+
+        await axios.post("http://localhost:3000/appointments/generate/prenatal", values, {
+          headers: { Authorization: `Bearer ${parsedToken}` },
+        });
+
+        await axios.post("http://localhost:3000/appointments/generate/postnatal", values, {
+          headers: { Authorization: `Bearer ${parsedToken}` },
+        });
+
+
         toast.success("Registration successful!");
         navigate("/login");
       } catch (error) {

@@ -37,6 +37,7 @@ export class PhmController {
     //   where: { id: userId },
     // });
 
+    console.log("mother: " + id);
     try {
       // Find the mother by ID
       const mother = await this.motherRepository.findOne({

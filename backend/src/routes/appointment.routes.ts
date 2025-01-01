@@ -32,16 +32,23 @@ export const AppointmentRoutes = [
   },
   {
     method: "post",
-    route: "/appointments",
+    route: "/appointments/:userId",
     controller: AppointmentController,
     action: "save",
+    middlewares: [],
+  },
+  {
+    method: "post",
+    route: "/appointments/generate/prenatal",
+    controller: AppointmentController,
+    action: "generateAppointment",
     middlewares: [jwtMiddleware],
   },
   {
     method: "post",
-    route: "/appointments/generate",
+    route: "/appointments/generate/postnatal",
     controller: AppointmentController,
-    action: "generateAppointment",
+    action: "generatePostnatalAppointment",
     middlewares: [jwtMiddleware],
   },
   {

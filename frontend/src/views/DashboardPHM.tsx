@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import fire from "../assets/images/fire.svg";
 import water from "../assets/images/drops.svg";
-import PatientsList from "../components/PatientsList";
+// import PatientsList from "../components/PatientsList";
 import axios from "axios";
 import useRoleProtection from "../customHooks/useRoleProtection";
 import MotherCard from "../components/MotherCard";
@@ -280,9 +280,9 @@ const DashboardPHM = () => {
             {isCollapsed ? "Show More" : "Show Less"}
           </button> */}
         </div>
-        <div className="mt-12">
+        {/* <div className="mt-12">
           <PatientsList mothers={mothers} />
-        </div>
+        </div> */}
       </div>
     </React.Fragment>
   );
