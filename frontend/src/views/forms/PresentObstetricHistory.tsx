@@ -10,27 +10,102 @@ const token = storedToken ? JSON.parse(storedToken) : null;
 
 const PresentObstetricHistory = () => {
   const signaturePadRef = useRef<HTMLCanvasElement>(null);
+  const padInstance = useRef<SignaturePad | null>(null);
+  const { id } = useParams<{ id: string }>();
+  const [signature, setSignature] = useState<string | null>(null);
+
+  // Initialize signature pad
+  useEffect(() => {
+    if (signaturePadRef.current) {
+      // Set canvas dimensions
+      const canvas = signaturePadRef.current;
+      const ratio = Math.max(window.devicePixelRatio || 1, 1);
+      canvas.width = canvas.offsetWidth * ratio;
+      canvas.height = canvas.offsetHeight * ratio;
+      canvas.getContext("2d")?.scale(ratio, ratio);
+
+      // Initialize SignaturePad
+      padInstance.current = new SignaturePad(canvas, {
+        minWidth: 0.5,
+        maxWidth: 2.5,
+        backgroundColor: "rgb(255, 255, 255)",
+      });
+    }
+
+    // Cleanup
+    return () => {
+      if (padInstance.current) {
+        padInstance.current.off();
+      }
+    };
+  }, []);
+
+  // Fetch existing signature
+  useEffect(() => {
+    const fetchSignature = async () => {
+      const storedToken = localStorage.getItem("token");
+      const token = storedToken ? JSON.parse(storedToken) : null;
+
+      try {
+        const response = await axios.get(
+          `http://localhost:3000/users/mother/${id}`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+
+        if (response.data.signature) {
+          setSignature(response.data.signature);
+          if (padInstance.current) {
+            padInstance.current.fromDataURL(response.data.signature);
+          }
+        }
+      } catch (error) {
+        console.error("Error fetching signature:", error);
+        toast.error("Failed to load signature");
+      }
+    };
+
+    fetchSignature();
+  }, [id]);
 
   const clearSignature = () => {
-    if (signaturePadRef.current) {
-      const signaturePad = new SignaturePad(signaturePadRef.current);
-      signaturePad.clear();
+    if (padInstance.current) {
+      padInstance.current.clear();
+      setSignature(null);
     }
   };
 
   const saveSignature = async () => {
-    if (signaturePadRef.current) {
-      const signaturePad = new SignaturePad(signaturePadRef.current);
-      const dataURL = signaturePad.toDataURL();
+    if (!padInstance.current || padInstance.current.isEmpty()) {
+      toast.warning("Please provide a signature before saving");
+      return;
+    }
 
-      try {
-        await axios.put("http://localhost:3000/update-signature", {
+    const dataURL = padInstance.current.toDataURL("image/png");
+    const storedToken = localStorage.getItem("token");
+    const token = storedToken ? JSON.parse(storedToken) : null;
+
+    try {
+      await axios.put(
+        `http://localhost:3000/users/mother/${id}/signature`,
+        {
           signature: dataURL,
-        });
-        console.log("Signature saved successfully");
-      } catch (error) {
-        console.error("Error saving signature:", error);
-      }
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      setSignature(dataURL);
+      toast.success("Signature saved successfully");
+    } catch (error) {
+      console.error("Error saving signature:", error);
+      toast.error("Failed to save signature");
     }
   };
 
@@ -54,7 +129,6 @@ const PresentObstetricHistory = () => {
   // const [success, setSuccess] = useState(false);
   const [isUpdating, setIsUpdating] = useState(false);
 
-  const { id } = useParams<{ id: string }>();
   // Fetch existing data when component mounts
   useEffect(() => {
     const fetchBasicDetails = async () => {
@@ -258,26 +332,46 @@ const PresentObstetricHistory = () => {
                 </label>
 
                 <div className="mt-4">
-                  <canvas
-                    ref={signaturePadRef}
-                    className="border border-gray-300 rounded-md"
-                  ></canvas>
-                  <div className="mt-2 flex space-x-2">
-                    <button
-                      type="button"
-                      onClick={clearSignature}
-                      className="px-4 py-2 bg-red-500 text-white rounded-md"
-                    >
-                      Clear
-                    </button>
-                    <button
-                      type="button"
-                      onClick={saveSignature}
-                      className="px-4 py-2 bg-green-500 text-white rounded-md"
-                    >
-                      Save
-                    </button>
-                  </div>
+                  {signature ? (
+                    <div>
+                      {/* <h3>Saved Signature:</h3> */}
+                      <img
+                        src={signature}
+                        alt="Saved Signature"
+                        className="border border-gray-300 rounded-md"
+                      />
+                      {/* <button
+                        type="button"
+                        onClick={() => setSignature(null)} // Allow user to provide a new signature
+                        className="px-4 py-2 bg-yellow-500 text-white rounded-md mt-2"
+                      >
+                        Edit Signature
+                      </button> */}
+                    </div>
+                  ) : (
+                    <div>
+                      <canvas
+                        ref={signaturePadRef}
+                        className="border border-gray-300 rounded-md"
+                      ></canvas>
+                      <div className="mt-2 flex space-x-2">
+                        <button
+                          type="button"
+                          onClick={clearSignature}
+                          className="px-4 py-2 bg-red-500 text-white rounded-md"
+                        >
+                          Clear
+                        </button>
+                        <button
+                          type="button"
+                          onClick={saveSignature}
+                          className="px-4 py-2 bg-green-500 text-white rounded-md"
+                        >
+                          Save
+                        </button>
+                      </div>
+                    </div>
+                  )}
                 </div>
 
                 {/* <label className="relative flex items-center cursor-pointer">
