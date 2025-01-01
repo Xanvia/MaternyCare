@@ -1,13 +1,39 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import SignaturePad from "signature_pad";
 
 const storedToken = localStorage.getItem("token");
 const token = storedToken ? JSON.parse(storedToken) : null;
 
 const PresentObstetricHistory = () => {
+  const signaturePadRef = useRef<HTMLCanvasElement>(null);
+
+  const clearSignature = () => {
+    if (signaturePadRef.current) {
+      const signaturePad = new SignaturePad(signaturePadRef.current);
+      signaturePad.clear();
+    }
+  };
+
+  const saveSignature = async () => {
+    if (signaturePadRef.current) {
+      const signaturePad = new SignaturePad(signaturePadRef.current);
+      const dataURL = signaturePad.toDataURL();
+
+      try {
+        await axios.put("http://localhost:3000/update-signature", {
+          signature: dataURL,
+        });
+        console.log("Signature saved successfully");
+      } catch (error) {
+        console.error("Error saving signature:", error);
+      }
+    }
+  };
+
   const [formData, setFormData] = useState({
     mother_gravidity_G: "",
     mother_gravidity_P: "",
@@ -45,7 +71,7 @@ const PresentObstetricHistory = () => {
         setFormData({
           mother_gravidity_G: response.data.mother_gravidity_G || "",
           mother_gravidity_P: response.data.mother_gravidity_P || "",
-          mother_gravidity_C: response.data.mother_gravidity_C || "", 
+          mother_gravidity_C: response.data.mother_gravidity_C || "",
           mother_blood_type: response.data.mother_blood_type || "",
           mother_height: response.data.mother_height || "",
           allergies: response.data.allergies || "",
@@ -59,7 +85,7 @@ const PresentObstetricHistory = () => {
             response.data.eligible_family_register || "",
           pregnant_mother_register:
             response.data.pregnant_mother_register || "",
-          gs_division: response.data.gs_division || "" ,
+          gs_division: response.data.gs_division || "",
         });
       } catch (err) {
         console.error("Error fetching basic details:", err);
@@ -149,33 +175,33 @@ const PresentObstetricHistory = () => {
               කීවෙනි ගර්භයද
             </label>
             <div className="flex">
-            <input
-              type="number"
-              id="gravidity_G"
-              name="mother_gravidity_G"
-              value={formData.mother_gravidity_G}
-              onChange={handleChange}
-              className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
-              placeholder="G"
-            />
-            <input
-              type="number"
-              id="gravidity_P"
-              name="mother_gravidity_G"
-              value={formData.mother_gravidity_P}
-              onChange={handleChange}
-              className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
-              placeholder="P"
-            />
-            <input
-              type="number"
-              id="gravidity_C"
-              name="mother_gravidity_C"
-              value={formData.mother_gravidity_C}
-              onChange={handleChange}
-              className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
-              placeholder="C"
-            />
+              <input
+                type="number"
+                id="gravidity_G"
+                name="mother_gravidity_G"
+                value={formData.mother_gravidity_G}
+                onChange={handleChange}
+                className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                placeholder="G"
+              />
+              <input
+                type="number"
+                id="gravidity_P"
+                name="mother_gravidity_G"
+                value={formData.mother_gravidity_P}
+                onChange={handleChange}
+                className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                placeholder="P"
+              />
+              <input
+                type="number"
+                id="gravidity_C"
+                name="mother_gravidity_C"
+                value={formData.mother_gravidity_C}
+                onChange={handleChange}
+                className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                placeholder="C"
+              />
             </div>
 
             <label
@@ -231,17 +257,40 @@ const PresentObstetricHistory = () => {
                   Signature
                 </label>
 
-                <label className="relative flex items-center cursor-pointer">
+                <div className="mt-4">
+                  <canvas
+                    ref={signaturePadRef}
+                    className="border border-gray-300 rounded-md"
+                  ></canvas>
+                  <div className="mt-2 flex space-x-2">
+                    <button
+                      type="button"
+                      onClick={clearSignature}
+                      className="px-4 py-2 bg-red-500 text-white rounded-md"
+                    >
+                      Clear
+                    </button>
+                    <button
+                      type="button"
+                      onClick={saveSignature}
+                      className="px-4 py-2 bg-green-500 text-white rounded-md"
+                    >
+                      Save
+                    </button>
+                  </div>
+                </div>
+
+                {/* <label className="relative flex items-center cursor-pointer">
                   <input type="checkbox" value="" className="sr-only peer" />
                   <div className="w-9 h-5 bg-gray-200 hover:bg-gray-300 peer-focus:outline-0 rounded-full peer transition-all ease-in-out duration-500 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-indigo-600 hover:peer-checked:bg-indigo-700"></div>
-                </label>
+                </label> */}
               </div>
             </div>
           </div>
 
           {/* Right Side Fields */}
           <div>
-          <label
+            <label
               htmlFor="hospitalclinic"
               className="block text-sm font-medium text-gray-700 mt-4"
             >
@@ -285,15 +334,15 @@ const PresentObstetricHistory = () => {
               placeholder="Registration Date"
             />
             <label
-            htmlFor="poa"
-            className="block text-sm font-medium text-gray-700 mt-4"
+              htmlFor="poa"
+              className="block text-sm font-medium text-gray-700 mt-4"
             >
-            <div>POA at Registration</div>
-            <div>ලියාපදිංචි කරන විට ගර්භයට සති ගණන</div>
+              <div>POA at Registration</div>
+              <div>ලියාපදිංචි කරන විට ගර්භයට සති ගණන</div>
             </label>
 
             <div className="flex gap-4">
-            <input
+              <input
                 type="number"
                 id="weeks"
                 name="weeks"
@@ -302,9 +351,9 @@ const PresentObstetricHistory = () => {
                 min="0"
                 // value={formData.weeks} // Bind to weeks in state
                 // onChange={handleChange} // Handle changes
-            />
-            
-            <input
+              />
+
+              <input
                 type="number"
                 id="days"
                 name="days"
@@ -314,7 +363,7 @@ const PresentObstetricHistory = () => {
                 max="6" // Maximum 6 days to maintain proper week-day format
                 // value={formData.days} // Bind to days in state
                 // onChange={handleChange} // Handle changes
-            />
+              />
             </div>
           </div>
         </div>
