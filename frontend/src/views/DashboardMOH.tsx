@@ -7,28 +7,23 @@ import CustomPaginationActionsTable from '../components/CustomPaginationActionsT
 import PatientTable from '../components/PatientTable';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import { toast, ToastContainer } from "react-toastify";
-import PhmDashboardStatCard from "../components/PhmDashboardCard";
-import fire from "../assets/images/fire.svg";
-import water from "../assets/images/drops.svg";
+import { toast, ToastContainer } from 'react-toastify';
+import PhmDashboardStatCard from '../components/PhmDashboardCard';
+import fire from '../assets/images/fire.svg';
+import water from '../assets/images/drops.svg';
 import MohDashboardStatCard from '../components/MohDashboardCard';
 import PhmCard from '../components/PhmCard';
 import useRoleProtection from '../customHooks/useRoleProtection';
 
 const DashboardMOH = () => {
-  useRoleProtection("moh");
+  useRoleProtection('moh');
   const [value, setValue] = React.useState('mother'); // Default tab is 'MOTHER LIST'
-  const BASE_URL = "http://localhost:3000/";
-  const storedToken = localStorage.getItem("token");
+  const BASE_URL = 'http://localhost:3000/';
+  const storedToken = localStorage.getItem('token');
   const token = storedToken ? JSON.parse(storedToken) : null;
   const [isPendingCollapsed, setIsPendingCollapsed] = useState(true);
   const [isVerifiedCollapsed, setIsVerifiedCollapsed] = useState(true);
-  const [activeTab, setActiveTab] = useState("pending");
-  
-
-  // const handleChange = (_event: React.SyntheticEvent, newValue: string) => {
-  //   setValue(newValue);
-  // };
+  const [activeTab, setActiveTab] = useState('pending');
 
   interface Phm {
     id: number;
@@ -39,7 +34,7 @@ const DashboardMOH = () => {
       firstName: string;
       lastName: string;
       isVerified: boolean;
-    };
+    } | null; // Allow null for safety
     moh: {};
   }
 
@@ -48,7 +43,7 @@ const DashboardMOH = () => {
   useEffect(() => {
     const getPhms = () => {
       const axiosConfig = {
-        method: "get",
+        method: 'get',
         url: `${BASE_URL}users/phm/all`,
         headers: {
           Authorization: `Bearer ${token}`,
@@ -68,7 +63,7 @@ const DashboardMOH = () => {
 
   const handleAddPhm = (phmID: number) => {
     const axiosConfig = {
-      method: "post",
+      method: 'post',
       url: `${BASE_URL}users/moh/addPhm`,
       headers: {
         Authorization: `Bearer ${token}`,
@@ -79,8 +74,8 @@ const DashboardMOH = () => {
     };
 
     axios(axiosConfig)
-      .then((response) => {
-        toast.success("PHM added successfully!");
+      .then(() => {
+        toast.success('PHM added successfully!');
         setTimeout(() => window.location.reload(), 1000);
       })
       .catch((err) => {
@@ -90,17 +85,14 @@ const DashboardMOH = () => {
 
   return (
     <div>
-      <h1 className='font-sans text-lg text-text_color_2 ml-5'>Dashboard Overview</h1>
+      <h1 className="font-sans text-lg text-text_color_2 ml-5">Dashboard Overview</h1>
 
       <PatientTable />
-      
 
-      
       <React.Fragment>
         <ToastContainer />
         <div className="mx-11">
           <div className="grid sm:grid-cols-3 grid-cols-2 gap-8 mb-5">
-            
             <MohDashboardStatCard
               image={fire}
               color="bg-[#A8F0DB]"
@@ -115,128 +107,115 @@ const DashboardMOH = () => {
               title="Unchecked"
               subtitle="patients"
             />
-            
             <div className="bg-white py-8 xs:px-6 px-4 h-42 rounded-lg">
               <div className="grid xs:grid-cols-2 grid-cols-1 gap-2 items-center">
                 <div
                   className={` xl:col-span-1 rounded-full bg-[#80CAFF] w-16 h-16 p-4 flex justify-center m-auto`}
                 >
                   <img src={fire} alt="Stat Icon" />
-                  
                 </div>
-
                 <div className="flex items-center llg:justify-start justify-center">
-                  <button className=" p-3 rounded-lg text-white hover:text-white bg-blue_primary hover:bg-blue_primary transition-all duration-300 ease-in-out transform hover:scale-105 active:scale-95">
+                  <button className="p-3 rounded-lg text-white hover:text-white bg-blue_primary hover:bg-blue_primary transition-all duration-300 ease-in-out transform hover:scale-105 active:scale-95">
                     Appointments
                   </button>
                 </div>
               </div>
-              
             </div>
           </div>
           <div>
             <h1 className="text-lg my-4">PHM list in your area</h1>
             <div className="flex space-x-4 mb-4">
               <button
-                onClick={() => setActiveTab("pending")}
+                onClick={() => setActiveTab('pending')}
                 className={`p-2 rounded-lg ${
-                  activeTab === "pending"
-                    ? "bg-blue_primary text-white"
-                    : "bg-gray-200"
+                  activeTab === 'pending' ? 'bg-blue_primary text-white' : 'bg-gray-200'
                 }`}
               >
                 Pending
               </button>
               <button
-                onClick={() => setActiveTab("verified")}
+                onClick={() => setActiveTab('verified')}
                 className={`p-2 rounded-lg ${
-                  activeTab === "verified"
-                    ? "bg-blue_primary text-white"
-                    : "bg-gray-200"
+                  activeTab === 'verified' ? 'bg-blue_primary text-white' : 'bg-gray-200'
                 }`}
               >
                 Verified
-                
               </button>
             </div>
-            
-            {activeTab === "pending" && (
+
+            {activeTab === 'pending' && (
               <>
                 <div className="grid lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-y-4 gap-x-6 mb-5">
                   {phms
-                    .filter((phm) => !phm.user.isVerified)
+                    .filter((phm) => phm.user?.isVerified === false) // Add null check
                     .map((phm, index) => (
                       <div
                         key={phm.id}
                         className={`transform transition-all duration-500 ease-in-out ${
                           index >= 3 && isPendingCollapsed
-                            ? "h-0 opacity-0 scale-95 overflow-hidden"
-                            : "h-auto opacity-100 scale-100"
+                            ? 'h-0 opacity-0 scale-95 overflow-hidden'
+                            : 'h-auto opacity-100 scale-100'
                         }`}
                       >
                         <PhmCard
-                          firstName={phm.user.firstName}
-                          lastName={phm.user.lastName}
+                          firstName={phm.user?.firstName || ''}
+                          lastName={phm.user?.lastName || ''}
                           nic={phm.nic}
                           location="New York, USA"
                           onAdd={() => handleAddPhm(phm.id)}
                           moh={phm.moh}
-                          isVerified={phm.user.isVerified}
+                          isVerified={phm.user?.isVerified || false}
                         />
                       </div>
                     ))}
                 </div>
-                {phms.filter((phm) => !phm.user.isVerified).length >=
-                  4 && (
+                {phms.filter((phm) => phm.user?.isVerified === false).length >= 4 && (
                   <button
                     onClick={() => setIsPendingCollapsed(!isPendingCollapsed)}
                     className="mt-4 p-3 rounded-lg text-white hover:text-white bg-blue_primary hover:bg-blue_primary transition-all duration-300 ease-in-out transform hover:scale-105 active:scale-95"
                   >
-                    {isPendingCollapsed ? "Show More" : "Show Less"}
+                    {isPendingCollapsed ? 'Show More' : 'Show Less'}
                   </button>
                 )}
               </>
             )}
-            {activeTab === "verified" && (
+            {activeTab === 'verified' && (
               <>
                 <div className="grid lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-y-4 gap-x-6 mb-5">
                   {phms
-                    .filter((phm) => phm.user.isVerified)
+                    .filter((phm) => phm.user?.isVerified === true) // Add null check
                     .map((phm, index) => (
                       <div
                         key={phm.id}
                         className={`transform transition-all duration-500 ease-in-out ${
                           index >= 3 && isVerifiedCollapsed
-                            ? "h-0 opacity-0 scale-95 overflow-hidden"
-                            : "h-auto opacity-100 scale-100"
+                            ? 'h-0 opacity-0 scale-95 overflow-hidden'
+                            : 'h-auto opacity-100 scale-100'
                         }`}
                       >
                         <PhmCard
-                          firstName={phm.user.firstName}
-                          lastName={phm.user.lastName}
+                          firstName={phm.user?.firstName || ''}
+                          lastName={phm.user?.lastName || ''}
                           nic={phm.nic}
                           location="New York, USA"
                           onAdd={() => handleAddPhm(phm.id)}
                           moh={phm.moh}
-                          isVerified={phm.user.isVerified}
+                          isVerified={phm.user?.isVerified || false}
                         />
                       </div>
                     ))}
                 </div>
-                {phms.filter((phm) => phm.user.isVerified).length >=
-                  4 && (
+                {phms.filter((phm) => phm.user?.isVerified === true).length >= 4 && (
                   <button
                     onClick={() => setIsVerifiedCollapsed(!isVerifiedCollapsed)}
                     className="mt-4 p-3 rounded-lg text-white hover:text-white bg-blue_primary hover:bg-blue_primary transition-all duration-300 ease-in-out transform hover:scale-105 active:scale-95"
                   >
-                    {isVerifiedCollapsed ? "Show More" : "Show Less"}
+                    {isVerifiedCollapsed ? 'Show More' : 'Show Less'}
                   </button>
                 )}
               </>
             )}
-            
           </div>
-          
         </div>
       </React.Fragment>
     </div>
