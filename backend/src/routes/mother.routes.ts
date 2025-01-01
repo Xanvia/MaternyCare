@@ -58,6 +58,15 @@ export const MotherRoutes = [
     // middlewares: [jwtMiddleware, roleMiddleware("mother")],
     middlewares: [],
   },
+
+  {
+    method: "put",
+    route: "/users/mother/:id/signature",
+    controller: MotherController,
+    action: "updateSignature",
+    middlewares: [jwtMiddleware],
+  },
+
   {
     method: "delete",
     route: "/users/mother/:id",

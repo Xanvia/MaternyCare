@@ -386,6 +386,9 @@ export class Mother {
   @OneToMany(() => Feedback, (feedback) => feedback.mother)
   feedbacks: Feedback[];
 
+  @Column({ type: "text", nullable: true })
+  signature: string; // New column for storing the signature
+
   @ManyToOne(() => Phm, (phm) => phm.mothers, {
     nullable: true,
     onDelete: "SET NULL", // When PHM is deleted, mothers can remain with no assigned PHM

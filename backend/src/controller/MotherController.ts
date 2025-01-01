@@ -186,6 +186,35 @@ export class MotherController {
     }
   }
 
+  async updateSignature(
+    request: Request,
+    response: Response,
+    next: NextFunction
+  ) {
+    const id = parseInt(request.params.id);
+    const { signature } = request.body;
+
+    try {
+      const mother = await this.motherRepository.findOne({
+        where: { id },
+      });
+
+      if (!mother) {
+        return response.status(404).json({ message: "Mother not found" });
+      }
+
+      // Update the mother's signature
+      mother.signature = signature;
+
+      await this.motherRepository.save(mother);
+      response.send(mother);
+      return;
+    } catch (error) {
+      return next(error);
+    }
+  }
+
+  
   async updateDashboard(
     request: Request,
     response: Response,
