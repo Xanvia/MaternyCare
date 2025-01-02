@@ -30,14 +30,11 @@ export default function RedPatientTable() {
       const token = storedToken ? JSON.parse(storedToken) : null;
 
       try {
-        const response = await axios.get(
-          "http://localhost:3000/users/mother/all",
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
+        const response = await axios.get("http://localhost:3000/vog/mothers/", {
+          // headers: {
+          //   Authorization: `Bearer ${token}`,
+          // },
+        });
 
         console.log("Response Dataaaa:", response.data); // Log the response data
 

@@ -20,6 +20,7 @@ const BasicDetails = () => {
     eligible_family_register: "",
     pregnant_mother_register: "",
     gs_division: "",
+    risk_type: "",
   });
   const [loading, setLoading] = useState(false);
   // const [success, setSuccess] = useState(false);
@@ -54,6 +55,7 @@ const BasicDetails = () => {
           pregnant_mother_register:
             response.data.pregnant_mother_register || "",
           gs_division: response.data.gs_division || "",
+          risk_type: response.data.risk_type,
         });
       } catch (err) {
         console.error("Error fetching basic details:", err);
@@ -98,6 +100,7 @@ const BasicDetails = () => {
           eligible_family_register: formData.eligible_family_register,
           pregnant_mother_register: formData.pregnant_mother_register,
           gs_division: formData.gs_division,
+          risk_type: formData.risk_type,
         },
         {
           headers: {
@@ -125,6 +128,29 @@ const BasicDetails = () => {
       className="max-w-full mx-4 my-4 bg-white shadow-lg rounded-lg p-6 border border-gray-200"
     >
       <form onSubmit={handleSubmit}>
+        {/* <label
+          htmlFor="riskType"
+          className="block text-sm font-medium text-gray-700 mt-4"
+        >
+          Risk Type
+        </label> */}
+        <select
+          id="riskType"
+          name="riskType"
+          value={formData.risk_type}
+          onChange={handleChange}
+          className={`mt-1 mb-8  block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 text-sm ${
+            formData.risk_type === "red"
+              ? "bg-red-500"
+              : formData.risk_type === "blue"
+              ? "bg-blue-500"
+              : ""
+          }`}
+        >
+          <option value="">Select Risk Type</option>
+          <option value="red">Red</option>
+          <option value="blue">Blue</option>
+        </select>
         <h2 className="my-2 font-medium text-lg">Basic Details</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {/* Left Side Fields */}
