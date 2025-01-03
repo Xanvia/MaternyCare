@@ -26,6 +26,7 @@ AppDataSource.initialize()
     // create express app
     const app = express();
     app.use(bodyParser.json());
+
     app.use(cors()); // use cors as middleware
 
     interface Route {

@@ -186,6 +186,34 @@ export class MotherController {
     }
   }
 
+  async updateVogSignature(
+    request: Request,
+    response: Response,
+    next: NextFunction
+  ) {
+    const id = parseInt(request.params.id);
+    const { signature } = request.body;
+
+    try {
+      const mother = await this.motherRepository.findOne({
+        where: { id },
+      });
+
+      if (!mother) {
+        return response.status(404).json({ message: "Mother not found" });
+      }
+
+      // Update the mother's signature
+      mother.vogSignature = signature;
+
+      await this.motherRepository.save(mother);
+      response.send(mother);
+      return;
+    } catch (error) {
+      return next(error);
+    }
+  }
+
   async updateSignature(
     request: Request,
     response: Response,
@@ -315,6 +343,58 @@ export class MotherController {
       }
 
       return mothers;
+    } catch (error) {
+      return next(error);
+    }
+  }
+
+  async updateRedMotherContent(
+    request: Request,
+    response: Response,
+    next: NextFunction
+  ) {
+    const id = parseInt(request.params.id);
+    const { richTextContent } = request.body;
+
+    try {
+      const mother = await this.motherRepository.findOne({
+        where: { id },
+      });
+
+      if (!mother) {
+        return response.status(404).json({ message: "Mother not found" });
+      }
+
+      // Update the mother's rich text content
+      mother.richTextContent = richTextContent;
+
+      await this.motherRepository.save(mother);
+      response.send(mother);
+      return;
+    } catch (error) {
+      return next(error);
+    }
+  }
+
+  async getRedMotherContent(
+    request: Request,
+    response: Response,
+    next: NextFunction
+  ) {
+    const id = parseInt(request.params.id);
+
+    try {
+      const mother = await this.motherRepository.findOne({
+        where: { id },
+      });
+
+      if (!mother) {
+        return response.status(404).json({ message: "Mother not found" });
+      }
+
+      // Return the mother's rich text content
+      response.status(200).json({ richTextContent: mother.richTextContent });
+      return;
     } catch (error) {
       return next(error);
     }

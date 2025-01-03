@@ -45,6 +45,15 @@ export const MotherRoutes = [
   },
 
   {
+    method: "put",
+    route: "/users/mother/:id/rich-text-content",
+    controller: MotherController,
+    action: "updateRedMotherContent",
+    // middlewares: [jwtMiddleware, roleMiddleware("mother")],
+    middlewares: [],
+  },
+
+  {
     method: "post",
     route: "/users/mother",
     controller: MotherController,
@@ -74,6 +83,14 @@ export const MotherRoutes = [
     route: "/users/mother/:id/signature",
     controller: MotherController,
     action: "updateSignature",
+    middlewares: [jwtMiddleware],
+  },
+
+  {
+    method: "put",
+    route: "/users/mother/:id/vogsignature",
+    controller: MotherController,
+    action: "updateVogSignature",
     middlewares: [jwtMiddleware],
   },
 
