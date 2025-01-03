@@ -87,7 +87,7 @@ const DashboardMOH = () => {
     <div>
       <h1 className="font-sans text-lg text-text_color_2 ml-5">Dashboard Overview</h1>
 
-      <PatientTable />
+      
 
       <React.Fragment>
         <ToastContainer />
@@ -218,6 +218,8 @@ const DashboardMOH = () => {
           </div>
         </div>
       </React.Fragment>
+
+      <PatientTable />
     </div>
   );
 };
