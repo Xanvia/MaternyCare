@@ -327,6 +327,23 @@ interface Patient {
   // status?: PatientStatus
 }
 
+interface Phm {
+  id: number;
+  nic: string;
+  phone_number: number;
+  mother_count: number;
+  user: {
+    firstName: string;
+    lastName: string;
+    isVerified: boolean;
+  } | null; // Allow null for safety
+  moh: {};
+}
+
+interface PatientTableProps {
+  phms: Phm[];
+}
+
 const mockData: Patient[] = Array.from({ length: 50 }, (_, i) => ({
   id: i + 1,
   patient: `PHM ${i + 1}`,
@@ -335,7 +352,7 @@ const mockData: Patient[] = Array.from({ length: 50 }, (_, i) => ({
   // status: i % 2 === 0 ? 'Completed' : 'Incompleted',
 }))
 
-export default function PatientTable() {
+const PatientTable: React.FC<PatientTableProps> = ({ phms }) => {
   const [searchTerm, setSearchTerm] = useState('')
   const [currentPage, setCurrentPage] = useState(1)
   const itemsPerPage = 10
@@ -352,14 +369,7 @@ export default function PatientTable() {
     currentPage * itemsPerPage
   )
 
-  // const statusColor = (status: PatientStatus) => {
-  //   switch (status) {
-  //     case 'Completed':
-  //       return 'bg-green-100 text-green-800'
-  //     case 'Incompleted':
-  //       return 'bg-red-100 text-red-800'
-  //   }
-  // }
+ 
 
   return (
     <div className="container mx-auto p-4 space-y-4">
@@ -399,15 +409,15 @@ export default function PatientTable() {
               </tr>
             </thead>
             <tbody className="bg-white divide-y divide-gray-200">
-              {currentData.map((row) => (
-                <tr key={row.id} className="hover:bg-gray-100">
+              {phms.map((phm) => (
+                <tr key={phm.id} className="hover:bg-gray-100">
                   <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                    <Link to={`/mohdashboard/patient/${row.id}`} className="block w-full h-full">
-                      {row.patient}
+                    <Link to={`/mohdashboard/patient/${phm.id}`} className="block w-full h-full">
+                      {phm.user?.firstName}
                     </Link>
                   </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{row.address}</td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{row.appointment}</td>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{phm.id}</td>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{phm.id}</td>
                   {/* <td className="px-6 py-4 whitespace-nowrap">
                     <span className={`px-2 py-1 text-xs font-semibold rounded-full ${statusColor(row.status!)}`}>
                       {row.status}
@@ -448,3 +458,4 @@ export default function PatientTable() {
   )
 }
 
+export default PatientTable;

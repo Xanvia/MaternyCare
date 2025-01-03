@@ -219,7 +219,7 @@ const DashboardMOH = () => {
         </div>
       </React.Fragment>
 
-      <PatientTable />
+      <PatientTable phms = {phms}/>
     </div>
   );
 };
