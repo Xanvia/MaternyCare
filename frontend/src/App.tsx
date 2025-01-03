@@ -32,6 +32,7 @@ import DashboardVOG from "./views/DashboardVOG";
 import Progress from "./views/Progress";
 import PhmMotherListInMoh from "./views/PhmMotherListInMoh";
 import Feedback from "./views/Feedback";
+import SingleRedMother from "./views/SingleRedMother";
 // import MotherRegistration from "./views/MotherReg";
 
 // You can add your routes here
@@ -157,6 +158,10 @@ const router = createBrowserRouter([
             <DashboardVOG />
           </PrivateRoute>
         ),
+      },
+      {
+        path: "patient/:id",
+        element: <SingleRedMother />,
       },
     ],
   },
@@ -319,6 +324,7 @@ const router = createBrowserRouter([
       },
     ],
   },
+
   {
     path: "/mother-appointment-singleview/:id",
     element: <BaseLayout />,

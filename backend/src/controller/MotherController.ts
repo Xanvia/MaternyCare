@@ -295,6 +295,31 @@ export class MotherController {
     return mothers;
   }
 
+  async getMothersByRiskType(
+    request: Request,
+    response: Response,
+    next: NextFunction
+  ) {
+    // const riskType = request.params.riskType;
+
+    try {
+      const mothers = await this.motherRepository.find({
+        where: { risk_type: "red" },
+        relations: ["user", "phm", "appointments"],
+      });
+
+      if (!mothers.length) {
+        return response
+          .status(404)
+          .json({ message: `No mothers found with risk type red` });
+      }
+
+      return mothers;
+    } catch (error) {
+      return next(error);
+    }
+  }
+
   async getPhmAllMothersByUserId(
     request: Request,
     response: Response,

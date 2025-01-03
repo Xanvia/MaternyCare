@@ -34,6 +34,16 @@ export const MotherRoutes = [
     // middlewares: [jwtMiddleware, roleMiddleware("mother")],
     middlewares: [jwtMiddleware],
   },
+
+  {
+    method: "get",
+    route: "/vog/mothers/",
+    controller: MotherController,
+    action: "getMothersByRiskType",
+    // middlewares: [jwtMiddleware, roleMiddleware("mother")],
+    middlewares: [],
+  },
+
   {
     method: "post",
     route: "/users/mother",
