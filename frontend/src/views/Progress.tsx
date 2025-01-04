@@ -15,7 +15,7 @@ import MohDashboardStatCard from '../components/MohDashboardCard';
 import PhmCard from '../components/PhmCard';
 import useRoleProtection from '../customHooks/useRoleProtection';
 
-const DashboardMOH = () => {
+const Progress = () => {
   useRoleProtection('moh');
   const [value, setValue] = React.useState('mother'); // Default tab is 'MOTHER LIST'
   const BASE_URL = 'http://localhost:3000/';
@@ -225,4 +225,4 @@ const DashboardMOH = () => {
   );
 };
 
-export default DashboardMOH;
+export default Progress;

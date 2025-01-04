@@ -29,6 +29,7 @@ import MotherRegistrationPage from "./views/MotherRegistrationPage";
 import MohProfile from "./views/MohProfile";
 import PhmProfile from "./views/PhmProfile";
 import DashboardVOG from "./views/DashboardVOG";
+import Progress from "./views/Progress";
 // import MotherRegistration from "./views/MotherReg";
 
 // You can add your routes here
@@ -281,6 +282,16 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <Notification />,
+      },
+    ],
+  },
+  {
+    path: "/progress",
+    element: <BaseLayout />,
+    children: [
+      {
+        index: true,
+        element: <Progress />,
       },
     ],
   },
