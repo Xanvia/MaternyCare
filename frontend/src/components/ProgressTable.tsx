@@ -1,17 +1,4 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import { Search } from 'lucide-react';
-import { Link } from 'react-router-dom';
-
-type PatientStatus = 'Completed' | 'Incompleted'
-
-interface Patient {
-  id: number
-  patient: string
-  address: string
-  appointment: string
-  // status?: PatientStatus
-}
+import React, { useState } from 'react';
 
 interface Phm {
   phm_area: string;
@@ -27,40 +14,30 @@ interface Phm {
   moh: {};
 }
 
-interface PatientTableProps {
+interface ProgressTableProps {
   phms: Phm[];
 }
 
-const mockData: Patient[] = Array.from({ length: 50 }, (_, i) => ({
-  id: i + 1,
-  patient: `PHM ${i + 1}`,
-  address: `${i + 1} Oak St`,
-  appointment: `2023-11-${(i % 30) + 1}`,
-  // status: i % 2 === 0 ? 'Completed' : 'Incompleted',
-}))
+const ProgressTable: React.FC<ProgressTableProps> = ({ phms }) => {
+  const [searchTerm, setSearchTerm] = useState('');
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 10;
 
-const ProgressTable: React.FC<PatientTableProps> = ({ phms }) => {
-  const [searchTerm, setSearchTerm] = useState('')
-  const [currentPage, setCurrentPage] = useState(1)
-  const itemsPerPage = 10
+  const filteredData = phms.filter((phm) =>
+    phm.user?.firstName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    phm.user?.lastName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    phm.nic.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    phm.phone_number.toString().includes(searchTerm.toLowerCase())
+  );
 
-  const filteredData = mockData.filter((item) =>
-    Object.values(item).some((value) =>
-      value.toString().toLowerCase().includes(searchTerm.toLowerCase())
-    )
-  )
-
-  const pageCount = Math.ceil(filteredData.length / itemsPerPage)
+  const pageCount = Math.ceil(filteredData.length / itemsPerPage);
   const currentData = filteredData.slice(
     (currentPage - 1) * itemsPerPage,
     currentPage * itemsPerPage
-  )
-
- 
+  );
 
   return (
     <div className="container mx-auto p-4 space-y-4">
-      {/* <h1 className="text-2xl font-bold text-gray-700">PHM List</h1> */}
       <div className="flex rounded-t-lg overflow-hidden" style={{ backgroundColor: "#F5F5F5" }}>
         <button
           className="flex-1 py-2 px-4 text-sm font-medium transition-colors duration-200 bg-purple_primary text-gray-800 border border-purple-600 rounded-2xl mx-1"
@@ -71,15 +48,14 @@ const ProgressTable: React.FC<PatientTableProps> = ({ phms }) => {
       <div className="space-y-4">
         <div className="flex justify-between items-center">
           <div className="relative">
-            <Search className="absolute left-2 top-2.5 h-4 w-4 text-gray-400" />
             <input
               type="text"
               placeholder="Search..."
               className="pl-8 w-full border rounded py-2 px-3"
               value={searchTerm}
               onChange={(e) => {
-                setSearchTerm(e.target.value)
-                setCurrentPage(1)
+                setSearchTerm(e.target.value);
+                setCurrentPage(1);
               }}
             />
           </div>
@@ -92,16 +68,13 @@ const ProgressTable: React.FC<PatientTableProps> = ({ phms }) => {
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">PHM Area</th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Contact Number</th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Rating</th>
-                {/* <th className="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th> */}
               </tr>
             </thead>
             <tbody className="bg-white divide-y divide-gray-200">
-              {phms.map((phm) => (
+              {currentData.map((phm) => (
                 <tr key={phm.id} className="hover:bg-gray-100">
                   <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                    <Link to={`/mohdashboard/patient/${phm.id}`} className="block w-full h-full">
-                      {phm.user ? `${phm.user.firstName} ${phm.user.lastName}` : "Unknown User"}
-                    </Link>
+                    {phm.user ? `${phm.user.firstName} ${phm.user.lastName}` : "Unknown User"}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{phm.phm_area || "Not Available"}</td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{phm.phone_number || "N/A"}</td>
@@ -109,14 +82,12 @@ const ProgressTable: React.FC<PatientTableProps> = ({ phms }) => {
                 </tr>
               ))}
             </tbody>
-
           </table>
         </div>
         <div className="flex items-center justify-between">
-          {/* <p className="text-sm text-gray-700">
-            Showing {(currentPage - 1) * itemsPerPage + 1} to {Math.min(currentPage * itemsPerPage, filteredData.length)} of{' '}
-            {filteredData.length} results
-          </p> */}
+          <p className="text-sm text-gray-700">
+            Showing {(currentPage - 1) * itemsPerPage + 1} to {Math.min(currentPage * itemsPerPage, filteredData.length)} of {filteredData.length} results
+          </p>
           <div className="flex space-x-2">
             <button
               onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
@@ -134,7 +105,7 @@ const ProgressTable: React.FC<PatientTableProps> = ({ phms }) => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
 export default ProgressTable;
