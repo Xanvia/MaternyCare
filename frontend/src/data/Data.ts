@@ -55,7 +55,7 @@ export const getNavLinks = ({ role }: { role: string }) => {
     {
       name: "Progress",
       icon: GradingIcon,
-      path: "/guide",
+      path: "/progress",
       // This button is visible only for 'MOH' role
       roles: ["moh"],
     },
