@@ -86,6 +86,9 @@ const PatientTable: React.FC<PatientTableProps> = ({ phms }) => {
           </table>
         </div>
         <div className="flex items-center justify-between">
+          <p className="text-sm text-gray-700">
+            Showing {(currentPage - 1) * itemsPerPage + 1} to {Math.min(currentPage * itemsPerPage, filteredData.length)} of {filteredData.length} results
+          </p>
           <div className="flex space-x-2">
             <button
               onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
