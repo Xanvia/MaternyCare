@@ -73,7 +73,7 @@ const PatientTable: React.FC<PatientTableProps> = ({ phms }) => {
               {currentData.map((phm) => (
                 <tr key={phm.id} className="hover:bg-gray-100">
                   <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                    <Link to={`/mohdashboard/patient/${phm.id}`} className="block w-full h-full">
+                    <Link to={`/mohdashboard/phm/${phm.id}`} className="block w-full h-full">
                       {phm.user ? `${phm.user.firstName} ${phm.user.lastName}` : "Unknown User"}
                     </Link>
                   </td>

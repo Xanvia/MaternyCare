@@ -30,6 +30,7 @@ import MohProfile from "./views/MohProfile";
 import PhmProfile from "./views/PhmProfile";
 import DashboardVOG from "./views/DashboardVOG";
 import Progress from "./views/Progress";
+import PhmMotherListInMoh from "./views/PhmMotherListInMoh";
 // import MotherRegistration from "./views/MotherReg";
 
 // You can add your routes here
@@ -185,8 +186,12 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "patient/:id",
-        element: <div>hello</div>,
+        path: "phm/:id",
+        element: (
+          <PrivateRoute>
+            <PhmMotherListInMoh />
+          </PrivateRoute>
+        ),
       },
     ],
   },
