@@ -3,11 +3,13 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
 interface Mother {
+  phone_1: string;
+  user: any;
   id: number;
   firstName: string;
   lastName: string;
   nic: string;
-  phone_number: number;
+  phone_number: string;
 }
 
 const BASE_URL = 'http://localhost:3000/';
@@ -119,10 +121,10 @@ const PhmMotherListInMoh: React.FC = () => {
             {currentData.map((mother) => (
               <tr key={mother.id} className="hover:bg-gray-100">
                 <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                  {mother.firstName} {mother.lastName}
+                  {mother.user.firstName} {mother.user.lastName}
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{mother.nic}</td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{mother.phone_number}</td>
+                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{mother.phone_1}</td>
               </tr>
             ))}
           </tbody>
