@@ -1,14 +1,8 @@
 import * as React from 'react';
-import Tabs from '@mui/material/Tabs';
-import Tab from '@mui/material/Tab';
-import Box from '@mui/material/Box';
-import AddMotherModal from '../modals/AddMotherModal';
-import CustomPaginationActionsTable from '../components/CustomPaginationActionsTable';
 import PhmTable from '../components/PhmTableInMoh';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { toast, ToastContainer } from 'react-toastify';
-import PhmDashboardStatCard from '../components/PhmDashboardCard';
 import fire from '../assets/images/fire.svg';
 import water from '../assets/images/drops.svg';
 import MohDashboardStatCard from '../components/MohDashboardCard';
@@ -17,7 +11,6 @@ import useRoleProtection from '../customHooks/useRoleProtection';
 
 const DashboardMOH = () => {
   useRoleProtection('moh');
-  const [value, setValue] = React.useState('mother'); // Default tab is 'MOTHER LIST'
   const BASE_URL = 'http://localhost:3000/';
   const storedToken = localStorage.getItem('token');
   const token = storedToken ? JSON.parse(storedToken) : null;
