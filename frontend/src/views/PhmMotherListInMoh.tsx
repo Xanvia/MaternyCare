@@ -4,12 +4,12 @@ import { useParams } from 'react-router-dom';
 
 interface Mother {
   phone_1: string;
-  user: any;
+  user: {
+    firstName: string;
+    lastName: string;
+  };
   id: number;
-  firstName: string;
-  lastName: string;
   nic: string;
-  phone_number: string;
 }
 
 const BASE_URL = 'http://localhost:3000/';
@@ -22,21 +22,6 @@ const PhmMotherListInMoh: React.FC = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [mothers, setMothers] = useState<Mother[]>([]);
   const itemsPerPage = 10;
-
-  // useEffect(() => {
-  //   // Fetch the mother list based on the PHM ID
-  //   const fetchMothers = async () => {
-  //     try {
-  //       const response = await fetch(`/api/mothers?phmId=${id}`);
-  //       const data = await response.json();
-  //       setMothers(data);
-  //     } catch (error) {
-  //       console.error('Error fetching mother list:', error);
-  //     }
-  //   };
-
-  //   fetchMothers();
-  // }, [id]);
 
   useEffect(() => {
     const getMothers = async () => {
@@ -51,26 +36,18 @@ const PhmMotherListInMoh: React.FC = () => {
         console.error('Error fetching mother list:', error);
       }
     };
-  
+
     if (id) {
       getMothers();
     }
   }, [id, token]);
-  
-
-  // const filteredData = mothers.filter((mother) =>
-  //   mother.firstName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-  //   mother.lastName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-  //   mother.nic.toLowerCase().includes(searchTerm.toLowerCase()) ||
-  //   mother.phone_number.toString().includes(searchTerm.toLowerCase())
-  // );
 
   const filteredData = mothers.filter((mother) => {
-    const firstName = mother.firstName || "";
-    const lastName = mother.lastName || "";
+    const firstName = mother.user.firstName || "";
+    const lastName = mother.user.lastName || "";
     const nic = mother.nic || "";
-    const phoneNumber = mother.phone_number ? mother.phone_number.toString() : "";
-  
+    const phoneNumber = mother.phone_1 || "";
+
     return (
       firstName.toLowerCase().includes(searchTerm.toLowerCase()) ||
       lastName.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -78,7 +55,6 @@ const PhmMotherListInMoh: React.FC = () => {
       phoneNumber.includes(searchTerm.toLowerCase())
     );
   });
-  
 
   const pageCount = Math.ceil(filteredData.length / itemsPerPage);
   const currentData = filteredData.slice(
@@ -88,7 +64,6 @@ const PhmMotherListInMoh: React.FC = () => {
 
   return (
     <div className="container mx-auto p-4 space-y-4">
-      {/* <h1>Mother List for PHM ID: {id}</h1> */}
       <div className="flex rounded-t-lg overflow-hidden" style={{ backgroundColor: "#F5F5F5" }}>
         <button className="flex-1 py-2 px-4 text-sm font-medium transition-colors duration-200 bg-purple_primary text-gray-800 border border-purple-600 rounded-2xl mx-1">
           Mother List for PHM ID: {id}
