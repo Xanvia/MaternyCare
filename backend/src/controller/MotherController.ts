@@ -214,7 +214,6 @@ export class MotherController {
     }
   }
 
-  
   async updateDashboard(
     request: Request,
     response: Response,
@@ -281,17 +280,17 @@ export class MotherController {
       relations: ["user", "phm"],
     });
 
-    if (!phm) {
-      return response
-        .status(404)
-        .json({ message: "PHM not found for the given Phm ID" });
-    }
+    // if (!phm) {
+    //   return response
+    //     .status(404)
+    //     .json({ message: "PHM not found for the given Phm ID" });
+    // }
 
-    if (!mothers.length) {
-      return response
-        .status(404)
-        .json({ message: "No mothers found for the given PHM ID" });
-    }
+    // if (!mothers.length) {
+    //   return response
+    //     .status(404)
+    //     .json({ message: "No mothers found for the given PHM ID" });
+    // }
 
     return mothers;
   }
