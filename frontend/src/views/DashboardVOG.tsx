@@ -1,5 +1,5 @@
 import * as React from "react";
-import PatientTable from "../components/PatientTable";
+import PatientTable from "../components/PhmTableInMoh";
 import RedPatientTable from "../components/RedPatientList";
 
 const DashboardVOG = () => {

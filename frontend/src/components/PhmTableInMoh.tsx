@@ -14,11 +14,11 @@ interface Phm {
   } | null; // Allow null for safety
 }
 
-interface PatientTableProps {
+interface PhmTableProps {
   phms: Phm[];
 }
 
-const PatientTable: React.FC<PatientTableProps> = ({ phms }) => {
+const PhmTable: React.FC<PhmTableProps> = ({ phms }) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
@@ -109,4 +109,4 @@ const PatientTable: React.FC<PatientTableProps> = ({ phms }) => {
   );
 };
 
-export default PatientTable;
+export default PhmTable;

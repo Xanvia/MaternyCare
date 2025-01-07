@@ -4,7 +4,7 @@ import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
 import AddMotherModal from '../modals/AddMotherModal';
 import CustomPaginationActionsTable from '../components/CustomPaginationActionsTable';
-import PatientTable from '../components/PatientTable';
+import PhmTable from '../components/PhmTableInMoh';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { toast, ToastContainer } from 'react-toastify';
@@ -220,7 +220,7 @@ const DashboardMOH = () => {
         </div>
       </React.Fragment>
 
-      <PatientTable phms = {phms}/>
+      <PhmTable phms = {phms}/>
     </div>
   );
 };
