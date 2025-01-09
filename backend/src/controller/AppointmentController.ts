@@ -14,7 +14,7 @@ export class AppointmentController {
   private appointmentRepository = AppDataSource.getRepository(Appointment);
   private motherRepository = AppDataSource.getRepository(Mother);
   private userRepository = AppDataSource.getRepository(User);
-  private feedbackRepository = getRepository(Feedback);
+
   private phmRepository = getRepository(Phm);
 
   async all(request: Request, response: Response, next: NextFunction) {
@@ -138,45 +138,44 @@ export class AppointmentController {
     return appointments;
   }
 
-  async getMotherFeedbackFromPhmId(
-    request: Request,
-    response: Response,
-    next: NextFunction
-  ) {
-    const phmId = parseInt(request.params.id);
+  // async getMotherFeedbackFromPhmId(
+  //   request: Request,
+  //   response: Response,
+  //   next: NextFunction
+  // ) {
+  //   const phmId = parseInt(request.params.id);
 
-    // Fetch mothers associated with the given PHM ID
-    const mothers = await this.motherRepository.find({
-      where: { phm: { id: phmId } },
-    });
+  //   // Fetch mothers associated with the given PHM ID
+  //   const mothers = await this.motherRepository.find({
+  //     where: { phm: { id: phmId } },
+  //   });
+  //   // Extract mother IDs
+  //   const motherIds = mothers.map((mother) => mother.id);
+  //   console.log(motherIds);
+  //   // Fetch appointments associated with those mothers
+  //   const appointments = await this.appointmentRepository.find({
+  //     where: { mother: { id: In(motherIds) } },
+  //     relations: ["mother"],
+  //   });
 
-    // Extract mother IDs
-    const motherIds = mothers.map((mother) => mother.id);
+  //   // Extract appointment IDs
+  //   const appointmentIds = appointments.map((appointment) => appointment.id);
 
-    // Fetch appointments associated with those mothers
-    const appointments = await this.appointmentRepository.find({
-      where: { mother: { id: In(motherIds) } },
-      relations: ["mother"],
-    });
+  //   // Fetch feedback associated with those appointments
+  //   // const feedbacks = await this.feedbackRepository.find({
+  //   //   where: { appointment: { id: In(appointmentIds) } },
+  //   //   relations: ["appointment", "appointment.mother"],
+  //   // });
 
-    // Extract appointment IDs
-    const appointmentIds = appointments.map((appointment) => appointment.id);
+  //   const feedbacks = await this.feedbackRepository
+  //     .createQueryBuilder("feedback")
+  //     .innerJoinAndSelect("feedback.appointment", "appointment")
+  //     .innerJoinAndSelect("appointment.mother", "mother")
+  //     .where("mother.id IN (:...motherIds)", { motherIds })
+  //     .getMany();
 
-    // Fetch feedback associated with those appointments
-    // const feedbacks = await this.feedbackRepository.find({
-    //   where: { appointment: { id: In(appointmentIds) } },
-    //   relations: ["appointment", "appointment.mother"],
-    // });
-
-    const feedbacks = await this.feedbackRepository
-      .createQueryBuilder("feedback")
-      .innerJoinAndSelect("feedback.appointment", "appointment")
-      .innerJoinAndSelect("appointment.mother", "mother")
-      .where("mother.id IN (:...motherIds)", { motherIds })
-      .getMany();
-
-    return feedbacks;
-  }
+  //   return feedbacks;
+  // }
 
   // async generateAppointment(request: Request, response: Response, next: NextFunction) {
 
