@@ -16,6 +16,7 @@ export class AppointmentController {
   private userRepository = AppDataSource.getRepository(User);
 
   private phmRepository = getRepository(Phm);
+  feedbackRepository: any;
 
   async all(request: Request, response: Response, next: NextFunction) {
     return this.appointmentRepository.find({
