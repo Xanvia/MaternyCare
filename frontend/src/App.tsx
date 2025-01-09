@@ -300,7 +300,7 @@ const router = createBrowserRouter([
         element: <Progress />,
       },
       {
-        path: "phm/:id",
+        path: "feedback/phm/:id",
         element: (
           <PrivateRoute>
             <Feedback />
