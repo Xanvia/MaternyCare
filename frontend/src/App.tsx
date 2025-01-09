@@ -31,6 +31,7 @@ import PhmProfile from "./views/PhmProfile";
 import DashboardVOG from "./views/DashboardVOG";
 import Progress from "./views/Progress";
 import PhmMotherListInMoh from "./views/PhmMotherListInMoh";
+import Feedback from "./views/Feedback";
 // import MotherRegistration from "./views/MotherReg";
 
 // You can add your routes here
@@ -297,6 +298,14 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <Progress />,
+      },
+      {
+        path: "phm/:id",
+        element: (
+          <PrivateRoute>
+            <Feedback />
+          </PrivateRoute>
+        ),
       },
     ],
   },
