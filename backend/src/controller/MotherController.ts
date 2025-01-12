@@ -277,7 +277,7 @@ export class MotherController {
 
     const mothers = await this.motherRepository.find({
       where: { phm: { id: phmId } },
-      relations: ["user", "phm"],
+      relations: ["user", "phm", "appointments"],
     });
 
     // if (!phm) {
