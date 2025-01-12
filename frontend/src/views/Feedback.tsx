@@ -5,7 +5,7 @@ import axios from 'axios';
 interface Mother {
   age: number;
   appointments: { 
-      feedback: string;
+    feedback: string;
   };
 }
 
@@ -21,7 +21,7 @@ const Feedback: React.FC = () => {
   useEffect(() => {
     const fetchMothers = async () => {
       try {
-        const response = await axios.get(`${BASE_URL}users/mother/all`, {
+        const response = await axios.get(`${BASE_URL}phm/mothers/${id}`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -43,26 +43,53 @@ const Feedback: React.FC = () => {
     return <div>Loading...</div>;
   }
 
-  console.log("huhfhf",mothers);
+  // console.log("huhfhf",mothers);
 
   return (
+    // <div className="container mx-auto p-4 space-y-4">
+    //   <h1>Feedback for PHM ID: {id}</h1>
+    //   {/* <div className="bg-white divide-y divide-gray-200">
+    //         {mothers.map((mother) => (
+    //           <div>
+    //             {mother.appointments?.feedback}
+    //             {mother.age}
+    //           </div>
+    //         ))}
+    //   </div> */}
+
+    //   <div className="bg-white divide-y divide-gray-200">
+    //     {mothers.map((mother, index) => (
+    //       <div key={index}>
+    //         {mother.appointments?.feedback || "No feedback available"}
+    //         <br />
+    //         Age: {mother.age}
+    //       </div>
+    //     ))}
+    //   </div>
+
+    // </div>
+
     <div className="container mx-auto p-4 space-y-4">
-      <h1>Feedback for PHM ID: {id}</h1>
-      <div className="bg-white divide-y divide-gray-200">
-            {mothers.map((mother) => (
-              // <tr key={feedback.id} className="hover:bg-gray-100">
-              //   <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-              //     {feedback.appointment.mother.firstName} {feedback.appointment.mother.lastName}
-              //   </td>
-              //   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{feedback.content}</td>
-              // </tr>
-              <div>
-                {mother.appointments.feedback}
-                {/* {mother.age} */}
-              </div>
-            ))}
-      </div>
+      <h1 className="text-2xl font-bold">Feedbacks for PHM ID: {id}</h1>
+      {mothers.length === 0 ? (
+        <p className="text-gray-500">No mothers found for this ID.</p>
+      ) : (
+        <div className="bg-white divide-y divide-gray-200 rounded-lg shadow">
+          {mothers.map((mother, index) => (
+            <div key={index} className="p-4">
+              <p>
+                <span className="font-semibold">Feedback:</span>{" "}
+                {mother.appointments?.feedback || "No feedback available"}
+              </p>
+              <p>
+                <span className="font-semibold">Age:</span> {mother.age}
+              </p>
+            </div>
+          ))}
+        </div>
+      )}
     </div>
+
   );
 };
 
