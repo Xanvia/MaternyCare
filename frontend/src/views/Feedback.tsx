@@ -81,9 +81,9 @@ const Feedback: React.FC = () => {
                 <span className="font-semibold">Feedback:</span>{" "}
                 {mother.appointments?.feedback || "No feedback available"}
               </p>
-              <p>
+              {/* <p>
                 <span className="font-semibold">Age:</span> {mother.age}
-              </p>
+              </p> */}
             </div>
           ))}
         </div>
