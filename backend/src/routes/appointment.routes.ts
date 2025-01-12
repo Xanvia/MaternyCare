@@ -30,6 +30,13 @@ export const AppointmentRoutes = [
     action: "getMotherAppoinmentsfromMotherId",
     middlewares: [],
   },
+  // {
+  //   method: "get",
+  //   route: "/feedback/phm/:id",
+  //   controller: AppointmentController,
+  //   action: "getMotherFeedbackFromPhmId",
+  //   middlewares: [],
+  // },
   {
     method: "post",
     route: "/appointments/:userId",

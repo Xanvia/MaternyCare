@@ -4,6 +4,7 @@ import {
   NoticesIcon,
   ProfileIcon,
   Help,
+  GradingIcon,
 } from "../assets/icons/Icons";
 
 // const getDashboardPath = () => {
@@ -24,38 +25,51 @@ import {
 // };
 
 // console.log("role from drawer " + getDashboardPath());
-export const getNavLinks = ({ role }: { role: string }) => [
-  {
-    name: "Dashboard",
-    icon: DashboardIcon,
-    path: `/${role}dashboard`,
-  },
-  {
-    name: "Notices",
-    icon: NoticesIcon,
-    path: "/notices",
-  },
-  {
-    name: "Appointments",
-    icon: AppointmentsIcon,
-    path: `/${role}appointments`,
-  },
-  {
-    name: "Profile",
-    icon: ProfileIcon,
-    path: `/${role}profile`,
-  },
-  {
-    name: "Mother's Guide",
-    icon: Help,
-    path: "/guide",
-  },
-  // {
-  //   name: "Logout",
-  //   icon: LogoutIcon,
-  //   path: "",
-  // },
-];
+export const getNavLinks = ({ role }: { role: string }) => {
+  const navLinks = [
+    {
+      name: "Dashboard",
+      icon: DashboardIcon,
+      path: `/${role}dashboard`,
+    },
+    {
+      name: "Notices",
+      icon: NoticesIcon,
+      path: "/notices",
+    },
+    {
+      name: "Appointments",
+      icon: AppointmentsIcon,
+      path: `/${role}appointments`,
+    },
+    {
+      name: "Profile",
+      icon: ProfileIcon,
+      path: `/${role}profile`,
+    },
+    {
+      name: "Mother's Guide",
+      icon: Help,
+      path: "/guide",
+    },
+    {
+      name: "Progress",
+      icon: GradingIcon,
+      path: "/progress",
+      // This button is visible only for 'MOH' role
+      roles: ["moh"],
+    },
+  ];
+
+  // Filter the 'Progress' button based on the user's role
+  return navLinks.filter((link) => {
+    if (link.roles) {
+      return link.roles.includes(role); // Show only if the user's role matches
+    }
+    return true; // Show other links without any role restriction
+  });
+};
+
 // export const appointments = [
 //   {
 //     id: 1,

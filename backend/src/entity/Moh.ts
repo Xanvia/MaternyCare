@@ -8,6 +8,7 @@ import {
 } from "typeorm";
 import { Appointment } from "./Appointment";
 import { User } from "./User";
+import { Phm } from "./Phm";
 
 @Entity()
 export class Moh {
@@ -41,6 +42,9 @@ export class Moh {
   })
   @JoinColumn()
   user: User;
+
+  @OneToMany(() => Phm, (phm) => phm.moh)
+  phms: Phm[];
 
   // @OneToMany(() => Appointment, (appointment) => appointment.moh)
   // appointments: Appointment[];
