@@ -19,8 +19,7 @@ const BaseLayout = () => {
           onCollapsedChange={setIsDrawerCollapsed}
         />
         <div
-          className={`transition-[margin] duration-300 ease-in-out w-full
-          ${isDrawerCollapsed ? "lg:ml-20" : "lg:ml-64"} ml-0`}
+          className={`transition-[margin] duration-300 ease-in-out w-full ${isDrawerCollapsed ? "lg:ml-20" : "lg:ml-64"} ml-0`}
         >
           {location.pathname.includes("singlepost") ? (
             <Outlet />
