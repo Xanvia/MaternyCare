@@ -365,6 +365,7 @@ export class AppointmentController {
       startDate, 
       endDate, 
       fixedDate, 
+      Date_Of_Visited,
       month, 
       checkedByMother, 
       checkedByPHM, 
@@ -409,6 +410,7 @@ export class AppointmentController {
     appointmentToUpdate.startDate = startDate;
     appointmentToUpdate.endDate = endDate;
     appointmentToUpdate.fixedDate = fixedDate;
+    appointmentToUpdate.Date_Of_Visited = Date_Of_Visited;
     appointmentToUpdate.month = month;
     appointmentToUpdate.checkedByPHM = checkedByPHM;
     appointmentToUpdate.checkedByMother = checkedByMother;

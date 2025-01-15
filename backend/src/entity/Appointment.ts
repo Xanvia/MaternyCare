@@ -64,6 +64,9 @@ export class Appointment {
   @Column({ type: "date", nullable: true })
   fixedDate: Date;
 
+  @Column({ type: "date", nullable: true })
+  Date_Of_Visited: Date;
+
   @Column({ type: "int", nullable: true })
   POA_weeks: number;
 
