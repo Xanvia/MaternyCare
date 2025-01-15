@@ -7,59 +7,58 @@ import "react-toastify/dist/ReactToastify.css";
 const storedToken = localStorage.getItem("token");
 const token = storedToken ? JSON.parse(storedToken) : null;
 
+
 const ClinicCare = () => {
   const [formData, setFormData] = useState({
-    mother_gravidity_G: "",
-    mother_gravidity_P: "",
-    mother_gravidity_C: "",
-    mother_blood_type: "",
-    mother_height: "",
-    allergies: "",
-    moh_area: "",
-    phm_area: "",
-    field_clinic: "",
-    consultant_obstetrician: "",
-    antenatal_risk_conditions: "",
-    eligible_family_register: "",
-    pregnant_mother_register: "",
-    gs_division: "",
+    Date_Of_Visited: "",
+    POA_weeks: "",
+    // mother_gravidity_P: "",
+    // mother_gravidity_C: "",
+    // mother_blood_type: "",
+    // mother_height: "",
+    // allergies: "",
+    // moh_area: "",
+    // phm_area: "",
+    // field_clinic: "",
+    // consultant_obstetrician: "",
+    // antenatal_risk_conditions: "",
+    // eligible_family_register: "",
+    // pregnant_mother_register: "",
+    // gs_division: "",
   });
   const [loading, setLoading] = useState(false);
   // const [success, setSuccess] = useState(false);
   const [isUpdating, setIsUpdating] = useState(false);
 
   const { id } = useParams<{ id: string }>();
+  const { appointmentid } = useParams<{ appointmentid: string }>();
   // Fetch existing data when component mounts
   useEffect(() => {
-    const fetchBasicDetails = async () => {
+    const fetchAppointmentDetails = async () => {
       try {
         setLoading(true);
         const response = await axios.get(
-          `http://localhost:3000/users/mother/${id}`,
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        ); // Adjust endpoint as needed
+          `http://localhost:3000/appointments/${appointmentid}`,
+        ); 
         setFormData({
-          mother_gravidity_G: response.data.mother_gravidity_G || "",
-          mother_gravidity_P: response.data.mother_gravidity_P || "",
-          mother_gravidity_C: response.data.mother_gravidity_C || "", 
-          mother_blood_type: response.data.mother_blood_type || "",
-          mother_height: response.data.mother_height || "",
-          allergies: response.data.allergies || "",
-          moh_area: response.data.moh_area || "",
-          phm_area: response.data.phm_area || "",
-          field_clinic: response.data.field_clinic || "",
-          consultant_obstetrician: response.data.consultant_obstetrician || "",
-          antenatal_risk_conditions:
-            response.data.antenatal_risk_conditions || "",
-          eligible_family_register:
-            response.data.eligible_family_register || "",
-          pregnant_mother_register:
-            response.data.pregnant_mother_register || "",
-          gs_division: response.data.gs_division || "",
+          Date_Of_Visited: response.data.Date_Of_Visited || "",
+          POA_weeks: response.data.POA_weeks || "",
+          // mother_gravidity_P: response.data.mother_gravidity_P || "",
+          // mother_gravidity_C: response.data.mother_gravidity_C || "", 
+          // mother_blood_type: response.data.mother_blood_type || "",
+          // mother_height: response.data.mother_height || "",
+          // allergies: response.data.allergies || "",
+          // moh_area: response.data.moh_area || "",
+          // phm_area: response.data.phm_area || "",
+          // field_clinic: response.data.field_clinic || "",
+          // consultant_obstetrician: response.data.consultant_obstetrician || "",
+          // antenatal_risk_conditions:
+          //   response.data.antenatal_risk_conditions || "",
+          // eligible_family_register:
+          //   response.data.eligible_family_register || "",
+          // pregnant_mother_register:
+          //   response.data.pregnant_mother_register || "",
+          // gs_division: response.data.gs_division || "",
         });
       } catch (err) {
         console.error("Error fetching basic details:", err);
@@ -68,7 +67,7 @@ const ClinicCare = () => {
       }
     };
 
-    fetchBasicDetails();
+    fetchAppointmentDetails();
   }, []);
 
   // Handle input changes
@@ -88,37 +87,33 @@ const ClinicCare = () => {
       // setSuccess(false);
       setIsUpdating(true);
 
-      console.log("id from form ", id);
+      console.log("id from form ", appointmentid);
 
       await axios.put(
-        `http://localhost:3000/users/mother/${id}/basic-details`,
+        `http://localhost:3000/appointments/${appointmentid}`,
         {
-          mother_blood_type: formData.mother_blood_type,
-          mother_height: formData.mother_height,
-          allergies: formData.allergies,
-          moh_area: formData.moh_area,
-          phm_area: formData.phm_area,
-          field_clinic: formData.field_clinic,
-          consultant_obstetrician: formData.consultant_obstetrician,
-          antenatal_risk_conditions: formData.antenatal_risk_conditions,
-          eligible_family_register: formData.eligible_family_register,
-          pregnant_mother_register: formData.pregnant_mother_register,
-          gs_division: formData.gs_division,
+          Date_Of_Visited: formData.Date_Of_Visited,
+          POA_weeks: formData.POA_weeks,
+          // mother_height: formData.mother_height,
+          // allergies: formData.allergies,
+          // moh_area: formData.moh_area,
+          // phm_area: formData.phm_area,
+          // field_clinic: formData.field_clinic,
+          // consultant_obstetrician: formData.consultant_obstetrician,
+          // antenatal_risk_conditions: formData.antenatal_risk_conditions,
+          // eligible_family_register: formData.eligible_family_register,
+          // pregnant_mother_register: formData.pregnant_mother_register,
+          // gs_division: formData.gs_division,
         },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
       );
 
       // setSuccess(true);
       setIsUpdating(false);
-      toast.success("Basic Detials Updated successful!");
+      toast.success("Clinic Care Details Updated successful!");
       // Clear success message after 3 seconds
       // setTimeout(() => setSuccess(false), 3000);
     } catch (err) {
-      console.error("Error updating basic details:", err);
+      console.error("Error updating clinic care details:", err);
       toast.error("Update failed!");
     } finally {
       setLoading(false);
@@ -127,13 +122,13 @@ const ClinicCare = () => {
 
   return (
     <div
-      id="basic-details"
+      id="appointment-details"
       className="max-w-full mx-4 my-4 bg-white shadow-lg rounded-lg p-6 border border-gray-200"
     >
       <form onSubmit={handleSubmit}>
         <h2 className="my-2 font-medium text-lg">Clinic Care</h2>
         <h2 className="my-2 font-medium text-lg">සායනික සංරක්ෂණය</h2>
-        <div className="grid grid-cols-1 md:grid-cols-1 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {/* Left Side Fields */}
           <div>
           <label
@@ -143,128 +138,31 @@ const ClinicCare = () => {
               <div>Date of visit</div>
               <div>සායනයට පැමිණි දිනය</div>
             </label>
-            <div className="flex ">
-            <input
+            <div className="flex">
+              <input
               type="date"
-              id="regdate"
-              name="regdate"
+              id="Date_Of_Visited"
+              name="Date_Of_Visited"
               onChange={handleChange}
-              className="mt-1 block w-full px-1 py-1 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 text-xs"
+              className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 text-sm"
               placeholder="Registration Date"
             />
-            <input
-              type="date"
-              id="regdate"
-              name="regdate"
-              onChange={handleChange}
-              className="mt-1 block w-full px-1 py-1 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 text-xs"
-              placeholder="Registration Date"
-            />
-            <input
-              type="date"
-              id="regdate"
-              name="regdate"
-              onChange={handleChange}
-              className="mt-1 block w-full px-1 py-1 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 text-xs"
-              placeholder="Registration Date"
-            />
-            <input
-              type="date"
-              id="regdate"
-              name="regdate"
-              onChange={handleChange}
-              className="mt-1 block w-full px-1 py-1 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 text-xs"
-              placeholder="Registration Date"
-            />
-            <input
-              type="date"
-              id="regdate"
-              name="regdate"
-              onChange={handleChange}
-              className="mt-1 block w-full px-1 py-1 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 text-xs"
-              placeholder="Registration Date"
-            />
-            <input
-              type="date"
-              id="regdate"
-              name="regdate"
-              onChange={handleChange}
-              className="mt-1 block w-full px-1 py-1 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 text-xs"
-              placeholder="Registration Date"
-            />
-            <input
-              type="date"
-              id="regdate"
-              name="regdate"
-              onChange={handleChange}
-              className="mt-1 block w-full px-1 py-1 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 text-xs"
-              placeholder="Registration Date"
-            />
-            <input
-              type="date"
-              id="regdate"
-              name="regdate"
-              onChange={handleChange}
-              className="mt-1 block w-full px-1 py-1 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 text-xs"
-              placeholder="Registration Date"
-            />
-            <input
-              type="date"
-              id="regdate"
-              name="regdate"
-              onChange={handleChange}
-              className="mt-1 block w-full px-1 py-1 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 text-xs"
-              placeholder="Registration Date"
-            />
-            <input
-              type="date"
-              id="regdate"
-              name="regdate"
-              onChange={handleChange}
-              className="mt-1 block w-full px-1 py-1 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 text-xs"
-              placeholder="Registration Date"
-            />
-            
             </div>
 
             <label
             htmlFor="poa"
             className="block text-sm font-medium text-gray-700 mt-4"
             >
-            <div>POA at Registration</div>
-            <div>ලියාපදිංචි කරන විට ගර්භයට සති ගණන</div>
+            <div>POA</div>
+            <div>ගර්භයට සති ගණන</div>
             </label>
 
             <div className="flex">
-            <div className="flex flex-col gap-1">
-            <input
-                type="number"
-                id="weeks"
-                name="weeks"
-                className="mt-1 block w-full px-1 py-1 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 text-xs"
-                placeholder="Weeks"
-                min="0"
-                // value={formData.weeks} // Bind to weeks in state
-                // onChange={handleChange} // Handle changes
-            />
             
             <input
                 type="number"
-                id="days"
-                name="days"
-                className="mt-1 block w-full px-1 py-1 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 text-xs"
-                placeholder="Days"
-                min="0"
-                max="6" // Maximum 6 days to maintain proper week-day format
-                // value={formData.days} // Bind to days in state
-                // onChange={handleChange} // Handle changes
-            />
-            </div>
-            <div className="flex flex-col gap-1">
-            <input
-                type="number"
-                id="weeks"
-                name="weeks"
+                id="POA_weeks"
+                name="POA_weeks"
                 className="mt-1 block w-full px-1 py-1 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 text-xs"
                 placeholder="Weeks"
                 min="0"
@@ -285,7 +183,13 @@ const ClinicCare = () => {
             />
             </div>
 
-            </div>
+            <label
+            htmlFor="poa  "
+            className="block text-sm font-medium text-gray-700 mt-4"
+            >
+            <div>POA</div>
+            <div>ගර්භයට සති ගණන</div>
+            </label>
 
             
             
