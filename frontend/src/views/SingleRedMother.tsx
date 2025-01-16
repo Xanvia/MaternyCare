@@ -7,12 +7,23 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 import SignaturePad from "signature_pad";
+import ToTitle from "../components/CaseConverter";
+
+interface Mother {
+  user: {
+    firstName: string;
+    lastName: string;
+  };
+  nic: string;
+  location: string;
+}
 
 const SingleRedMother = () => {
   const [editorContent, setEditorContent] = useState("");
   const signaturePadRef = useRef<HTMLCanvasElement>(null);
   const padInstance = useRef<SignaturePad | null>(null);
   const [signature, setSignature] = useState<string | null>(null);
+  const [mother, setMother] = useState<Mother | null>(null);
 
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
@@ -82,6 +93,8 @@ const SingleRedMother = () => {
             },
           }
         );
+        setMother(response.data);
+        console.log("Mother data:", response.data);
 
         if (response.data.signature) {
           setSignature(response.data.vogSignature);
@@ -138,6 +151,25 @@ const SingleRedMother = () => {
 
   return (
     <div>
+      <div className="grid grid-cols-2 w-1/4 py-4 bg-red-100 mx-4">
+        <div className="flex justify-center items-center px-2 py-0 col-span-1">
+          <div className="relative inline-flex items-center justify-center w-14 h-14 overflow-hidden bg-gray-100 rounded-full dark:bg-gray-600">
+            <span className="font-medium text-xl text-gray-600 dark:text-gray-300">
+              {`${ToTitle(mother?.user?.firstName?.[0] || "")} ${ToTitle(
+                mother?.user?.lastName?.[0] || ""
+              )}`}
+            </span>
+          </div>
+        </div>
+
+        <div className="text-start ">
+          <h2 className="text-xl font-semibold mb-1">
+            {mother?.user?.firstName}
+          </h2>
+          <p className="text-gray-600 ">NIC: {mother?.nic}</p>
+          <p className="text-gray-600 mb-4">{mother?.location}</p>
+        </div>
+      </div>
       <div className="container mx-auto p-4">
         {/* <h1 className="text-2xl font-bold mb-4">Single Red Mother</h1> */}
         <ReactQuill
