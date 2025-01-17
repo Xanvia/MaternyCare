@@ -132,7 +132,7 @@ const MohProfile = () => {
         <div className="grid xs:grid-cols-2 grid-cols-1">
           <div className="text-text_color_2">
             <h5 className="">User Name</h5>
-            <p className="font-semibold mt-2 mb-4">{ToTitle(user.firstName || "")}</p>
+            <p className="font-semibold mt-2 mb-4">{moh?.user.email}</p>
           </div>
           <div className="text-text_color_2 pr-4 xs:pr-0">
             <h5 className="">Password</h5>
