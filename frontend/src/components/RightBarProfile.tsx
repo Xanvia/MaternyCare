@@ -54,7 +54,7 @@ export default function RightBarProfile() {
                 className="rounded-full border-2 border-white "
                 src="https://randomuser.me/api/portraits/women/94.jpg"
               /> */}
-              {user.image ? (
+              {user?.image ? (
                 <img
                   className="rounded-full border-2 border-white "
                   src="https://randomuser.me/api/portraits/women/94.jpg"
@@ -62,9 +62,8 @@ export default function RightBarProfile() {
               ) : (
                 <div className="relative inline-flex items-center justify-center w-12 h-12 overflow-hidden bg-gray-100 rounded-full dark:bg-gray-600">
                   <span className="font-medium text-xl text-gray-600 dark:text-gray-300">
-                    {`${ToTitle(user.firstName[0])} ${ToTitle(
-                      user.lastName[0]
-                    )}`}
+                    {`${user?.firstName[0]} ${user?.lastName[0]}
+                    `}
                   </span>
                 </div>
               )}

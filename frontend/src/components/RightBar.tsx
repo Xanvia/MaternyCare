@@ -47,13 +47,13 @@ const RightBar: React.FC = () => {
           ) : (
             <div className="relative inline-flex items-center justify-center w-24 h-24 overflow-hidden bg-gray-100 rounded-full dark:bg-gray-600">
               <span className="font-medium text-3xl text-gray-600 dark:text-gray-300">
-                {`${ToTitle(user.firstName[0])} ${ToTitle(user.lastName[0])}`}
+                {user && `${user?.firstName[0]} ${user?.lastName[0]}`}
               </span>
             </div>
           )}
         </div>
         <h1 className="text-[#0D99FF] font-medium text-lg">
-          {`${ToTitle(user?.firstName)} ${ToTitle(user?.lastName)}`}
+          {`${user?.firstName} ${user?.lastName}`}
         </h1>
         <p className="text-xs text-[#666666]">
           30 years old
