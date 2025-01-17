@@ -96,15 +96,15 @@ const MohProfile = () => {
         <div className="grid xs:grid-cols-2 grid-cols-1">
           <div className="text-text_color_2">
             <h5 className="">First Name</h5>
-            <p className="font-semibold mt-2 mb-4">{ToTitle(user.firstName || "")}</p>
+            <p className="font-semibold mt-2 mb-4">{moh?.user.firstName || "N/A"}</p>
           </div>
           <div className="text-text_color_2">
             <h5 className="">Last Name</h5>
-            <p className="font-semibold mt-2 mb-4">{ToTitle(user.lastName || "")}</p>
+            <p className="font-semibold mt-2 mb-4">{moh?.user.lastName || "N/A"}</p>
           </div>
           <div className="text-text_color_2">
             <h5 className="">Email</h5>
-            <p className="font-semibold mt-2 mb-4">{ToTitle(user.email || "")}</p>
+            <p className="font-semibold mt-2 mb-4">{moh?.user.email || "N/A"}</p>
           </div>
           <div className="text-text_color_2">
             <h5 className="">NIC</h5>
