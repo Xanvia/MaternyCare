@@ -27,7 +27,7 @@ export function jwtMiddleware(
 
     // Attach the decoded data to the request object
     request.user = decoded;
-    console.log(request.user);
+    console.log("Decode token: ", request.user);
 
     next();
   } catch (err) {

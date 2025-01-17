@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Search, Trash, ChevronLeft, ChevronRight } from "lucide-react";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 type PatientStatus = "Completed" | "Incompleted";
 
@@ -12,14 +13,6 @@ interface Patient {
   status?: PatientStatus;
 }
 
-const mockData: Patient[] = Array.from({ length: 50 }, (_, i) => ({
-  id: i + 1,
-  patient: `Mother ${i + 1}`,
-  address: `${i + 1} Main St`,
-  appointment: `2023-10-${(i % 30) + 1}`,
-  status: i % 2 === 0 ? "Completed" : "Incompleted",
-}));
-
 export default function RedPatientTable() {
   const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
@@ -29,9 +22,42 @@ export default function RedPatientTable() {
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [patientToDelete, setPatientToDelete] = useState<Patient | null>(null);
 
-  const [redPatientListData, setRedPatientListData] = useState(
-    mockData.filter((_, i) => i % 2 !== 0)
-  );
+  const [redPatientListData, setRedPatientListData] = useState<Patient[]>([]);
+
+  useEffect(() => {
+    const fetchPatients = async () => {
+      const storedToken = localStorage.getItem("token");
+      const token = storedToken ? JSON.parse(storedToken) : null;
+
+      try {
+        const response = await axios.get("http://localhost:3000/vog/mothers/", {
+          // headers: {
+          //   Authorization: `Bearer ${token}`,
+          // },
+        });
+
+        console.log("Response Dataaaa:", response.data); // Log the response data
+
+        if (Array.isArray(response.data)) {
+          const patients = response.data.map((mother: any) => ({
+            id: mother.id,
+            patient: `${mother.user.firstName} ${mother.user.lastName}`,
+            address: mother.address || "N/A",
+            appointment: mother.appointmentDate || "N/A",
+            status: mother.status || "Incompleted",
+          }));
+
+          setRedPatientListData(patients);
+        } else {
+          console.error("Expected an array but got:", response.data);
+        }
+      } catch (error) {
+        console.error("Error fetching patients:", error);
+      }
+    };
+
+    fetchPatients();
+  }, []);
 
   // Handle delete button click to open the confirmation modal
   const handleDeleteClick = (patient: Patient) => {

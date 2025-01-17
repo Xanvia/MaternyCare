@@ -5,9 +5,9 @@ import RedPatientTable from "../components/RedPatientList";
 const DashboardVOG = () => {
   return (
     <div>
-      <h1 className="font-sans text-lg text-text_color_2 ml-5">
+      {/* <h1 className="font-sans text-lg text-text_color_2 ml-5">
         Dashboard Overview
-      </h1>
+      </h1> */}
       {/* Red Patient List
       <div className="flex bg-white w-full justify-between items-center p-4">
         <div className="flex space-x-4">

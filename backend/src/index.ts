@@ -26,6 +26,7 @@ AppDataSource.initialize()
     // create express app
     const app = express();
     app.use(bodyParser.json());
+
     app.use(cors()); // use cors as middleware
 
     interface Route {
@@ -79,7 +80,7 @@ AppDataSource.initialize()
       );
     });
 
-    app.listen(3000, () => {
+    app.listen(3000, '0.0.0.0', () => {
       console.log("Express server has started on port 3000");
     });
   })

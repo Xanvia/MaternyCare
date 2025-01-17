@@ -389,6 +389,13 @@ export class Mother {
   @Column({ type: "text", nullable: true })
   signature: string; // New column for storing the signature
 
+  @Column({ type: "text", nullable: true })
+  vogSignature: string; // New column for storing the signature
+
+
+  @Column({ type: "text", nullable: true })
+  richTextContent: string; // New column for storing rich text content
+
   @ManyToOne(() => Phm, (phm) => phm.mothers, {
     nullable: true,
     onDelete: "SET NULL", // When PHM is deleted, mothers can remain with no assigned PHM
