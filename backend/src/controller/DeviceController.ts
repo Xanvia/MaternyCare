@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { AppDataSource } from "../data-source";
 import { DeviceData } from "../entity/DeviceData";
+import { MoreThanOrEqual, LessThanOrEqual } from "typeorm";
 
 export class DeviceController {
   private static isScanning: boolean = false;
@@ -102,11 +103,11 @@ export class DeviceController {
       const limit = parseInt(req.query.limit as string) || 30; // Default to last 30 readings
       const timeRange = parseInt(req.query.timeRange as string) || 60; // Default to last 60 seconds
 
+      const timeThreshold = new Date(Date.now() - timeRange * 1000);
+
       const data = await this.deviceRepository.find({
         where: {
-          timestamp: {
-            gte: new Date(Date.now() - timeRange * 1000),
-          },
+          timestamp: MoreThanOrEqual(timeThreshold),
         },
         order: { timestamp: "DESC" },
         take: limit,
