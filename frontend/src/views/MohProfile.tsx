@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { EyeIcon, EyeOffIcon } from "../assets/icons/Icons";
 import ToTitle from "../components/CaseConverter";
 import axios from "axios";
@@ -22,6 +22,8 @@ interface Moh {
 
 const MohProfile = () => {
   const [showPassword, setShowPassword] = useState(false);
+  const [image, setImage] = useState<File | null>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
   let userItem = localStorage.getItem("user");
   const user = userItem ? JSON.parse(userItem) : null;
 
@@ -57,6 +59,27 @@ const MohProfile = () => {
     getMoh();
   }, [user.id, token]);
 
+  const handleImageUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      setImage(file);
+      const formData = new FormData();
+      formData.append("profileImage", file);
+
+      try {
+        const response = await axios.post(`${BASE_URL}users/upload`, formData, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "multipart/form-data",
+          },
+        });
+        setMoh((prevMoh) => prevMoh && { ...prevMoh, user: { ...prevMoh.user, profileImage: response.data.imageUrl } });
+      } catch (error) {
+        console.error("Error uploading image:", error);
+      }
+    }
+  };
+
   if (loading) {
     return <CircularProgress />;
   }
@@ -66,18 +89,32 @@ const MohProfile = () => {
   return (
     <div className="xs:mx-10 mx-3 bg-white rounded-xl p-5 flex flex-col gap-8">
       <div className="border-solid border-2 rounded-lg md:py-2 px-5 sm:flex justify-between items-center py-5">
-        <div className="flex flex-col items-center bg-white xs:flex-row xs:max-w-xl">
-          {moh?.user.profileImage ? (
-            <img
-              className="object-cover w-24 rounded-full h-24"
-              src={moh.user.profileImage}
-              alt="Profile"
+        <div className="flex flex-col items-center bg-white xs:flex-row xs:max-w-xl relative">
+          <div className="relative">
+            {moh?.user.profileImage ? (
+              <img
+                className="object-cover w-24 rounded-full h-24"
+                src={moh.user.profileImage}
+                alt="Profile"
+              />
+            ) : (
+              <div className="flex items-center justify-center w-24 h-24 bg-gray-300 rounded-full">
+                <span className="text-3xl font-bold text-white">{initials}</span>
+              </div>
+            )}
+            <button
+              className="absolute bottom-0 right-0 bg-blue-500 text-white rounded-full p-1"
+              onClick={() => fileInputRef.current?.click()}
+            >
+              Edit
+            </button>
+            <input
+              type="file"
+              ref={fileInputRef}
+              style={{ display: "none" }}
+              onChange={handleImageUpload}
             />
-          ) : (
-            <div className="flex items-center justify-center w-24 h-24 bg-gray-300 rounded-full">
-              <span className="text-3xl font-bold text-white">{initials}</span>
-            </div>
-          )}
+          </div>
           <div className="flex flex-col justify-between p-4 leading-normal">
             <h5 className="mb-2 text-2xl font-bold tracking-tight text-text_color_1 dark:text-white">
               {`${moh?.user.firstName} ${moh?.user.lastName}`}
