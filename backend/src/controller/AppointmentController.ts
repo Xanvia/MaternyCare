@@ -15,9 +15,7 @@ export class AppointmentController {
   private motherRepository = AppDataSource.getRepository(Mother);
   private userRepository = AppDataSource.getRepository(User);
 
-  private phmRepository = getRepository(Phm);
-  feedbackRepository: any;
-
+  
   async all(request: Request, response: Response, next: NextFunction) {
     return this.appointmentRepository.find({
       relations: ["mother"],
