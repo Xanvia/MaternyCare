@@ -71,7 +71,7 @@ export class UserController {
 
       // Generate a JWT
       const token = jwt.sign(
-        { userId: savedUser.id, userRole: savedUser.role },
+        { userId: savedUser.id, role: savedUser.role },
         process.env.JWT_SECRET!
       );
 
@@ -103,7 +103,7 @@ export class UserController {
 
       // Generate a JWT
       const token = jwt.sign(
-        { userId: user.id, userRole: user.role },
+        { userId: user.id, role: user.role },
         process.env.JWT_SECRET
       );
 
@@ -192,5 +192,22 @@ export class UserController {
     await this.userRepository.remove(userToRemove);
 
     return "user has been removed";
+  }
+
+  async checkEmail(request: Request, response: Response, next: NextFunction) {
+    const { email } = request.body;
+
+    try {
+      const user = await this.userRepository.findOne({ where: { email } });
+
+      if (user) {
+        return { exists: true };
+      } else {
+        return { exists: false };
+      }
+    } catch (error) {
+      console.error("Error checking email:", error);
+      return { message: "Internal server error" };
+    }
   }
 }
