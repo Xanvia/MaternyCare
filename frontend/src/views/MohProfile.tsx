@@ -3,6 +3,8 @@ import { EyeIcon, EyeOffIcon } from "../assets/icons/Icons";
 import ToTitle from "../components/CaseConverter";
 import axios from "axios";
 import { CircularProgress } from "@mui/material";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCamera } from "@fortawesome/free-solid-svg-icons";
 import MohEditPersonalInfo from "../modals/MohPersonalInfoEditPopup";
 import MohEditAccountInfo from "../modals/MohAccountInfoEditPopup";
 
@@ -103,10 +105,10 @@ const MohProfile = () => {
               </div>
             )}
             <button
-              className="absolute bottom-0 right-0 bg-blue-500 text-white rounded-full p-1"
+              className="absolute bottom-0 right-0 bg-blue-500 text-white rounded-full px-2 py-1"
               onClick={() => fileInputRef.current?.click()}
             >
-              Edit
+              <FontAwesomeIcon icon={faCamera} />
             </button>
             <input
               type="file"
