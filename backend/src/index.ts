@@ -27,7 +27,13 @@ AppDataSource.initialize()
     const app = express();
     app.use(bodyParser.json());
 
-    app.use(cors()); // use cors as middleware
+    app.use(
+      cors({
+        origin: `${process.env.FRONTEND_URL}`, // Replace with your frontend's origin
+        methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+        credentials: true,
+      })
+    );
 
     interface Route {
       method: string;
@@ -80,7 +86,7 @@ AppDataSource.initialize()
       );
     });
 
-    app.listen(3000, '0.0.0.0', () => {
+    app.listen(3000, "0.0.0.0", () => {
       console.log("Express server has started on port 3000");
     });
   })
