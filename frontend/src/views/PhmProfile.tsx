@@ -146,10 +146,10 @@ const Profile = () => {
             <h5 className="">Postal Code</h5>
             <p className="font-semibold mt-2 mb-4">90048</p>
           </div>
-          <div className="text-text_color_2">
+          {/* <div className="text-text_color_2">
             <h5 className="">GS Division Number</h5>
             <p className="font-semibold mt-2 mb-4">80B-ILUKTHENNA</p>
-          </div>
+          </div> */}
         </div>
       </div>
       <div className="border-solid border-2 rounded-lg py-5 px-5 ">
@@ -193,10 +193,10 @@ const Profile = () => {
             <h5 className="">Baby count</h5>
             <p className="font-semibold mt-2 mb-4">1</p>
           </div>
-          <div className="text-text_color_2">
+          {/* <div className="text-text_color_2">
             <h5 className="">GS Division Number</h5>
             <p className="font-semibold mt-2 mb-4">80B-ILUKTHENNA</p>
-          </div>
+          </div> */}
         </div>
       </div>
     </div>
