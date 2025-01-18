@@ -1,19 +1,23 @@
 import {
-    Entity,
-    PrimaryGeneratedColumn,
-    Column,
-  } from "typeorm";
-  
-  @Entity()
-  export class KickCount {
-    @PrimaryGeneratedColumn()
-    id: number;
-  
-    @Column({ type: 'int' })
-    kickCount: number;
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  CreateDateColumn,
+  ManyToOne,
+} from "typeorm";
+import { Mother } from "./Mother";
 
-    @Column({ type: 'date' })
-    Date_of_issuing_kick_count_chart: Date;
+@Entity()
+export class KickCount {
+  @PrimaryGeneratedColumn()
+  id: number;
 
-  }
-  
+  @Column({ type: "int" })
+  kickCount: number;
+
+  @CreateDateColumn({ type: "timestamp" })
+  Date_of_issuing: Date;
+
+  @ManyToOne(() => Mother, (mother) => mother.kickCounts)
+  mother: Mother;
+}

@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useState } from "react";
 import Button from "@mui/joy/Button";
 import Divider from "@mui/joy/Divider";
 import DialogTitle from "@mui/joy/DialogTitle";
@@ -11,16 +11,19 @@ import TextField from "@mui/material/TextField";
 import { CloseIcon, PlusCircle } from "../assets/icons/Icons";
 import axios from "axios";
 
-export default function KickCountUpdateModal() {
-  const [open, setOpen] = React.useState<boolean>(false);
-  const [kickCount, setKickCount] = React.useState<number[]>([]);
-  const [newKickCount, setNewKickCount] = React.useState<number>(0);
+const BASE_URL = "http://localhost:3000/"; // Adjust the base URL as needed
 
-  let userItem = localStorage.getItem("user");
-  const user = userItem ? JSON.parse(userItem) : null;
+interface KickCountUpdateModalProps {
+  motherId: number;
+  // onUpdate: () => void;
+}
 
-  const storedToken = localStorage.getItem("token");
-  const token = storedToken ? JSON.parse(storedToken) : null;
+export default function KickCountUpdateModal({
+  motherId,
+}: // onUpdate,
+KickCountUpdateModalProps) {
+  const [open, setOpen] = useState(false);
+  const [newKickCount, setNewKickCount] = useState(0);
 
   const handleKickCountChange = (
     event: React.ChangeEvent<HTMLInputElement>
@@ -30,21 +33,21 @@ export default function KickCountUpdateModal() {
 
   const handleUpdateKickCount = async () => {
     try {
-      console.log("Token:", token); // Debug log to check the token
       const response = await axios.put(
-        `http://localhost:3000/users/mother/${user.id}/update-dashboard`,
+        `${BASE_URL}mother/update-kick-count`,
         {
-          kick_count: [...kickCount, newKickCount],
+          motherId,
+          kickCount: newKickCount,
         },
         {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
+          // headers: {
+          //   Authorization: `Bearer ${token}`,
+          // },
         }
       );
-      console.log("Kick count updated successfully:", response.data);
-      setKickCount(response.data.kick_count);
+      // onUpdate(); // Call the onUpdate function to refresh the data in the parent component
       setOpen(false);
+      window.location.reload();
     } catch (error) {
       console.error("Error updating kick count:", error);
     }
@@ -129,7 +132,7 @@ export default function KickCountUpdateModal() {
               onClick={handleUpdateKickCount}
             >
               Update
-            </Button>{" "}
+            </Button>
             <TextField
               id="outlined-number-small"
               label=""

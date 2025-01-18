@@ -1,7 +1,7 @@
-// Import statements at the top
+// src/routes/device.routes.ts
 import { DeviceController } from "../controller/DeviceController";
 import { jwtMiddleware } from "../middlewear/jwtMiddleware";
-// DeviceRoutes configuration
+
 export const DeviceRoutes = [
   {
     method: "post",

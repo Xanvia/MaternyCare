@@ -46,6 +46,13 @@ const MotherDashboard = () => {
 
   const [mother, setMother] = useState<Mother>();
   const [phm, setPhm] = useState<Phm>();
+
+  const [count, setCount] = useState(0);
+  interface KickCount {
+    kickCount: number;
+  }
+
+  const [kickcounts, setKickcounts] = useState<KickCount[]>([]);
   const [openModal, setOpenModal] = useState(false);
 
   // if (user.firstName) {
@@ -61,10 +68,9 @@ const MotherDashboard = () => {
   if (heartRateContext == null) {
     return;
   }
-  console.log("tokennn", token);
 
   useEffect(() => {
-    const getMothers = () => {
+    const getMother = () => {
       const axiosConfig = {
         method: "get",
         url: `${BASE_URL}users/motherbyuser/${user.id}`,
@@ -81,7 +87,7 @@ const MotherDashboard = () => {
         });
     };
 
-    getMothers();
+    getMother();
   }, []);
 
   useEffect(() => {
@@ -104,14 +110,36 @@ const MotherDashboard = () => {
     };
 
     getPhm();
-  }, []);
+  }, [mother]);
 
-  const kicks = mother?.kick_count[mother.kick_count.length - 1];
-  console.log("kciksss", kicks);
+  const getKickCount = () => {
+    if (!mother) return;
+    const axiosConfig = {
+      method: "get",
+      url: `${BASE_URL}mother/${mother.id}/kickcounts/`,
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+    axios(axiosConfig)
+      .then((response) => {
+        setKickcounts(response.data);
+        console.log("res: ", response.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   useEffect(() => {
-    console.log("Updated kicks value:", kicks);
-  }, []);
+    getKickCount();
+  }, [mother]);
+
+  console.log("kickcounts: ", kickcounts[kickcounts.length - 1]?.kickCount);
+
+  useEffect(() => {
+    setCount(kickcounts[kickcounts.length - 1]?.kickCount);
+  }, [kickcounts]);
 
   return (
     <div className="mx-11">
@@ -150,10 +178,15 @@ const MotherDashboard = () => {
         <DashboardStatCard
           image={feet}
           color="bg-[#F9B8D0]"
-          count={kicks ?? 0}
+          count={count}
           title="Kick Count"
           subtitle="kicks"
-          updateComponent={<KickCountUpdateModal />}
+          updateComponent={
+            <KickCountUpdateModal
+              motherId={mother ? mother.id : 0}
+              // onUpdate={getKickCount}
+            />
+          }
         />
         <DashboardStatCard
           image={fire}
