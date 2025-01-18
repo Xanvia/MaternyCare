@@ -48,11 +48,11 @@ const MotherDashboard = () => {
   const [phm, setPhm] = useState<Phm>();
   const [openModal, setOpenModal] = useState(false);
 
-  if (user.firstName) {
-    name = toTitleCase(user.firstName);
-  } else {
-    name = role ? (JSON.parse(role) as string) : "";
-  }
+  // if (user.firstName) {
+  //   name = toTitleCase(user.firstName);
+  // } else {
+  //   name = role ? (JSON.parse(role) as string) : "";
+  // }
 
   useEffect(() => {
     setRandom(Math.floor(Math.random() * 4));

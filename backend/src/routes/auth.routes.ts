@@ -18,5 +18,11 @@ export const AuthRoutes = [
     middlewares: [],
   },
 
-  
+  {
+    method: "post",
+    route: "/check-email",
+    controller: UserController,
+    action: "checkEmail",
+    middlewares: [],
+  },
 ];
