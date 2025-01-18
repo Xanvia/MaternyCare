@@ -62,6 +62,7 @@ const RightBar: React.FC = () => {
           </span>
           Badulla, Srilanka
         </p>
+        {user?.role === 'mother' && (
         <div className="grid grid-cols-3 text-[#333333] mt-8 mb-2">
           <div className="border-r-2 px-4">
             <p className="text-xs">Blood</p>
@@ -76,6 +77,7 @@ const RightBar: React.FC = () => {
             <p className="text-lg font-semibold">90kgs</p>
           </div>
         </div>
+      )}
       </div>
       <div className="mt-10">
         <MUICalendar />

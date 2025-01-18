@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { EyeIcon, EyeOffIcon } from "../assets/icons/Icons";
 import EditPersonalInfo from "../modals/PersonalInfoEditPopup";
 import EditAccountInfo from "../modals/AccountInfoEditPopup";
@@ -6,6 +6,8 @@ import EditLocationInfo from "../modals/LocationInfoEditPopup";
 import ToTitle from "../components/CaseConverter";
 import axios from "axios";
 import { CircularProgress } from "@mui/material";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCamera } from "@fortawesome/free-solid-svg-icons";
 
 interface Mother {
   id: number;
@@ -24,10 +26,13 @@ interface Mother {
   bio: string;
   stage: string;
   babyCount: number;
+  profileImage?: string;
 }
 
 const Profile = () => {
   const [showPassword, setShowPassword] = useState(false);
+  const [image, setImage] = useState<File | null>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
   let userItem = localStorage.getItem("user");
   const user = userItem ? JSON.parse(userItem) : null;
 
@@ -66,19 +71,62 @@ const Profile = () => {
     getMother();
   }, []);
 
+  const handleImageUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      setImage(file);
+      const formData = new FormData();
+      formData.append("profileImage", file);
+
+      try {
+        const response = await axios.post(`${BASE_URL}users/upload`, formData, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "multipart/form-data",
+          },
+        });
+        setMother((prevMother) => prevMother && { ...prevMother, user: { ...prevMother, profileImage: response.data.imageUrl } });
+      } catch (error) {
+        console.error("Error uploading image:", error);
+      }
+    }
+  };
+
   if (loading) {
     return <CircularProgress />;
   }
+
+  const initials = `${user?.firstName.charAt(0)}${user?.lastName.charAt(0)}`;
 
   return (
     <div className="xs:mx-10 mx-3 bg-white rounded-xl p-5 flex flex-col gap-8">
       <div className="border-solid border-2 rounded-lg md:py-2 px-5 sm:flex justify-between items-center py-5">
         <div className="flex flex-col items-center bg-white xs:flex-row xs:max-w-xl">
-          <img
-            className="object-cover w-24 rounded-full h-24"
-            src="https://randomuser.me/api/portraits/women/94.jpg"
-            alt=""
-          />
+        <div className="relative">
+            {mother?.profileImage ? (
+              <img
+                className="object-cover w-24 rounded-full h-24"
+                src={mother.profileImage}
+                alt="Profile"
+              />
+            ) : (
+              <div className="flex items-center justify-center w-24 h-24 bg-gray-300 rounded-full">
+                <span className="text-3xl font-bold text-white">{initials}</span>
+              </div>
+            )}
+            <button
+              className="absolute bottom-0 right-0 bg-blue-500 text-white rounded-full px-2 py-1"
+              onClick={() => fileInputRef.current?.click()}
+            >
+              <FontAwesomeIcon icon={faCamera} />
+            </button>
+            <input
+              type="file"
+              ref={fileInputRef}
+              style={{ display: "none" }}
+              onChange={handleImageUpload}
+            />
+          </div>
           <div className="flex flex-col  justify-between p-4 leading-normal">
             <h5 className="mb-2 text-2xl font-bold tracking-tight text-text_color_1 dark:text-white">
               {`${user.firstName} ${user.lastName}`}
@@ -146,10 +194,10 @@ const Profile = () => {
             <h5 className="">Postal Code</h5>
             <p className="font-semibold mt-2 mb-4">90048</p>
           </div>
-          <div className="text-text_color_2">
+          {/* <div className="text-text_color_2">
             <h5 className="">GS Division Number</h5>
             <p className="font-semibold mt-2 mb-4">80B-ILUKTHENNA</p>
-          </div>
+          </div> */}
         </div>
       </div>
       <div className="border-solid border-2 rounded-lg py-5 px-5 ">
@@ -193,10 +241,10 @@ const Profile = () => {
             <h5 className="">Baby count</h5>
             <p className="font-semibold mt-2 mb-4">1</p>
           </div>
-          <div className="text-text_color_2">
+          {/* <div className="text-text_color_2">
             <h5 className="">GS Division Number</h5>
             <p className="font-semibold mt-2 mb-4">80B-ILUKTHENNA</p>
-          </div>
+          </div> */}
         </div>
       </div>
     </div>
