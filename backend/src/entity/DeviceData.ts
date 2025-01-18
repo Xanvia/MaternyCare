@@ -1,24 +1,19 @@
-import {
-  Entity,
-  PrimaryGeneratedColumn,
-  Column,
-  CreateDateColumn,
-} from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn } from "typeorm";
 
 @Entity()
 export class DeviceData {
-  @PrimaryGeneratedColumn()
-  id: number;
+    @PrimaryGeneratedColumn()
+    id: number;
 
-  @Column("float")
-  heartRate: number;
+    @Column("float")
+    heartRate: number;
 
-  @Column("float", { nullable: true })
-  signalQuality: number;
+    @Column("float", { nullable: true })
+    signalQuality: number;
 
-  @Column()
-  isScanning: boolean;
+    @Column()
+    isScanning: boolean;
 
-  @CreateDateColumn()
-  timestamp: Date;
+    @CreateDateColumn()
+    timestamp: Date;
 }
