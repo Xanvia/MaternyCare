@@ -61,7 +61,7 @@ const MotherCard: React.FC<MotherCardProps> = ({
         </div>
 
         <div className="flex items-center col-span-1">
-          { !isVerified ? (
+          {!phm ? (
             <button
               onClick={handleAddClick} // Handle button click
               className="bg-green_tertiary hover:bg-green_secondary text-green_primary font-semibold p-2 rounded w-auto"
