@@ -15,8 +15,8 @@ export const mohRegistrationSchema = yup.object().shape({
   NIC: yup
     .string()
     .matches(
-      /^\d{9}[vVxX]$/,
-      "NIC must be 9 digits followed by 'v', 'V', 'x', or 'X'"
+      /^(\d{9}[vVxX]|\d{12})$/,
+      "NIC must be 9 digits followed by 'v', 'V', 'x', or 'X' or 12 digits"
     )
     .required("Please provide your NIC."),
   mohArea: yup
@@ -27,8 +27,5 @@ export const mohRegistrationSchema = yup.object().shape({
     .string()
     .matches(/^\d{10}$/, "Phone number must be 10 digits")
     .required("Please provide your phone number."),
-  mohID: yup
-    .string()
-    .matches(/^MOH\d{3}$/, "MOH ID must start with 'MOH' followed by 3 digits")
-    .required("Please provide your MOH ID."),
+  mohID: yup.string().required("Please provide your MOH ID."),
 });
