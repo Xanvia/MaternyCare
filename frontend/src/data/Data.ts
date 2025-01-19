@@ -51,6 +51,7 @@ export const getNavLinks = ({ role }: { role: string }) => {
       name: "Mother's Guide",
       icon: Help,
       path: "/guide",
+      roles: ["mother","admin"],
     },
     {
       name: "Progress",
@@ -69,89 +70,6 @@ export const getNavLinks = ({ role }: { role: string }) => {
     return true; // Show other links without any role restriction
   });
 };
-
-// export const appointments = [
-//   {
-//     id: 1,
-//     year: 2016,
-//     month: "November",
-//     start_day: 25,
-//     end_day: 30,
-//     title: "1 st home visit",
-//   },
-//   {
-//     id: 2,
-//     year: 2016,
-//     month: "November",
-//     start_day: 25,
-//     end_day: 30,
-//     title: "1 st home visit",
-//   },
-//   {
-//     id: 3,
-//     year: 2015,
-//     month: "November",
-//     start_day: 25,
-//     end_day: 30,
-//     title: "1 st home visit",
-//   },
-//   {
-//     id: 4,
-//     year: 2014,
-//     month: "November",
-//     start_day: 25,
-//     end_day: 30,
-//     title: "1 st home visit",
-//   },
-//   {
-//     id: 5,
-//     year: 2013,
-//     month: "November",
-//     start_day: 25,
-//     end_day: 30,
-//     title: "1 st home visit",
-//   },
-//   {
-//     id: 1,
-//     year: 2016,
-//     month: "November",
-//     start_day: 25,
-//     end_day: 30,
-//     title: "1 st home visit",
-//   },
-//   {
-//     id: 2,
-//     year: 2016,
-//     month: "November",
-//     start_day: 25,
-//     end_day: 30,
-//     title: "1 st home visit",
-//   },
-//   {
-//     id: 3,
-//     year: 2015,
-//     month: "November",
-//     start_day: 25,
-//     end_day: 30,
-//     title: "1 st home visit",
-//   },
-//   {
-//     id: 4,
-//     year: 2014,
-//     month: "November",
-//     start_day: 25,
-//     end_day: 30,
-//     title: "1 st home visit",
-//   },
-//   {
-//     id: 5,
-//     year: 2013,
-//     month: "November",
-//     start_day: 25,
-//     end_day: 30,
-//     title: "1 st home visit",
-//   },
-// ];
 
 export const categories = [
   {
