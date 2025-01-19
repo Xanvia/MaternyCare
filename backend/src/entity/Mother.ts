@@ -207,6 +207,7 @@ import { Phm } from "./Phm";
 import { Appointment } from "./Appointment";
 import { Feedback } from "./Feedback";
 import { KickCount } from "./KickCount";
+import { DeviceData } from "./DeviceData";
 
 @Entity()
 export class Mother {
@@ -398,6 +399,11 @@ export class Mother {
 
   @Column({ type: "text", nullable: true })
   richTextContent: string; // New column for storing rich text content
+
+  @OneToOne(() => DeviceData, (deviceData) => deviceData.mother, {
+    onDelete: "CASCADE",
+  })
+  deviceData: DeviceData[];
 
   @ManyToOne(() => Phm, (phm) => phm.mothers, {
     nullable: true,

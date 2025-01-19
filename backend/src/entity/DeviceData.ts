@@ -1,19 +1,32 @@
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn } from "typeorm";
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  CreateDateColumn,
+  ManyToOne,
+} from "typeorm";
+
+import { Mother } from "./Mother";
 
 @Entity()
 export class DeviceData {
-    @PrimaryGeneratedColumn()
-    id: number;
+  @PrimaryGeneratedColumn()
+  id: number;
 
-    @Column("float")
-    heartRate: number;
+  @Column("float")
+  heartRate: number;
 
-    @Column("float", { nullable: true })
-    signalQuality: number;
+  @Column("float", { nullable: true })
+  signalQuality: number;
 
-    @Column()
-    isScanning: boolean;
+  @Column({ type: "boolean", default: false })
+  isScanning: boolean;
 
-    @CreateDateColumn()
-    timestamp: Date;
+  @CreateDateColumn()
+  timestamp: Date;
+
+  @ManyToOne(() => Mother, (mother) => mother.deviceData, {
+    onDelete: "CASCADE",
+  })
+  mother: Mother;
 }

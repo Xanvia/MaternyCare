@@ -1,12 +1,13 @@
 import { Request, Response } from "express";
 import { AppDataSource } from "../data-source";
 import { DeviceData } from "../entity/DeviceData";
+import { Mother } from "../entity/Mother";
 import { MoreThanOrEqual } from "typeorm";
 
 export class DeviceController {
-  private isScanning: boolean = false;
   private scanInterval: NodeJS.Timer | null = null;
   private deviceRepository = AppDataSource.getRepository(DeviceData);
+  private motherRepository = AppDataSource.getRepository(Mother);
   private lastHeartRate: number = 140;
 
   // Generate fetal heart rate data
@@ -25,12 +26,24 @@ export class DeviceController {
   }
 
   async startDevice(request: Request, response: Response) {
+    const { motherId } = request.body;
+
     try {
-      if (this.isScanning) {
-        return { message: "Device is already monitoring" };
+      const mother = await this.motherRepository.findOne({
+        where: { id: motherId },
+      });
+
+      if (!mother) {
+        return { message: "Mother not found" };
       }
 
-      this.isScanning = true;
+      const isScanning = await this.deviceRepository.findOne({
+        where: { isScanning: true, mother: { id: motherId } },
+      });
+
+      if (isScanning) {
+        return { message: "Device is already monitoring" };
+      }
 
       this.scanInterval = setInterval(async () => {
         const fetalData = this.generateFetalHeartRateData();
@@ -39,6 +52,7 @@ export class DeviceController {
         deviceData.heartRate = fetalData.heartRate;
         deviceData.signalQuality = fetalData.signalQuality;
         deviceData.isScanning = true;
+        deviceData.mother = mother;
 
         await this.deviceRepository.save(deviceData);
       }, 2000);
@@ -57,8 +71,22 @@ export class DeviceController {
   }
 
   async stopDevice(request: Request, response: Response) {
+    const { motherId } = request.body;
+
     try {
-      if (!this.isScanning) {
+      const mother = await this.motherRepository.findOne({
+        where: { id: motherId },
+      });
+
+      if (!mother) {
+        return { message: "Mother not found" };
+      }
+
+      const isScanning = await this.deviceRepository.findOne({
+        where: { isScanning: true, mother: { id: motherId } },
+      });
+
+      if (!isScanning) {
         return { message: "Device is not monitoring" };
       }
 
@@ -67,13 +95,18 @@ export class DeviceController {
         this.scanInterval = null;
       }
 
-      this.isScanning = false;
+      // Update all records to set isScanning to false for the specific mother
+      await this.deviceRepository.update(
+        { isScanning: true, mother: { id: motherId } },
+        { isScanning: false }
+      );
 
       const fetalData = this.generateFetalHeartRateData();
       const deviceData = new DeviceData();
       deviceData.heartRate = fetalData.heartRate;
       deviceData.signalQuality = fetalData.signalQuality;
       deviceData.isScanning = false;
+      deviceData.mother = mother;
       await this.deviceRepository.save(deviceData);
 
       return {
@@ -90,8 +123,18 @@ export class DeviceController {
     }
   }
 
-  async fetchData(request: Request, response: Response) {
+  async fetchData(request: Request) {
+    const { motherId } = request.query;
+
     try {
+      const mother = await this.motherRepository.findOne({
+        where: { id: parseInt(motherId as string) },
+      });
+
+      if (!mother) {
+        return { message: "Mother not found" };
+      }
+
       const limit = parseInt(request.query.limit as string) || 30;
       const timeRange = parseInt(request.query.timeRange as string) || 60;
 
@@ -100,6 +143,7 @@ export class DeviceController {
       const data = await this.deviceRepository.find({
         where: {
           timestamp: MoreThanOrEqual(timeThreshold),
+          mother: { id: mother.id },
         },
         order: { timestamp: "DESC" },
         take: limit,
@@ -111,9 +155,13 @@ export class DeviceController {
             data.length
           : null;
 
+      const isScanning = await this.deviceRepository.findOne({
+        where: { isScanning: true, mother: { id: mother.id } },
+      });
+
       return {
         message: "Data retrieved successfully",
-        currentStatus: this.isScanning ? "monitoring" : "stopped",
+        currentStatus: isScanning ? "monitoring" : "stopped",
         averageHeartRate: avgHeartRate
           ? Math.round(avgHeartRate * 10) / 10
           : null,
