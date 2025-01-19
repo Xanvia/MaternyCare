@@ -145,11 +145,22 @@ export class PhmController {
 
     const mother = await this.motherRepository.findOne({
       where: { id: motherId },
+      relations: ["user"], // Ensure the user relationship is populated
     });
 
-    console.log("ad mother: " + mother.age);
+    if (!phm) {
+      return { error: "PHM not found" };
+    }
+
+    if (!mother) {
+      return { error: "Mother not found" };
+    }
 
     mother.phm = phm; // Assign the mother to the PHM
-    return this.motherRepository.save(mother);
+    mother.user.isVerified = true; // Mark the mother as verified
+    console.log("mother veifiy ", mother.user.isVerified);
+    await this.motherRepository.save(mother);
+
+    return { message: "Mother added to PHM successfully" };
   }
 }
