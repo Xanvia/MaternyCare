@@ -39,7 +39,7 @@ const MotherCard: React.FC<MotherCardProps> = ({
         <div className="flex justify-center items-center px-2 py-0 col-span-1">
           <div className="relative inline-flex items-center justify-center w-14 h-14 overflow-hidden bg-gray-100 rounded-full dark:bg-gray-600">
             <span className="font-medium text-xl text-gray-600 dark:text-gray-300">
-              {`${ToTitle(firstName[0])} ${ToTitle(lastName[0])}`}
+              {`${firstName[0]} ${lastName[0]}`}
             </span>
           </div>
         </div>

@@ -22,6 +22,7 @@ const DashboardPHM = () => {
   interface Mother {
     id: number;
     nic: string;
+    location: string;
     phone_number: number;
     mother_count: number;
     user: {
@@ -118,12 +119,6 @@ const DashboardPHM = () => {
                 </button>
               </div>
             </div>
-            {/* <div className="flex justify-center mt-6">
-        {updateComponent &&
-          React.cloneElement(updateComponent as React.ReactElement<any>, {
-            onUpdate: handleUpdate,
-          })}
-      </div> */}
           </div>
         </div>
         <div>
@@ -217,7 +212,7 @@ const DashboardPHM = () => {
                         firstName={mother.user.firstName}
                         lastName={mother.user.lastName}
                         nic={mother.nic}
-                        location="New York, USA"
+                        location={mother.location}
                         onAdd={() => handleAddMother(mother.id)}
                         phm={mother.phm}
                         isVerified={mother.user.isVerified}
@@ -254,7 +249,7 @@ const DashboardPHM = () => {
                         firstName={mother.user.firstName}
                         lastName={mother.user.lastName}
                         nic={mother.nic}
-                        location="New York, USA"
+                        location={mother.location}
                         onAdd={() => handleAddMother(mother.id)}
                         phm={mother.phm}
                         isVerified={mother.user.isVerified}
