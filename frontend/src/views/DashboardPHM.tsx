@@ -29,6 +29,7 @@ const DashboardPHM = () => {
       firstName: string;
       lastName: string;
       isVerified: boolean;
+      profilePic: string;
     };
     phm: {};
   }
@@ -216,6 +217,7 @@ const DashboardPHM = () => {
                         onAdd={() => handleAddMother(mother.id)}
                         phm={mother.phm}
                         isVerified={mother.user.isVerified}
+                        profilePic={mother.user.profilePic}
                       />
                     </div>
                   ))}
@@ -253,6 +255,7 @@ const DashboardPHM = () => {
                         onAdd={() => handleAddMother(mother.id)}
                         phm={mother.phm}
                         isVerified={mother.user.isVerified}
+                        profilePic={mother.user.profilePic}
                       />
                     </div>
                   ))}
