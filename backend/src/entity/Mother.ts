@@ -206,6 +206,8 @@ import { User } from "./User";
 import { Phm } from "./Phm";
 import { Appointment } from "./Appointment";
 import { Feedback } from "./Feedback";
+import { KickCount } from "./KickCount";
+import { DeviceData } from "./DeviceData";
 
 @Entity()
 export class Mother {
@@ -251,8 +253,11 @@ export class Mother {
   @Column({ type: "int", nullable: true })
   fetal_heart_rate: number;
 
-  @Column({ type: "int", array: true, nullable: true })
-  kick_count: number[];
+  // @Column({ type: "int", array: true, nullable: true })
+  // kick_count: number[];
+
+  @OneToMany(() => KickCount, (kickCount) => kickCount.mother)
+  kickCounts: KickCount[];
 
   @CreateDateColumn({ type: "timestamp", nullable: true })
   time_stamp: Date;
@@ -392,9 +397,13 @@ export class Mother {
   @Column({ type: "text", nullable: true })
   vogSignature: string; // New column for storing the signature
 
-
   @Column({ type: "text", nullable: true })
   richTextContent: string; // New column for storing rich text content
+
+  @OneToOne(() => DeviceData, (deviceData) => deviceData.mother, {
+    onDelete: "CASCADE",
+  })
+  deviceData: DeviceData[];
 
   @ManyToOne(() => Phm, (phm) => phm.mothers, {
     nullable: true,

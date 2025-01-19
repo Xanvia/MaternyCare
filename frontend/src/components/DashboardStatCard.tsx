@@ -1,5 +1,5 @@
-import axios from "axios";
-import React, { ReactNode, useEffect, useState } from "react";
+// import axios from "axios";
+import React, { ReactNode } from "react";
 
 interface DashboardStatCardProps {
   image: string;
@@ -18,10 +18,10 @@ const DashboardStatCard: React.FC<DashboardStatCardProps> = ({
   subtitle,
   updateComponent,
 }) => {
-  const [currentCount, setCurrentCount] = useState(count);
+  // const [currentCount, setCurrentCount] = useState(count);
 
   const handleUpdate = (newCount: number) => {
-    setCurrentCount(newCount);
+    // setCurrentCount(newCount);
   };
 
   return (
@@ -37,7 +37,7 @@ const DashboardStatCard: React.FC<DashboardStatCardProps> = ({
           <div>
             <div>
               <span className="text-2xl text-text_color_1 font-medium">
-                {currentCount}
+                {count}
               </span>{" "}
               <span className="font-normal text-text_color_2">{subtitle}</span>
             </div>
@@ -50,7 +50,7 @@ const DashboardStatCard: React.FC<DashboardStatCardProps> = ({
       <div className="flex justify-center mt-6">
         {updateComponent &&
           React.cloneElement(updateComponent as React.ReactElement<any>, {
-            onUpdate: handleUpdate,
+            // onUpdate: handleUpdate,
           })}
       </div>
     </div>

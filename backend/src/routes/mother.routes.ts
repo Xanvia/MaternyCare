@@ -1,6 +1,6 @@
 import { MotherController } from "../controller/MotherController";
 import { jwtMiddleware } from "../middlewear/jwtMiddleware";
-import { roleMiddleware } from "../middlewear/roleMiddleware";
+// import { roleMiddleware } from "../middlewear/roleMiddleware";
 
 export const MotherRoutes = [
   {
@@ -18,6 +18,16 @@ export const MotherRoutes = [
     // middlewares: [jwtMiddleware, roleMiddleware("mother")],
     middlewares: [],
   },
+
+  {
+    method: "get",
+    route: "/users/motherbyuser/:userId",
+    controller: MotherController,
+    action: "getMotherByUser",
+    // middlewares: [jwtMiddleware, roleMiddleware("mother")],
+    middlewares: [],
+  },
+
   {
     method: "get",
     route: "/phm/mothers/:id",
@@ -40,6 +50,15 @@ export const MotherRoutes = [
     route: "/vog/mothers/",
     controller: MotherController,
     action: "getMothersByRiskType",
+    // middlewares: [jwtMiddleware, roleMiddleware("mother")],
+    middlewares: [],
+  },
+
+  {
+    method: "get",
+    route: "/mother/:motherId/kickcounts/",
+    controller: MotherController,
+    action: "getKickCountData",
     // middlewares: [jwtMiddleware, roleMiddleware("mother")],
     middlewares: [],
   },
@@ -92,6 +111,15 @@ export const MotherRoutes = [
     controller: MotherController,
     action: "updateVogSignature",
     middlewares: [jwtMiddleware],
+  },
+
+  {
+    method: "put",
+    route: "/mother/update-kick-count",
+    controller: MotherController,
+    action: "updateKickCount",
+    // middlewares: [jwtMiddleware, roleMiddleware("mother")],
+    middlewares: [],
   },
 
   {

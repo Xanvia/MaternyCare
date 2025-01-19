@@ -24,6 +24,7 @@ import { TetanusToxoidImmunization } from "./entity/TetanusToxoidImmunization";
 import { WeightGainChart } from "./entity/WeightGainChart";
 import { MotherGuide } from "./entity/MotherGuide";
 import { Vog } from "./entity/Vog";
+import { DeviceData } from "./entity/DeviceData";
 
 export const AppDataSource = new DataSource({
   type: "postgres",
@@ -60,6 +61,7 @@ export const AppDataSource = new DataSource({
     MotherGuide,
     Feedback,
     Vog,
+    DeviceData,
   ],
   migrations: [],
   subscribers: [],

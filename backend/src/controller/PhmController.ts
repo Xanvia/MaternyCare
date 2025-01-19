@@ -46,7 +46,7 @@ export class PhmController {
       });
 
       if (!mother) {
-        return response.status(404).json({ message: "Mother not found" });
+        return { message: "Mother not found" };
       }
 
       // Access the related PHM
@@ -56,7 +56,7 @@ export class PhmController {
       });
 
       if (!phm) {
-        return response.status(404).json({ message: "PHM not found" });
+        return { message: "PHM not found" };
       }
 
       // Return the required details
@@ -66,17 +66,15 @@ export class PhmController {
         phoneNumber: phm.phone_number,
       };
 
-      response.status(200).json(result);
-      return;
+      return { result };
     } catch (error) {
       console.error("Error fetching PHM by mother ID:", error);
-      return response.status(500).json({ message: "Internal server error" });
+      return { message: "Internal server error" };
     }
   }
 
   async save(request: Request, response: Response, next: NextFunction) {
-    const { phone_number, phm_id, nic, mother_count, baby_count, star_points } =
-      request.body;
+    const { phone_number, phm_id, nic, phm_area, moh_division } = request.body;
 
     if (request.user.userRole !== "phm") {
       console.log(request.user.role);
@@ -86,17 +84,13 @@ export class PhmController {
     const userId = request.user?.userId;
 
     if (!userId) {
-      return response
-        .status(400)
-        .json({ error: "User ID is missing or invalid" });
+      return { error: "User ID is missing or invalid" };
     }
 
     const parsedUserId = parseInt(userId, 10);
 
     if (isNaN(parsedUserId)) {
-      return response
-        .status(400)
-        .json({ error: "User ID is not a valid number" });
+      return { error: "User ID is not a valid number" };
     }
 
     const user = await this.userRepository.findOne({
@@ -104,16 +98,15 @@ export class PhmController {
     });
 
     if (!user) {
-      return response.status(404).json({ error: "User not found" });
+      return { error: "User not found" };
     }
 
     const phm = Object.assign(new Phm(), {
       phone_number,
       phm_id,
       nic,
-      mother_count,
-      baby_count,
-      star_points,
+      phm_area,
+      moh_division,
       user: user,
     });
 
@@ -152,23 +145,22 @@ export class PhmController {
 
     const mother = await this.motherRepository.findOne({
       where: { id: motherId },
+      relations: ["user"], // Ensure the user relationship is populated
     });
 
-    console.log("ad mother: " + mother.age);
+    if (!phm) {
+      return { error: "PHM not found" };
+    }
 
-    // if (!phm) {
-    //   return response.status(404).json({ error: "PHM not found" });
-    // }
-
-    // if (!mother) {
-    //   return response.status(404).json({ error: "Mother not found" });
-    // }
+    if (!mother) {
+      return { error: "Mother not found" };
+    }
 
     mother.phm = phm; // Assign the mother to the PHM
-    return this.motherRepository.save(mother);
+    mother.user.isVerified = true; // Mark the mother as verified
+    console.log("mother veifiy ", mother.user.isVerified);
+    await this.motherRepository.save(mother);
 
-    // return response
-    //   .status(200)
-    //   .json({ message: "Mother added to PHM successfully" });
+    return { message: "Mother added to PHM successfully" };
   }
 }

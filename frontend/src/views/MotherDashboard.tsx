@@ -3,14 +3,13 @@ import feet from "../assets/images/feet.svg";
 import fire from "../assets/images/fire.svg";
 import water from "../assets/images/drops.svg";
 import LineChart from "../components/LineChart";
-import { useEffect, useState, useContext } from "react";
+import { useEffect, useState } from "react";
 import KickCountUpdateModal from "../modals/KickCountUpdateModal";
 import HeartRateUpdate from "../modals/HeartRateUpdate";
 // import WaterAmountUpdate from "../modals/WaterAmountUpdate";
-import { HeartRateContext } from "../contexts/HeartRateContextProvider";
+// import { HeartRateContext } from "../contexts/HeartRateContextProvider";
 import axios from "axios";
 
-import toTitleCase from "../components/CaseConverter";
 import useRoleProtection from "../customHooks/useRoleProtection";
 import { quotes } from "../data/Data";
 import BasicDetailsPreview from "./forms/BasicDetailsPreview";
@@ -31,12 +30,12 @@ interface Phm {
 const MotherDashboard = () => {
   useRoleProtection("mother");
 
-  const heartRateContext = useContext(HeartRateContext);
-  const heartRate = heartRateContext?.heartRate;
+  // const heartRateContext = useContext(HeartRateContext);
+  // const heartRate = heartRateContext?.heartRate;
   const [random, setRandom] = useState(0);
 
   let name = "";
-  let role = localStorage.getItem("role");
+  // let role = localStorage.getItem("role");
   let userItem = localStorage.getItem("user");
   const user = userItem ? JSON.parse(userItem) : null;
 
@@ -46,6 +45,14 @@ const MotherDashboard = () => {
 
   const [mother, setMother] = useState<Mother>();
   const [phm, setPhm] = useState<Phm>();
+  const [heartRate, setHeartRate] = useState<number>(0);
+
+  const [count, setCount] = useState(0);
+  interface KickCount {
+    kickCount: number;
+  }
+
+  const [kickcounts, setKickcounts] = useState<KickCount[]>([]);
   const [openModal, setOpenModal] = useState(false);
 
   // if (user.firstName) {
@@ -58,13 +65,8 @@ const MotherDashboard = () => {
     setRandom(Math.floor(Math.random() * 4));
   }, []);
 
-  if (heartRateContext == null) {
-    return;
-  }
-  console.log("tokennn", token);
-
   useEffect(() => {
-    const getMothers = () => {
+    const getMother = () => {
       const axiosConfig = {
         method: "get",
         url: `${BASE_URL}users/motherbyuser/${user.id}`,
@@ -81,8 +83,28 @@ const MotherDashboard = () => {
         });
     };
 
-    getMothers();
+    getMother();
   }, []);
+  useEffect(() => {
+    const getHeartRate = async () => {
+      if (!mother) return;
+      try {
+        const response = await axios.get(`${BASE_URL}device/data`, {
+          params: { motherId: mother.id },
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        const latestData = response.data.data[0];
+        console.log("latestData: ", response.data);
+        setHeartRate(latestData.heartRate);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    console.log("motherid ", mother?.id);
+    getHeartRate();
+  }, [mother, token]);
 
   useEffect(() => {
     const getPhm = () => {
@@ -104,14 +126,36 @@ const MotherDashboard = () => {
     };
 
     getPhm();
-  }, []);
+  }, [mother]);
 
-  const kicks = mother?.kick_count[mother.kick_count.length - 1];
-  console.log("kciksss", kicks);
+  const getKickCount = () => {
+    if (!mother) return;
+    const axiosConfig = {
+      method: "get",
+      url: `${BASE_URL}mother/${mother.id}/kickcounts/`,
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+    axios(axiosConfig)
+      .then((response) => {
+        setKickcounts(response.data);
+        console.log("res: ", response.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   useEffect(() => {
-    console.log("Updated kicks value:", kicks);
-  }, []);
+    getKickCount();
+  }, [mother]);
+
+  console.log("kickcounts: ", kickcounts[kickcounts.length - 1]?.kickCount);
+
+  useEffect(() => {
+    setCount(kickcounts[kickcounts.length - 1]?.kickCount);
+  }, [kickcounts]);
 
   return (
     <div className="mx-11">
@@ -150,18 +194,28 @@ const MotherDashboard = () => {
         <DashboardStatCard
           image={feet}
           color="bg-[#F9B8D0]"
-          count={kicks ?? 0}
+          count={count}
           title="Kick Count"
           subtitle="kicks"
-          updateComponent={<KickCountUpdateModal />}
+          updateComponent={
+            <KickCountUpdateModal
+              motherId={mother ? mother.id : 0}
+              // onUpdate={getKickCount}
+            />
+          }
         />
         <DashboardStatCard
           image={fire}
           color="bg-[#A8F0DB]"
-          count={heartRate ?? 0}
+          count={heartRate}
           title="Heart Rate"
           subtitle="bpm"
-          updateComponent={<HeartRateUpdate />}
+          updateComponent={
+            <HeartRateUpdate
+              motherId={mother ? mother.id : 0}
+              heartRateO={heartRate}
+            />
+          }
         />
         <DashboardStatCard
           image={water}

@@ -22,12 +22,14 @@ const DashboardPHM = () => {
   interface Mother {
     id: number;
     nic: string;
+    location: string;
     phone_number: number;
     mother_count: number;
     user: {
       firstName: string;
       lastName: string;
       isVerified: boolean;
+      profilePic: string;
     };
     phm: {};
   }
@@ -118,12 +120,6 @@ const DashboardPHM = () => {
                 </button>
               </div>
             </div>
-            {/* <div className="flex justify-center mt-6">
-        {updateComponent &&
-          React.cloneElement(updateComponent as React.ReactElement<any>, {
-            onUpdate: handleUpdate,
-          })}
-      </div> */}
           </div>
         </div>
         <div>
@@ -203,7 +199,7 @@ const DashboardPHM = () => {
             <>
               <div className="grid lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-y-4 gap-x-6 mb-5">
                 {mothers
-                  .filter((mother) => !mother.user.isVerified)
+                  .filter((mother) => mother.phm == null)
                   .map((mother, index) => (
                     <div
                       key={mother.id}
@@ -217,10 +213,11 @@ const DashboardPHM = () => {
                         firstName={mother.user.firstName}
                         lastName={mother.user.lastName}
                         nic={mother.nic}
-                        location="New York, USA"
+                        location={mother.location}
                         onAdd={() => handleAddMother(mother.id)}
                         phm={mother.phm}
                         isVerified={mother.user.isVerified}
+                        profilePic={mother.user.profilePic}
                       />
                     </div>
                   ))}
@@ -240,7 +237,7 @@ const DashboardPHM = () => {
             <>
               <div className="grid lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-y-4 gap-x-6 mb-5">
                 {mothers
-                  .filter((mother) => mother.user.isVerified)
+                  .filter((mother) => mother.phm !== null)
                   .map((mother, index) => (
                     <div
                       key={mother.id}
@@ -254,10 +251,11 @@ const DashboardPHM = () => {
                         firstName={mother.user.firstName}
                         lastName={mother.user.lastName}
                         nic={mother.nic}
-                        location="New York, USA"
+                        location={mother.location}
                         onAdd={() => handleAddMother(mother.id)}
                         phm={mother.phm}
                         isVerified={mother.user.isVerified}
+                        profilePic={mother.user.profilePic}
                       />
                     </div>
                   ))}

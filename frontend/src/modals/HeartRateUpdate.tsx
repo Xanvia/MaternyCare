@@ -1,5 +1,5 @@
-// HeartRateUpdate.js
-import { useState, useContext } from "react";
+import { useState } from "react";
+import axios from "axios";
 import Button from "@mui/joy/Button";
 import Divider from "@mui/joy/Divider";
 import DialogTitle from "@mui/joy/DialogTitle";
@@ -8,33 +8,79 @@ import DialogActions from "@mui/joy/DialogActions";
 import Modal from "@mui/joy/Modal";
 import ModalDialog from "@mui/joy/ModalDialog";
 import IconButton from "@mui/joy/IconButton";
-import CircularWithValueLabel from "../components/CircularProgress";
+import CircularProgress from "@mui/material/CircularProgress";
 import { CloseIcon, PlusCircle } from "../assets/icons/Icons";
-import { HeartRateContext } from "../contexts/HeartRateContextProvider";
 
-export default function HeartRateUpdate() {
+const BASE_URL = "http://localhost:3000/";
+
+interface HeartRateUpdateModalProps {
+  motherId: number;
+  heartRateO: number;
+}
+
+export default function HeartRateUpdate({
+  motherId,
+  heartRateO,
+}: HeartRateUpdateModalProps) {
   const [open, setOpen] = useState(false);
-  // const [sync, setSync] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [isSyncing, setIsSyncing] = useState(false);
+  const [heartRate, setHeartRate] = useState<number | null>(null);
 
-  const heartRateContext = useContext(HeartRateContext);
-  const heartRate = heartRateContext?.heartRate;
+  const token = localStorage.getItem("token");
 
-  const handleSync = () => {
-    const newHeartRate = Math.floor(Math.random() * (160 - 110 + 1)) + 110;
-
+  const handleSync = async () => {
     setLoading(true);
+    try {
+      await axios.post(
+        `${BASE_URL}device/start`,
+        { motherId },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      setIsSyncing(true);
+    } catch (error) {
+      console.error("Error starting device:", error);
+    } finally {
+      // setLoading(false);
+    }
+  };
 
-    setTimeout(() => {
+  const handleStop = async () => {
+    setLoading(true);
+    try {
+      await axios.post(
+        `${BASE_URL}device/stop`,
+        { motherId },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      const response = await axios.get(`${BASE_URL}device/data`, {
+        params: { motherId },
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      const latestData = response.data.data[0];
+      setHeartRate(latestData.heartRate);
+      setIsSyncing(false);
+      // setOpen(false);
+    } catch (error) {
+      console.error("Error stopping device:", error);
+    } finally {
       setLoading(false);
-    }, 2000);
-
-    heartRateContext?.updateHeartRate(newHeartRate);
+    }
   };
 
-  const handleUpdate = () => {
-    setOpen(false);
-  };
+  // const handleUpdate = () => {
+  //   setOpen(false);
+  // };
 
   return (
     <>
@@ -92,7 +138,13 @@ export default function HeartRateUpdate() {
           >
             Below is the synced heart rate data from the device
             <h1 className="text-3xl">
-              {loading ? <CircularWithValueLabel /> : `${heartRate} bpm`}
+              {loading ? (
+                <div className="max-h-10">
+                  <CircularProgress />
+                </div>
+              ) : (
+                `${heartRate ?? heartRateO} bpm`
+              )}
             </h1>
           </DialogContent>
           <DialogActions
@@ -115,24 +167,9 @@ export default function HeartRateUpdate() {
                 width: { xs: "50%", md: "40%" },
                 fontSize: "1rem",
               }}
-              onClick={handleUpdate}
+              onClick={isSyncing ? handleStop : handleSync}
             >
-              Update
-            </Button>
-            <Button
-              variant="solid"
-              sx={{
-                backgroundColor: "#0D99FF",
-                color: "#ffffff",
-                "&:hover": {
-                  backgroundColor: "#80CAFF",
-                },
-                width: { xs: "50%", md: "40%" },
-                fontSize: "1rem",
-              }}
-              onClick={handleSync}
-            >
-              Sync Now
+              {isSyncing ? "Stop" : "Sync Now"}
             </Button>
           </DialogActions>
         </ModalDialog>
