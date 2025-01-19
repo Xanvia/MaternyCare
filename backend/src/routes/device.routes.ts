@@ -8,20 +8,20 @@ export const DeviceRoutes = [
     route: "/device/start",
     controller: DeviceController,
     action: "startDevice",
-    middlewares: [jwtMiddleware], // Only authenticated users can start monitoring
+    middlewares: [],
   },
   {
     method: "post",
     route: "/device/stop",
     controller: DeviceController,
     action: "stopDevice",
-    middlewares: [jwtMiddleware], // Only authenticated users can stop monitoring
+    middlewares: [],
   },
   {
     method: "get",
     route: "/device/data",
     controller: DeviceController,
     action: "fetchData",
-    middlewares: [jwtMiddleware], // Only authenticated users can fetch data
+    middlewares: [],
   },
 ];
