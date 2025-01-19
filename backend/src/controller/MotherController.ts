@@ -56,6 +56,8 @@ export class MotherController {
   async save(request: Request, response: Response, next: NextFunction) {
     const { age, nic, phone_1, bio, delivery_date, address } = request.body;
 
+    console.log("debug role", request.user.userRole);
+
     if (request.user.userRole !== "mother") {
       console.log(request.user.userRole);
       // return "You are not authorized to create a Mother";
