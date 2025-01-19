@@ -269,7 +269,7 @@ export class Mother {
   baby_height: number;
 
   @Column({ type: "int", nullable: true })
-  mother_weight: number;
+  mother_weight: string;
 
   @Column({ type: "varchar", nullable: true })
   mother_height: string;
@@ -312,6 +312,12 @@ export class Mother {
 
   @Column({ type: "varchar", length: 255, nullable: true })
   antenatal_risk_conditions: string;
+
+  @Column({ type: "varchar", length: 255, nullable: true })
+  registration_no: string;
+
+  @Column({ type: "varchar", length: 255, nullable: true })
+  registration_date: string;
 
   @Column({ type: "varchar", length: 255, nullable: true })
   eligible_family_register: string;
