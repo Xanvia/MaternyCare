@@ -59,23 +59,19 @@ export class MotherController {
     if (request.user.userRole !== "mother") {
       console.log(request.user.userRole);
       // return "You are not authorized to create a Mother";
-      return response
-        .status(403)
-        .json({ message: "You are not authorized to create a Mother" });
+      return { message: "You are not authorized to create a Mother" };
     }
 
     const userId = request.user?.userId;
 
     if (!userId) {
-      return response
-        .status(403)
-        .json({ message: "You are not authorized to create a Mother" });
+      return { message: "You are not authorized to create a Mother" };
     }
 
     try {
       const user = await this.userRepository.findOne({ where: { id: userId } });
       if (!user) {
-        return response.status(404).json({ message: "User not found" });
+        return { message: "User not found" };
       }
 
       // const mother = Object.assign(new Mother(), {
@@ -144,7 +140,7 @@ export class MotherController {
       });
 
       if (!mother) {
-        return response.status(404).json({ message: "Mother not found" });
+        return { message: "Mother not found" };
       }
 
       // Update the mother's details
@@ -175,7 +171,7 @@ export class MotherController {
           relations: ["user"],
         });
         if (!phm) {
-          return response.status(404).json({ message: "PHM not found" });
+          return { message: "PHM not found" };
         }
         mother.phm = phm; // Update the PHM relationship
       }
@@ -202,7 +198,7 @@ export class MotherController {
       });
 
       if (!mother) {
-        return response.status(404).json({ message: "Mother not found" });
+        return { message: "Mother not found" };
       }
 
       // Update the mother's signature
@@ -230,7 +226,7 @@ export class MotherController {
       });
 
       if (!mother) {
-        return response.status(404).json({ message: "Mother not found" });
+        return { message: "Mother not found" };
       }
 
       // Update the mother's signature
@@ -265,7 +261,7 @@ export class MotherController {
       console.log("mother", mother);
 
       if (!mother) {
-        return response.status(404).json({ message: "Mother not found" });
+        return { message: "Mother not found" };
       }
 
       // Update the mother's details
@@ -289,7 +285,7 @@ export class MotherController {
       });
 
       if (!mother) {
-        return response.status(404).json({ message: "Mother not found" });
+        return { message: "Mother not found" };
       }
 
       const newKickCount = new KickCount();
@@ -319,13 +315,13 @@ export class MotherController {
       });
 
       if (!mother) {
-        return response.status(404).json({ message: "Mother not found" });
+        return { message: "Mother not found" };
       }
 
       return mother.kickCounts;
     } catch (error) {
       console.error("Error fetching kick count data:", error);
-      return response.status(500).json({ message: "Internal server error" });
+      return { message: "Internal server error" };
     }
   }
 
@@ -406,9 +402,7 @@ export class MotherController {
       });
 
       if (!mothers.length) {
-        return response
-          .status(404)
-          .json({ message: `No mothers found with risk type red` });
+        return { message: `No mothers found with risk type red` };
       }
 
       return mothers;
@@ -431,7 +425,7 @@ export class MotherController {
       });
 
       if (!mother) {
-        return response.status(404).json({ message: "Mother not found" });
+        return { message: "Mother not found" };
       }
 
       // Update the mother's rich text content
@@ -458,12 +452,12 @@ export class MotherController {
       });
 
       if (!mother) {
-        return response.status(404).json({ message: "Mother not found" });
+        return { message: "Mother not found" };
       }
 
       // Return the mother's rich text content
-      response.status(200).json({ richTextContent: mother.richTextContent });
-      return;
+      return { richTextContent: mother.richTextContent };
+     
     } catch (error) {
       return next(error);
     }
@@ -487,15 +481,11 @@ export class MotherController {
     });
 
     if (!phm) {
-      return response
-        .status(404)
-        .json({ message: "PHM not found for the given User ID" });
+      return { message: "PHM not found for the given User ID" };
     }
 
     if (!mothers.length) {
-      return response
-        .status(404)
-        .json({ message: "No mothers found for the associated PHM" });
+      return { message: "No mothers found for the associated PHM" };
     }
 
     return mothers;
