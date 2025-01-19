@@ -22,9 +22,11 @@ interface Mother {
   kick_count: number[];
 }
 interface Phm {
-  firstName: string;
-  email: string;
-  phoneNumber: number;
+  result: {
+    email: string;
+    firstName: string;
+    phoneNumber: number;
+  };
 }
 
 const MotherDashboard = () => {
@@ -119,6 +121,7 @@ const MotherDashboard = () => {
       axios(axiosConfig)
         .then((response) => {
           setPhm(response.data);
+          console.log("phm: ", response.data.result);
         })
         .catch((err) => {
           console.log(err);
@@ -172,7 +175,10 @@ const MotherDashboard = () => {
       <ReportHealthIssueModal
         open={openModal}
         onClose={() => setOpenModal(false)}
-        phm={phm || { firstName: "", phoneNumber: 0 }}
+        phm={phm?.result || { firstName: "", phoneNumber: 0, email: "" }}
+        email={phm?.result.email || ""}
+        phoneNumber={phm?.result.phoneNumber || 0}
+        firstName={phm?.result.firstName || ""}
       />
 
       <div className="mt-14 lg:mt-0 h-auto min-h-44 px-8 py-5 text-white bg-[#BA97FE] rounded-2xl mb-8 w-auto">

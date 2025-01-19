@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useState } from "react";
 import Button from "@mui/material/Button";
 import Divider from "@mui/joy/Divider";
 import DialogTitle from "@mui/joy/DialogTitle";
@@ -9,19 +9,26 @@ import ModalDialog from "@mui/joy/ModalDialog";
 import IconButton from "@mui/joy/IconButton";
 import TextField from "@mui/material/TextField";
 import { CloseIcon, CallIcon } from "../assets/icons/Icons";
-
+import { toast } from "react-toastify";
 interface ReportHealthIssueModalProps {
   open: boolean;
   onClose: () => void;
-  phm: { firstName: string; phoneNumber: number };
+  phm: { firstName: string; phoneNumber: number; email: string };
+  email: string;
+  firstName: string;
+  phoneNumber: number;
 }
 
 const ReportHealthIssueModal: React.FC<ReportHealthIssueModalProps> = ({
   open,
   onClose,
   phm,
+  email,
+  firstName,
+  phoneNumber,
 }) => {
   const [issueMessage, setIssueMessage] = React.useState<string>("");
+  const [isSending, setIsSending] = useState<boolean>(false);
 
   const handleIssueMessageChange = (
     event: React.ChangeEvent<HTMLInputElement>
@@ -29,10 +36,42 @@ const ReportHealthIssueModal: React.FC<ReportHealthIssueModalProps> = ({
     setIssueMessage(event.target.value);
   };
 
-  const handleSend = () => {
-    // Handle sending the issue message
-    console.log("Issue message:", issueMessage);
-    onClose();
+  const handleSend = async () => {
+    const subject = "Health Issue Report";
+    const message = issueMessage;
+
+    setIsSending(true);
+
+    try {
+      const response = await fetch("http://localhost:3000/send-email", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: phm.email,
+          subject: subject,
+          message: message,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to send email");
+      }
+
+      const result = await response.json();
+      console.log(result.message);
+
+      // Optionally close the modal
+      onClose();
+
+      toast.success("Email sent successfully!");
+    } catch (error) {
+      toast.error("Email sent failed!");
+      console.error("Error sending email:", error);
+    } finally {
+      setIsSending(false);
+    }
   };
 
   return (
@@ -72,11 +111,11 @@ const ReportHealthIssueModal: React.FC<ReportHealthIssueModalProps> = ({
             color: "#666666",
           }}
         >
-          <p>Name: {phm.firstName}</p>
+          <p>Name: {firstName}</p>
           <Button
             variant="outlined"
             startIcon={<CallIcon />}
-            href={`tel:${phm.phoneNumber}`}
+            href={`tel:${phoneNumber}`}
             sx={{
               borderColor: "#0D99FF",
               color: "#0D99FF",
@@ -108,6 +147,7 @@ const ReportHealthIssueModal: React.FC<ReportHealthIssueModalProps> = ({
         >
           <Button
             variant="contained"
+            disabled={isSending}
             sx={{
               backgroundColor: "#0D99FF",
               color: "#ffffff",
@@ -117,7 +157,7 @@ const ReportHealthIssueModal: React.FC<ReportHealthIssueModalProps> = ({
             }}
             onClick={handleSend}
           >
-            Send
+            {isSending ? "Sending..." : "Send Issue"}
           </Button>
         </DialogActions>
       </ModalDialog>

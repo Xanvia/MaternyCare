@@ -1,3 +1,4 @@
+import { EmailController } from "../controller/EmailController";
 import { MotherController } from "../controller/MotherController";
 import { jwtMiddleware } from "../middlewear/jwtMiddleware";
 // import { roleMiddleware } from "../middlewear/roleMiddleware";
@@ -129,5 +130,13 @@ export const MotherRoutes = [
     action: "remove",
     // middlewares: [jwtMiddleware, roleMiddleware("mother")],
     middlewares: [jwtMiddleware],
+  },
+
+  {
+    method: "post",
+    route: "/send-email",
+    controller: EmailController,
+    action: "sendHealthIssueReport",
+    middlewares: [],
   },
 ];
