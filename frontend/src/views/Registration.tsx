@@ -124,7 +124,7 @@
 
 // export default Registration;
 
-import React from "react";
+import React, { useContext } from "react";
 import { useFormik } from "formik";
 import logo from "../assets/images/logo.png";
 import { ErrorIcon } from "../assets/icons/Icons";
@@ -134,16 +134,20 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { registrationSchema } from "../schemas/registrationSchema";
 
+import { RoleContext } from "../contexts/RoleContextProvider";
+
 interface FormValues {
   firstName: string;
   lastName: string;
   email: string;
   password: string;
   confirmPassword: string;
+  role: string;
 }
 
 const Registration: React.FC = () => {
   const navigate = useNavigate();
+  const roleContext = useContext(RoleContext);
 
   const formik = useFormik<FormValues>({
     initialValues: {
@@ -152,6 +156,7 @@ const Registration: React.FC = () => {
       email: "",
       password: "",
       confirmPassword: "",
+      role: roleContext?.role || "",
     },
     validationSchema: registrationSchema,
 

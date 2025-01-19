@@ -1,9 +1,14 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import ToTitle from "../components/CaseConverter";
 import BasicDetails from "./forms/BasicDetails";
-import { ExpandLess, ExpandMore, TickCircle } from "../assets/icons/Icons";
+import {
+  ExpandLess,
+  ExpandMore,
+  ProfileIcon,
+  TickCircle,
+} from "../assets/icons/Icons";
 import PresentObstetricHistory from "./forms/PresentObstetricHistory";
 import ClinicCare from "./forms/ClinicCare";
 
@@ -15,6 +20,8 @@ const SingleMother = () => {
 
   const [appointment, setAppointment] = useState<any>(null);
   const BASE_URL = "http://localhost:3000/";
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchMother = async () => {
@@ -91,32 +98,10 @@ const SingleMother = () => {
 
   return (
     <div>
-      {/* <div className="max-w-full mx-4 flex bg-white shadow-lg rounded-lg overflow-hidden border border-gray-200">
-        <div className="px-6 m-3 border rounded-md  flex items-center justify-center">
-          <span className="font-medium text-2xl text-gray-600 dark:text-gray-300">
-            {`${ToTitle(mother.user.firstName[0])} ${ToTitle(
-              mother.user.lastName[0]
-            )}`}
-          </span>
-        </div>
-        <div className="px-6 py-4">
-          <h2 className="text-xl font-semibold text-gray-800 mb-2">
-            {mother.user.firstName} {mother.user.lastName}
-          </h2>
-          <p className="text-gray-600">
-            <span className="font-semibold">NIC:</span> {mother.nic}
-          </p>
-          <p className="text-gray-600">
-            <span className="font-semibold">Phone:</span> {mother.phone_1}
-          </p>
-        </div>
-      </div> */}
       <div className="max-w-full mx-4 grid grid-cols-2 sm:flex bg-white shadow-lg rounded-lg overflow-hidden border border-gray-200 justify-between items-center">
         <div className="w-24 h-24 m-3 border rounded-md flex items-center justify-center">
           <span className="font-medium text-2xl text-gray-600 dark:text-gray-300">
-            {`${ToTitle(mother.user.firstName[0])} ${ToTitle(
-              mother.user.lastName[0]
-            )}`}
+            {`${mother.user.firstName[0]} ${mother.user.lastName[0]}`}
           </span>
         </div>
 
@@ -132,6 +117,14 @@ const SingleMother = () => {
           </p>
         </div>
 
+        <button
+          onClick={() => navigate(`/public-profile`)}
+          disabled={appointment?.checkedByPHM}
+          className="flex items-center px-4 py-2 bg-pink_primary text-white rounded-md hover:bg-pink_secondary"
+        >
+          <ProfileIcon className="mr-2" />
+          Profile Preview
+        </button>
         <div className="m-3">
           <button
             onClick={updateAppointment}
