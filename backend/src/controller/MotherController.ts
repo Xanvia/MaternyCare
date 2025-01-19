@@ -457,7 +457,6 @@ export class MotherController {
 
       // Return the mother's rich text content
       return { richTextContent: mother.richTextContent };
-     
     } catch (error) {
       return next(error);
     }
