@@ -61,7 +61,7 @@ const MotherCard: React.FC<MotherCardProps> = ({
         </div>
 
         <div className="flex items-center col-span-1">
-          {phm == null && !isVerified ? (
+          { !isVerified ? (
             <button
               onClick={handleAddClick} // Handle button click
               className="bg-green_tertiary hover:bg-green_secondary text-green_primary font-semibold p-2 rounded w-auto"
@@ -69,12 +69,7 @@ const MotherCard: React.FC<MotherCardProps> = ({
               <PlusCircle />
             </button>
           ) : (
-            // <button
-            //   className="bg-red-300 hover:bg-red-400 text-red-600 font-semibold p-2 rounded w-auto"
-            //   onClick={handleRemoveClick}
-            // >
             <TickCircle className="text-green_primary" />
-            // </button>
           )}
         </div>
       </div>

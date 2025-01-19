@@ -199,7 +199,7 @@ const DashboardPHM = () => {
             <>
               <div className="grid lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-y-4 gap-x-6 mb-5">
                 {mothers
-                  .filter((mother) => !mother.user.isVerified)
+                  .filter((mother) => mother.phm == null)
                   .map((mother, index) => (
                     <div
                       key={mother.id}
@@ -237,7 +237,7 @@ const DashboardPHM = () => {
             <>
               <div className="grid lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-y-4 gap-x-6 mb-5">
                 {mothers
-                  .filter((mother) => mother.user.isVerified)
+                  .filter((mother) => mother.phm !== null)
                   .map((mother, index) => (
                     <div
                       key={mother.id}
