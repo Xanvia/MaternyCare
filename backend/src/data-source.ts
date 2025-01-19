@@ -26,15 +26,12 @@ import { MotherGuide } from "./entity/MotherGuide";
 import { Vog } from "./entity/Vog";
 import { DeviceData } from "./entity/DeviceData";
 
+const databaseUrl = process.env.DATABASE_URL;
+
 export const AppDataSource = new DataSource({
   type: "postgres",
-  host: "localhost",
-  port: 5432,
-  username: "test",
-  password: "letmein",
-  database: "test",
-  synchronize: true,
-  logging: false,
+  url: databaseUrl,
+  ssl: true,
   entities: [
     User,
     Notice,
@@ -65,4 +62,6 @@ export const AppDataSource = new DataSource({
   ],
   migrations: [],
   subscribers: [],
+  synchronize: true, // be careful with this in production
+  logging: false,
 });
