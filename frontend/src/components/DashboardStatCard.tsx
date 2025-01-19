@@ -1,5 +1,5 @@
-import axios from "axios";
-import React, { ReactNode, useEffect, useState } from "react";
+// import axios from "axios";
+import React, { ReactNode } from "react";
 
 interface DashboardStatCardProps {
   image: string;
@@ -50,7 +50,7 @@ const DashboardStatCard: React.FC<DashboardStatCardProps> = ({
       <div className="flex justify-center mt-6">
         {updateComponent &&
           React.cloneElement(updateComponent as React.ReactElement<any>, {
-            onUpdate: handleUpdate,
+            // onUpdate: handleUpdate,
           })}
       </div>
     </div>
