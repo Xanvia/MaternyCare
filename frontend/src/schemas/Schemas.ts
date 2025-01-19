@@ -27,8 +27,5 @@ export const mohRegistrationSchema = yup.object().shape({
     .string()
     .matches(/^\d{10}$/, "Phone number must be 10 digits")
     .required("Please provide your phone number."),
-  mohID: yup
-    .string()
-    .matches(/^MOH\d{3}$/, "MOH ID must start with 'MOH' followed by 3 digits")
-    .required("Please provide your MOH ID."),
+  mohID: yup.string().required("Please provide your MOH ID."),
 });
