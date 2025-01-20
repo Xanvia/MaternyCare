@@ -2,7 +2,7 @@ import DashboardStatCard from "../components/DashboardStatCard";
 import feet from "../assets/images/feet.svg";
 import fire from "../assets/images/fire.svg";
 import water from "../assets/images/drops.svg";
-import LineChart from "../components/LineChart";
+// import LineChart from "../components/LineChart";
 import { useEffect, useState } from "react";
 import KickCountUpdateModal from "../modals/KickCountUpdateModal";
 import HeartRateUpdate from "../modals/HeartRateUpdate";
