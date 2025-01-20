@@ -1,4 +1,4 @@
-import React from "react";
+// import React from "react";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -89,15 +89,15 @@ const SFHChart = () => {
     maintainAspectRatio: false,
     plugins: {
       legend: {
-        position: "top",
+        position: "top" as const, // Instead of just 'top'
+      },
+      tooltip: {
+        mode: "index" as const, // Instead of just 'index'
+        intersect: false,
       },
       title: {
         display: true,
         text: "Symphysis-Fundal Height Chart",
-      },
-      tooltip: {
-        mode: "index",
-        intersect: false,
       },
     },
     scales: {
