@@ -7,7 +7,7 @@ import { ExpandLess, ExpandMore, TickCircle } from "../assets/icons/Icons";
 import PresentObstetricHistory from "./forms/PresentObstetricHistory";
 import ClinicCare from "./forms/ClinicCare";
 
-const SingleMother = () => {
+const SingleMotherGenral = () => {
   const { id } = useParams<{ id: string }>();
   const { appointmentid } = useParams<{ appointmentid: string }>();
   const [mother, setMother] = useState<any>(null);
@@ -91,32 +91,10 @@ const SingleMother = () => {
 
   return (
     <div>
-      {/* <div className="max-w-full mx-4 flex bg-white shadow-lg rounded-lg overflow-hidden border border-gray-200">
-        <div className="px-6 m-3 border rounded-md  flex items-center justify-center">
-          <span className="font-medium text-2xl text-gray-600 dark:text-gray-300">
-            {`${ToTitle(mother.user.firstName[0])} ${ToTitle(
-              mother.user.lastName[0]
-            )}`}
-          </span>
-        </div>
-        <div className="px-6 py-4">
-          <h2 className="text-xl font-semibold text-gray-800 mb-2">
-            {mother.user.firstName} {mother.user.lastName}
-          </h2>
-          <p className="text-gray-600">
-            <span className="font-semibold">NIC:</span> {mother.nic}
-          </p>
-          <p className="text-gray-600">
-            <span className="font-semibold">Phone:</span> {mother.phone_1}
-          </p>
-        </div>
-      </div> */}
       <div className="max-w-full mx-4 grid grid-cols-2 sm:flex bg-white shadow-lg rounded-lg overflow-hidden border border-gray-200 justify-between items-center">
         <div className="w-24 h-24 m-3 border rounded-md flex items-center justify-center">
           <span className="font-medium text-2xl text-gray-600 dark:text-gray-300">
-            {`${mother.user.firstName[0]} ${
-              mother.user.lastName[0]
-            }`}
+            {`${mother.user.firstName[0]} ${mother.user.lastName[0]}`}
           </span>
         </div>
 
@@ -192,4 +170,4 @@ const SingleMother = () => {
   );
 };
 
-export default SingleMother;
+export default SingleMotherGenral;

@@ -123,7 +123,6 @@ export class MotherController {
       mother_height,
       allergies,
       moh_area,
-      location,
       phm_area,
       field_clinic,
       consultant_obstetrician,
@@ -131,6 +130,18 @@ export class MotherController {
       eligible_family_register,
       pregnant_mother_register,
       gs_division,
+      risk_type,
+      registration_no,
+      registration_date,
+      mother_weight,
+      hospital_clinic,
+      consanguinity,
+      rubella_immunization,
+      pre_pregnancy_screening,
+      preconceptional_folic_acid,
+      history_of_subfertility,
+      planned_pregnancy,
+      last_family_planing_method,
     } = request.body;
 
     const userId = request.user?.userId;
@@ -147,7 +158,6 @@ export class MotherController {
 
       // Update the mother's details
       mother.mother_blood_type = mother_blood_type ?? mother.mother_blood_type;
-      mother.location = location ?? mother.location;
       mother.mother_height = mother_height ?? mother.mother_height;
       mother.allergies = allergies ?? mother.allergies;
       mother.moh_area = moh_area ?? mother.moh_area;
@@ -162,6 +172,93 @@ export class MotherController {
       mother.pregnant_mother_register =
         pregnant_mother_register ?? mother.pregnant_mother_register;
       mother.gs_division = gs_division ?? mother.gs_division;
+      mother.risk_type = risk_type ?? mother.risk_type;
+      mother.registration_no = registration_no ?? mother.registration_no;
+      mother.registration_date = registration_date ?? mother.registration_date;
+      mother.mother_weight = mother_weight ?? mother.mother_weight;
+      mother.hospital_clinic = hospital_clinic ?? mother.hospital_clinic;
+      mother.consanguinity = consanguinity ?? mother.consanguinity;
+      mother.rubella_immunization =
+        rubella_immunization ?? mother.rubella_immunization;
+      mother.pre_pregnancy_screening =
+        pre_pregnancy_screening ?? mother.pre_pregnancy_screening;
+      mother.preconceptional_folic_acid =
+        preconceptional_folic_acid ?? mother.preconceptional_folic_acid;
+      mother.history_of_subfertility =
+        history_of_subfertility ?? mother.history_of_subfertility;
+      mother.planned_pregnancy = planned_pregnancy ?? mother.planned_pregnancy;
+      mother.last_family_planing_method =
+        last_family_planing_method ?? mother.last_family_planing_method;
+
+      console.log("phm ", userId);
+      if (userId) {
+        const user = await this.userRepository.findOne({
+          where: { id: userId },
+        });
+        const phm = await this.phmRepository.findOne({
+          where: { user },
+          relations: ["user"],
+        });
+        if (!phm) {
+          return { message: "PHM not found" };
+        }
+        mother.phm = phm; // Update the PHM relationship
+      }
+
+      await this.motherRepository.save(mother);
+      response.send(mother);
+      return;
+    } catch (error) {
+      return next(error);
+    }
+  }
+
+  async updatePresentObstetricHistory(
+    request: Request,
+    response: Response,
+    next: NextFunction
+  ) {
+    const id = parseInt(request.params.id);
+    const {
+      gravidity_G,
+      gravidity_P,
+      gravidity_C,
+      age_of_youngest_child,
+      LRMP,
+      EDD,
+      US_corrected_EDD,
+      POA_at_dating_scan,
+      date_of_quickening,
+      POA_at_registration,
+    } = request.body;
+
+    const userId = request.user?.userId;
+
+    try {
+      const mother = await this.motherRepository.findOne({
+        where: { id },
+        relations: ["user", "phm"],
+      });
+
+      if (!mother) {
+        return { message: "Mother not found" };
+      }
+
+      // Update the mother's details
+      mother.gravidity_G = gravidity_G ?? mother.gravidity_G;
+      mother.gravidity_P = gravidity_P ?? mother.gravidity_P;
+      mother.gravidity_C = gravidity_C ?? mother.gravidity_C;
+      mother.age_of_youngest_child =
+        age_of_youngest_child ?? mother.age_of_youngest_child;
+      mother.LRMP = LRMP ?? mother.LRMP;
+      mother.EDD = EDD ?? mother.EDD;
+      mother.US_corrected_EDD = US_corrected_EDD ?? mother.US_corrected_EDD;
+      mother.POA_at_dating_scan =
+        POA_at_dating_scan ?? mother.POA_at_dating_scan;
+      mother.date_of_quickening =
+        date_of_quickening ?? mother.date_of_quickening;
+      mother.POA_at_registration =
+        POA_at_registration ?? mother.POA_at_registration;
 
       console.log("phm ", userId);
       if (userId) {

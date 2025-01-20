@@ -33,6 +33,7 @@ import Progress from "./views/Progress";
 import PhmMotherListInMoh from "./views/PhmMotherListInMoh";
 import Feedback from "./views/Feedback";
 import SingleRedMother from "./views/SingleRedMother";
+import SingleMotherGenral from "./views/SingleMotherGeneral";
 // import MotherRegistration from "./views/MotherReg";
 
 // You can add your routes here
@@ -321,6 +322,17 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <SingleMother />,
+      },
+    ],
+  },
+
+  {
+    path: "/mother/:id/general-form",
+    element: <BaseLayout />,
+    children: [
+      {
+        index: true,
+        element: <SingleMotherGenral />,
       },
     ],
   },
