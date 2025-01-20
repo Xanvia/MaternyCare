@@ -7,6 +7,7 @@ import { ExpandLess, ExpandMore, TickCircle } from "../assets/icons/Icons";
 import PresentObstetricHistory from "./forms/PresentObstetricHistory";
 import ClinicCare from "./forms/ClinicCare";
 import ClinicCare2 from "./forms/ClinicCare2";
+import DentalCare from "./forms/DentalCare";
 
 const SingleMother = () => {
   const { id } = useParams<{ id: string }>();
@@ -189,6 +190,7 @@ const SingleMother = () => {
       <PresentObstetricHistory />
       <ClinicCare />
       <ClinicCare2 />
+      <DentalCare />
     </div>
   );
 };
