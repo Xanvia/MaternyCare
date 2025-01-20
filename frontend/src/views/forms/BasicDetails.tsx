@@ -11,16 +11,27 @@ const BasicDetails = () => {
   const [formData, setFormData] = useState({
     mother_blood_type: "",
     mother_height: "",
+    mother_weight: "",
     allergies: "",
     moh_area: "",
     phm_area: "",
     field_clinic: "",
-    consultant_obstetrician: "",
-    antenatal_risk_conditions: "",
+    gs_division: "",
     eligible_family_register: "",
     pregnant_mother_register: "",
-    gs_division: "",
+    hospital_clinic: "",
+    consultant_obstetrician: "",
+    antenatal_risk_conditions: "",
     risk_type: "",
+    registration_no: "",
+    registration_date: "",
+    consanguinity: false,
+    rubella_immunization: false,
+    pre_pregnancy_screening: false,
+    preconceptional_folic_acid: false,
+    history_of_subfertility: false,
+    planned_pregnancy: false,
+    last_family_planing_method: false,
   });
   const [loading, setLoading] = useState(false);
   // const [success, setSuccess] = useState(false);
@@ -56,7 +67,23 @@ const BasicDetails = () => {
             response.data.pregnant_mother_register || "",
           gs_division: response.data.gs_division || "",
           risk_type: response.data.risk_type,
+          registration_no: response.data.registration_no || "",
+          registration_date: response.data.registration_date || "",
+          mother_weight: response.data.mother_weight || "",
+          hospital_clinic: response.data.hospital_clinic || "",
+          consanguinity: response.data.consanguinity || false,
+          rubella_immunization: response.data.rubella_immunization || false,
+          pre_pregnancy_screening:
+            response.data.pre_pregnancy_screening || false,
+          preconceptional_folic_acid:
+            response.data.preconceptional_folic_acid || false,
+          history_of_subfertility:
+            response.data.history_of_subfertility || false,
+          planned_pregnancy: response.data.planned_pregnancy || false,
+          last_family_planing_method:
+            response.data.last_family_planing_method || false,
         });
+        console.log("Basic details fetched:", response.data);
       } catch (err) {
         console.error("Error fetching basic details:", err);
       } finally {
@@ -101,6 +128,18 @@ const BasicDetails = () => {
           pregnant_mother_register: formData.pregnant_mother_register,
           gs_division: formData.gs_division,
           risk_type: formData.risk_type,
+          registration_no: formData.registration_no,
+          registration_date: formData.registration_date,
+          mother_weight: formData.mother_weight,
+          hospital_clinic: formData.hospital_clinic,
+          consanguinity: formData.consanguinity,
+          rubella_immunization: formData.rubella_immunization,
+          pre_pregnancy_screening: formData.pre_pregnancy_screening,
+          preconceptional_folic_acid: formData.preconceptional_folic_acid,
+          history_of_subfertility: formData.history_of_subfertility,
+          planned_pregnancy: formData.planned_pregnancy,
+          last_family_planing_method:
+            formData.last_family_planing_method,
         },
         {
           headers: {
@@ -136,7 +175,7 @@ const BasicDetails = () => {
         </label> */}
         <select
           id="riskType"
-          name="riskType"
+          name="risk_type"
           value={formData.risk_type}
           onChange={handleChange}
           className={`mt-1 mb-8  block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 text-sm ${
@@ -172,19 +211,35 @@ const BasicDetails = () => {
             />
 
             <label
-              htmlFor="height"
+              htmlFor="mother_height"
               className="block text-sm font-medium text-gray-700 mt-4"
             >
               Height(cm)
             </label>
             <input
               type="text"
-              id="height"
+              id="mother_height"
               name="mother_height"
               value={formData.mother_height}
               onChange={handleChange}
               className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 text-sm"
               placeholder="Height"
+            />
+
+            <label
+              htmlFor="mother_weight"
+              className="block text-sm font-medium text-gray-700 mt-4"
+            >
+              Weight(KG)
+            </label>
+            <input
+              type="text"
+              id="mother_weight"
+              name="mother_weight"
+              value={formData.mother_weight}
+              onChange={handleChange}
+              className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 text-sm"
+              placeholder="Weight"
             />
 
             <label
@@ -203,14 +258,14 @@ const BasicDetails = () => {
             />
 
             <label
-              htmlFor="gsdivision"
+              htmlFor="gs_division"
               className="block text-sm font-medium text-gray-700 mt-4"
             >
               Grama Niladhari Division
             </label>
             <input
               type="text"
-              id="gsdivision"
+              id="gs_division"
               name="gs_division"
               value={formData.gs_division}
               onChange={handleChange}
@@ -219,135 +274,218 @@ const BasicDetails = () => {
             />
 
             <label
-              htmlFor="hospitalclinic"
+              htmlFor="hospital_clinic"
               className="block text-sm font-medium text-gray-700 mt-4"
             >
               Name of the Hospital Clinic
             </label>
             <input
               type="text"
-              id="hospitalclinic"
-              name="hospitalclinic"
+              id="hospital_clinic"
+              name="hospital_clinic"
+              value={formData.hospital_clinic}
+              onChange={handleChange}
               className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 text-sm"
               placeholder="Name of the Hospital Clinic"
             />
 
             <label
-              htmlFor="hospitalclinic"
+              htmlFor="registration_no"
               className="block text-sm font-medium text-gray-700 mt-4"
             >
               Registration No
             </label>
             <input
               type="text"
-              id="regno"
-              name="regno"
+              id="registration_no"
+              name="registration_no"
+              value={formData.registration_no}
+              onChange={handleChange}
               className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 text-sm"
               placeholder="Registration No"
             />
 
             <label
-              htmlFor="hospitalclinic"
+              htmlFor="registration_date"
               className="block text-sm font-medium text-gray-700 mt-4"
             >
               Registration Date
             </label>
             <input
               type="date"
-              id="regdate"
-              name="regdate"
+              id="registration_date"
+              name="registration_date"
+              value={formData.registration_date}
+              onChange={handleChange}
               className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 text-sm"
               placeholder="Registration Date"
             />
             <div className="pt-6">
               <div className="flex items-center justify-between h-auto mt-4">
                 <label
-                  htmlFor="hospitalclinic"
+                  htmlFor="consanguinity"
                   className="block text-sm font-medium text-gray-700 mr-4"
                 >
                   Consanguinity
                 </label>
 
                 <label className="relative flex items-center cursor-pointer">
-                  <input type="checkbox" value="" className="sr-only peer" />
+                  <input
+                    type="checkbox"
+                    name="consanguinity"
+                    checked={formData.consanguinity}
+                    onChange={(e) =>
+                      setFormData((prev) => ({
+                        ...prev,
+                        consanguinity: e.target.checked,
+                      }))
+                    }
+                    className="sr-only peer"
+                  />
                   <div className="w-9 h-5 bg-gray-200 hover:bg-gray-300 peer-focus:outline-0 rounded-full peer transition-all ease-in-out duration-500 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-indigo-600 hover:peer-checked:bg-indigo-700"></div>
                 </label>
               </div>
               <div className="flex items-center justify-between h-auto mt-4 ">
                 <label
-                  htmlFor="hospitalclinic"
+                  htmlFor="rubella_immunization"
                   className="block text-sm font-medium text-gray-700 mr-4"
                 >
                   Rubella Immunization
                 </label>
 
                 <label className="relative flex items-center cursor-pointer">
-                  <input type="checkbox" value="" className="sr-only peer" />
+                  <input
+                    type="checkbox"
+                    name="rubella_immunization"
+                    checked={formData.rubella_immunization}
+                    onChange={(e) =>
+                      setFormData((prev) => ({
+                        ...prev,
+                        rubella_immunization: e.target.checked,
+                      }))
+                    }
+                    className="sr-only peer"
+                  />
                   <div className="w-9 h-5 bg-gray-200 hover:bg-gray-300 peer-focus:outline-0 rounded-full peer transition-all ease-in-out duration-500 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-indigo-600 hover:peer-checked:bg-indigo-700"></div>
                 </label>
               </div>
               <div className="flex items-center justify-between h-auto mt-4 ">
                 <label
-                  htmlFor="hospitalclinic"
+                  htmlFor="pre_pregnancy_screening"
                   className="block text-sm font-medium text-gray-700 mr-4"
                 >
                   Pre-pregnancy screening done
                 </label>
 
                 <label className="relative flex items-center cursor-pointer">
-                  <input type="checkbox" value="" className="sr-only peer" />
+                  <input
+                    type="checkbox"
+                    name="pre_pregnancy_screening"
+                    checked={formData.pre_pregnancy_screening}
+                    onChange={(e) =>
+                      setFormData((prev) => ({
+                        ...prev,
+                        pre_pregnancy_screening: e.target.checked,
+                      }))
+                    }
+                    className="sr-only peer"
+                  />
                   <div className="w-9 h-5 bg-gray-200 hover:bg-gray-300 peer-focus:outline-0 rounded-full peer transition-all ease-in-out duration-500 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-indigo-600 hover:peer-checked:bg-indigo-700"></div>
                 </label>
               </div>{" "}
               <div className="flex items-center justify-between h-auto mt-4 ">
                 <label
-                  htmlFor="hospitalclinic"
+                  htmlFor="preconceptional_folic_acid"
                   className="block text-sm font-medium text-gray-700 mr-4"
                 >
                   Preconceptional folic acid
                 </label>
 
                 <label className="relative flex items-center cursor-pointer">
-                  <input type="checkbox" value="" className="sr-only peer" />
+                  <input
+                    type="checkbox"
+                    name="preconceptional_folic_acid"
+                    checked={formData.preconceptional_folic_acid}
+                    onChange={(e) =>
+                      setFormData((prev) => ({
+                        ...prev,
+                        preconceptional_folic_acid: e.target.checked,
+                      }))
+                    }
+                    className="sr-only peer"
+                  />
                   <div className="w-9 h-5 bg-gray-200 hover:bg-gray-300 peer-focus:outline-0 rounded-full peer transition-all ease-in-out duration-500 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-indigo-600 hover:peer-checked:bg-indigo-700"></div>
                 </label>
               </div>{" "}
               <div className="flex items-center justify-between h-auto mt-4 ">
                 <label
-                  htmlFor="hospitalclinic"
+                  htmlFor="history_of_subfertility"
                   className="block text-sm font-medium text-gray-700 mr-4"
                 >
                   History of Subfertility
                 </label>
 
                 <label className="relative flex items-center cursor-pointer">
-                  <input type="checkbox" value="" className="sr-only peer" />
+                  <input
+                    type="checkbox"
+                    name="history_of_subfertility"
+                    checked={formData.history_of_subfertility}
+                    onChange={(e) =>
+                      setFormData((prev) => ({
+                        ...prev,
+                        history_of_subfertility: e.target.checked,
+                      }))
+                    }
+                    className="sr-only peer"
+                  />
                   <div className="w-9 h-5 bg-gray-200 hover:bg-gray-300 peer-focus:outline-0 rounded-full peer transition-all ease-in-out duration-500 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-indigo-600 hover:peer-checked:bg-indigo-700"></div>
                 </label>
               </div>{" "}
               <div className="flex items-center justify-between h-auto mt-4 ">
                 <label
-                  htmlFor="hospitalclinic"
+                  htmlFor="planned_pregnancy"
                   className="block text-sm font-medium text-gray-700 mr-4"
                 >
-                  Planned gregnancy or not
+                  Planned pregnancy or not
                 </label>
 
                 <label className="relative flex items-center cursor-pointer">
-                  <input type="checkbox" value="" className="sr-only peer" />
+                  <input
+                    type="checkbox"
+                    name="planned_pregnancy"
+                    checked={formData.planned_pregnancy}
+                    onChange={(e) =>
+                      setFormData((prev) => ({
+                        ...prev,
+                        planned_pregnancy: e.target.checked,
+                      }))
+                    }
+                    className="sr-only peer"
+                  />
                   <div className="w-9 h-5 bg-gray-200 hover:bg-gray-300 peer-focus:outline-0 rounded-full peer transition-all ease-in-out duration-500 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-indigo-600 hover:peer-checked:bg-indigo-700"></div>
                 </label>
               </div>
               <div className="flex items-center justify-between h-auto mt-4 ">
                 <label
-                  htmlFor="hospitalclinic"
+                  htmlFor="last_family_planing_method"
                   className="block text-sm font-medium text-gray-700 mr-4"
                 >
                   Familiy planning method last used
                 </label>
 
                 <label className="relative flex items-center cursor-pointer">
-                  <input type="checkbox" value="" className="sr-only peer" />
+                  <input
+                    type="checkbox"
+                    name="last_family_planing_method"
+                    checked={formData.last_family_planing_method}
+                    onChange={(e) =>
+                      setFormData((prev) => ({
+                        ...prev,
+                        last_family_planing_method: e.target.checked,
+                      }))
+                    }
+                    className="sr-only peer"
+                  />
                   <div className="w-9 h-5 bg-gray-200 hover:bg-gray-300 peer-focus:outline-0 rounded-full peer transition-all ease-in-out duration-500 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-indigo-600 hover:peer-checked:bg-indigo-700"></div>
                 </label>
               </div>
@@ -357,14 +495,14 @@ const BasicDetails = () => {
           {/* Right Side Fields */}
           <div>
             <label
-              htmlFor="phone"
+              htmlFor="moh_area"
               className="block text-sm font-medium text-gray-700"
             >
               MOH Area
             </label>
             <input
               type="text"
-              id="moharea"
+              id="moh_area"
               name="moh_area"
               value={formData.moh_area}
               onChange={handleChange}
@@ -373,14 +511,14 @@ const BasicDetails = () => {
             />
 
             <label
-              htmlFor="phmarea"
+              htmlFor="phm_area"
               className="block text-sm font-medium text-gray-700 mt-4"
             >
               PHM area
             </label>
             <input
               type="text"
-              id="phmarea"
+              id="phm_area"
               name="phm_area"
               value={formData.phm_area}
               onChange={handleChange}
@@ -389,14 +527,14 @@ const BasicDetails = () => {
             />
 
             <label
-              htmlFor="fieldclinic"
+              htmlFor="field_clinic"
               className="block text-sm font-medium text-gray-700 mt-4"
             >
               Field Clinic Name
             </label>
             <input
               type="text"
-              id="fieldclinic"
+              id="field_clinic"
               name="field_clinic"
               value={formData.field_clinic}
               onChange={handleChange}
@@ -405,14 +543,14 @@ const BasicDetails = () => {
             />
 
             <label
-              htmlFor="consulatantobstetrician"
+              htmlFor="consultant_obstetrician"
               className="block text-sm font-medium text-gray-700 mt-4"
             >
               Name of the Consultant Obstetrician
             </label>
             <input
               type="text"
-              id="consulatantobstetrician"
+              id="consultant_obstetrician"
               name="consultant_obstetrician"
               value={formData.consultant_obstetrician}
               onChange={handleChange}
@@ -420,13 +558,13 @@ const BasicDetails = () => {
               placeholder="Name of the Consultant Obstetrician"
             />
             <label
-              htmlFor="risk"
+              htmlFor="antenatal_risk_conditions"
               className="block text-sm font-medium text-gray-700 mt-4"
             >
               Identified Antenatal Risk Conditions & Morbidities
             </label>
             <textarea
-              id="risk"
+              id="antenatal_risk_conditions"
               name="antenatal_risk_conditions"
               value={formData.antenatal_risk_conditions}
               onChange={handleChange}
@@ -434,14 +572,14 @@ const BasicDetails = () => {
               placeholder="Risk Conditions"
             />
             <label
-              htmlFor="hospitalclinic"
+              htmlFor="eligible_family_register"
               className="block text-sm font-medium text-gray-700 mt-4"
             >
               Eligible Family Register
             </label>
             <input
               type="text"
-              id="famregister"
+              id="eligible_family_register"
               name="eligible_family_register"
               value={formData.eligible_family_register}
               onChange={handleChange}
@@ -450,14 +588,14 @@ const BasicDetails = () => {
             />
 
             <label
-              htmlFor="hospitalclinic"
+              htmlFor="pregnant_mother_register"
               className="block text-sm font-medium text-gray-700 mt-4"
             >
               Pregnant Mother's Register
             </label>
             <input
               type="text"
-              id="motherregister"
+              id="pregnant_mother_register"
               name="pregnant_mother_register"
               value={formData.pregnant_mother_register}
               onChange={handleChange}

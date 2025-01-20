@@ -110,22 +110,18 @@ const PresentObstetricHistory = () => {
   };
 
   const [formData, setFormData] = useState({
-    mother_gravidity_G: "",
-    mother_gravidity_P: "",
-    mother_gravidity_C: "",
-    mother_blood_type: "",
-    mother_height: "",
-    allergies: "",
-    moh_area: "",
-    phm_area: "",
-    field_clinic: "",
-    consultant_obstetrician: "",
-    antenatal_risk_conditions: "",
-    eligible_family_register: "",
-    pregnant_mother_register: "",
-    gs_division: "",
+    gravidity_G: 0,
+    gravidity_P: 0,
+    gravidity_C: 0,
+    age_of_youngest_child: 0,
+    LRMP: "",
+    EDD: "",
+    US_corrected_EDD: "",
+    POA_at_dating_scan: "",
+    date_of_quickening: "",
+    POA_at_registration: "",
   });
-  const [loading, setLoading] = useState(false);
+  // const [loading, setLoading] = useState(false);
   // const [success, setSuccess] = useState(false);
   const [isUpdating, setIsUpdating] = useState(false);
 
@@ -133,7 +129,7 @@ const PresentObstetricHistory = () => {
   useEffect(() => {
     const fetchBasicDetails = async () => {
       try {
-        setLoading(true);
+        // setLoading(true);
         const response = await axios.get(
           `http://localhost:3000/users/mother/${id}`,
           {
@@ -143,28 +139,21 @@ const PresentObstetricHistory = () => {
           }
         ); // Adjust endpoint as needed
         setFormData({
-          mother_gravidity_G: response.data.mother_gravidity_G || "",
-          mother_gravidity_P: response.data.mother_gravidity_P || "",
-          mother_gravidity_C: response.data.mother_gravidity_C || "",
-          mother_blood_type: response.data.mother_blood_type || "",
-          mother_height: response.data.mother_height || "",
-          allergies: response.data.allergies || "",
-          moh_area: response.data.moh_area || "",
-          phm_area: response.data.phm_area || "",
-          field_clinic: response.data.field_clinic || "",
-          consultant_obstetrician: response.data.consultant_obstetrician || "",
-          antenatal_risk_conditions:
-            response.data.antenatal_risk_conditions || "",
-          eligible_family_register:
-            response.data.eligible_family_register || "",
-          pregnant_mother_register:
-            response.data.pregnant_mother_register || "",
-          gs_division: response.data.gs_division || "",
+          gravidity_G: response.data.gravidity_G || 0,
+          gravidity_P: response.data.gravidity_P || 0,
+          gravidity_C: response.data.gravidity_C || 0,
+          age_of_youngest_child: response.data.age_of_youngest_child || 0,
+          LRMP: response.data.LRMP || "",
+          EDD: response.data.EDD || "",
+          US_corrected_EDD: response.data.US_corrected_EDD || "",
+          POA_at_dating_scan: response.data.POA_at_dating_scan || "",
+          date_of_quickening: response.data.date_of_quickening || "",
+          POA_at_registration: response.data.POA_at_registration || "",
         });
       } catch (err) {
         console.error("Error fetching basic details:", err);
       } finally {
-        setLoading(false);
+        // setLoading(false);
       }
     };
 
@@ -184,26 +173,25 @@ const PresentObstetricHistory = () => {
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     try {
-      setLoading(true);
+      // setLoading(true);
       // setSuccess(false);
       setIsUpdating(true);
 
       console.log("id from form ", id);
 
       await axios.put(
-        `http://localhost:3000/users/mother/${id}/basic-details`,
+        `http://localhost:3000/users/mother/${id}/present-obstetric-history`,
         {
-          mother_blood_type: formData.mother_blood_type,
-          mother_height: formData.mother_height,
-          allergies: formData.allergies,
-          moh_area: formData.moh_area,
-          phm_area: formData.phm_area,
-          field_clinic: formData.field_clinic,
-          consultant_obstetrician: formData.consultant_obstetrician,
-          antenatal_risk_conditions: formData.antenatal_risk_conditions,
-          eligible_family_register: formData.eligible_family_register,
-          pregnant_mother_register: formData.pregnant_mother_register,
-          gs_division: formData.gs_division,
+          gravidity_G: formData.gravidity_G,
+          gravidity_P: formData.gravidity_P,
+          gravidity_C: formData.gravidity_C,
+          age_of_youngest_child: formData.age_of_youngest_child,
+          LRMP: formData.LRMP,
+          EDD: formData.EDD,
+          US_corrected_EDD: formData.US_corrected_EDD,
+          POA_at_dating_scan: formData.POA_at_dating_scan,
+          date_of_quickening: formData.date_of_quickening,
+          POA_at_registration: formData.POA_at_registration,
         },
         {
           headers: {
@@ -221,7 +209,7 @@ const PresentObstetricHistory = () => {
       console.error("Error updating basic details:", err);
       toast.error("Update failed!");
     } finally {
-      setLoading(false);
+      // setLoading(false);
     }
   };
 
@@ -237,13 +225,13 @@ const PresentObstetricHistory = () => {
           {/* Left Side Fields */}
           <div>
             <label
-              htmlFor="bloodtype"
+              htmlFor="gravidity"
               className="block text-sm font-medium text-gray-700 mt-3"
             >
               Gravidity
             </label>
             <label
-              htmlFor="bloodtype"
+              htmlFor="gravidity"
               className="block text-sm font-medium text-gray-700"
             >
               කීවෙනි ගර්භයද
@@ -252,8 +240,8 @@ const PresentObstetricHistory = () => {
               <input
                 type="number"
                 id="gravidity_G"
-                name="mother_gravidity_G"
-                value={formData.mother_gravidity_G}
+                name="gravidity_G"
+                value={formData.gravidity_G}
                 onChange={handleChange}
                 className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
                 placeholder="G"
@@ -261,8 +249,8 @@ const PresentObstetricHistory = () => {
               <input
                 type="number"
                 id="gravidity_P"
-                name="mother_gravidity_G"
-                value={formData.mother_gravidity_P}
+                name="gravidity_P"
+                value={formData.gravidity_P}
                 onChange={handleChange}
                 className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
                 placeholder="P"
@@ -270,8 +258,8 @@ const PresentObstetricHistory = () => {
               <input
                 type="number"
                 id="gravidity_C"
-                name="mother_gravidity_C"
-                value={formData.mother_gravidity_C}
+                name="gravidity_C"
+                value={formData.gravidity_C}
                 onChange={handleChange}
                 className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
                 placeholder="C"
@@ -279,7 +267,7 @@ const PresentObstetricHistory = () => {
             </div>
 
             <label
-              htmlFor="height"
+              htmlFor="age_of_youngest_child"
               className="block text-sm font-medium text-gray-700 mt-4"
             >
               <div>Age of youngest child</div>
@@ -287,16 +275,16 @@ const PresentObstetricHistory = () => {
             </label>
             <input
               type="number"
-              id="height"
-              name="mother_height"
-              value={formData.mother_height}
+              id="age_of_youngest_child"
+              name="age_of_youngest_child"
+              value={formData.age_of_youngest_child}
               onChange={handleChange}
               className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 text-sm"
               placeholder="Age"
             />
 
             <label
-              htmlFor="hospitalclinic"
+              htmlFor="LRMP"
               className="block text-sm font-medium text-gray-700 mt-4"
             >
               <div>LRMP</div>
@@ -304,23 +292,33 @@ const PresentObstetricHistory = () => {
             </label>
             <input
               type="date"
-              id="regdate"
-              name="regdate"
+              id="LRMP"
+              name="LRMP"
+              value={formData.LRMP}
+              onChange={handleChange}
               className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 text-sm"
               placeholder="Registration Date"
             />
+
             <div className="pt-6">
               <div className="flex items-center justify-between h-auto mt-4">
                 <label
-                  htmlFor="hospitalclinic"
+                  htmlFor="POA_at_dating_scan"
                   className="block text-sm font-medium text-gray-700 mr-4"
                 >
                   POA at dating scan
                 </label>
 
                 <label className="relative flex items-center cursor-pointer">
-                  <input type="checkbox" value="" className="sr-only peer" />
-                  <div className="w-9 h-5 bg-gray-200 hover:bg-gray-300 peer-focus:outline-0 rounded-full peer transition-all ease-in-out duration-500 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-indigo-600 hover:peer-checked:bg-indigo-700"></div>
+                  <input
+                    type="text"
+                    id="POA_at_dating_scan"
+                    name="POA_at_dating_scan"
+                    value={formData.POA_at_dating_scan}
+                    onChange={handleChange}
+                    className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                    placeholder="POA at dating scan"
+                  />
                 </label>
               </div>
               <div className="flex items-center justify-between h-auto mt-4 ">
@@ -340,13 +338,6 @@ const PresentObstetricHistory = () => {
                         alt="Saved Signature"
                         className="border border-gray-300 rounded-md"
                       />
-                      {/* <button
-                        type="button"
-                        onClick={() => setSignature(null)} // Allow user to provide a new signature
-                        className="px-4 py-2 bg-yellow-500 text-white rounded-md mt-2"
-                      >
-                        Edit Signature
-                      </button> */}
                     </div>
                   ) : (
                     <div>
@@ -373,11 +364,6 @@ const PresentObstetricHistory = () => {
                     </div>
                   )}
                 </div>
-
-                {/* <label className="relative flex items-center cursor-pointer">
-                  <input type="checkbox" value="" className="sr-only peer" />
-                  <div className="w-9 h-5 bg-gray-200 hover:bg-gray-300 peer-focus:outline-0 rounded-full peer transition-all ease-in-out duration-500 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-indigo-600 hover:peer-checked:bg-indigo-700"></div>
-                </label> */}
               </div>
             </div>
           </div>
@@ -385,7 +371,7 @@ const PresentObstetricHistory = () => {
           {/* Right Side Fields */}
           <div>
             <label
-              htmlFor="hospitalclinic"
+              htmlFor="EDD"
               className="block text-sm font-medium text-gray-700 mt-4"
             >
               <div>Expected delivery date (Date of 40 weeks completion)</div>
@@ -393,14 +379,16 @@ const PresentObstetricHistory = () => {
             </label>
             <input
               type="date"
-              id="regdate"
-              name="regdate"
+              id="EDD"
+              name="EDD"
+              value={formData.EDD}
+              onChange={handleChange}
               className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 text-sm"
-              placeholder="Registration Date"
+              placeholder="Expected delivery date "
             />
 
             <label
-              htmlFor="hospitalclinic"
+              htmlFor="US_corrected_EDD"
               className="block text-sm font-medium text-gray-700 mt-4"
             >
               <div>US corrected EDD (To be filled by VOG/MO)</div>
@@ -408,13 +396,15 @@ const PresentObstetricHistory = () => {
             </label>
             <input
               type="date"
-              id="regdate"
-              name="regdate"
+              id="US_corrected_EDD"
+              name="US_corrected_EDD"
+              value={formData.US_corrected_EDD}
+              onChange={handleChange}
               className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 text-sm"
-              placeholder="Registration Date"
+              placeholder="US corrected EDD"
             />
             <label
-              htmlFor="hospitalclinic"
+              htmlFor="date_of_quickening"
               className="block text-sm font-medium text-gray-700 mt-4"
             >
               <div>Date of quickening</div>
@@ -422,13 +412,15 @@ const PresentObstetricHistory = () => {
             </label>
             <input
               type="date"
-              id="regdate"
-              name="regdate"
+              id="date_of_quickening"
+              name="date_of_quickening"
+              value={formData.date_of_quickening}
+              onChange={handleChange}
               className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 text-sm"
-              placeholder="Registration Date"
+              placeholder="Date of quickening"
             />
             <label
-              htmlFor="poa"
+              htmlFor="POA_at_registration"
               className="block text-sm font-medium text-gray-700 mt-4"
             >
               <div>POA at Registration</div>
@@ -438,16 +430,18 @@ const PresentObstetricHistory = () => {
             <div className="flex gap-4">
               <input
                 type="number"
-                id="weeks"
-                name="weeks"
+                id="POA_at_registration"
+                name="POA_at_registration"
+                value={formData.POA_at_registration}
+                onChange={handleChange}
                 className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 text-sm"
-                placeholder="Weeks"
+                placeholder="POA_at_registration"
                 min="0"
                 // value={formData.weeks} // Bind to weeks in state
                 // onChange={handleChange} // Handle changes
               />
 
-              <input
+              {/* <input
                 type="number"
                 id="days"
                 name="days"
@@ -457,7 +451,7 @@ const PresentObstetricHistory = () => {
                 max="6" // Maximum 6 days to maintain proper week-day format
                 // value={formData.days} // Bind to days in state
                 // onChange={handleChange} // Handle changes
-              />
+              /> */}
             </div>
           </div>
         </div>
