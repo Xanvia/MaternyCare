@@ -74,7 +74,7 @@ export class Appointment {
   POV_days: number;
 
   @Column({ nullable: true })
-  unne: string;
+  urine: string;
 
   @Column({ nullable: true })
   sugar: string;

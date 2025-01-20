@@ -375,7 +375,7 @@ export class AppointmentController {
       POV_days,
       fm,
       fhs,
-      unne,
+      urine,
       sugar,
       albumin,
       pallor,
@@ -420,7 +420,7 @@ export class AppointmentController {
     appointmentToUpdate.POV_days = POV_days;
     appointmentToUpdate.fm = fm;
     appointmentToUpdate.fhs = fhs;
-    appointmentToUpdate.unne = unne;
+    appointmentToUpdate.urine = urine;
     appointmentToUpdate.sugar = sugar;
     appointmentToUpdate.albumin = albumin;
     appointmentToUpdate.pallor = pallor;
