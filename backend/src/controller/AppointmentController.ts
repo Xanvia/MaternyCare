@@ -77,9 +77,9 @@ export class AppointmentController {
       appointment.deletedAt = deletedAt;
       appointment.checkedByMother = checkedByMother;
       appointment.checkedByPHM = checkedByPHM;
-      appointment.mother = mother;
       appointment.feedback = feedback;
       appointment.appointment_state = appointment_state;
+      appointment.mother = mother
 
       await this.appointmentRepository.save(appointment);
 
@@ -361,15 +361,39 @@ export class AppointmentController {
 
   async update(request: Request, response: Response, next: NextFunction) {
     const id = parseInt(request.params.id);
-    const {
-      startDate,
-      endDate,
-      fixedDate,
-      month,
-      checkedByMother,
-      checkedByPHM,
-      appointment_description,
+    const { 
+      startDate, 
+      endDate, 
+      fixedDate, 
+      month, 
+      checkedByMother, 
+      checkedByPHM, 
+      appointment_description, 
       feedback,
+      POA_weeks,
+      POV_days,
+      fm,
+      fhs,
+      unne,
+      sugar,
+      albumin,
+      pallor,
+      ankle,
+      facial,
+      blood_pressure,
+      fundal_height,
+      foetal_lie,
+      presentation,
+      engagement_of_the_presenting_part,
+      iron,
+      folate,
+      calcium,
+      vitamin_C,
+      food_supplementation,
+      signature_of_the_officer_examined,
+      designation,
+
+    
     } = request.body;
 
     // Fetch the notice to update, making sure it’s not soft-deleted
@@ -390,6 +414,29 @@ export class AppointmentController {
     appointmentToUpdate.checkedByMother = checkedByMother;
     appointmentToUpdate.appointment_description = appointment_description;
     appointmentToUpdate.feedback = feedback;
+    appointmentToUpdate.POA_weeks = POA_weeks;
+    appointmentToUpdate.POV_days = POV_days;
+    appointmentToUpdate.fm = fm;
+    appointmentToUpdate.fhs = fhs;
+    appointmentToUpdate.unne = unne;
+    appointmentToUpdate.sugar = sugar;
+    appointmentToUpdate.albumin = albumin;
+    appointmentToUpdate.pallor = pallor;
+    appointmentToUpdate.ankle = ankle;
+    appointmentToUpdate.facial = facial;
+    appointmentToUpdate.blood_pressure = blood_pressure;
+    appointmentToUpdate.fundal_height = fundal_height;
+    appointmentToUpdate.foetal_lie = foetal_lie;
+    appointmentToUpdate.presentation = presentation;
+    appointmentToUpdate.engagement_of_the_presenting_part = engagement_of_the_presenting_part;
+    appointmentToUpdate.iron = iron;
+    appointmentToUpdate.folate = folate;
+    appointmentToUpdate.calcium = calcium;
+    appointmentToUpdate.vitamin_C = vitamin_C;
+    appointmentToUpdate.food_supplementation = food_supplementation;
+    appointmentToUpdate.signature_of_the_officer_examined = signature_of_the_officer_examined;
+    appointmentToUpdate.designation = designation;
+
 
     // Save the updated notice
     await this.appointmentRepository.save(appointmentToUpdate);

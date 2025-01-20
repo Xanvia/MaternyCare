@@ -18,6 +18,11 @@ export enum AppointmentState {
   POSTNATAL = "postnatal",
 }
 
+export enum FM_FHS {
+  POSITIVE = "+",
+  NEGATIVE = "-",
+}
+
 @Entity()
 export class Appointment {
   @PrimaryGeneratedColumn()
@@ -29,6 +34,20 @@ export class Appointment {
     nullable: true,
   })
   appointment_state: AppointmentState;
+
+  @Column({
+    type: "enum", // Specify the column type as enum
+    enum: FM_FHS, // Use the defined enum
+    nullable: true,
+  })
+  fm: FM_FHS;
+
+  @Column({
+    type: "enum", // Specify the column type as enum
+    enum: FM_FHS, // Use the defined enum
+    nullable: true,
+  })
+  fhs: FM_FHS;
 
   @Column({ nullable: true })
   appointment_description  : string;
@@ -42,9 +61,68 @@ export class Appointment {
   @Column({ type: "date", nullable: true })
   endDate: Date;
 
-
   @Column({ type: "date", nullable: true })
   fixedDate: Date;
+
+  @Column({ type: "int", nullable: true })
+  POA_weeks: number;
+
+  @Column({ type: "int", nullable: true })
+  POV_days: number;
+
+  @Column({ nullable: true })
+  unne: string;
+
+  @Column({ nullable: true })
+  sugar: string;
+
+  @Column({ nullable: true })
+  albumin: string;
+
+  @Column({ nullable: true })
+  pallor: string;
+
+  @Column({ nullable: true })
+  ankle: string;
+
+  @Column({ nullable: true })
+  facial: string;
+
+  @Column({ type: "int", nullable: true })
+  blood_pressure: number;
+
+  @Column({ nullable: true })
+  fundal_height: string;
+
+  @Column({ nullable: true })
+  foetal_lie: string;
+
+  @Column({ nullable: true })
+  presentation: string;
+
+  @Column({ nullable: true })
+  engagement_of_the_presenting_part: string;
+
+  @Column({ type: "int", nullable: true })
+  iron: number;
+
+  @Column({ type: "int", nullable: true })
+  folate: number;
+
+  @Column({ type: "int", nullable: true })
+  calcium: number;
+
+  @Column({ type: "int", nullable: true })
+  vitamin_C: number;
+
+  @Column({ type: "int", nullable: true })
+  food_supplementation: number;
+
+  @Column({ nullable: true })
+  signature_of_the_officer_examined: string;
+
+  @Column({ nullable: true })
+  designation: string;
 
   // @Column({ nullable: true })
   // month: string;
