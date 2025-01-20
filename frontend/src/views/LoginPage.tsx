@@ -26,7 +26,7 @@ const LoginPage: React.FC = () => {
       console.log("Form data", values);
       try {
         const response = await axios.post(
-          "http://localhost:3000/login/",
+          `${process.env.BASE_URL}login/`,
           values,
           {
             headers: {

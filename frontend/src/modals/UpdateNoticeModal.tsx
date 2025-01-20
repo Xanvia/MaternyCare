@@ -38,7 +38,7 @@ export default function UpdateNoticeModal({
   const [open, setOpen] = React.useState<boolean>(false);
   const token = localStorage.getItem("token");
 
-  const BASE_URL = "http://localhost:3000/";
+  const BASE_URL = `${process.env.BASE_URL}`;
 
   return (
     <React.Fragment>

@@ -6,6 +6,8 @@ import BasicDetails from "./forms/BasicDetails";
 import { ExpandLess, ExpandMore, TickCircle } from "../assets/icons/Icons";
 import PresentObstetricHistory from "./forms/PresentObstetricHistory";
 import ClinicCare from "./forms/ClinicCare";
+import ClinicCare2 from "./forms/ClinicCare2";
+import DentalCare from "./forms/DentalCare";
 
 const SingleMother = () => {
   const { id } = useParams<{ id: string }>();
@@ -13,7 +15,7 @@ const SingleMother = () => {
   const [mother, setMother] = useState<any>(null);
   const [isCollapsed, setIsCollapsed] = useState(true);
   const [appointment, setAppointment] = useState<any>(null);
-  const BASE_URL = "http://localhost:3000/";
+  const BASE_URL = `${process.env.BASE_URL}`;
 
   useEffect(() => {
     const fetchMother = async () => {
@@ -187,6 +189,8 @@ const SingleMother = () => {
       <BasicDetails />
       <PresentObstetricHistory />
       <ClinicCare />
+      <ClinicCare2 />
+      <DentalCare />
     </div>
   );
 };

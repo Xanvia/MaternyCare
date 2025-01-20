@@ -5,7 +5,7 @@ import { Mother } from "../components/Mother";
 
 const PhmAppointment = () => {
 
-  const BASE_URL = "http://localhost:3000/";
+  const BASE_URL = `${process.env.BASE_URL}`;
   const token = (localStorage.getItem("token") || "").replace(/"/g, "").trim();
   
   let userItem = localStorage.getItem("user");
