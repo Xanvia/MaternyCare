@@ -18,7 +18,7 @@ import { PrivateRoute } from "./routes/PrivateRoute";
 import { PublicRoute } from "./routes/PublicRoute";
 import Unauthorized from "./views/UnAuthorized";
 import DashboardMOH from "./views/DashboardMOH";
-import Registration2 from "./views/Registration2";
+// import Registration2 from "./views/Registration2";
 import SingleMother from "./views/SingleMother";
 import MotherDashboard from "./views/MotherDashboard";
 import WelcomePage from "./views/WelcomePage";

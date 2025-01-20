@@ -6,6 +6,7 @@ import BasicDetails from "./forms/BasicDetails";
 import { ExpandLess, ExpandMore, TickCircle } from "../assets/icons/Icons";
 import PresentObstetricHistory from "./forms/PresentObstetricHistory";
 import PregnancyBMIChart from "../components/PregnancyBMIChart";
+import EmergencyPlanTable from "../components/EmergencyPlanTable";
 // import ClinicCare from "./forms/ClinicCare";
 
 const SingleMotherGenral = () => {
@@ -167,6 +168,7 @@ const SingleMotherGenral = () => {
       <BasicDetails />
       <PresentObstetricHistory />
       <PregnancyBMIChart />
+      <EmergencyPlanTable motherId={mother.id} />
     </div>
   );
 };

@@ -25,6 +25,7 @@ import { WeightGainChart } from "./entity/WeightGainChart";
 import { MotherGuide } from "./entity/MotherGuide";
 import { Vog } from "./entity/Vog";
 import { DeviceData } from "./entity/DeviceData";
+import { EmergencyPlan } from "./entity/EmergencyPlan";
 
 export const AppDataSource = new DataSource({
   type: "postgres",
@@ -62,6 +63,7 @@ export const AppDataSource = new DataSource({
     Feedback,
     Vog,
     DeviceData,
+    EmergencyPlan,
   ],
   migrations: [],
   subscribers: [],
