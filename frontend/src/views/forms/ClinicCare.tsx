@@ -12,25 +12,21 @@ const ClinicCare = () => {
   const [formData, setFormData] = useState({
     Date_Of_Visited: "",
     POA_weeks: "",
-    // mother_gravidity_P: "",
-    // mother_gravidity_C: "",
-    // mother_blood_type: "",
-    // mother_height: "",
-    // allergies: "",
-    // moh_area: "",
-    // phm_area: "",
-    // field_clinic: "",
-    // consultant_obstetrician: "",
-    // antenatal_risk_conditions: "",
-    // eligible_family_register: "",
-    // pregnant_mother_register: "",
-    // gs_division: "",
+    POV_days:"",
+    urine:"",
+    sugar:"",
+    albumin:"",
+    pallor:"",
+    ankle:"",
+    facial:"",
+    blood_pressure : "",
+    
   });
   const [loading, setLoading] = useState(false);
   // const [success, setSuccess] = useState(false);
   const [isUpdating, setIsUpdating] = useState(false);
 
-  const { id } = useParams<{ id: string }>();
+  // const { id } = useParams<{ id: string }>();
   const { appointmentid } = useParams<{ appointmentid: string }>();
   // Fetch existing data when component mounts
   useEffect(() => {
@@ -40,25 +36,21 @@ const ClinicCare = () => {
         const response = await axios.get(
           `http://localhost:3000/appointments/${appointmentid}`,
         ); 
+        console.log("sahan"+response.data.Date_Of_Visited);
         setFormData({
           Date_Of_Visited: response.data.Date_Of_Visited || "",
           POA_weeks: response.data.POA_weeks || "",
-          // mother_gravidity_P: response.data.mother_gravidity_P || "",
-          // mother_gravidity_C: response.data.mother_gravidity_C || "", 
-          // mother_blood_type: response.data.mother_blood_type || "",
-          // mother_height: response.data.mother_height || "",
-          // allergies: response.data.allergies || "",
-          // moh_area: response.data.moh_area || "",
-          // phm_area: response.data.phm_area || "",
-          // field_clinic: response.data.field_clinic || "",
-          // consultant_obstetrician: response.data.consultant_obstetrician || "",
-          // antenatal_risk_conditions:
-          //   response.data.antenatal_risk_conditions || "",
-          // eligible_family_register:
-          //   response.data.eligible_family_register || "",
-          // pregnant_mother_register:
-          //   response.data.pregnant_mother_register || "",
-          // gs_division: response.data.gs_division || "",
+          POV_days: response.data.POV_days || "",
+          urine: response.data.urine || "",
+          sugar: response.data.sugar || "",
+          albumin: response.data.albumin || "",
+          pallor: response.data.pallor || "",
+          ankle: response.data.ankle || "",
+          facial: response.data.facial || "",
+          blood_pressure: response.data.blood_pressure || "",
+
+
+          
         });
       } catch (err) {
         console.error("Error fetching basic details:", err);
@@ -94,16 +86,15 @@ const ClinicCare = () => {
         {
           Date_Of_Visited: formData.Date_Of_Visited,
           POA_weeks: formData.POA_weeks,
-          // mother_height: formData.mother_height,
-          // allergies: formData.allergies,
-          // moh_area: formData.moh_area,
-          // phm_area: formData.phm_area,
-          // field_clinic: formData.field_clinic,
-          // consultant_obstetrician: formData.consultant_obstetrician,
-          // antenatal_risk_conditions: formData.antenatal_risk_conditions,
-          // eligible_family_register: formData.eligible_family_register,
-          // pregnant_mother_register: formData.pregnant_mother_register,
-          // gs_division: formData.gs_division,
+          POV_days : formData.POV_days,
+          urine : formData.urine,
+          sugar : formData.sugar,
+          albumin : formData.albumin,
+          pallor : formData.pallor,
+          ankle : formData.ankle,
+          facial : formData.facial,
+          blood_pressure : formData.blood_pressure,
+
         },
       );
 
@@ -130,68 +121,484 @@ const ClinicCare = () => {
         <h2 className="my-2 font-medium text-lg">සායනික සංරක්ෂණය</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {/* Left Side Fields */}
-          <div>
-          <label
-              htmlFor="hospitalclinic"
+          <div className="flex flex-col">
+
+              <label
+                htmlFor="hospitalclinic"
+                className="block text-sm font-medium text-gray-700 mt-4"
+              >
+                <div>Date of visit</div>
+                <div>සායනයට පැමිණි දිනය</div>
+              </label>
+
+              <div className="flex">
+                <input
+                type="date"
+                id="Date_Of_Visited"
+                name="Date_Of_Visited"
+                onChange={handleChange}
+                className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 text-sm"
+                placeholder="Registration Date"
+              />
+              </div>
+
+              <label
+              htmlFor="poa"
               className="block text-sm font-medium text-gray-700 mt-4"
-            >
-              <div>Date of visit</div>
-              <div>සායනයට පැමිණි දිනය</div>
-            </label>
-            <div className="flex">
+              >
+              <div>POA</div>
+              <div>ගර්භයට සති ගණන</div>
+              </label>
+
+              <div className="flex">
+              
               <input
-              type="date"
-              id="Date_Of_Visited"
-              name="Date_Of_Visited"
-              onChange={handleChange}
-              className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 text-sm"
-              placeholder="Registration Date"
-            />
-            </div>
+                  type="number"
+                  id="POA_weeks"
+                  name="POA_weeks"
+                  className="mt-1 block w-full px-1 py-1 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 text-xs"
+                  placeholder="Weeks"
+                  min="0"
+              />
+              
+              <input
+                  type="number"
+                  id="POV_days"
+                  name="POV_days"
+                  className="mt-1 block w-full px-1 py-1 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 text-xs"
+                  placeholder="Days"
+                  min="0"
+                  max="6" 
+              />
+              </div>
 
-            <label
-            htmlFor="poa"
-            className="block text-sm font-medium text-gray-700 mt-4"
-            >
-            <div>POA</div>
-            <div>ගර්භයට සති ගණන</div>
-            </label>
+              <div className="flex flex-row">
 
-            <div className="flex">
-            
-            <input
-                type="number"
-                id="POA_weeks"
-                name="POA_weeks"
-                className="mt-1 block w-full px-1 py-1 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 text-xs"
-                placeholder="Weeks"
-                min="0"
-                // value={formData.weeks} // Bind to weeks in state
-                // onChange={handleChange} // Handle changes
-            />
-            
-            <input
-                type="number"
-                id="days"
-                name="days"
-                className="mt-1 block w-full px-1 py-1 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 text-xs"
-                placeholder="Days"
-                min="0"
-                max="6" // Maximum 6 days to maintain proper week-day format
-                // value={formData.days} // Bind to days in state
-                // onChange={handleChange} // Handle changes
-            />
-            </div>
+                <div>
+                <label
+                  htmlFor="urine  "
+                  className="block text-sm font-medium text-gray-700 mt-4"
+                  >
+                  <div>Urine</div>
+                  <div>මුත්‍රා</div>
+                </label>
 
-            <label
-            htmlFor="poa  "
-            className="block text-sm font-medium text-gray-700 mt-4"
-            >
-            <div>POA</div>
-            <div>ගර්භයට සති ගණන</div>
-            </label>
+                <input
+                  type="text"
+                  id="urine"
+                  name="urine"
+                  onChange={handleChange}
+                  className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 text-sm"
+                  placeholder="urine"
+                />
 
-            
+                </div>
+              
+                <div>
+                <label
+                  htmlFor="sugar  "
+                  className="block text-sm font-medium text-gray-700 mt-4"
+                  >
+                  <div>Sugar</div>
+                  <div>සීනි</div>
+                </label>
+
+                <input
+                  type="text"
+                  id="sugar"
+                  name="sugar"
+                  onChange={handleChange}
+                  className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 text-sm"
+                  placeholder="sugar"
+                />
+
+                </div>
+
+                <div>
+                <label
+                  htmlFor="albumin  "
+                  className="block text-sm font-medium text-gray-700 mt-4"
+                  >
+                  <div>Albumin</div>
+                  <div>ඇල්බුමින්</div>
+                </label>
+
+                <input
+                  type="text"
+                  id="albumin"
+                  name="albumin"
+                  onChange={handleChange}
+                  className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 text-sm"
+                  placeholder="albumin"
+                />
+
+                </div>
+              </div>
+
+              <div>
+              <label
+                htmlFor="pallor  "
+                className="block text-sm font-medium text-gray-700 mt-4"
+                >
+                <div>Pallor</div>
+                <div>සුදුමැලි බව</div>
+              </label>
+
+              <input
+                type="text"
+                id="pallor"
+                name="pallor"
+                onChange={handleChange}
+                className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 text-sm"
+                placeholder="pallor"
+              />
+
+              </div >
+      
+              <div className="grid grid-cols-2">
+                      <div>
+                        <label
+                          htmlFor="ankle"
+                          className="block text-sm font-medium text-gray-700 mt-4"
+                          >
+                          <div>Ankle Oedema</div>
+                          <div>වළලුකර ඉදිමුම</div>
+                        </label>
+
+                        <input
+                          type="text"
+                          id="ankle"
+                          name="ankle"
+                          onChange={handleChange}
+                          className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 text-sm"
+                          placeholder="Ankle"
+                        />
+                      </div>
+                      <div>
+                        <label
+                          htmlFor="facial"
+                          className="block text-sm font-medium text-gray-700 mt-4"
+                          >
+                          <div>Facial Oedema</div>
+                          <div>මුහුණ ඉදිමුම</div>
+                        </label>
+
+                        <input
+                          type="text"
+                          id="facial"
+                          name="facial"
+                          onChange={handleChange}
+                          className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 text-sm"
+                          placeholder="Facial"
+                        />
+                      </div>
+              </div>
+              
+              <div>
+              <label
+                htmlFor="poa  "
+                className="block text-sm font-medium text-gray-700 mt-4"
+                >
+                <div>Blood Pressure</div>
+                <div>මුත්‍රා</div>
+              </label>
+
+              <select
+                id="blood_pressure"
+                name="blood_pressure"
+                onChange={handleChange}
+                className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 text-sm"
+              >
+              <option value="" disabled selected>
+                Select Blood Pressure
+              </option>
+              <option value="50">50</option>
+              <option value="60">60</option>
+              <option value="70">70</option>
+              <option value="80">80</option>
+              <option value="90">90</option>
+              <option value="100">100</option>
+              <option value="110">110</option>
+              <option value="120">120</option>
+              <option value="130">130</option>
+              <option value="140">140</option>
+              <option value="150">150</option>
+              <option value="160">160</option>
+
+              </select>
+
+              </div>
+
+              {/* <div>
+              <label
+                htmlFor="poa  "
+                className="block text-sm font-medium text-gray-700 mt-4"
+                >
+                <div>Urine</div>
+                <div>මුත්‍රා</div>
+              </label>
+
+              <input
+                type="text"
+                id="bloodtype"
+                name="mother_blood_type"
+                onChange={handleChange}
+                className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 text-sm"
+                placeholder="Blood Type"
+              />
+
+              </div>
+
+              <div>
+              <label
+                htmlFor="poa  "
+                className="block text-sm font-medium text-gray-700 mt-4"
+                >
+                <div>Urine</div>
+                <div>මුත්‍රා</div>
+              </label>
+
+              <input
+                type="text"
+                id="bloodtype"
+                name="mother_blood_type"
+                onChange={handleChange}
+                className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 text-sm"
+                placeholder="Blood Type"
+              />
+
+              </div>
+
+              <div>
+              <label
+                htmlFor="poa  "
+                className="block text-sm font-medium text-gray-700 mt-4"
+                >
+                <div>Urine</div>
+                <div>මුත්‍රා</div>
+              </label>
+
+              <input
+                type="text"
+                id="bloodtype"
+                name="mother_blood_type"
+                onChange={handleChange}
+                className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 text-sm"
+                placeholder="Blood Type"
+              />
+
+              </div>
+
+              <div>
+              <label
+                htmlFor="poa  "
+                className="block text-sm font-medium text-gray-700 mt-4"
+                >
+                <div>Urine</div>
+                <div>මුත්‍රා</div>
+              </label>
+
+              <input
+                type="text"
+                id="bloodtype"
+                name="mother_blood_type"
+                onChange={handleChange}
+                className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 text-sm"
+                placeholder="Blood Type"
+              />
+
+              </div>
+
+              <div>
+              <label
+                htmlFor="poa  "
+                className="block text-sm font-medium text-gray-700 mt-4"
+                >
+                <div>Urine</div>
+                <div>මුත්‍රා</div>
+              </label>
+
+              <input
+                type="text"
+                id="bloodtype"
+                name="mother_blood_type"
+                onChange={handleChange}
+                className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 text-sm"
+                placeholder="Blood Type"
+              />
+
+              </div>
+              <div>
+              <label
+                htmlFor="poa  "
+                className="block text-sm font-medium text-gray-700 mt-4"
+                >
+                <div>Urine</div>
+                <div>මුත්‍රා</div>
+              </label>
+
+              <input
+                type="text"
+                id="bloodtype"
+                name="mother_blood_type"
+                onChange={handleChange}
+                className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 text-sm"
+                placeholder="Blood Type"
+              />
+
+              </div>
+              <div>
+              <label
+                htmlFor="poa  "
+                className="block text-sm font-medium text-gray-700 mt-4"
+                >
+                <div>Urine</div>
+                <div>මුත්‍රා</div>
+              </label>
+
+              <input
+                type="text"
+                id="bloodtype"
+                name="mother_blood_type"
+                onChange={handleChange}
+                className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 text-sm"
+                placeholder="Blood Type"
+              />
+
+              </div>
+              <div>
+              <label
+                htmlFor="poa  "
+                className="block text-sm font-medium text-gray-700 mt-4"
+                >
+                <div>Urine</div>
+                <div>මුත්‍රා</div>
+              </label>
+
+              <input
+                type="text"
+                id="bloodtype"
+                name="mother_blood_type"
+                onChange={handleChange}
+                className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 text-sm"
+                placeholder="Blood Type"
+              />
+
+              </div>
+              <div>
+              <label
+                htmlFor="poa  "
+                className="block text-sm font-medium text-gray-700 mt-4"
+                >
+                <div>Urine</div>
+                <div>මුත්‍රා</div>
+              </label>
+
+              <input
+                type="text"
+                id="bloodtype"
+                name="mother_blood_type"
+                onChange={handleChange}
+                className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 text-sm"
+                placeholder="Blood Type"
+              />
+
+              </div>
+              <div>
+              <label
+                htmlFor="poa  "
+                className="block text-sm font-medium text-gray-700 mt-4"
+                >
+                <div>Urine</div>
+                <div>මුත්‍රා</div>
+              </label>
+
+              <input
+                type="text"
+                id="bloodtype"
+                name="mother_blood_type"
+                onChange={handleChange}
+                className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 text-sm"
+                placeholder="Blood Type"
+              />
+
+              </div>
+              <div>
+              <label
+                htmlFor="poa  "
+                className="block text-sm font-medium text-gray-700 mt-4"
+                >
+                <div>Urine</div>
+                <div>මුත්‍රා</div>
+              </label>
+
+              <input
+                type="text"
+                id="bloodtype"
+                name="mother_blood_type"
+                onChange={handleChange}
+                className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 text-sm"
+                placeholder="Blood Type"
+              />
+
+              </div>
+              <div>
+              <label
+                htmlFor="poa  "
+                className="block text-sm font-medium text-gray-700 mt-4"
+                >
+                <div>Urine</div>
+                <div>මුත්‍රා</div>
+              </label>
+
+              <input
+                type="text"
+                id="bloodtype"
+                name="mother_blood_type"
+                onChange={handleChange}
+                className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 text-sm"
+                placeholder="Blood Type"
+              />
+
+              </div>
+              <div>
+              <label
+                htmlFor="poa  "
+                className="block text-sm font-medium text-gray-700 mt-4"
+                >
+                <div>Urine</div>
+                <div>මුත්‍රා</div>
+              </label>
+
+              <input
+                type="text"
+                id="bloodtype"
+                name="mother_blood_type"
+                onChange={handleChange}
+                className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 text-sm"
+                placeholder="Blood Type"
+              />
+
+              </div>
+              <div>
+              <label
+                htmlFor="poa  "
+                className="block text-sm font-medium text-gray-700 mt-4"
+                >
+                <div>Urine</div>
+                <div>මුත්‍රා</div>
+              </label>
+
+              <input
+                type="text"
+                id="bloodtype"
+                name="mother_blood_type"
+                onChange={handleChange}
+                className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 text-sm"
+                placeholder="Blood Type"
+              />
+
+              </div> */}
             
           </div>
         </div>
