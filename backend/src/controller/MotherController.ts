@@ -213,6 +213,76 @@ export class MotherController {
     }
   }
 
+  async updatePresentObstetricHistory(
+    request: Request,
+    response: Response,
+    next: NextFunction
+  ) {
+    const id = parseInt(request.params.id);
+    const {
+      gravidity_G,
+      gravidity_P,
+      gravidity_C,
+      age_of_youngest_child,
+      LRMP,
+      EDD,
+      US_corrected_EDD,
+      POA_at_dating_scan,
+      date_of_quickening,
+      POA_at_registration,
+    } = request.body;
+
+    const userId = request.user?.userId;
+
+    try {
+      const mother = await this.motherRepository.findOne({
+        where: { id },
+        relations: ["user", "phm"],
+      });
+
+      if (!mother) {
+        return { message: "Mother not found" };
+      }
+
+      // Update the mother's details
+      mother.gravidity_G = gravidity_G ?? mother.gravidity_G;
+      mother.gravidity_P = gravidity_P ?? mother.gravidity_P;
+      mother.gravidity_C = gravidity_C ?? mother.gravidity_C;
+      mother.age_of_youngest_child =
+        age_of_youngest_child ?? mother.age_of_youngest_child;
+      mother.LRMP = LRMP ?? mother.LRMP;
+      mother.EDD = EDD ?? mother.EDD;
+      mother.US_corrected_EDD = US_corrected_EDD ?? mother.US_corrected_EDD;
+      mother.POA_at_dating_scan =
+        POA_at_dating_scan ?? mother.POA_at_dating_scan;
+      mother.date_of_quickening =
+        date_of_quickening ?? mother.date_of_quickening;
+      mother.POA_at_registration =
+        POA_at_registration ?? mother.POA_at_registration;
+
+      console.log("phm ", userId);
+      if (userId) {
+        const user = await this.userRepository.findOne({
+          where: { id: userId },
+        });
+        const phm = await this.phmRepository.findOne({
+          where: { user },
+          relations: ["user"],
+        });
+        if (!phm) {
+          return { message: "PHM not found" };
+        }
+        mother.phm = phm; // Update the PHM relationship
+      }
+
+      await this.motherRepository.save(mother);
+      response.send(mother);
+      return;
+    } catch (error) {
+      return next(error);
+    }
+  }
+
   async updateVogSignature(
     request: Request,
     response: Response,

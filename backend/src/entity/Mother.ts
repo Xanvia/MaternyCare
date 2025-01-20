@@ -346,6 +346,9 @@ export class Mother {
   @Column({ type: "varchar", length: 255, nullable: true })
   last_family_planing_method: string;
 
+
+  //Present obstetric history
+  
   @Column({ type: "int", nullable: true })
   gravidity_G: number;
 
