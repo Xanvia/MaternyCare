@@ -6,7 +6,7 @@ import AddNoticeModal from "../modals/AddNoticeModal";
 import UpdateNoticeModal from "../modals/UpdateNoticeModal";
 
 const Notices = () => {
-  const BASE_URL = `${process.env.BASE_URL}`;
+  const BASE_URL = `${import.meta.env.VITE_API_URL}`;
   const [notices, setNotices] = useState([]);
   const [loading, setLoading] = useState(false);
   const colors = ["#BA97FE", "#0D99FF", "#F580AB", "#F1CB3A", "#3AF16C"];

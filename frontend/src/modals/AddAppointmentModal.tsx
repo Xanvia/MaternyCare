@@ -38,7 +38,7 @@ export default function AddAppointmentModal({
 }: AddAppointmentModalProps) {
   const [open, setOpen] = React.useState<boolean>(false);
 
-  const BASE_URL = `${process.env.BASE_URL}`;
+  const BASE_URL = `${import.meta.env.VITE_API_URL}`;
 
   return (
     <React.Fragment>

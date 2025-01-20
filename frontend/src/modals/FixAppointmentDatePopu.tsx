@@ -41,7 +41,7 @@ export default function FixAppointmentDatePopup({
   const token = localStorage.getItem("token");
   //const [value, setValue] = React.useState<Dayjs | null>(dayjs('2022-04-17'));
 
-  const BASE_URL = `${process.env.BASE_URL}`;
+  const BASE_URL = `${import.meta.env.VITE_API_URL}`;
   
   return (
     <React.Fragment>

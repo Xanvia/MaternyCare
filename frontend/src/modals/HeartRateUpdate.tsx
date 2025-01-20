@@ -11,7 +11,7 @@ import IconButton from "@mui/joy/IconButton";
 import CircularProgress from "@mui/material/CircularProgress";
 import { CloseIcon, PlusCircle } from "../assets/icons/Icons";
 
-const BASE_URL = `${process.env.BASE_URL}`;
+const BASE_URL = import.meta.env.VITE_API_URL;
 
 interface HeartRateUpdateModalProps {
   motherId: number;

@@ -27,7 +27,7 @@ const ClinicCare2 = () => {
       try {
         setLoading(true);
         const response = await axios.get(
-          `${process.env.BASE_URL}users/mother/${id}`,
+          `${import.meta.env.VITE_API_URL}users/mother/${id}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -71,7 +71,7 @@ const ClinicCare2 = () => {
       setIsUpdating(true);
 
       await axios.put(
-        `${process.env.BASE_URL}users/mother/${id}/details`,
+        `${import.meta.env.VITE_API_URL}users/mother/${id}/details`,
         {
           respiratorySystem: formData.respiratorySystem,
           breastExamination: formData.breastExamination,

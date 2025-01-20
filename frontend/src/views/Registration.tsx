@@ -164,7 +164,7 @@ const Registration: React.FC = () => {
       console.log("Form data", values);
       try {
         const emailCheckResponse = await axios.post(
-          `${process.env.BASE_URL}check-email`,
+          `${import.meta.env.VITE_API_URL}check-email`,
           { email: values.email },
           {
             headers: {
@@ -179,7 +179,7 @@ const Registration: React.FC = () => {
         }
 
         const response = await axios.post(
-          `${process.env.BASE_URL}register/`,
+          `${import.meta.env.VITE_API_URL}register/`,
           values,
           {
             headers: {

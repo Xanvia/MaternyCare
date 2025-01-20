@@ -5,7 +5,7 @@ import { Mother } from "../components/Mother";
 
 const PhmAppointment = () => {
 
-  const BASE_URL = `${process.env.BASE_URL}`;
+  const BASE_URL = `${import.meta.env.VITE_API_URL}`;
   const token = (localStorage.getItem("token") || "").replace(/"/g, "").trim();
   
   let userItem = localStorage.getItem("user");

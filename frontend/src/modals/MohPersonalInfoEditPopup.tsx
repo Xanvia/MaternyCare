@@ -56,7 +56,7 @@ export default function MohEditPersonalInfo() {
 
   const userItem = localStorage.getItem("user");
   const user = userItem ? JSON.parse(userItem) : null;
-  const BASE_URL = `${process.env.BASE_URL}`;
+  const BASE_URL = `${import.meta.env.VITE_API_URL}`;
   const storedToken = localStorage.getItem("token");
   const token = storedToken ? JSON.parse(storedToken) : null;
 

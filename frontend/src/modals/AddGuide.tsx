@@ -29,7 +29,7 @@ export default function AddGuide() {
   const [selectedFile, setSelectedFile] = React.useState<File | null>(null);
   const token = localStorage.getItem("token");
 
-  const BASE_URL = `${process.env.BASE_URL}`;
+  const BASE_URL = `${import.meta.env.VITE_API_URL}`;
 
   // Handle file change
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {

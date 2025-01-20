@@ -36,15 +36,15 @@ const MotherRegistrationPage: React.FC = () => {
     validationSchema: registrationSchema,
     onSubmit: async (values) => {
       try {
-        await axios.post(`${process.env.BASE_URL}users/mother/`, values, {
+        await axios.post(`${import.meta.env.VITE_API_URL}users/mother/`, values, {
           headers: { Authorization: `Bearer ${parsedToken}` },
         });
 
-        await axios.post(`${process.env.BASE_URL}appointments/generate/prenatal`, values, {
+        await axios.post(`${import.meta.env.VITE_API_URL}appointments/generate/prenatal`, values, {
           headers: { Authorization: `Bearer ${parsedToken}` },
         });
 
-        await axios.post(`${process.env.BASE_URL}appointments/generate/postnatal`, values, {
+        await axios.post(`${import.meta.env.VITE_API_URL}appointments/generate/postnatal`, values, {
           headers: { Authorization: `Bearer ${parsedToken}` },
         });
 

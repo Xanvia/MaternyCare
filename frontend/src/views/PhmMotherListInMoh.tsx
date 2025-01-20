@@ -12,7 +12,7 @@ interface Mother {
   nic: string;
 }
 
-const BASE_URL = `${process.env.BASE_URL}`;
+const BASE_URL = `${import.meta.env.VITE_API_URL}`;
 const storedToken = localStorage.getItem('token');
 const token = storedToken ? JSON.parse(storedToken) : null;
 
