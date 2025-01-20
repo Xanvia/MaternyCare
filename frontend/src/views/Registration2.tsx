@@ -34,7 +34,7 @@ const Registration2: React.FC = () => {
 
       try {
         const response = await axios.post(
-          "http://localhost:3000/users/mother",
+          `${process.env.BASE_URL}users/mother`,
           values,
           {
             headers: {

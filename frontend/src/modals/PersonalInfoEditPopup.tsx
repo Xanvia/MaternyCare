@@ -59,7 +59,7 @@ export default function EditPersonalInfo() {
 
   let userItem = localStorage.getItem("user");
   const user = userItem ? JSON.parse(userItem) : null;
-  const BASE_URL = "http://localhost:3000/";
+  const BASE_URL = `${process.env.BASE_URL}`;
   const storedToken = localStorage.getItem("token");
 const token = storedToken ? JSON.parse(storedToken) : null;
 
@@ -300,8 +300,8 @@ const [mother, setMother] = React.useState<Mother | null>(null);
                     fullWidth
                     size="small"
                     variant="outlined"
-                    error={touched.phone && Boolean(errors.phone)}
-                    helperText={touched.phone && errors.phone}
+                    error={touched.phone_1 && Boolean(errors.phone_1)}
+                    helperText={touched.phone_1 && errors.phone_1}
                   />
                 </Box>
 

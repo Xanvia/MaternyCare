@@ -24,7 +24,7 @@ export default function DeleteConfirmation({
   noticeId,
 }: DeleteConfirmationProps) {
   const [open, setOpen] = React.useState<boolean>(false);
-  const BASE_URL = "http://localhost:3000/";
+  const BASE_URL = `${process.env.BASE_URL}`;
   const token = localStorage.getItem("token");
   // const [loading, setLoading] = useState(false);
 

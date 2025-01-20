@@ -11,7 +11,7 @@ import useRoleProtection from '../customHooks/useRoleProtection';
 
 const DashboardMOH = () => {
   useRoleProtection('moh');
-  const BASE_URL = 'http://localhost:3000/';
+  const BASE_URL = `${process.env.BASE_URL}`;
   const storedToken = localStorage.getItem('token');
   const token = storedToken ? JSON.parse(storedToken) : null;
   const [isPendingCollapsed, setIsPendingCollapsed] = useState(true);

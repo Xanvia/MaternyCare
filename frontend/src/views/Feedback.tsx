@@ -10,7 +10,7 @@ interface Mother {
   };
 }
 
-const BASE_URL = 'http://localhost:3000/';
+const BASE_URL = `${process.env.BASE_URL}`;
 const storedToken = localStorage.getItem('token');
 const token = storedToken ? JSON.parse(storedToken) : null;
 

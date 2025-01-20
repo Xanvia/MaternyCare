@@ -31,7 +31,7 @@ const MOHRegistration: React.FC = () => {
       console.log("Form data", values);
       try {
         const response = await axios.post(
-          "http://localhost:3000/users/moh",
+          `${process.env.BASE_URL}users/moh`,
           values,
           {
             headers: {
