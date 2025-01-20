@@ -7,7 +7,7 @@ import "react-toastify/dist/ReactToastify.css";
 const storedToken = localStorage.getItem("token");
 const token = storedToken ? JSON.parse(storedToken) : null;
 
-const ClinicCare = () => {
+const ClinicCare2 = () => {
   const [formData, setFormData] = useState({
     respiratorySystem: "",
     breastExamination: "",
@@ -236,4 +236,4 @@ const ClinicCare = () => {
   );
 };
 
-export default ClinicCare;
+export default ClinicCare2;
