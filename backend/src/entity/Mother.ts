@@ -208,6 +208,7 @@ import { Appointment } from "./Appointment";
 import { Feedback } from "./Feedback";
 import { KickCount } from "./KickCount";
 import { DeviceData } from "./DeviceData";
+import { EmergencyPlan } from "./EmergencyPlan";
 
 @Entity()
 export class Mother {
@@ -346,9 +347,8 @@ export class Mother {
   @Column({ type: "varchar", length: 255, nullable: true })
   last_family_planing_method: string;
 
-
   //Present obstetric history
-  
+
   @Column({ type: "int", nullable: true })
   gravidity_G: number;
 
@@ -419,6 +419,10 @@ export class Mother {
     onDelete: "SET NULL", // When PHM is deleted, mothers can remain with no assigned PHM
   })
   phm: Phm;
+
+  @OneToOne(() => EmergencyPlan, { cascade: true })
+  @JoinColumn()
+  emergencyPlan: EmergencyPlan;
 
   @OneToOne(() => User, {
     nullable: true,
