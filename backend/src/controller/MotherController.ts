@@ -4,12 +4,14 @@ import { Mother } from "../entity/Mother";
 import { User } from "../entity/User";
 import { Phm } from "../entity/Phm";
 import { KickCount } from "../entity/KickCount";
+import { EmergencyPlan } from "../entity/EmergencyPlan";
 
 export class MotherController {
   private motherRepository = AppDataSource.getRepository(Mother);
   private userRepository = AppDataSource.getRepository(User);
   private phmRepository = AppDataSource.getRepository(Phm);
   private kickCountRepository = AppDataSource.getRepository(KickCount);
+  private emergencyRepository = AppDataSource.getRepository(EmergencyPlan);
 
   async all(request: Request, response: Response, next: NextFunction) {
     return this.motherRepository.find({
@@ -283,6 +285,56 @@ export class MotherController {
     }
   }
 
+  async updateEmergencyPlan(request: Request, response: Response) {
+    const {
+      motherId,
+      intented_hospital_delivery,
+      intented_hospital_emergency,
+      mode_of_transport_delivery,
+      mode_of_transport_emergency,
+      average_cost_delivery,
+      average_cost_emergency,
+      distance_from_home_delivery,
+      distance_from_home_emergency,
+      time_to_reach_delivery,
+      time_to_reach_emergency,
+    } = request.body;
+
+    try {
+      const mother = await this.motherRepository.findOne({
+        where: { id: motherId },
+      });
+
+      if (!mother) {
+        return { message: "Mother not found" };
+      }
+
+      const newEmergencyPlan = new EmergencyPlan();
+      newEmergencyPlan.intented_hospital_delivery = intented_hospital_delivery;
+      newEmergencyPlan.intented_hospital_emergency =
+        intented_hospital_emergency;
+      newEmergencyPlan.mode_of_transport_delivery = mode_of_transport_delivery;
+      newEmergencyPlan.mode_of_transport_emergency =
+        mode_of_transport_emergency;
+      newEmergencyPlan.average_cost_delivery = average_cost_delivery;
+      newEmergencyPlan.average_cost_emergency = average_cost_emergency;
+      newEmergencyPlan.distance_from_home_delivery =
+        distance_from_home_delivery;
+      newEmergencyPlan.distance_from_home_emergency =
+        distance_from_home_emergency;
+      newEmergencyPlan.time_to_reach_delivery = time_to_reach_delivery;
+      newEmergencyPlan.time_to_reach_emergency = time_to_reach_emergency;
+      newEmergencyPlan.mother = mother;
+
+      await this.emergencyRepository.save(newEmergencyPlan);
+
+      return "Emergency plan updated successfully";
+    } catch (error) {
+      console.error("Error updating Emergency plan:", error);
+      return "Internal server error";
+    }
+  }
+
   async updateVogSignature(
     request: Request,
     response: Response,
@@ -420,6 +472,30 @@ export class MotherController {
       return mother.kickCounts;
     } catch (error) {
       console.error("Error fetching kick count data:", error);
+      return { message: "Internal server error" };
+    }
+  }
+
+  async getEmergencyData(
+    request: Request,
+    response: Response,
+    next: NextFunction
+  ) {
+    const motherId = parseInt(request.params.motherId);
+
+    try {
+      const mother = await this.motherRepository.findOne({
+        where: { id: motherId },
+        relations: ["emergencyPlan"],
+      });
+
+      if (!mother) {
+        return { message: "Mother not found" };
+      }
+
+      return mother.emergencyPlan;
+    } catch (error) {
+      console.error("Error fetching emergency plan data:", error);
       return { message: "Internal server error" };
     }
   }

@@ -65,6 +65,18 @@ export const MotherRoutes = [
   },
 
   {
+    method: "get",
+    route: "/mother/:motherId/emergency-plan/",
+    controller: MotherController,
+    action: "getEmergencyData",
+    // middlewares: [jwtMiddleware, roleMiddleware("mother")],
+    middlewares: [],
+  },
+
+
+  
+
+  {
     method: "put",
     route: "/users/mother/:id/rich-text-content",
     controller: MotherController,
@@ -99,7 +111,15 @@ export const MotherRoutes = [
     middlewares: [jwtMiddleware],
   },
 
-  
+  {
+    method: "put",
+    route: "/users/mother/update-emergency-plan",
+    controller: MotherController,
+    action: "updateEmergencyPlan",
+    // middlewares: [jwtMiddleware, roleMiddleware("mother")],
+    middlewares: [],
+  },
+
   {
     method: "put",
     route: "/users/mother/:id/update-dashboard",
