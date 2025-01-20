@@ -9,7 +9,7 @@ import FeedbackPopup from "../modals/FeedbackPopup";
 
 const Appointments = () => {
   
-  const BASE_URL = "http://localhost:3000/";
+  const BASE_URL = `${process.env.BASE_URL}`;
   const [appointments, setAppointments] = useState([]);
   const [loading, setLoading] = useState(false);
   const role = (localStorage.getItem("role") || "")

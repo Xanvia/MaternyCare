@@ -11,7 +11,7 @@ import TextField from "@mui/material/TextField";
 import { CloseIcon, PlusCircle } from "../assets/icons/Icons";
 import axios from "axios";
 
-const BASE_URL = "http://localhost:3000/"; // Adjust the base URL as needed
+const BASE_URL = `${process.env.BASE_URL}`;
 
 interface KickCountUpdateModalProps {
   motherId: number;

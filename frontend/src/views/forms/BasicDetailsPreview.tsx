@@ -26,7 +26,7 @@ const BasicDetailsPreview = () => {
       try {
         setLoading(true);
         const response = await axios.get(
-          `http://localhost:3000/users/mother/${id}`,
+          `${process.env.BASE_URL}users/mother/${id}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,

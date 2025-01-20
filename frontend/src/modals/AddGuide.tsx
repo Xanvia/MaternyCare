@@ -29,7 +29,7 @@ export default function AddGuide() {
   const [selectedFile, setSelectedFile] = React.useState<File | null>(null);
   const token = localStorage.getItem("token");
 
-  const BASE_URL = "http://localhost:3000/";
+  const BASE_URL = `${process.env.BASE_URL}`;
 
   // Handle file change
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {

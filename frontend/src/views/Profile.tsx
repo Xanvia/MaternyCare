@@ -36,7 +36,7 @@ const Profile = () => {
   let userItem = localStorage.getItem("user");
   const user = userItem ? JSON.parse(userItem) : null;
 
-  const BASE_URL = "http://localhost:3000/";
+  const BASE_URL = `${process.env.BASE_URL}`;
   // const [mother, setMother] = useState([]);
   const [mother, setMother] = useState<Mother | null>(null);
   const [loading, setLoading] = useState(false);

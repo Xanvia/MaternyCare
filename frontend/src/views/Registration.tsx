@@ -164,7 +164,7 @@ const Registration: React.FC = () => {
       console.log("Form data", values);
       try {
         const emailCheckResponse = await axios.post(
-          "http://localhost:3000/check-email",
+          `${process.env.BASE_URL}check-email`,
           { email: values.email },
           {
             headers: {
@@ -179,7 +179,7 @@ const Registration: React.FC = () => {
         }
 
         const response = await axios.post(
-          "http://localhost:3000/register/",
+          `${process.env.BASE_URL}register/`,
           values,
           {
             headers: {
