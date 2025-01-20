@@ -19,8 +19,8 @@ export enum AppointmentState {
 }
 
 export enum FM_FHS {
-  POSITIVE = "+",
-  NEGATIVE = "-",
+  POSITIVE = "positive",
+  NEGATIVE = "negative",
 }
 
 @Entity()
@@ -127,8 +127,8 @@ export class Appointment {
   @Column({ nullable: true })
   designation: string;
 
-  // @Column({ nullable: true })
-  // month: string;
+  @Column({ nullable: true })
+  weight: string;
 
   @Column({ nullable: true })
   month: string;
@@ -158,14 +158,5 @@ export class Appointment {
 
   @ManyToOne(() => Mother, (mother) => mother.appointments)
   mother: Mother;
-  //appointment: Date;
-
-  // @OneToOne(() => Feedback, (feedback) => feedback.appointment)
-  // feedback: Feedback;
-
-  // @ManyToOne(() => Phm, (phm) => phm.appointments)
-  // phm: Phm;
-
-  // @ManyToOne(() => Moh, (moh) => moh.appointments)
-  // moh: Moh;
+  
 }
