@@ -43,7 +43,7 @@ const ReportHealthIssueModal: React.FC<ReportHealthIssueModalProps> = ({
     setIsSending(true);
 
     try {
-      const response = await fetch(`${process.env.BASE_URL}send-email`, {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}send-email`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

@@ -44,7 +44,7 @@ const BasicDetails = () => {
       try {
         setLoading(true);
         const response = await axios.get(
-          `${process.env.BASE_URL}users/mother/${id}`,
+          `${import.meta.env.VITE_API_URL}users/mother/${id}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -114,7 +114,7 @@ const BasicDetails = () => {
       console.log("id from form ", id);
 
       await axios.put(
-        `${process.env.BASE_URL}users/mother/${id}/basic-details`,
+        `${import.meta.env.VITE_API_URL}users/mother/${id}/basic-details`,
         {
           mother_blood_type: formData.mother_blood_type,
           mother_height: formData.mother_height,

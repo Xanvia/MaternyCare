@@ -9,7 +9,7 @@ import FeedbackPopup from "../modals/FeedbackPopup";
 
 const Appointments = () => {
   
-  const BASE_URL = `${process.env.BASE_URL}`;
+  const BASE_URL = `${import.meta.env.VITE_API_URL}`;
   const [appointments, setAppointments] = useState([]);
   const [loading, setLoading] = useState(false);
   const role = (localStorage.getItem("role") || "")

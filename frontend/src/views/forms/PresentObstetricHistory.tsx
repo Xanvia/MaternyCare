@@ -48,7 +48,7 @@ const PresentObstetricHistory = () => {
 
       try {
         const response = await axios.get(
-          `${process.env.BASE_URL}users/mother/${id}`,
+          `${import.meta.env.VITE_API_URL}users/mother/${id}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -90,7 +90,7 @@ const PresentObstetricHistory = () => {
 
     try {
       await axios.put(
-        `${process.env.BASE_URL}users/mother/${id}/signature`,
+        `${import.meta.env.VITE_API_URL}users/mother/${id}/signature`,
         {
           signature: dataURL,
         },
@@ -131,7 +131,7 @@ const PresentObstetricHistory = () => {
       try {
         // setLoading(true);
         const response = await axios.get(
-          `${process.env.BASE_URL}users/mother/${id}`,
+          `${import.meta.env.VITE_API_URL}users/mother/${id}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -180,7 +180,7 @@ const PresentObstetricHistory = () => {
       console.log("id from form ", id);
 
       await axios.put(
-        `${process.env.BASE_URL}users/mother/${id}/present-obstetric-history`,
+        `${import.meta.env.VITE_API_URL}users/mother/${id}/present-obstetric-history`,
         {
           gravidity_G: formData.gravidity_G,
           gravidity_P: formData.gravidity_P,

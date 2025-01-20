@@ -35,7 +35,7 @@ const SingleRedMother = () => {
   const saveContent = async () => {
     try {
       const response = await axios.put(
-        `${process.env.BASE_URL}users/mother/${id}/rich-text-content`,
+        `${import.meta.env.VITE_API_URL}users/mother/${id}/rich-text-content`,
         {
           richTextContent: editorContent,
         }
@@ -86,7 +86,7 @@ const SingleRedMother = () => {
 
       try {
         const response = await axios.get(
-          `${process.env.BASE_URL}users/mother/${id}`,
+          `${import.meta.env.VITE_API_URL}users/mother/${id}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -130,7 +130,7 @@ const SingleRedMother = () => {
 
     try {
       await axios.put(
-        `${process.env.BASE_URL}users/mother/${id}/vogsignature`,
+        `${import.meta.env.VITE_API_URL}users/mother/${id}/vogsignature`,
         {
           signature: dataURL,
         },

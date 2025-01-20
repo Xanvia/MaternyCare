@@ -15,7 +15,7 @@ const SingleMother = () => {
   const [mother, setMother] = useState<any>(null);
   const [isCollapsed, setIsCollapsed] = useState(true);
   const [appointment, setAppointment] = useState<any>(null);
-  const BASE_URL = `${process.env.BASE_URL}`;
+  const BASE_URL = `${import.meta.env.VITE_API_URL}`;
 
   useEffect(() => {
     const fetchMother = async () => {

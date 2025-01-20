@@ -8,7 +8,7 @@ import ProgressTable from '../components/ProgressTable';
 const Progress = () => {
   useRoleProtection('moh');
   const [value, setValue] = React.useState('mother'); // Default tab is 'MOTHER LIST'
-  const BASE_URL = `${process.env.BASE_URL}`;
+  const BASE_URL = `${import.meta.env.VITE_API_URL}`;
   const storedToken = localStorage.getItem('token');
   const token = storedToken ? JSON.parse(storedToken) : null;
   const [isPendingCollapsed, setIsPendingCollapsed] = useState(true);

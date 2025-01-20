@@ -11,7 +11,7 @@ import TextField from "@mui/material/TextField";
 import { CloseIcon, PlusCircle } from "../assets/icons/Icons";
 import axios from "axios";
 
-const BASE_URL = `${process.env.BASE_URL}`;
+const BASE_URL = import.meta.env.VITE_API_URL;
 
 interface KickCountUpdateModalProps {
   motherId: number;

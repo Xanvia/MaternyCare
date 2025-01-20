@@ -26,7 +26,7 @@ const LoginPage: React.FC = () => {
       console.log("Form data", values);
       try {
         const response = await axios.post(
-          `${process.env.BASE_URL}login/`,
+          `${import.meta.env.VITE_API_URL}login/`,
           values,
           {
             headers: {

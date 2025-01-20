@@ -30,7 +30,7 @@ export default function RedPatientTable() {
       const token = storedToken ? JSON.parse(storedToken) : null;
 
       try {
-        const response = await axios.get(`${process.env.BASE_URL}vog/mothers/`, {
+        const response = await axios.get(`${import.meta.env.VITE_API_URL}vog/mothers/`, {
           // headers: {
           //   Authorization: `Bearer ${token}`,
           // },

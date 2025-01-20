@@ -36,7 +36,7 @@ const Profile = () => {
   let userItem = localStorage.getItem("user");
   const user = userItem ? JSON.parse(userItem) : null;
 
-  const BASE_URL = `${process.env.BASE_URL}`;
+  const BASE_URL = `${import.meta.env.VITE_API_URL}`;
   // const [mother, setMother] = useState([]);
   const [mother, setMother] = useState<Mother | null>(null);
   const [loading, setLoading] = useState(false);
