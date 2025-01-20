@@ -6,6 +6,8 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { PickersDay, PickersDayProps } from "@mui/x-date-pickers/PickersDay";
 import { DateCalendar } from "@mui/x-date-pickers/DateCalendar";
 import { DayCalendarSkeleton } from "@mui/x-date-pickers/DayCalendarSkeleton";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 function getRandomNumber(min: number, max: number) {
   return Math.round(Math.random() * (max - min) + min);
@@ -30,6 +32,36 @@ function fakeFetch(date: Dayjs, { signal }: { signal: AbortSignal }) {
 }
 
 const initialValue = dayjs("2022-04-17");
+const BASE_URL = "http://localhost:3000/";
+const [appointments, setAppointments] = useState([]);
+
+let userItem = localStorage.getItem("user");
+const user = userItem ? JSON.parse(userItem) : null;
+
+const role = (localStorage.getItem("role") || "")
+    .replace(/"/g, "")
+    .trim()
+    .toLowerCase();
+  console.log("role from appointment page: " + role);
+
+  useEffect(() =>{
+    const getAppointments = () =>{
+      const axiosConfig = {
+        method: "get",
+        url: `${BASE_URL}/appointments/user/${user.id}`,
+      };
+      axios(axiosConfig)
+        .then((response) => {
+          setAppointments(response.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    };
+
+    getAppointments();
+  },[]);
+
 
 function ServerDay(
   props: PickersDayProps<Dayjs> & { highlightedDays?: number[] }
