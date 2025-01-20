@@ -5,7 +5,9 @@ import CustomizedRating from '../modals/AddRating';
 
 interface Mother {
   age: number;
-  appointments: { 
+  appointments: {
+    filter: any;
+    length: number; 
     feedback: string;
   };
 }
@@ -80,7 +82,18 @@ const Feedback: React.FC = () => {
             <div key={index} className="p-4">
               <p>
                 <span className="font-semibold">Feedback:</span>{" "}
-                {mother.appointments?.feedback || "No feedback available"}
+                {mother.appointments && mother.appointments.length > 0 ? (
+                mother.appointments
+                  .filter((appointment: { feedback: any; }) => appointment.feedback) // Filter appointments with feedback
+                  .map((appointment: { feedback: string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | null | undefined; }, index: number) => (
+                    <p key={index}>
+                      <span className="font-semibold">Feedback {index + 1}:</span>{" "}
+                      {appointment.feedback}
+                    </p>
+                  ))
+              ) : (
+                <p>No feedback available</p>
+              )}
               </p>
               {/* <p>
                 <span className="font-semibold">Age:</span> {mother.age}
