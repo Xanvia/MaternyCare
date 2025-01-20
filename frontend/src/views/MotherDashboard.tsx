@@ -15,6 +15,8 @@ import { quotes } from "../data/Data";
 import BasicDetailsPreview from "./forms/BasicDetailsPreview";
 import { ReportProblem } from "../assets/icons/Icons";
 import ReportHealthIssueModal from "../modals/ReportHealthIssueModal";
+import PregnancyBMIChart from "../components/PregnancyBMIChart";
+import SFHChart from "../components/SFHChart";
 
 interface Mother {
   id: number;
@@ -232,8 +234,15 @@ const MotherDashboard = () => {
           // updateComponent=<WaterAmountUpdate />
         />
       </div>
-      <div className="mt-12 h-96 w-auto">
+      {/* <div className="mt-12 h-96 w-auto">
         <LineChart />
+      </div> */}
+
+      <div className="mt-12">
+        <PregnancyBMIChart />
+      </div>
+      <div className="mt-6">
+        <SFHChart />
       </div>
       <div className="py-6">
         <BasicDetailsPreview />
