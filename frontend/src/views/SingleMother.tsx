@@ -12,7 +12,6 @@ const SingleMother = () => {
   const { appointmentid } = useParams<{ appointmentid: string }>();
   const [mother, setMother] = useState<any>(null);
   const [isCollapsed, setIsCollapsed] = useState(true);
-
   const [appointment, setAppointment] = useState<any>(null);
   const BASE_URL = "http://localhost:3000/";
 

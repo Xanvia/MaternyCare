@@ -26,13 +26,6 @@ export class AppointmentController {
   async one(request: Request, response: Response, next: NextFunction) {
     const id = parseInt(request.params.id);
 
-    // const user = await this.userRepository.findOne({where:{id}});
-
-    // const mother = await this.motherRepository.findOne({
-    //   where:{user},
-    //   relations:["user",]
-    // });
-
     const appointment = await this.appointmentRepository.findOne({
       where: { id },
       relations: ["mother"],
@@ -77,9 +70,9 @@ export class AppointmentController {
       appointment.deletedAt = deletedAt;
       appointment.checkedByMother = checkedByMother;
       appointment.checkedByPHM = checkedByPHM;
-      appointment.mother = mother;
       appointment.feedback = feedback;
       appointment.appointment_state = appointment_state;
+      appointment.mother = mother
 
       await this.appointmentRepository.save(appointment);
 
@@ -103,6 +96,8 @@ export class AppointmentController {
     const mother = await this.motherRepository.findOne({
       where: { user: { id: userId } },
     });
+
+    
 
     // const motherId = parseInt(request.params.id);
 
@@ -137,118 +132,14 @@ export class AppointmentController {
     return appointments;
   }
 
-  // async getMotherFeedbackFromPhmId(
-  //   request: Request,
-  //   response: Response,
-  //   next: NextFunction
-  // ) {
-  //   const phmId = parseInt(request.params.id);
 
-  //   // Fetch mothers associated with the given PHM ID
-  //   const mothers = await this.motherRepository.find({
-  //     where: { phm: { id: phmId } },
-  //   });
-  //   // Extract mother IDs
-  //   const motherIds = mothers.map((mother) => mother.id);
-  //   console.log(motherIds);
-  //   // Fetch appointments associated with those mothers
-  //   const appointments = await this.appointmentRepository.find({
-  //     where: { mother: { id: In(motherIds) } },
-  //     relations: ["mother"],
-  //   });
-
-  //   // Extract appointment IDs
-  //   const appointmentIds = appointments.map((appointment) => appointment.id);
-
-  //   // Fetch feedback associated with those appointments
-  //   // const feedbacks = await this.feedbackRepository.find({
-  //   //   where: { appointment: { id: In(appointmentIds) } },
-  //   //   relations: ["appointment", "appointment.mother"],
-  //   // });
-
-  //   const feedbacks = await this.feedbackRepository
-  //     .createQueryBuilder("feedback")
-  //     .innerJoinAndSelect("feedback.appointment", "appointment")
-  //     .innerJoinAndSelect("appointment.mother", "mother")
-  //     .where("mother.id IN (:...motherIds)", { motherIds })
-  //     .getMany();
-
-  //   return feedbacks;
-  // }
-
-  // async generateAppointment(request: Request, response: Response, next: NextFunction) {
-
-  //   const {
-  //     appointment_description,
-  //     startDate,
-  //     endDate,
-  //     month,
-  //     deletedAt,
-  //     checkedByMother,
-  //     checkedByPHM,
-  //   } = request.body;
-
-  //   const userId = request.user?.userId;
-
-  //   const user = await this.userRepository.findOne({ where: { id: userId } });
-
-  //   const mother = await this.motherRepository.findOne({
-  //     where: { user },
-  //     relations: ["user"],
-  //   });
-
-  //   if (!mother || !mother.delivery_date) {
-  //     throw new Error("Mother or delivery date not found");
-  //   }
-
-  //   console.log("userIdcdf" + userId + " mother" + mother.id);
-
-  //   if (!mother.id) {
-  //     return response
-  //       .status(400)
-  //       .json({ error: "Mother Id is missing or invalid" });
-  //   }
-
-  //   try {
-
-  //     const appointment = new Appointment();
-  //     appointment.appointment_description = appointment_description;
-  //     appointment.startDate = startDate;
-  //     appointment.endDate = endDate;
-  //     appointment.month = month;
-  //     appointment.deletedAt = deletedAt;
-  //     appointment.checkedByMother = checkedByMother;
-  //     appointment.checkedByPHM = checkedByPHM;
-  //     appointment.mother = mother;
-
-  //     await this.appointmentRepository.save(appointment);
-
-  //     response.send(appointment);
-  //     return;
-  //   } catch (error) {
-  //     return next(error);
-  //   }
-  // }
-
-  async generateAppointment(
-    request: Request,
-    response: Response,
-    next: NextFunction
-  ) {
-    // const {
-    //   appointment_description,
-    //   month,
-    //   deletedAt,
-    //   checkedByMother,
-    //   checkedByPHM,
-    // } = request.body;
-
+  async generateAppointment(request: Request, response: Response, next: NextFunction) {
+  
     const userId = request.user?.userId;
 
     const user = await this.userRepository.findOne({ where: { id: userId } });
 
-    // console.log(userId);
-
+  
     const mother = await this.motherRepository.findOne({
       where: { user },
       relations: ["user"],
@@ -272,14 +163,9 @@ export class AppointmentController {
         const endDate = new Date(startDate); // Assuming startDate and endDate are the same
 
         const newAppointment = new Appointment();
-        // newAppointment.appointment_description = appointment_description || "Check-up"; // Default to "Check-up" if not provided
         newAppointment.startDate = startDate; // Format as YYYY-MM-DD
         newAppointment.endDate = endDate;
         newAppointment.appointment_state = AppointmentState.PRENATAL; // Set appointment_type as prenatal
-        // newAppointment.month = month;
-        // newAppointment.deletedAt = deletedAt;
-        // newAppointment.checkedByMother = checkedByMother;
-        // newAppointment.checkedByPHM = checkedByPHM;
         newAppointment.mother = mother;
 
         appointments.push(newAppointment);
@@ -361,15 +247,41 @@ export class AppointmentController {
 
   async update(request: Request, response: Response, next: NextFunction) {
     const id = parseInt(request.params.id);
-    const {
-      startDate,
-      endDate,
-      fixedDate,
-      month,
-      checkedByMother,
-      checkedByPHM,
-      appointment_description,
+    const { 
+      startDate, 
+      endDate, 
+      fixedDate, 
+      Date_Of_Visited,
+      month, 
+      checkedByMother, 
+      checkedByPHM, 
+      appointment_description, 
       feedback,
+      POA_weeks,
+      POV_days,
+      fm,
+      fhs,
+      urine,
+      sugar,
+      albumin,
+      pallor,
+      ankle,
+      facial,
+      blood_pressure,
+      fundal_height,
+      foetal_lie,
+      presentation,
+      engagement_of_the_presenting_part,
+      iron,
+      folate,
+      calcium,
+      vitamin_C,
+      food_supplementation,
+      signature_of_the_officer_examined,
+      designation,
+      weight,
+
+    
     } = request.body;
 
     // Fetch the notice to update, making sure it’s not soft-deleted
@@ -385,11 +297,36 @@ export class AppointmentController {
     appointmentToUpdate.startDate = startDate;
     appointmentToUpdate.endDate = endDate;
     appointmentToUpdate.fixedDate = fixedDate;
+    appointmentToUpdate.Date_Of_Visited = Date_Of_Visited;
     appointmentToUpdate.month = month;
     appointmentToUpdate.checkedByPHM = checkedByPHM;
     appointmentToUpdate.checkedByMother = checkedByMother;
     appointmentToUpdate.appointment_description = appointment_description;
     appointmentToUpdate.feedback = feedback;
+    appointmentToUpdate.POA_weeks = POA_weeks;
+    appointmentToUpdate.POV_days = POV_days;
+    appointmentToUpdate.fm = fm;
+    appointmentToUpdate.fhs = fhs;
+    appointmentToUpdate.urine = urine;
+    appointmentToUpdate.sugar = sugar;
+    appointmentToUpdate.albumin = albumin;
+    appointmentToUpdate.pallor = pallor;
+    appointmentToUpdate.ankle = ankle;
+    appointmentToUpdate.facial = facial;
+    appointmentToUpdate.blood_pressure = blood_pressure;
+    appointmentToUpdate.fundal_height = fundal_height;
+    appointmentToUpdate.foetal_lie = foetal_lie;
+    appointmentToUpdate.presentation = presentation;
+    appointmentToUpdate.engagement_of_the_presenting_part = engagement_of_the_presenting_part;
+    appointmentToUpdate.iron = iron;
+    appointmentToUpdate.folate = folate;
+    appointmentToUpdate.calcium = calcium;
+    appointmentToUpdate.vitamin_C = vitamin_C;
+    appointmentToUpdate.food_supplementation = food_supplementation;
+    appointmentToUpdate.signature_of_the_officer_examined = signature_of_the_officer_examined;
+    appointmentToUpdate.designation = designation;
+    appointmentToUpdate.weight = weight;
+
 
     // Save the updated notice
     await this.appointmentRepository.save(appointmentToUpdate);
