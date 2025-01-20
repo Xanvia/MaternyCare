@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
-import ToTitle from "../components/CaseConverter";
+// import ToTitle from "../components/CaseConverter";
 import BasicDetails from "./forms/BasicDetails";
 import { ExpandLess, ExpandMore, TickCircle } from "../assets/icons/Icons";
 import PresentObstetricHistory from "./forms/PresentObstetricHistory";
-import ClinicCare from "./forms/ClinicCare";
+import PregnancyBMIChart from "../components/PregnancyBMIChart";
+// import ClinicCare from "./forms/ClinicCare";
 
 const SingleMotherGenral = () => {
   const { id } = useParams<{ id: string }>();
@@ -165,7 +166,7 @@ const SingleMotherGenral = () => {
       {/* Basic Details form */}
       <BasicDetails />
       <PresentObstetricHistory />
-      <ClinicCare />
+      <PregnancyBMIChart />
     </div>
   );
 };
