@@ -20,6 +20,9 @@ const ClinicCare = () => {
     ankle:"",
     facial:"",
     blood_pressure : "",
+    fundal_height: "",
+    foetal_lie: "",
+    presentation: "",
     
   });
   const [loading, setLoading] = useState(false);
@@ -35,6 +38,11 @@ const ClinicCare = () => {
         setLoading(true);
         const response = await axios.get(
           `http://localhost:3000/appointments/${appointmentid}`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
         ); 
         console.log("sahan"+response.data.Date_Of_Visited);
         setFormData({
@@ -48,6 +56,9 @@ const ClinicCare = () => {
           ankle: response.data.ankle || "",
           facial: response.data.facial || "",
           blood_pressure: response.data.blood_pressure || "",
+          fundal_height: response.data.fundal_height || "",
+          foetal_lie: response.data.foetal_lie || "",
+          presentation: response.data.presentation || "",
 
 
           
@@ -79,7 +90,8 @@ const ClinicCare = () => {
       // setSuccess(false);
       setIsUpdating(true);
 
-      console.log("id from form ", appointmentid);
+      console.log(`Endpoint: http://localhost:3000/appointments/${appointmentid}`);
+      console.log(`data-latest${formData.Date_Of_Visited}`);
 
       await axios.put(
         `http://localhost:3000/appointments/${appointmentid}`,
@@ -94,9 +106,17 @@ const ClinicCare = () => {
           ankle : formData.ankle,
           facial : formData.facial,
           blood_pressure : formData.blood_pressure,
-
+          fundal_height : formData.fundal_height,
+          foetal_lie : formData.foetal_lie,
+          presentation: formData.presentation,
         },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
       );
+      
 
       // setSuccess(true);
       setIsUpdating(false);
@@ -136,6 +156,7 @@ const ClinicCare = () => {
                 type="date"
                 id="Date_Of_Visited"
                 name="Date_Of_Visited"
+                value = {formData.Date_Of_Visited}
                 onChange={handleChange}
                 className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 text-sm"
                 placeholder="Registration Date"
@@ -156,6 +177,8 @@ const ClinicCare = () => {
                   type="number"
                   id="POA_weeks"
                   name="POA_weeks"
+                  value={formData.POA_weeks}
+                  onChange={handleChange}
                   className="mt-1 block w-full px-1 py-1 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 text-xs"
                   placeholder="Weeks"
                   min="0"
@@ -165,6 +188,8 @@ const ClinicCare = () => {
                   type="number"
                   id="POV_days"
                   name="POV_days"
+                  value={formData.POV_days}
+                  onChange={handleChange}
                   className="mt-1 block w-full px-1 py-1 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 text-xs"
                   placeholder="Days"
                   min="0"
@@ -187,6 +212,7 @@ const ClinicCare = () => {
                   type="text"
                   id="urine"
                   name="urine"
+                  value={formData.urine}
                   onChange={handleChange}
                   className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 text-sm"
                   placeholder="urine"
@@ -207,6 +233,7 @@ const ClinicCare = () => {
                   type="text"
                   id="sugar"
                   name="sugar"
+                  value={formData.sugar}
                   onChange={handleChange}
                   className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 text-sm"
                   placeholder="sugar"
@@ -227,6 +254,7 @@ const ClinicCare = () => {
                   type="text"
                   id="albumin"
                   name="albumin"
+                  value={formData.albumin}
                   onChange={handleChange}
                   className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 text-sm"
                   placeholder="albumin"
@@ -248,6 +276,7 @@ const ClinicCare = () => {
                 type="text"
                 id="pallor"
                 name="pallor"
+                value={formData.pallor}
                 onChange={handleChange}
                 className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 text-sm"
                 placeholder="pallor"
@@ -270,6 +299,7 @@ const ClinicCare = () => {
                           id="ankle"
                           name="ankle"
                           onChange={handleChange}
+                          value={formData.ankle}
                           className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 text-sm"
                           placeholder="Ankle"
                         />
@@ -287,6 +317,7 @@ const ClinicCare = () => {
                           type="text"
                           id="facial"
                           name="facial"
+                          value={formData.facial}
                           onChange={handleChange}
                           className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 text-sm"
                           placeholder="Facial"
@@ -306,6 +337,7 @@ const ClinicCare = () => {
               <select
                 id="blood_pressure"
                 name="blood_pressure"
+                value={formData.blood_pressure}
                 onChange={handleChange}
                 className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 text-sm"
               >
@@ -329,22 +361,65 @@ const ClinicCare = () => {
 
               </div>
 
-              {/* <div>
+              <div>
               <label
-                htmlFor="poa  "
+                htmlFor="fundal_height"
                 className="block text-sm font-medium text-gray-700 mt-4"
                 >
-                <div>Urine</div>
-                <div>මුත්‍රා</div>
+                <div>Fundal height</div>
+                <div>බුධිනයේ උස</div>
               </label>
 
               <input
                 type="text"
-                id="bloodtype"
-                name="mother_blood_type"
+                id="fundal_height"
+                name="fundal_height"
+                value={formData.fundal_height}
                 onChange={handleChange}
                 className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 text-sm"
-                placeholder="Blood Type"
+                placeholder="Fundal height"
+              />
+
+              </div>
+
+              <div>
+              <label
+                htmlFor="fundal_height"
+                className="block text-sm font-medium text-gray-700 mt-4"
+                >
+                <div>Foetal lie</div>
+                <div>භ්‍රෑණයේ ලීලාව</div>
+              </label>
+
+              <input
+                type="text"
+                id="foetal_lie"
+                name="foetal_lie"
+                value={formData.foetal_lie}
+                onChange={handleChange}
+                className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 text-sm"
+                placeholder="Foetal lie"
+              />
+
+              </div>
+
+              <div>
+              <label
+                htmlFor="presentation"
+                className="block text-sm font-medium text-gray-700 mt-4"
+                >
+                <div>Presentation</div>
+                <div>භ්‍රෑණයේ පිහිටීම</div>
+              </label>
+
+              <input
+                type="text"
+                id="presentation"
+                name="presentation"
+                value={formData.presentation}
+                onChange={handleChange}
+                className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 text-sm"
+                placeholder="Presentation"
               />
 
               </div>
@@ -369,65 +444,6 @@ const ClinicCare = () => {
 
               </div>
 
-              <div>
-              <label
-                htmlFor="poa  "
-                className="block text-sm font-medium text-gray-700 mt-4"
-                >
-                <div>Urine</div>
-                <div>මුත්‍රා</div>
-              </label>
-
-              <input
-                type="text"
-                id="bloodtype"
-                name="mother_blood_type"
-                onChange={handleChange}
-                className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 text-sm"
-                placeholder="Blood Type"
-              />
-
-              </div>
-
-              <div>
-              <label
-                htmlFor="poa  "
-                className="block text-sm font-medium text-gray-700 mt-4"
-                >
-                <div>Urine</div>
-                <div>මුත්‍රා</div>
-              </label>
-
-              <input
-                type="text"
-                id="bloodtype"
-                name="mother_blood_type"
-                onChange={handleChange}
-                className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 text-sm"
-                placeholder="Blood Type"
-              />
-
-              </div>
-
-              <div>
-              <label
-                htmlFor="poa  "
-                className="block text-sm font-medium text-gray-700 mt-4"
-                >
-                <div>Urine</div>
-                <div>මුත්‍රා</div>
-              </label>
-
-              <input
-                type="text"
-                id="bloodtype"
-                name="mother_blood_type"
-                onChange={handleChange}
-                className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 text-sm"
-                placeholder="Blood Type"
-              />
-
-              </div>
               <div>
               <label
                 htmlFor="poa  "
@@ -598,7 +614,26 @@ const ClinicCare = () => {
                 placeholder="Blood Type"
               />
 
-              </div> */}
+              </div>
+              <div>
+              <label
+                htmlFor="poa  "
+                className="block text-sm font-medium text-gray-700 mt-4"
+                >
+                <div>Urine</div>
+                <div>මුත්‍රා</div>
+              </label>
+
+              <input
+                type="text"
+                id="bloodtype"
+                name="mother_blood_type"
+                onChange={handleChange}
+                className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 text-sm"
+                placeholder="Blood Type"
+              />
+
+              </div>
             
           </div>
         </div>
