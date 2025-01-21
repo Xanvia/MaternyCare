@@ -4,6 +4,7 @@ import { Mother } from "../entity/Mother";
 import { User } from "../entity/User";
 // import { generateAppointmentsForMother } from "../service/mothreAppointmentGenerater";
 // import { DataSource, In } from "typeorm";
+import { DataSource, In } from "typeorm";
 import { Appointment, AppointmentState } from "../entity/Appointment";
 // import { error } from "console";
 // import { Feedback } from "../entity/Feedback";
@@ -14,6 +15,7 @@ export class AppointmentController {
   private appointmentRepository = AppDataSource.getRepository(Appointment);
   private motherRepository = AppDataSource.getRepository(Mother);
   private userRepository = AppDataSource.getRepository(User);
+  private phmRepository = AppDataSource.getRepository(Phm);
 
   
   async all(request: Request, response: Response, next: NextFunction) {
@@ -96,14 +98,6 @@ export class AppointmentController {
     const mother = await this.motherRepository.findOne({
       where: { user: { id: userId } },
     });
-
-    
-
-    // const motherId = parseInt(request.params.id);
-
-    // const mother = await this.motherRepository.findOne({
-    //   where: { id: motherId },
-    // });
 
     const appointments = await this.appointmentRepository.find({
       where: { mother: { id: mother.id } },
@@ -333,4 +327,37 @@ export class AppointmentController {
 
     return "Appointment has been updated";
   }
+
+  async getPhmAllAppointmentsByUserId(
+    request: Request,
+    response: Response,
+    next: NextFunction
+  ) {
+    const userId = parseInt(request.params.id);
+    console.log(userId);
+    
+    const phm = await this.phmRepository.findOne({
+      where: { user: { id: userId } },
+    });
+    
+    if (!phm) {
+      return { message: "PHM not found for the given User ID" };
+    }
+    
+    console.log(phm.id);
+    const mothers = await this.motherRepository.find({
+      where: { phm: { id: phm.id } },
+      relations: ["user", "phm", "appointments"],
+    });
+    
+    if (!mothers.length) {
+      return { message: "No mothers found for the associated PHM" };
+    }
+  
+    // Extract and flatten all appointments from all mothers into a single array
+    const allAppointments = mothers.flatMap(mother => mother.appointments);
+    
+    return allAppointments;
+  }
+  
 }

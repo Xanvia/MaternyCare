@@ -72,4 +72,11 @@ export const AppointmentRoutes = [
     action: "remove",
     middlewares: [],
   },
+  {
+    method: "get",
+    route: "/phm/appointments/mother/:id",
+    controller: AppointmentController,
+    action: "getPhmAllAppointmentsByUserId",
+    middlewares: [],
+  },
 ];
