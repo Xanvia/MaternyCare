@@ -209,6 +209,7 @@ import { Feedback } from "./Feedback";
 import { KickCount } from "./KickCount";
 import { DeviceData } from "./DeviceData";
 import { EmergencyPlan } from "./EmergencyPlan";
+import { DentalCare } from "./DentalCare";
 
 @Entity()
 export class Mother {
@@ -445,6 +446,10 @@ export class Mother {
   @OneToOne(() => EmergencyPlan, { cascade: true })
   @JoinColumn()
   emergencyPlan: EmergencyPlan;
+
+  @OneToOne(() => DentalCare, { cascade: true })
+  @JoinColumn()
+  dentalCare: DentalCare;
 
   @OneToOne(() => User, {
     nullable: true,
