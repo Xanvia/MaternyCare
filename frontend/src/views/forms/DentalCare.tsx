@@ -1,26 +1,34 @@
-import { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
-import { toast } from "react-toastify";
+import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import SignaturePad from "signature_pad";
 
 const storedToken = localStorage.getItem("token");
 const token = storedToken ? JSON.parse(storedToken) : null;
 
-const DentalCare = () => {
+interface DentalCareData {
+  referred_date: string;
+  examination_date: string;
+  treatment: string;
+  dentistsignature: string;
+}
+
+const DentalCare: React.FC = () => {
   const signaturePadRef = useRef<HTMLCanvasElement>(null);
   const padInstance = useRef<SignaturePad | null>(null);
   const [signature, setSignature] = useState<string | null>(null);
 
-  const [formData, setFormData] = useState({
-    referredDate: "",
-    dateOfExamination: "",
+  const [formData, setFormData] = useState<DentalCareData>({
+    referred_date: "",
+    examination_date: "",
     treatment: "",
     dentistsignature: "",
   });
   const [loading, setLoading] = useState(false);
   const [isUpdating, setIsUpdating] = useState(false);
+  const [isDataLoading, setIsDataLoading] = useState(true);
 
   const { id } = useParams<{ id: string }>();
 
@@ -29,7 +37,7 @@ const DentalCare = () => {
       try {
         setLoading(true);
         const response = await axios.get(
-          `${import.meta.env.VITE_API_URL}users/mother/${id}`,
+          `${import.meta.env.VITE_API_URL}users/mother/${id}/dental-care`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -37,8 +45,8 @@ const DentalCare = () => {
           }
         );
         setFormData({
-          referredDate: response.data.referredDate || "",
-          dateOfExamination: response.data.dateOfExamination || "",
+          referred_date: response.data.referred_date || "",
+          examination_date: response.data.examination_date || "",
           treatment: response.data.treatment || "",
           dentistsignature: response.data.dentistsignature || "",
         });
@@ -50,68 +58,17 @@ const DentalCare = () => {
         }
       } catch (err) {
         console.error("Error fetching details:", err);
+        toast.error("Failed to load dental care data. Please refresh the page.");
       } finally {
         setLoading(false);
+        setIsDataLoading(false);
       }
     };
 
     fetchDetails();
   }, [id, token]);
 
-  const saveSignature = async () => {
-    if (!padInstance.current || padInstance.current.isEmpty()) {
-      toast.warning("Please provide a signature before saving");
-      return;
-    }
-
-    const dataURL = padInstance.current.toDataURL("image/png");
-    const storedToken = localStorage.getItem("token");
-    const token = storedToken ? JSON.parse(storedToken) : null;
-
-    try {
-      await axios.put(
-        `${import.meta.env.VITE_API_URL}users/mother/${id}/dentistsignature`,
-        {
-          dentistsignature: dataURL,
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-
-      setSignature(dataURL);
-      toast.success("Signature saved successfully");
-    } catch (error) {
-      console.error("Error saving signature:", error);
-      toast.error("Failed to save signature");
-    }
-  };
-
-  useEffect(() => {
-    if (signaturePadRef.current) {
-      const canvas = signaturePadRef.current;
-      const ratio = Math.max(window.devicePixelRatio || 1, 1);
-      canvas.width = canvas.offsetWidth * ratio;
-      canvas.height = canvas.offsetHeight * ratio;
-      canvas.getContext("2d")?.scale(ratio, ratio);
-
-      padInstance.current = new SignaturePad(canvas, {
-        minWidth: 0.5,
-        maxWidth: 2.5,
-        backgroundColor: "rgb(255, 255, 255)",
-      });
-    }
-
-    return () => {
-      if (padInstance.current) {
-        padInstance.current.off();
-      }
-    };
-  }, []);
-
-  const handleChange = (e: any) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setFormData((prev) => ({
       ...prev,
@@ -119,19 +76,19 @@ const DentalCare = () => {
     }));
   };
 
-  const handleSubmit = async (e: any) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setLoading(true);
+    setIsUpdating(true);
+
+    const dataURL = padInstance.current?.toDataURL("image/png") || "";
+
     try {
-      setLoading(true);
-      setIsUpdating(true);
-
-      const dataURL = padInstance.current?.toDataURL("image/png") || "";
-
       await axios.put(
-        `${import.meta.env.VITE_API_URL}users/mother/${id}/dentistsignature`,
+        `${import.meta.env.VITE_API_URL}users/mother/${id}/dental-care`,
         {
-          referredDate: formData.referredDate,
-          dateOfExamination: formData.dateOfExamination,
+          referred_date: formData.referred_date,
+          examination_date: formData.examination_date,
           treatment: formData.treatment,
           dentistsignature: dataURL,
         },
@@ -160,11 +117,49 @@ const DentalCare = () => {
     }
   };
 
+  const saveSignature = () => {
+    if (padInstance.current) {
+      const dataURL = padInstance.current.toDataURL("image/png");
+      setSignature(dataURL);
+    }
+  };
+
+  useEffect(() => {
+    if (signaturePadRef.current) {
+      const canvas = signaturePadRef.current;
+      const ratio = Math.max(window.devicePixelRatio || 1, 1);
+      canvas.width = canvas.offsetWidth * ratio;
+      canvas.height = canvas.offsetHeight * ratio;
+      canvas.getContext("2d")?.scale(ratio, ratio);
+
+      padInstance.current = new SignaturePad(canvas, {
+        minWidth: 0.5,
+        maxWidth: 2.5,
+        backgroundColor: "rgb(255, 255, 255)",
+      });
+    }
+
+    return () => {
+      if (padInstance.current) {
+        padInstance.current.off();
+      }
+    };
+  }, []);
+
+  if (isDataLoading) {
+    return (
+      <div className="flex justify-center items-center p-8">
+        Loading dental care data...
+      </div>
+    );
+  }
+
   return (
     <div
       id="dental-care"
       className="max-w-full mx-4 my-4 bg-white shadow-lg rounded-lg p-6 border border-gray-200"
     >
+      <ToastContainer />
       {loading && "Loading..."}
       <form onSubmit={handleSubmit}>
         <h2 className="my-2 font-medium text-lg">Dental Care</h2>
@@ -172,7 +167,7 @@ const DentalCare = () => {
         <div className="grid grid-cols-1 md:grid-cols-1 gap-6">
           <div>
             <label
-              htmlFor="referredDate"
+              htmlFor="referred_date"
               className="block text-sm font-medium text-gray-700 mt-4"
             >
               <div>Referred Date</div>
@@ -180,15 +175,15 @@ const DentalCare = () => {
             </label>
             <input
               type="date"
-              id="referredDate"
-              name="referredDate"
-              value={formData.referredDate}
+              id="referred_date"
+              name="referred_date"
+              value={formData.referred_date}
               onChange={handleChange}
               className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 text-sm"
             />
 
             <label
-              htmlFor="dateOfExamination"
+              htmlFor="examination_date"
               className="block text-sm font-medium text-gray-700 mt-4"
             >
               <div>Date of Examination</div>
@@ -196,9 +191,9 @@ const DentalCare = () => {
             </label>
             <input
               type="date"
-              id="dateOfExamination"
-              name="dateOfExamination"
-              value={formData.dateOfExamination}
+              id="examination_date"
+              name="examination_date"
+              value={formData.examination_date}
               onChange={handleChange}
               className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 text-sm"
             />
