@@ -31,8 +31,11 @@ const databaseUrl = process.env.DATABASE_URL;
 
 export const AppDataSource = new DataSource({
   type: "postgres",
-  url: databaseUrl,
-  ssl: true,
+  host: "localhost",
+  port: 5432,
+  username: "test",
+  password: "letmein",
+  database: "test",
   entities: [
     User,
     Notice,
