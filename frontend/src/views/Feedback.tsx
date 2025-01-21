@@ -40,38 +40,13 @@ const Feedback: React.FC = () => {
     if (id) {
       fetchMothers();
     }
-  });
+  }, [id]); // Add id as a dependency to ensure it only runs when id changes
 
   if (loading) {
     return <div>Loading...</div>;
   }
 
-  // console.log("huhfhf",mothers);
-
   return (
-    // <div className="container mx-auto p-4 space-y-4">
-    //   <h1>Feedback for PHM ID: {id}</h1>
-    //   {/* <div className="bg-white divide-y divide-gray-200">
-    //         {mothers.map((mother) => (
-    //           <div>
-    //             {mother.appointments?.feedback}
-    //             {mother.age}
-    //           </div>
-    //         ))}
-    //   </div> */}
-
-    //   <div className="bg-white divide-y divide-gray-200">
-    //     {mothers.map((mother, index) => (
-    //       <div key={index}>
-    //         {mother.appointments?.feedback || "No feedback available"}
-    //         <br />
-    //         Age: {mother.age}
-    //       </div>
-    //     ))}
-    //   </div>
-
-    // </div>
-
     <div className="container mx-auto p-4 space-y-4">
       <h1 className="text-2xl font-bold">Feedbacks for PHM ID: {id}</h1>
       {mothers.length === 0 ? (
@@ -95,16 +70,12 @@ const Feedback: React.FC = () => {
                 <p>No feedback available</p>
               )}
               </p>
-              {/* <p>
-                <span className="font-semibold">Age:</span> {mother.age}
-              </p> */}
             </div>
           ))}
         </div>
       )}
-      <CustomizedRating />
+      <CustomizedRating phmId={parseInt(id!)} />
     </div>
-
   );
 };
 
