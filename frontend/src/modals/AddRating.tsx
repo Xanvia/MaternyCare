@@ -10,22 +10,16 @@ import IconButton from "@mui/joy/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
 import { Box, DialogContentText } from "@mui/material";
 import Rating from "@mui/material/Rating";
-// import FavoriteIcon from "@mui/icons-material/Favorite";
-// import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import Typography from "@mui/material/Typography";
-// import { styled } from "@mui/material/styles";
+import axios from "axios";
 
-// const StyledRating = styled(Rating)({
-//   '& .MuiRating-iconFilled': {
-//     color: '#ff6d75',
-//   },
-//   '& .MuiRating-iconHover': {
-//     color: '#ff3d47',
-//   },
-// });
-
-export default function AddRatingModal() {
+const AddRatingModal = ({ phmId }: { phmId: number }) => {
   const [open, setOpen] = React.useState<boolean>(false);
+  const [rating, setRating] = React.useState<number | null>(null);
+
+  const BASE_URL = "http://localhost:3000/";
+  const storedToken = localStorage.getItem("token");
+  const token = storedToken ? JSON.parse(storedToken) : null;
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -33,6 +27,35 @@ export default function AddRatingModal() {
 
   const handleClose = () => {
     setOpen(false);
+  };
+
+  const handleSubmit = async () => {
+    try {
+      if (!rating) {
+        alert("Please select a rating before submitting.");
+        return;
+      }
+
+      const response = await axios.post(
+        `${BASE_URL}phm/rate`,
+        {
+          phmId,
+          starPoints: rating,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      console.log("Rating submitted successfully:", response.data);
+      alert("Rating submitted successfully!");
+      handleClose();
+    } catch (error) {
+      console.error("Error submitting rating:", error);
+      alert("Failed to submit rating. Please try again.");
+    }
   };
 
   return (
@@ -79,16 +102,27 @@ export default function AddRatingModal() {
           <Divider />
           <DialogContent>
             <DialogContentText>
-            Please evaluate this PHM based on the feedback provided by the mothers.
+              Please evaluate this PHM based on the feedback provided by the
+              mothers.
             </DialogContentText>
-            <Box sx={{
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
                 mt: 2,
-              }}>
+              }}
+            >
               <Typography component="legend"></Typography>
-              <Rating name="customized-10" defaultValue={2} max={10} size="large" />
+              <Rating
+                name="phm-rating"
+                value={rating}
+                onChange={(event, newValue) => {
+                  setRating(newValue);
+                }}
+                max={10}
+                size="large"
+              />
             </Box>
           </DialogContent>
           <DialogActions
@@ -111,7 +145,7 @@ export default function AddRatingModal() {
                 width: { xs: "50%", md: "100%" },
                 fontSize: "1rem",
               }}
-              onClick={handleClose}
+              onClick={handleSubmit}
             >
               Submit
             </Button>
@@ -135,4 +169,6 @@ export default function AddRatingModal() {
       </Modal>
     </React.Fragment>
   );
-}
+};
+
+export default AddRatingModal;

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 interface Phm {
+  star_points: number;
   phm_area: string;
   id: number;
   nic: string;
@@ -80,7 +81,7 @@ const ProgressTable: React.FC<ProgressTableProps> = ({ phms }) => {
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{phm.phm_area || "Not Available"}</td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{phm.phone_number || "N/A"}</td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{phm.id}</td>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{phm.star_points}/10</td>
                 </tr>
               ))}
             </tbody>
