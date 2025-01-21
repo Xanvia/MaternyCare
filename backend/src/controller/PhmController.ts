@@ -74,7 +74,7 @@ export class PhmController {
   }
 
   async save(request: Request, response: Response, next: NextFunction) {
-    const { phone_number, phm_id, nic, phm_area, moh_division } = request.body;
+    const { phone_number, phm_id, phm_area, moh_division } = request.body;
 
     if (request.user.userRole !== "phm") {
       console.log(request.user.role);
@@ -104,7 +104,6 @@ export class PhmController {
     const phm = Object.assign(new Phm(), {
       phone_number,
       phm_id,
-      nic,
       phm_area,
       moh_division,
       user: user,

@@ -22,9 +22,6 @@ export class Moh {
   mohID: string;
 
   @Column({ nullable: true })
-  NIC: string;
-
-  @Column({ nullable: true })
   mohArea: string;
 
   @Column({ nullable: true })

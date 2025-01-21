@@ -24,6 +24,7 @@ export const UserRoutes = [
     action: "updateUser",
     middlewares: [jwtMiddleware],
   },
+  
   {
     method: "delete",
     route: "/users/:id",
@@ -38,6 +39,14 @@ export const UserRoutes = [
     controller: UserController,
     action: "verifyUser",
     middlewares: [jwtMiddleware],
+  },
+
+  {
+    method: "put",
+    route: "/forgotPassword",
+    controller: UserController,
+    action: "forgotPassword",
+    middlewares: [],
   },
  
 ];

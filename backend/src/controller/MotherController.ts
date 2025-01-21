@@ -56,7 +56,7 @@ export class MotherController {
   }
 
   async save(request: Request, response: Response, next: NextFunction) {
-    const { age, nic, phone_1, bio, delivery_date, address } = request.body;
+    const { age, phone_1, bio, delivery_date, address } = request.body;
 
     console.log("debug role", request.user.userRole);
 
@@ -89,8 +89,6 @@ export class MotherController {
 
       const mother = new Mother();
       mother.age = age;
-      mother.nic = nic;
-      // mother.risk_type = risk_type;
       mother.address = address;
       mother.phone_1 = phone_1;
       mother.bio = bio;

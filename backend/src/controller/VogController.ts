@@ -29,7 +29,7 @@ export class VogController {
   }
 
   async save(request: Request, response: Response, next: NextFunction) {
-    const { NIC, vogArea, phoneNumber, vogID } = request.body;
+    const { vogArea, phoneNumber, vogID } = request.body;
 
     if (request.user.userRole !== "vog") {
       console.log(request.user.userRole);
@@ -53,7 +53,6 @@ export class VogController {
       }
 
       const vog = new Vog();
-      vog.NIC = NIC;
       vog.phoneNumber = phoneNumber;
       vog.vogID = vogID;
       vog.user = user; // Linking the User entity
@@ -91,7 +90,6 @@ export class VogController {
       vog.user.firstName = firstName ?? vog.user.firstName;
       vog.user.lastName = lastName ?? vog.user.lastName;
       vog.user.email = email ?? vog.user.email;
-      vog.NIC = NIC ?? vog.NIC;
       vog.phoneNumber = phoneNumber ?? vog.phoneNumber;
       vog.vogID = vogID ?? vog.vogID;
 
