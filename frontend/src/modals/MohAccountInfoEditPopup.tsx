@@ -9,7 +9,14 @@ import ModalDialog from "@mui/joy/ModalDialog";
 import TextField from "@mui/material/TextField";
 import IconButton from "@mui/joy/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
-import { Box, FormControl, InputAdornment, InputLabel, OutlinedInput, Typography } from "@mui/material";
+import {
+  Box,
+  FormControl,
+  InputAdornment,
+  InputLabel,
+  OutlinedInput,
+  Typography,
+} from "@mui/material";
 import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
 import { Edit } from "../assets/icons/Icons";
@@ -22,7 +29,7 @@ interface Moh {
     firstName: string;
     password: string;
     repassword: string;
-  }
+  };
 }
 
 // Validation schema
@@ -31,8 +38,6 @@ const validationSchema = Yup.object({
   password: Yup.string().required("Password is required"),
   repassword: Yup.string().required("Re-Password is required"),
 });
-
-
 
 export default function MohEditAccountInfo() {
   const [open, setOpen] = React.useState<boolean>(false);
@@ -48,9 +53,9 @@ export default function MohEditAccountInfo() {
   const user = userItem ? JSON.parse(userItem) : null;
   const BASE_URL = `${import.meta.env.VITE_API_URL}`;
   const storedToken = localStorage.getItem("token");
-const token = storedToken ? JSON.parse(storedToken) : null;
+  const token = storedToken ? JSON.parse(storedToken) : null;
 
-const [moh, setMoh] = React.useState<Moh >();
+  const [moh, setMoh] = React.useState<Moh>();
 
   // Mock function to fetch current data
   const fetchCurrentData = () => {
@@ -90,25 +95,26 @@ const [moh, setMoh] = React.useState<Moh >();
           setLoading(false);
         });
     };
-  
+
     getMoh();
   }, []);
 
   const handleClickShowPassword = () => {
-  setShowPassword((prev) => !prev);
+    setShowPassword((prev) => !prev);
 
-  // const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
-  //   event.preventDefault();
-  // };
-};
-
+    // const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
+    //   event.preventDefault();
+    // };
+  };
 
   // function handleMouseDownPassword(event: MouseEvent<HTMLAnchorElement, MouseEvent>): void {
   //   throw new Error("Function not implemented.");
   // }
+  console.log("Moh", moh);
 
   return (
     <React.Fragment>
+      {loading && "Loading..."}
       <Button
         variant="outlined"
         onClick={handleOpen}
@@ -233,37 +239,36 @@ const [moh, setMoh] = React.useState<Moh >();
                     mb: 2,
                   }}
                 >
-                <FormControl sx={{ width: "100%" }} variant="outlined">
-                  <InputLabel htmlFor="outlined-adornment-password"></InputLabel>
-                  <Field
-                    as={OutlinedInput}
-                    name="password"
-                    id="outlined-adornment-password"
-                    type={showPassword ? "text" : "password"}
-                    fullWidth
-                    size="small"
-                    variant="outlined"
-                    error={touched.password && Boolean(errors.password)}
-                    endAdornment={
-                      <InputAdornment position="end">
-                        <IconButton
-                          aria-label="toggle password visibility"
-                          onClick={handleClickShowPassword}
-                          // onMouseDown={handleMouseDownPassword}
-                        >
-                          {showPassword ? <VisibilityOff /> : <Visibility />}
-                        </IconButton>
-                      </InputAdornment>
-                    }
-                    label="Password"
-                  />
-                  {touched.password && errors.password && (
-                    <Typography variant="body2" color="error" sx={{ mt: 1 }}>
-                      {errors.password}
-                    </Typography>
-                  )}
-                </FormControl>
-
+                  <FormControl sx={{ width: "100%" }} variant="outlined">
+                    <InputLabel htmlFor="outlined-adornment-password"></InputLabel>
+                    <Field
+                      as={OutlinedInput}
+                      name="password"
+                      id="outlined-adornment-password"
+                      type={showPassword ? "text" : "password"}
+                      fullWidth
+                      size="small"
+                      variant="outlined"
+                      error={touched.password && Boolean(errors.password)}
+                      endAdornment={
+                        <InputAdornment position="end">
+                          <IconButton
+                            aria-label="toggle password visibility"
+                            onClick={handleClickShowPassword}
+                            // onMouseDown={handleMouseDownPassword}
+                          >
+                            {showPassword ? <VisibilityOff /> : <Visibility />}
+                          </IconButton>
+                        </InputAdornment>
+                      }
+                      label="Password"
+                    />
+                    {touched.password && errors.password && (
+                      <Typography variant="body2" color="error" sx={{ mt: 1 }}>
+                        {errors.password}
+                      </Typography>
+                    )}
+                  </FormControl>
                 </Box>
 
                 <DialogContent
@@ -385,4 +390,3 @@ const [moh, setMoh] = React.useState<Moh >();
     </React.Fragment>
   );
 }
-
