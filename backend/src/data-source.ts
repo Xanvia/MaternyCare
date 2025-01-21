@@ -27,8 +27,6 @@ import { Vog } from "./entity/Vog";
 import { DeviceData } from "./entity/DeviceData";
 import { EmergencyPlan } from "./entity/EmergencyPlan";
 
-const databaseUrl = process.env.DATABASE_URL;
-
 export const AppDataSource = new DataSource({
   type: "postgres",
   host: "localhost",
