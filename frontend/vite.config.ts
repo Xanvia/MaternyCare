@@ -13,6 +13,8 @@ export default defineConfig({
         manualChunks: undefined,
       },
     },
+    cssMinify: true,
+    cssCodeSplit: true,
   },
   server: {
     port: 3005,
