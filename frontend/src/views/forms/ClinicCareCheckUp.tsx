@@ -7,7 +7,7 @@ import "react-toastify/dist/ReactToastify.css";
 const storedToken = localStorage.getItem("token");
 const token = storedToken ? JSON.parse(storedToken) : null;
 
-const ClinicCare2 = () => {
+const ClinicCareCheckUp = () => {
   const [formData, setFormData] = useState({
     respiratorySystem: "",
     breastExamination: "",
@@ -106,8 +106,8 @@ const ClinicCare2 = () => {
     >
       {loading && "Loading..."}
       <form onSubmit={handleSubmit}>
-        <h2 className="my-2 font-medium text-lg">Clinic Care 2</h2>
-        <h2 className="my-2 font-medium text-lg">සායනික සංරක්ෂණය 2</h2>
+        <h2 className="my-2 font-medium text-lg">Clinic Care Check-Up</h2>
+        <h2 className="my-2 font-medium text-lg">සායනික සංරක්ෂණ පරීක්ෂණ</h2>
         <div className="grid grid-cols-1 md:grid-cols-1 gap-6">
           <div>
             <label
@@ -122,7 +122,7 @@ const ClinicCare2 = () => {
               name="respiratorySystem"
               value={formData.respiratorySystem}
               onChange={handleChange}
-              className="mt-1 block w-full px-1 py-1 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 text-xs"
+              className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 text-sm"
               placeholder="Enter details about the respiratory system"
             />
 
@@ -138,7 +138,7 @@ const ClinicCare2 = () => {
               name="breastExamination"
               value={formData.breastExamination}
               onChange={handleChange}
-              className="mt-1 block w-full px-1 py-1 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 text-xs"
+              className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 text-sm"
               placeholder="Enter details about the breast examination"
             />
 
@@ -154,7 +154,7 @@ const ClinicCare2 = () => {
               name="otherInvestigations"
               value={formData.otherInvestigations}
               onChange={handleChange}
-              className="mt-1 block w-full px-1 py-1 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 text-xs"
+              className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 text-sm"
               placeholder="Enter details about other investigations"
             />
 
@@ -170,7 +170,7 @@ const ClinicCare2 = () => {
               name="antihelminthicDrugs"
               value={formData.antihelminthicDrugs}
               onChange={handleChange}
-              className="mt-1 block w-full px-1 py-1 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 text-xs"
+              className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 text-sm"
               placeholder="Enter details about antihelminthic drugs"
             />
 
@@ -187,7 +187,7 @@ const ClinicCare2 = () => {
               name="dateOfIssuingKickCountChart"
               value={formData.dateOfIssuingKickCountChart}
               onChange={handleChange}
-              className="mt-1 block w-full px-1 py-1 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 text-xs"
+              className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 text-sm"
             />
 
             <label
@@ -203,7 +203,7 @@ const ClinicCare2 = () => {
               name="dateOfTakingBloodSampleForHIVScreening"
               value={formData.dateOfTakingBloodSampleForHIVScreening}
               onChange={handleChange}
-              className="mt-1 block w-full px-1 py-1 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 text-xs"
+              className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 text-sm"
             />
 
             <label
@@ -219,7 +219,7 @@ const ClinicCare2 = () => {
               name="dateOfResultInformedToMother"
               value={formData.dateOfResultInformedToMother}
               onChange={handleChange}
-              className="mt-1 block w-full px-1 py-1 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 text-xs"
+              className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 text-sm"
             />
           </div>
         </div>
@@ -237,4 +237,4 @@ const ClinicCare2 = () => {
   );
 };
 
-export default ClinicCare2;
+export default ClinicCareCheckUp;
