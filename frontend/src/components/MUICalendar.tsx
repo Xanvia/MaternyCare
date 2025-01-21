@@ -6,71 +6,36 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { PickersDay, PickersDayProps } from "@mui/x-date-pickers/PickersDay";
 import { DateCalendar } from "@mui/x-date-pickers/DateCalendar";
 import { DayCalendarSkeleton } from "@mui/x-date-pickers/DayCalendarSkeleton";
-import { useEffect, useState } from "react";
 import axios from "axios";
-
-function getRandomNumber(min: number, max: number) {
-  return Math.round(Math.random() * (max - min) + min);
-}
-
-function fakeFetch(date: Dayjs, { signal }: { signal: AbortSignal }) {
-  return new Promise<{ daysToHighlight: number[] }>((resolve, reject) => {
-    const timeout = setTimeout(() => {
-      const daysInMonth = date.daysInMonth();
-      const daysToHighlight = [1, 2, 3].map(() =>
-        getRandomNumber(1, daysInMonth)
-      );
-
-      resolve({ daysToHighlight });
-    }, 500);
-
-    signal.onabort = () => {
-      clearTimeout(timeout);
-      reject(new DOMException("aborted", "AbortError"));
-    };
-  });
-}
-
-const initialValue = dayjs("2022-04-17");
-const BASE_URL = "http://localhost:3000/";
-const [appointments, setAppointments] = useState([]);
 
 let userItem = localStorage.getItem("user");
 const user = userItem ? JSON.parse(userItem) : null;
-
+const userId = user?.id;
+const BASE_URL = "http://localhost:3000/";
 const role = (localStorage.getItem("role") || "")
-    .replace(/"/g, "")
-    .trim()
-    .toLowerCase();
-  console.log("role from appointment page: " + role);
+  .replace(/"/g, "")
+  .trim()
+  .toLowerCase();
 
-  useEffect(() =>{
-    const getAppointments = () =>{
-      const axiosConfig = {
-        method: "get",
-        url: `${BASE_URL}/appointments/user/${user.id}`,
-      };
-      axios(axiosConfig)
-        .then((response) => {
-          setAppointments(response.data);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    };
 
-    getAppointments();
-  },[]);
+interface Appointment {
+  fixedDate: string;
+}
 
+// interface Mother {
+//   id: string;
+//   appointments: Appointment[];
+//   // add other mother fields as needed
+// }
 
 function ServerDay(
-  props: PickersDayProps<Dayjs> & { highlightedDays?: number[] }
+  props: PickersDayProps<Dayjs> & { highlightedDays?: string[] }
 ) {
   const { highlightedDays = [], day, outsideCurrentMonth, ...other } = props;
 
   const isSelected =
     !props.outsideCurrentMonth &&
-    highlightedDays.indexOf(props.day.date()) >= 0;
+    highlightedDays.includes(day.format('YYYY-MM-DD'));
 
   return (
     <Badge
@@ -95,50 +60,81 @@ function ServerDay(
 export default function DateCalendarServerRequest() {
   const requestAbortController = React.useRef<AbortController | null>(null);
   const [isLoading, setIsLoading] = React.useState(false);
-  const [highlightedDays, setHighlightedDays] = React.useState([1, 2, 15]);
+  const [highlightedDays, setHighlightedDays] = React.useState<string[]>([]);
 
-  const fetchHighlightedDays = (date: Dayjs) => {
-    const controller = new AbortController();
-    fakeFetch(date, {
-      signal: controller.signal,
-    })
-      .then(({ daysToHighlight }) => {
-        setHighlightedDays(daysToHighlight);
+  const fetchMotherAppointments = async (signal: AbortSignal) => {
+    const response = await axios.get<Appointment[]>(
+      `${BASE_URL}appointments/user/${userId}`,
+      { signal }
+    );
+    return response.data.map(appointment => 
+      dayjs(appointment.fixedDate).format('YYYY-MM-DD')
+    );
+  };
+
+  const fetchPHMAppointments = async (signal: AbortSignal) => {
+    const response = await axios.get<Appointment[]>(
+      `${BASE_URL}phm/appointments/mother/${userId}`,
+      { signal }
+    );
+    
+    // Flatten all appointments from all mothers into a single array of dates
+    return response.data.map(appointment => 
+      dayjs(appointment.fixedDate).format('YYYY-MM-DD')
+    );
+  };
+
+  const fetchAppointments = async (date: Dayjs, signal: AbortSignal) => {
+    console.log(date);
+    try {
+      setIsLoading(true);
+      let appointmentDates: string[] = [];
+
+      if (role === 'mother') {
+        appointmentDates = await fetchMotherAppointments(signal);
+      } else if (role === 'phm') {
+        appointmentDates = await fetchPHMAppointments(signal);
+      }
+
+      if (!signal.aborted) {
+        setHighlightedDays(appointmentDates);
         setIsLoading(false);
-      })
-      .catch((error) => {
-        // ignore the error if it's caused by controller.abort
-        if (error.name !== "AbortError") {
-          throw error;
-        }
-      });
-
-    requestAbortController.current = controller;
+      }
+    } catch (error) {
+      if (axios.isCancel(error)) {
+        return;
+      }
+      console.error('Error fetching appointments:', error);
+      setIsLoading(false);
+    }
   };
 
   React.useEffect(() => {
-    fetchHighlightedDays(initialValue);
-    // abort request on unmount
-    return () => requestAbortController.current?.abort();
+    const controller = new AbortController();
+    fetchAppointments(dayjs(), controller.signal);
+
+    requestAbortController.current = controller;
+    
+    return () => {
+      controller.abort();
+    };
   }, []);
 
   const handleMonthChange = (date: Dayjs) => {
     if (requestAbortController.current) {
-      // make sure that you are aborting useless requests
-      // because it is possible to switch between months pretty quickly
       requestAbortController.current.abort();
     }
 
-    setIsLoading(true);
-    setHighlightedDays([]);
-    fetchHighlightedDays(date);
+    const controller = new AbortController();
+    fetchAppointments(date, controller.signal);
+    
+    requestAbortController.current = controller;
   };
 
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
       <DateCalendar
-        sx={{}}
-        defaultValue={initialValue}
+        defaultValue={dayjs()}
         loading={isLoading}
         onMonthChange={handleMonthChange}
         renderLoading={() => <DayCalendarSkeleton />}
@@ -152,5 +148,5 @@ export default function DateCalendarServerRequest() {
         }}
       />
     </LocalizationProvider>
-  );
+  );
 }
