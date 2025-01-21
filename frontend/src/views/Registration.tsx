@@ -30,7 +30,7 @@ const Registration = () => {
         form
       );
       console.log(response.data);
-      navigate("/login");
+      navigate("/PHMRegistration");
       // Handle successful registration here
     } catch (error) {
       console.error(error);
@@ -85,3 +85,4 @@ const Registration = () => {
 };
 
 export default Registration;
+ 

@@ -1,392 +1,345 @@
+/*
 import React, { useState } from "react";
 import { useFormik } from "formik";
-import logo from "../assets/images/logo.png";
-import { loginSchema } from "../schemas/Schemas";
-//import { ErrorIcon } from "../assets/icons/Icons";
+import * as Yup from "yup";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import logo from "../assets/images/logo.png";
 
-interface FormValues {
-  FirstName: string;
-  LastName: string;
-  ContactNo: string;
-  ContactNo1: string;
-}
+// Validation schema using Yup
+const registrationSchema = Yup.object({
+  firstName: Yup.string().required("First name is required"),
+  lastName: Yup.string().required("Last name is required"),
+  contactNumber: Yup.string().required("Contact number is required"),
+  email: Yup.string().email("Invalid email address").required("Email is required"),
+  password: Yup.string().min(8, "Password must be at least 8 characters").required("Password is required"),
+  rePassword: Yup.string()
+    .oneOf([Yup.ref("password")], "Passwords must match")
+    .required("Please re-enter your password"),
+  nic: Yup.string().required("NIC is required"),
+  babyCount: Yup.number().required("Baby count is required"),
+});
 
 const Registration2: React.FC = () => {
   const navigate = useNavigate();
-  const [stage, setStage] = useState(1);
+  const [step, setStep] = useState(1);
 
-  const formik = useFormik<FormValues>({
+  const formik = useFormik({
     initialValues: {
-      FirstName: "",
-      LastName: "",
-      ContactNo: "",
-      ContactNo1: "",
+      firstName: "",
+      lastName: "",
+      contactNumber: "",
+      contactNumberOther: "",
+      email: "",
+      dateOfBirth: "",
+      hospital: "",
+      patientId: "",
+      addressLine1: "",
+      addressLine2: "",
+      addressLine3: "",
+      password: "",
+      rePassword: "",
+      babyCount: "",
+      nic: "",
     },
-    validationSchema: loginSchema,
+    validationSchema: registrationSchema,
     onSubmit: async (values) => {
-      console.log("Form data", values);
       try {
-        const response = await axios.post(
-          "http://localhost:3000/Registration/",
-          values,
-          {
-            headers: {
-              "Content-Type": "application/json",
-            },
-          }
-        );
-        console.log(response.data);
-        localStorage.setItem("user", JSON.stringify(response.data.user));
-        localStorage.setItem("token", JSON.stringify(response.data.token));
-        console.log(response.data.user.role);
-
-        switch (response.data.user.role) {
-          case "mother":
-            navigate("/dashboard");
-            break;
-          case "phm":
-            navigate("/phmdashboard");
-            break;
-          case "moh":
-            navigate("/phmdashboard");
-            break;
-          default:
-            navigate("/dashboard");
-        }
+        const response = await axios.post("http://localhost:3000/register2/", values, {
+          headers: { "Content-Type": "application/json" },
+        });
+        toast.success("Registration successful!");
+        navigate("/login");
       } catch (error) {
-        console.error(error);
-        if ((error as any).response && (error as any).response.status === 401) {
-          toast.error("Credentials don't match");
-        } else {
-          toast.error("An error occurred");
-        }
+        toast.error("Registration failed. Please try again.");
       }
     },
   });
 
-  const handleNext = () => {
-    if (stage < 4) {
-      setStage(stage + 1);
+  // Next Step function with validation
+  const nextStep = async () => {
+    const stepFields = {
+      1: ["firstName", "lastName", "contactNumber"], // Fields for Step 1
+      2: ["email", "dateOfBirth", "hospital", "patientId"], // Fields for Step 2
+      3: ["addressLine1", "addressLine2", "addressLine3", "password", "rePassword"], // Fields for Step 3
+      4: ["nic", "babyCount"], // Fields for Step 4
+    };
+
+    await formik.validateForm();
+    const hasErrors = stepFields[step].some((field) => formik.errors[field]);
+
+    if (!hasErrors) {
+      setStep((prev) => prev + 1); // Move to the next step
     } else {
-      formik.handleSubmit();
+      formik.setTouched(stepFields[step].reduce((acc, field) => ({ ...acc, [field]: true }), {})); // Show errors
+      toast.error("Please complete all required fields before proceeding.");
     }
   };
 
   return (
-    <div className="flex items-center justify-center h-screen">
+    <div className="flex justify-center items-center h-screen bg-gray-100">
       <ToastContainer />
-      <form autoComplete="off" className="flex flex-col items-center w-full">
-        <img
-          src={logo}
-          alt=""
-          className="lg:size-1/12 md:size-1/12 ss:size-1/6 sm:size-1/6 size-1/6"
-        />
-        <header className="text-blue_primary lg:text-4xl ss:text-4xl text-2xl lg:mb-8 mb-6">
-          Materny<span className="text-pink_primary">Care</span>
-        </header>
-
-        {stage === 1 && (
+      <form onSubmit={formik.handleSubmit} className="space-y-4 w-full max-w-md p-8 shadow-lg bg-white rounded-lg">
+        <div className="flex flex-col justify-center items-center mt-10">
+          <img src={logo} alt="Materny Logo" className="w-24" />
+        </div>
+        <div className="mt-0 text-center leading-9 font-semibold">
+          <h1 className="text-3xl md:text-4xl" style={{ fontFamily: "Ubuntu" }}>
+            <span style={{ color: "#0D99FF" }}>Materny</span>
+            <span style={{ color: "#F580AB" }}>Care</span>
+          </h1>
+        </div>
+        
+        {step === 1 && (
           <>
-            <div className="w-full flex flex-col items-center lg:mb-9 mb-4">
+            <input
+              type="text"
+              name="firstName"
+              placeholder="First Name"
+              className={`block w-full p-4 border rounded-lg shadow-md ${
+                formik.touched.firstName && formik.errors.firstName ? "border-red-500" : "border-gray-300"
+              }`}
+              value={formik.values.firstName}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+            />
+            {formik.touched.firstName && formik.errors.firstName && (
+              <div className="text-red-500 text-sm mt-1">{formik.errors.firstName}</div>
+            )}
+            <div className="w-full">
               <input
-                className={`shadow appearance-none rounded-b-xl py-4 px-4 w-11/12 lg:w-5/12 sm:w-8/12 ss:w-10/12 text-gray-700 leading-tight focus:shadow-outline 
-                  lg:text-lg md:text-base sm:text-base text-sm ${
-                    formik.touched.FirstName && formik.errors.FirstName
-                      ? "border-solid border-red-500"
-                      : "border-none"
-                  }`}
-                value={formik.values.FirstName}
-                placeholder="First Name"
-                id="FirstName"
-                name="FirstName"
                 type="text"
-                onChange={formik.handleChange}
-              />
-            </div>
-
-            <div className="w-full mb-4 flex flex-col items-center">
-              <input
-                className={`shadow appearance-none rounded-b-xl py-4 px-4 w-11/12 lg:w-5/12 sm:w-8/12 ss:w-10/12 text-gray-700 leading-tight focus:shadow-outline 
-                  lg:text-lg md:text-base sm:text-base text-sm ${
-                    formik.touched.LastName && formik.errors.LastName
-                      ? "border-solid border-red-500"
-                      : "border-none"
-                  }`}
-                value={formik.values.LastName}
+                name="lastName"
                 placeholder="Last Name"
-                id="LastName"
-                name="LastName"
-                type="text"
+                className={`block w-full p-4 border rounded-lg shadow-md ${
+                  formik.touched.lastName && formik.errors.lastName ? "border-red-500" : "border-gray-300"
+                }`}
+                value={formik.values.lastName}
                 onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
               />
+              {formik.touched.lastName && formik.errors.lastName && (
+                <div className="text-red-500 text-sm mt-1">{formik.errors.lastName}</div>
+              )}
             </div>
 
-            <div className="w-full mb-4 flex flex-col items-center">
+            <div className="w-full">
               <input
-                className={`shadow appearance-none rounded-b-xl py-4 px-4 w-11/12 lg:w-5/12 sm:w-8/12 ss:w-10/12 text-gray-700 leading-tight focus:shadow-outline 
-                  lg:text-lg md:text-base sm:text-base text-sm ${
-                    formik.touched.ContactNo && formik.errors.ContactNo
-                      ? "border-solid border-red-500"
-                      : "border-none"
-                  }`}
-                value={formik.values.ContactNo}
+                type="text"
+                name="contactNumber"
                 placeholder="Contact Number"
-                id="ContactNo"
-                name="ContactNo"
-                type="text"
+                className={`block w-full p-4 border rounded-lg shadow-md ${
+                  formik.touched.contactNumber && formik.errors.contactNumber ? "border-red-500" : "border-gray-300"
+                }`}
+                value={formik.values.contactNumber}
                 onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
               />
+              {formik.touched.contactNumber && formik.errors.contactNumber && (
+                <div className="text-red-500 text-sm mt-1">{formik.errors.contactNumber}</div>
+              )}
             </div>
 
-            <div className="w-full mb-4 flex flex-col items-center">
+            <div className="w-full">
               <input
-                className={`shadow appearance-none rounded-b-xl py-4 px-4 w-11/12 lg:w-5/12 sm:w-8/12 ss:w-10/12 text-gray-700 leading-tight focus:shadow-outline 
-                  lg:text-lg md:text-base sm:text-base text-sm ${
-                    formik.touched.ContactNo1 && formik.errors.ContactNo1
-                      ? "border-solid border-red-500"
-                      : "border-none"
-                  }`}
-                value={formik.values.ContactNo1}
-                placeholder="Contact Number another"
-                id="ContactNo1"
-                name="ContactNo1"
                 type="text"
+                name="contactNumberOther"
+                placeholder="Contact Number (Other)"
+                className="block w-full p-4 border rounded-lg shadow-md border-gray-300"
+                value={formik.values.contactNumberOther}
                 onChange={formik.handleChange}
               />
             </div>
+            <button
+              type="button"
+              className="w-full p-4 text-white bg-blue-500 rounded-lg hover:bg-blue-600 shadow-md"
+              onClick={nextStep}
+            >
+              Next
+            </button>
           </>
         )}
 
-        {stage === 2 && (
+        {step === 2 && (
           <>
-            <div className="w-full flex flex-col items-center lg:mb-9 mb-4">
+            <input
+              type="email"
+              name="email"
+              placeholder="Email"
+              className={`block w-full p-4 border rounded-lg shadow-md ${
+                formik.touched.email && formik.errors.email ? "border-red-500" : "border-gray-300"
+              }`}
+              value={formik.values.email}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+            />
+            {formik.touched.email && formik.errors.email && (
+              <div className="text-red-500 text-sm mt-1">{formik.errors.email}</div>
+            )}
+            <div className="w-full">
               <input
-                className={`shadow appearance-none rounded-b-xl py-4 px-4 w-11/12 lg:w-5/12 sm:w-8/12 ss:w-10/12 text-gray-700 leading-tight focus:shadow-outline 
-                  lg:text-lg md:text-base sm:text-base text-sm ${
-                    formik.touched.FirstName && formik.errors.FirstName
-                      ? "border-solid border-red-500"
-                      : "border-none"
-                  }`}
-                value={formik.values.FirstName}
-                placeholder="E mail"
-                id="FirstName"
-                name="FirstName"
-                type="text"
-                onChange={formik.handleChange}
-              />
-            </div>
-
-            <div className="w-full mb-4 flex flex-col items-center">
-              <input
-                className={`shadow appearance-none rounded-b-xl py-4 px-4 w-11/12 lg:w-5/12 sm:w-8/12 ss:w-10/12 text-gray-700 leading-tight focus:shadow-outline 
-                  lg:text-lg md:text-base sm:text-base text-sm ${
-                    formik.touched.LastName && formik.errors.LastName
-                      ? "border-solid border-red-500"
-                      : "border-none"
-                  }`}
-                value={formik.values.LastName}
+                type="date"
+                name="dateOfBirth"
                 placeholder="Date of Birth"
-                id="LastName"
-                name="LastName"
-                type="text"
+                className="block w-full p-4 border rounded-lg shadow-md border-gray-300"
+                value={formik.values.dateOfBirth}
                 onChange={formik.handleChange}
               />
             </div>
 
-            <div className="w-full mb-4 flex flex-col items-center">
+            <div className="w-full">
               <input
-                className={`shadow appearance-none rounded-b-xl py-4 px-4 w-11/12 lg:w-5/12 sm:w-8/12 ss:w-10/12 text-gray-700 leading-tight focus:shadow-outline 
-                  lg:text-lg md:text-base sm:text-base text-sm ${
-                    formik.touched.ContactNo && formik.errors.ContactNo
-                      ? "border-solid border-red-500"
-                      : "border-none"
-                  }`}
-                value={formik.values.ContactNo}
+                type="text"
+                name="hospital"
                 placeholder="Hospital"
-                id="ContactNo"
-                name="ContactNo"
-                type="text"
+                className="block w-full p-4 border rounded-lg shadow-md border-gray-300"
+                value={formik.values.hospital}
                 onChange={formik.handleChange}
               />
             </div>
 
-            <div className="w-full mb-4 flex flex-col items-center">
+            <div className="w-full">
               <input
-                className={`shadow appearance-none rounded-b-xl py-4 px-4 w-11/12 lg:w-5/12 sm:w-8/12 ss:w-10/12 text-gray-700 leading-tight focus:shadow-outline 
-                  lg:text-lg md:text-base sm:text-base text-sm ${
-                    formik.touched.ContactNo1 && formik.errors.ContactNo1
-                      ? "border-solid border-red-500"
-                      : "border-none"
-                  }`}
-                value={formik.values.ContactNo1}
+                type="text"
+                name="patientId"
                 placeholder="Patient ID"
-                id="ContactNo1"
-                name="ContactNo1"
-                type="text"
+                className="block w-full p-4 border rounded-lg shadow-md border-gray-300"
+                value={formik.values.patientId}
                 onChange={formik.handleChange}
               />
             </div>
+            <button
+              type="button"
+              className="w-full p-4 text-white bg-blue-500 rounded-lg hover:bg-blue-600 shadow-md"
+              onClick={nextStep}
+            >
+              Next
+            </button>
           </>
         )}
 
-        {stage === 3 && (
+        {step === 3 && (
           <>
-            <div className="w-full flex flex-col items-center lg:mb-9 mb-4">
+            <input
+              type="text"
+              name="addressLine1"
+              placeholder="Address Line 1"
+              className="block w-full p-4 border rounded-lg shadow-md border-gray-300"
+              value={formik.values.addressLine1}
+              onChange={formik.handleChange}
+            />
+            <div className="w-full">
               <input
-                className={`shadow appearance-none rounded-b-xl py-4 px-4 w-11/12 lg:w-5/12 sm:w-8/12 ss:w-10/12 text-gray-700 leading-tight focus:shadow-outline 
-                  lg:text-lg md:text-base sm:text-base text-sm ${
-                    formik.touched.FirstName && formik.errors.FirstName
-                      ? "border-solid border-red-500"
-                      : "border-none"
-                  }`}
-                value={formik.values.FirstName}
-                placeholder="Address (line1)"
-                id="FirstName"
-                name="FirstName"
                 type="text"
+                name="addressLine2"
+                placeholder="Address Line 2"
+                className="block w-full p-4 border rounded-lg shadow-md border-gray-300"
+                value={formik.values.addressLine2}
                 onChange={formik.handleChange}
               />
             </div>
 
-            <div className="w-full mb-4 flex flex-col items-center">
+            <div className="w-full">
               <input
-                className={`shadow appearance-none rounded-b-xl py-4 px-4 w-11/12 lg:w-5/12 sm:w-8/12 ss:w-10/12 text-gray-700 leading-tight focus:shadow-outline 
-                  lg:text-lg md:text-base sm:text-base text-sm ${
-                    formik.touched.LastName && formik.errors.LastName
-                      ? "border-solid border-red-500"
-                      : "border-none"
-                  }`}
-                value={formik.values.LastName}
-                placeholder="Address (line2)"
-                id="LastName"
-                name="LastName"
                 type="text"
+                name="addressLine3"
+                placeholder="Address Line 3"
+                className="block w-full p-4 border rounded-lg shadow-md border-gray-300"
+                value={formik.values.addressLine3}
                 onChange={formik.handleChange}
               />
             </div>
-
-            <div className="w-full mb-4 flex flex-col items-center">
+            <div className="w-full">
               <input
-                className={`shadow appearance-none rounded-b-xl py-4 px-4 w-11/12 lg:w-5/12 sm:w-8/12 ss:w-10/12 text-gray-700 leading-tight focus:shadow-outline 
-                  lg:text-lg md:text-base sm:text-base text-sm ${
-                    formik.touched.ContactNo && formik.errors.ContactNo
-                      ? "border-solid border-red-500"
-                      : "border-none"
-                  }`}
-                value={formik.values.ContactNo}
+                type="password"
+                name="password"
                 placeholder="Password"
-                id="ContactNo"
-                name="ContactNo"
-                type="text"
+                className={`block w-full p-4 border rounded-lg shadow-md ${
+                  formik.touched.password && formik.errors.password ? "border-red-500" : "border-gray-300"
+                }`}
+                value={formik.values.password}
                 onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
               />
+              {formik.touched.password && formik.errors.password && (
+                <div className="text-red-500 text-sm mt-1">{formik.errors.password}</div>
+              )}
             </div>
-
-            <div className="w-full mb-4 flex flex-col items-center">
+            <div className="w-full">
               <input
-                className={`shadow appearance-none rounded-b-xl py-4 px-4 w-11/12 lg:w-5/12 sm:w-8/12 ss:w-10/12 text-gray-700 leading-tight focus:shadow-outline 
-                  lg:text-lg md:text-base sm:text-base text-sm ${
-                    formik.touched.ContactNo1 && formik.errors.ContactNo1
-                      ? "border-solid border-red-500"
-                      : "border-none"
-                  }`}
-                value={formik.values.ContactNo1}
-                placeholder="Re -enter password"
-                id="ContactNo1"
-                name="ContactNo1"
-                type="text"
+                type="password"
+                name="rePassword"
+                placeholder="Re-enter Password"
+                className={`block w-full p-4 border rounded-lg shadow-md ${
+                  formik.touched.rePassword && formik.errors.rePassword ? "border-red-500" : "border-gray-300"
+                }`}
+                value={formik.values.rePassword}
                 onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
               />
+              {formik.touched.rePassword && formik.errors.rePassword && (
+                <div className="text-red-500 text-sm mt-1">{formik.errors.rePassword}</div>
+              )}
             </div>
+            <button
+              type="button"
+              className="w-full p-4 text-white bg-blue-500 rounded-lg hover:bg-blue-600 shadow-md"
+              onClick={nextStep}
+            >
+              Next
+            </button>
           </>
         )}
 
-        {stage === 4 && (
+      
+        {step === 4 && (
           <>
-            <div className="w-full flex flex-col items-center lg:mb-9 mb-4">
+            <input
+              type="text"
+              name="nic"
+              placeholder="NIC"
+              className={`block w-full p-4 border rounded-lg shadow-md ${
+                formik.touched.nic && formik.errors.nic ? "border-red-500" : "border-gray-300"
+              }`}
+              value={formik.values.nic}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+            />
+            {formik.touched.nic && formik.errors.nic && (
+              <div className="text-red-500 text-sm mt-1">{formik.errors.nic}</div>
+            )}
+            <div className="w-full">
               <input
-                className={`shadow appearance-none rounded-b-xl py-4 px-4 w-11/12 lg:w-5/12 sm:w-8/12 ss:w-10/12 text-gray-700 leading-tight focus:shadow-outline 
-                  lg:text-lg md:text-base sm:text-base text-sm ${
-                    formik.touched.FirstName && formik.errors.FirstName
-                      ? "border-solid border-red-500"
-                      : "border-none"
-                  }`}
-                value={formik.values.FirstName}
-                placeholder="Baby count"
-                id="FirstName"
-                name="FirstName"
-                type="text"
+                type="number"
+                name="babyCount"
+                placeholder="Baby Count"
+                className={`block w-full p-4 border rounded-lg shadow-md ${
+                  formik.touched.babyCount && formik.errors.babyCount ? "border-red-500" : "border-gray-300"
+                }`}
+                value={formik.values.babyCount}
                 onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
               />
+              {formik.touched.babyCount && formik.errors.babyCount && (
+                <div className="text-red-500 text-sm mt-1">{formik.errors.babyCount}</div>
+              )}
             </div>
 
-            <div className="w-full mb-4 flex flex-col items-center">
-              <input
-                className={`shadow appearance-none rounded-b-xl py-4 px-4 w-11/12 lg:w-5/12 sm:w-8/12 ss:w-10/12 text-gray-700 leading-tight focus:shadow-outline 
-                  lg:text-lg md:text-base sm:text-base text-sm ${
-                    formik.touched.LastName && formik.errors.LastName
-                      ? "border-solid border-red-500"
-                      : "border-none"
-                  }`}
-                value={formik.values.LastName}
-                placeholder="NIC"
-                id="LastName"
-                name="LastName"
-                type="text"
-                onChange={formik.handleChange}
-              />
-            </div>
-
-            <div className="w-full mb-4 flex flex-col items-center">
-              <input
-                className={`shadow appearance-none rounded-b-xl py-4 px-4 w-11/12 lg:w-5/12 sm:w-8/12 ss:w-10/12 text-gray-700 leading-tight focus:shadow-outline 
-                  lg:text-lg md:text-base sm:text-base text-sm ${
-                    formik.touched.ContactNo && formik.errors.ContactNo
-                      ? "border-solid border-red-500"
-                      : "border-none"
-                  }`}
-                value={formik.values.ContactNo}
-                placeholder="        "
-                id="ContactNo"
-                name="ContactNo"
-                type="text"
-                onChange={formik.handleChange}
-              />
-            </div>
-
-            <div className="w-full mb-4 flex flex-col items-center">
-              <input
-                className={`shadow appearance-none rounded-b-xl py-4 px-4 w-11/12 lg:w-5/12 sm:w-8/12 ss:w-10/12 text-gray-700 leading-tight focus:shadow-outline 
-                  lg:text-lg md:text-base sm:text-base text-sm ${
-                    formik.touched.ContactNo1 && formik.errors.ContactNo1
-                      ? "border-solid border-red-500"
-                      : "border-none"
-                  }`}
-                value={formik.values.ContactNo1}
-                placeholder="      "
-                id="ContactNo1"
-                name="ContactNo1"
-                type="text"
-                onChange={formik.handleChange}
-              />
-            </div>
+            <button
+              type="submit"
+              className="w-full p-4 text-white bg-green-500 rounded-lg hover:bg-green-600 shadow-md"
+            >
+              Submit
+            </button>
           </>
         )}
-
-        <button
-          className={`py-5 rounded-xl w-11/12 lg:w-5/12 sm:w-8/12 ss:w-10/12 text-white h-16 bg-blue_primary hover:bg-[#33C2FF] lg:text-lg md:text-lg sm:text-small text-small`}
-          type="button"
-          onClick={handleNext}
-        >
-          Next
-        </button>
       </form>
     </div>
   );
 };
 
 export default Registration2;
+
+*/

@@ -7,19 +7,20 @@ import Notices from "./views/Notices";
 import HeartRateContextProvider from "./contexts/HeartRateContextProvider";
 import Appointments from "./views/Appointments";
 import Profile from "./views/Profile";
+//import PHMProfile from "./views/PHMProfile";
 import Notification from "./views/Notification";
 import MotherGuide from "./views/MotherGuide";
 import SinglePost from "./views/SinglePost";
-
 import DashboardPHM from "./views/DashboardPHM";
 import RoleContextProvider from "./contexts/RoleContextProvider";
 import { PrivateRoute } from "./routes/PrivateRoute";
 import { PublicRoute } from "./routes/PublicRoute";
 import Unauthorized from "./views/UnAuthorized";
 import DashboardMOH from "./views/DashboardMOH";
-import Registration2 from "./views/Registration2";
+//import Registration2 from "./views/Registration2";
 import MotherDashboard from "./views/Dashboard";
-
+import MotherRegistration from "./views/MotherRegistration";
+import PHMRegistration from "./views/PHMRegistration";
 // You can add your routes here
 // Add a baselayout too if needed
 
@@ -51,8 +52,35 @@ const router = createBrowserRouter([
       },
     ],
   },
+  
+  // {
+  //   path: "/registration",
+  //   children: [
+  //     {
+  //       index: true,
+  //       element: (
+  //         <PublicRoute>
+  //           <Registration />
+  //         </PublicRoute>
+  //       ),
+  //     },
+  //   ],
+  // },
+  // {
+  //   path: "/registration2",
+  //   children: [
+  //     {
+  //       index: true,
+  //       element: (
+  //         <PublicRoute>
+  //           <Registration2 />
+  //         </PublicRoute>
+  //       ),
+  //     },
+  //   ],
+  // },
   {
-    path: "/registration",
+    path: "/Registration",
     children: [
       {
         index: true,
@@ -65,18 +93,32 @@ const router = createBrowserRouter([
     ],
   },
   {
-    path: "/registration2",
+    path: "/MotherRegistration",
     children: [
       {
         index: true,
         element: (
           <PublicRoute>
-            <Registration2 />
+            <MotherRegistration />
           </PublicRoute>
         ),
       },
     ],
   },
+  {
+    path: "/PHMRegistration",
+    children: [
+      {
+        index: true,
+        element: (
+          <PublicRoute>
+            <PHMRegistration />
+          </PublicRoute>
+        ),
+      },
+    ],
+  },
+
   {
     path: "/motherdashboard",
     element: <BaseLayout />,
@@ -161,6 +203,7 @@ const router = createBrowserRouter([
       },
     ],
   },
+  
   {
     path: "/guide",
     element: <BaseLayout />,
