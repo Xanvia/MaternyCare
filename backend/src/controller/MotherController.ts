@@ -338,6 +338,41 @@ export class MotherController {
     }
   }
 
+  async updateCounselingForm(request: Request, response: Response) {
+    const {
+      motherId,
+      date_of_counseling,
+      chosen_method,
+      reason_for_not_using_method,
+      consent_form_signed_date,
+    } = request.body;
+
+    try {
+      const mother = await this.motherRepository.findOne({
+        where: { id: motherId },
+      });
+
+      if (!mother) {
+        return { message: "Mother not found" };
+      }
+
+      // const newEmergencyPlan = new EmergencyPlan();
+      mother.date_of_counseling = date_of_counseling;
+      mother.chosen_method = chosen_method;
+      mother.reason_for_not_using_method = reason_for_not_using_method;
+      mother.consent_form_signed_date = consent_form_signed_date;
+
+      await this.motherRepository.save(mother);
+
+      return {
+        message: "Counseling form updated successfully",
+        data: mother,
+      };
+    } catch (error) {
+      console.error("Error updating Emergency plan:", error);
+      return "Internal server error";
+    }
+  }
   async updateVogSignature(
     request: Request,
     response: Response,
@@ -528,6 +563,36 @@ export class MotherController {
     } catch (error) {
       console.error("Error fetching emergency plan data:", error);
       return { message: "Internal server error" };
+    }
+  }
+
+  async getCounselingDetails(
+    request: Request,
+    response: Response,
+    next: NextFunction
+  ) {
+    const motherId = parseInt(request.params.motherId);
+
+    try {
+      const mother = await this.motherRepository.findOne({
+        where: { id: motherId },
+      });
+
+      if (!mother) {
+        return response.status(404).json({ message: "Mother not found" });
+      }
+
+      const counselingDetails = {
+        date_of_counseling: mother.date_of_counseling,
+        chosen_method: mother.chosen_method,
+        reason_for_not_using_method: mother.reason_for_not_using_method,
+        consent_form_signed_date: mother.consent_form_signed_date,
+      };
+
+      return { counselingDetails };
+    } catch (error) {
+      console.error("Error fetching counseling details:", error);
+      return response.status(500).json({ message: "Internal server error" });
     }
   }
 

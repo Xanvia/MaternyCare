@@ -412,6 +412,19 @@ export class Mother {
   @Column({ type: "text", nullable: true })
   richTextContent: string; // New column for storing rich text content
 
+  //Counseling form data
+  @Column({ type: "text", nullable: true })
+  date_of_counseling: string;
+
+  @Column({ type: "text", nullable: true })
+  chosen_method: string;
+
+  @Column({ type: "text", nullable: true })
+  reason_for_not_using_method: string;
+
+  @Column({ type: "text", nullable: true })
+  consent_form_signed_date: string;
+
   @OneToOne(() => DeviceData, (deviceData) => deviceData.mother, {
     onDelete: "CASCADE",
   })

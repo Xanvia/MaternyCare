@@ -9,6 +9,8 @@ import PregnancyBMIChart from "../components/PregnancyBMIChart";
 import EmergencyPlanTable from "../components/EmergencyPlanTable";
 import DentalCare from "./forms/DentalCare";
 import ClinicCareCheckUp from "./forms/ClinicCareCheckUp";
+import SFHChart from "../components/SFHChart";
+import CounselingFormTable from "../components/FamilyPlanning";
 // import ClinicCare from "./forms/ClinicCare";
 
 const SingleMotherGenral = () => {
@@ -172,7 +174,9 @@ const SingleMotherGenral = () => {
       <ClinicCareCheckUp />
       <DentalCare />
       <PregnancyBMIChart />
+      <SFHChart />
       <EmergencyPlanTable motherId={mother.id} />
+      <CounselingFormTable motherId={mother.id} />
     </div>
   );
 };
