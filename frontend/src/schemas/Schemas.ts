@@ -12,7 +12,7 @@ export const loginSchema = yup.object().shape({
 
 // Validation for MOH registration form
 export const mohRegistrationSchema = yup.object().shape({
-  NIC: yup
+  nic: yup
     .string()
     .matches(
       /^(\d{9}[vVxX]|\d{12})$/,

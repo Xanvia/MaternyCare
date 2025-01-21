@@ -19,13 +19,13 @@ const Progress = () => {
     star_points: number;
     phm_area: string;
     id: number;
-    nic: string;
     phone_number: number;
     mother_count: number;
     user: {
       firstName: string;
       lastName: string;
       isVerified: boolean;
+      nic: string;
     } | null; // Allow null for safety
     moh: {};
   }

@@ -140,6 +140,7 @@ interface FormValues {
   email: string;
   password: string;
   confirmPassword: string;
+  nic: string;
 }
 
 const Registration: React.FC = () => {
@@ -152,6 +153,7 @@ const Registration: React.FC = () => {
       email: "",
       password: "",
       confirmPassword: "",
+      nic: "",
     },
     validationSchema: registrationSchema,
 
@@ -279,6 +281,30 @@ const Registration: React.FC = () => {
             {formik.touched.lastName && formik.errors.lastName ? (
               <div className="text-red-500 text-xs">
                 <ErrorIcon /> {formik.errors.lastName}
+              </div>
+            ) : null}
+          </div>
+        </div>
+        <div className="w-full flex flex-col items-center lg:mb-9 mb-4">
+          <input
+            className={`shadow appearance-none rounded-b-xl py-4 px-4 w-11/12 lg:w-5/12 sm:w-8/12 ss:w-10/12 text-gray-700 leading-tight focus:shadow-outline 
+            lg:text-lg md:text-base sm:text-base text-sm
+          ${
+            formik.touched.nic && formik.errors.nic
+              ? "border-solid border-red-500"
+              : "border-none"
+          }`}
+            value={formik.values.nic}
+            placeholder="NIC Number"
+            id="nic"
+            name="nic"
+            type="text"
+            onChange={formik.handleChange}
+          />
+          <div className="w-11/12 lg:w-5/12 sm:w-8/12 ss:w-10/12 mb-2 flex flex-col items-start mt-1">
+            {formik.touched.nic && formik.errors.nic ? (
+              <div className="text-red-500 text-xs">
+                <ErrorIcon /> {formik.errors.nic}
               </div>
             ) : null}
           </div>

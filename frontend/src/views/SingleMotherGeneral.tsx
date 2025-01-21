@@ -109,7 +109,7 @@ const SingleMotherGenral = () => {
             {mother.user.firstName} {mother.user.lastName}
           </h2>
           <p className="text-gray-600">
-            <span className="font-semibold">NIC:</span> {mother.nic}
+            <span className="font-semibold">NIC:</span> {mother.user.nic}
           </p>
           <p className="text-gray-600">
             <span className="font-semibold">Phone:</span> {mother.phone_1}

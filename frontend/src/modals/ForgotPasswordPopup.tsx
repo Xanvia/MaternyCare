@@ -7,8 +7,6 @@ import DialogActions from "@mui/joy/DialogActions";
 import Modal from "@mui/joy/Modal";
 import ModalDialog from "@mui/joy/ModalDialog";
 import TextField from "@mui/material/TextField";
-import Select from "@mui/material/Select";
-import MenuItem from "@mui/material/MenuItem";
 import IconButton from "@mui/joy/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
 import { Box } from "@mui/material";
@@ -17,16 +15,12 @@ import * as Yup from "yup";
 import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { DatePicker } from "@mui/x-date-pickers/DatePicker";
-import { LocalizationProvider } from "@mui/x-date-pickers";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import dayjs from "dayjs";
 
 // Validation schema
 const validationSchema = Yup.object({
-  appointment_description: Yup.string().required("NIC number is required"),
-  appointment_state: Yup.string().required("Appointment state is required"),
-  fixedDate: Yup.string().required("Date is required"),
+  email : Yup.string().required("User Email is required"),
+  nic: Yup.string().required("NIC number is required"),
+  newPassword: Yup.string().required("Password is required"),
 });
 
 // interface AddAppointmentModalProps {
@@ -84,19 +78,19 @@ export default function ForgotPasswordPopup() {
           <Divider />
           <Formik
             initialValues={{
-              appointment_description: "",
-              appointment_state: "",
-              fixedDate: "",
+              email: "",
+              nic: "",
+              newPassword: "",
             }}
             validationSchema={validationSchema}
             onSubmit={(values, { setSubmitting }) => {
               const axiosConfig = {
-                method: "post",
-                url: `${BASE_URL}appointments/{userId}`,
+                method: "put",
+                url: `${BASE_URL}forgotPassword`,
                 data: {
-                  appointment_description: values.appointment_description,
-                  appointment_state: values.appointment_state,
-                  fixedDate: values.fixedDate,
+                  email: values.email,
+                  nic: values.nic,
+                  newPassword: values.newPassword,
                 },
               };
               axios(axiosConfig)
@@ -105,7 +99,7 @@ export default function ForgotPasswordPopup() {
                   setSubmitting(false);
                   setOpen(false);
                   toast.success(
-                    "The appointment has been added successfully!."
+                    "The password has been changed successfully!."
                   );
                   setTimeout(() => window.location.reload(), 1500);
                 })
@@ -117,6 +111,39 @@ export default function ForgotPasswordPopup() {
           >
             {({ isSubmitting, setFieldValue, errors, touched }) => (
               <Form>
+
+                <DialogContent
+                  sx={{
+                    display: "flex",
+                    justifyContent: "center",
+                    gap: 1,
+                    color: "#666666",
+                    fontWeight: "bold",
+                  }}
+                >
+                  Enter your Email:
+                </DialogContent>
+                <Box
+                  sx={{
+                    width: 500,
+                    maxWidth: "100%",
+                  }}
+                >
+                  <Field
+                    as={TextField}
+                    name="email"
+                    fullWidth
+                    size="small"
+                    variant="outlined"
+                    error={
+                      touched.email &&
+                      Boolean(errors.email)
+                    }
+                    helperText={
+                      touched.email && errors.email
+                    }
+                  />
+                </Box>
                 <DialogContent
                   sx={{
                     display: "flex",
@@ -136,21 +163,19 @@ export default function ForgotPasswordPopup() {
                 >
                   <Field
                     as={TextField}
-                    name="appointment_description"
+                    name="nic"
                     fullWidth
                     size="small"
                     variant="outlined"
                     error={
-                      touched.appointment_description &&
-                      Boolean(errors.appointment_description)
+                      touched.nic &&
+                      Boolean(errors.nic)
                     }
                     helperText={
-                      touched.appointment_description && errors.appointment_description
+                      touched.nic && errors.nic
                     }
                   />
                 </Box>
-
-                
 
                 <DialogContent
                   sx={{
@@ -172,16 +197,16 @@ export default function ForgotPasswordPopup() {
                   <Field
                     as = {TextField}
                     type = "password"
-                    name="appointment"
+                    name="newPassword"
                     fullWidth
                     size="small"
                     variant="outlined"
                     error={
-                      touched.appointment_description &&
-                      Boolean(errors.appointment_description)
+                      touched.newPassword &&
+                      Boolean(errors.newPassword)
                     }
                     helperText={
-                      touched.appointment_description && errors.appointment_description
+                      touched.newPassword && errors.newPassword
                     }
                   />
                 </Box>

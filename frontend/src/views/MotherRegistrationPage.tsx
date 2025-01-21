@@ -14,7 +14,6 @@ const registrationSchema = Yup.object({
     .min(0, "Age must be a positive number"),
   phone_1: Yup.string().required("Mobile phone number is required"),
   bio: Yup.string().required("Bio is required"),
-  nic: Yup.string().required("NIC is required"),
   address: Yup.string().required("Address is required"),
   delivery_date: Yup.date().required("Delivery date is required"),
 });
@@ -29,7 +28,6 @@ const MotherRegistrationPage: React.FC = () => {
       age: "",
       phone_1: "",
       bio: "",
-      nic: "",
       address: "",
       delivery_date: "",
     },
@@ -155,31 +153,6 @@ const MotherRegistrationPage: React.FC = () => {
           )}
         </div>
 
-        {/* NIC Input */}
-        <div className="w-full">
-          <label
-            htmlFor="nic"
-            className="block text-sm font-medium text-gray-700 mb-1"
-          >
-            NIC
-          </label>
-          <input
-            type="text"
-            name="nic"
-            id="nic"
-            className={`block w-full p-2 border rounded-lg shadow-md ${
-              formik.touched.nic && formik.errors.nic
-                ? "border-red-500"
-                : "border-gray-300"
-            }`}
-            value={formik.values.nic}
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-          />
-          {formik.touched.nic && formik.errors.nic && (
-            <div className="text-red-500 text-sm mt-1">{formik.errors.nic}</div>
-          )}
-        </div>
 
         {/* Address Input */}
         <div className="w-full">

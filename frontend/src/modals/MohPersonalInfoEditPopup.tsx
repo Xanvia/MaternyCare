@@ -23,8 +23,8 @@ interface Moh {
     lastName: string;
     email: string;
     password: string;
+    nic: string;
   };
-  NIC: string;
   phoneNumber: string;
   mohArea: string;
   mohID: string;
@@ -36,7 +36,7 @@ const validationSchema = Yup.object({
   lastName: Yup.string().required("Last Name is required"),
   email: Yup.string().required("Email is required"),
   phoneNumber: Yup.string().required("Phone number is required"),
-  NIC: Yup.string().required("NIC is required"),
+  nic: Yup.string().required("NIC is required"),
   mohArea: Yup.string().required("MOH Area is required"),
   mohID: Yup.string().required("MOH ID is required"),
 });
@@ -49,7 +49,7 @@ export default function MohEditPersonalInfo() {
     lastName: "",
     email: "",
     phoneNumber: "",
-    NIC: "",
+    nic: "",
     mohArea: "",
     mohID: "",
   });
@@ -69,7 +69,7 @@ export default function MohEditPersonalInfo() {
       lastName: moh?.user.lastName || "",
       email: moh?.user.email || "",
       phoneNumber: moh?.phoneNumber || "",
-      NIC: moh?.NIC || "",
+      nic: moh?.user.nic || "",
       mohArea: moh?.mohArea || "",
       mohID: moh?.mohID || "",
     };
@@ -212,7 +212,7 @@ export default function MohEditPersonalInfo() {
                   { label: "Last Name", name: "lastName" },
                   { label: "Email", name: "email" },
                   { label: "Phone", name: "phoneNumber" },
-                  { label: "NIC", name: "NIC" },
+                  { label: "NIC", name: "nic" },
                   { label: "MOH Area", name: "mohArea" },
                   { label: "MOH ID", name: "mohID" },
                 ].map((field, index) => (

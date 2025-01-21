@@ -2,12 +2,12 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 // import ToTitle from "../components/CaseConverter";
-import BasicDetails from "./forms/BasicDetails";
+// import BasicDetails from "./forms/BasicDetails";
 import { ExpandLess, ExpandMore, TickCircle } from "../assets/icons/Icons";
-import PresentObstetricHistory from "./forms/PresentObstetricHistory";
+// import PresentObstetricHistory from "./forms/PresentObstetricHistory";
 import ClinicCare from "./forms/ClinicCare";
-import ClinicCare2 from "./forms/ClinicCare2";
-import DentalCare from "./forms/DentalCare";
+// import ClinicCare2 from "./forms/ClinicCare2";
+// import DentalCare from "./forms/DentalCare";
 
 const SingleMother = () => {
   const { id } = useParams<{ id: string }>();
@@ -126,7 +126,7 @@ const SingleMother = () => {
             {mother.user.firstName} {mother.user.lastName}
           </h2>
           <p className="text-gray-600">
-            <span className="font-semibold">NIC:</span> {mother.nic}
+            <span className="font-semibold">NIC:</span> {mother.user.nic}
           </p>
           <p className="text-gray-600">
             <span className="font-semibold">Phone:</span> {mother.phone_1}
@@ -186,8 +186,8 @@ const SingleMother = () => {
         </button>
       </div>
       {/* Basic Details form */}
-      <BasicDetails />
-      <PresentObstetricHistory />
+      {/* <BasicDetails /> */}
+      {/* <PresentObstetricHistory /> */}
       <ClinicCare />
     </div>
   );

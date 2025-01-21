@@ -12,11 +12,11 @@ interface Moh {
   user: {
     firstName: string;
     lastName: string;
+    nic: string;
     email: string;
     password: string;
     profileImage?: string; // Add profileImage property
   };
-  NIC: string;
   phoneNumber: string;
   mohArea: string;
   mohID: string;
@@ -167,7 +167,7 @@ const MohProfile = () => {
           </div>
           <div className="text-text_color_2">
             <h5 className="">NIC</h5>
-            <p className="font-semibold mt-2 mb-4">{moh?.NIC || "N/A"}</p>
+            <p className="font-semibold mt-2 mb-4">{moh?.user?.nic || "N/A"}</p>
           </div>
           <div className="text-text_color_2">
             <h5 className="">Phone</h5>

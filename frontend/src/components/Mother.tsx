@@ -1,12 +1,12 @@
 export interface Mother {
     id: number;
-    nic: string;
     phone_number: number;
     location: string;
     delivery_date: string;
     user: {
       firstName: string;
       lastName: string;
+      nic: string;
     };
     phm: {};
     appointments: {
