@@ -168,9 +168,7 @@ export class PhmController {
     const { phmId, starPoints } = request.body;
 
     if (!phmId || !starPoints) {
-      return response
-        .status(400)
-        .json({ message: "PHM ID and rating are required." });
+      return { message: "PHM ID and rating are required." };
     }
 
     try {
@@ -180,7 +178,7 @@ export class PhmController {
       });
 
       if (!phm) {
-        return response.status(404).json({ message: "PHM not found." });
+        return { message: "PHM not found." };
       }
 
       // Update the PHM's star_points
@@ -188,12 +186,10 @@ export class PhmController {
 
       await this.phmRepository.save(phm);
 
-      return response
-        .status(200)
-        .json({ message: "Rating submitted successfully." });
+      return { message: "Rating submitted successfully." };
     } catch (error) {
       console.error("Error submitting rating:", error);
-      return response.status(500).json({ message: "Internal server error." });
+      return { message: "Internal server error." };
     }
   }
 }
