@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { categories } from "../data/Data";
-import AddGuide from "../modals/AddGuide";
+// import AddGuide from "../modals/AddGuide";
 
 const MotherGuide: React.FC = () => {
   const [activeTab, setActiveTab] = useState(categories[0].name);

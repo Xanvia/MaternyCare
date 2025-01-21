@@ -39,11 +39,9 @@ const validationSchema = Yup.object({
   lastName: Yup.string().required("Last Name is required"),
   email: Yup.string().required("Email is required"),
   phone_1: Yup.string().required("Phone is required"),
-  age: Yup.string().required("Age is required"),
+  age: Yup.number().required("Age is required"),
   bio: Yup.string().required("Bio is required"),
 });
-
-
 
 export default function EditPersonalInfo() {
   const [open, setOpen] = React.useState<boolean>(false);
@@ -53,7 +51,7 @@ export default function EditPersonalInfo() {
     lastName: "",
     email: "",
     phone_1: "",
-    age: "",
+    age: 0,
     bio: "",
   });
 
@@ -61,9 +59,9 @@ export default function EditPersonalInfo() {
   const user = userItem ? JSON.parse(userItem) : null;
   const BASE_URL = `${import.meta.env.VITE_API_URL}`;
   const storedToken = localStorage.getItem("token");
-const token = storedToken ? JSON.parse(storedToken) : null;
+  const token = storedToken ? JSON.parse(storedToken) : null;
 
-const [mother, setMother] = React.useState<Mother | null>(null);
+  const [mother, setMother] = React.useState<Mother | null>(null);
 
   // Mock function to fetch current data
   const fetchCurrentData = () => {
@@ -72,9 +70,9 @@ const [mother, setMother] = React.useState<Mother | null>(null);
       firstName: user.firstName,
       lastName: user.lastName,
       email: user.email,
-      phone: mother?.phone_1,
-      age: mother?.age,
-      bio: mother?.bio,
+      phone_1: mother?.phone_1 || "",
+      age: mother?.age || 0,
+      bio: mother?.bio || "",
     };
   };
 
@@ -106,12 +104,13 @@ const [mother, setMother] = React.useState<Mother | null>(null);
           setLoading(false);
         });
     };
-  
+
     getMother();
   }, []);
 
   return (
     <React.Fragment>
+      {loading && "Loading..."}
       <Button
         variant="outlined"
         onClick={handleOpen}
@@ -149,8 +148,8 @@ const [mother, setMother] = React.useState<Mother | null>(null);
           variant="outlined"
           role="alertdialog"
           sx={{
-            maxHeight: '80vh', // Limit the modal height to 80% of the viewport height
-            overflowY: 'auto' // Add vertical scroll if content overflows
+            maxHeight: "80vh", // Limit the modal height to 80% of the viewport height
+            overflowY: "auto", // Add vertical scroll if content overflows
           }}
         >
           <IconButton

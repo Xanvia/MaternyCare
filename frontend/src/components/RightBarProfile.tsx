@@ -8,7 +8,7 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import Logout from "@mui/icons-material/Logout";
 // import Settings from "@mui/icons-material/Settings";
 import Person3Icon from "@mui/icons-material/Person3";
-import ToTitle from "./CaseConverter";
+// import ToTitle from "./CaseConverter";
 import { useNavigate } from "react-router-dom";
 
 export default function RightBarProfile() {

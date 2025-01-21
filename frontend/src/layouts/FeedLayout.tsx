@@ -4,9 +4,9 @@ import { useContext } from "react";
 import { TitleContext } from "../contexts/TitleContextProvider";
 import logo from "../assets/images/logo.png";
 
-let role = localStorage.getItem("role");
+// let role = localStorage.getItem("role");
 
-console.log("rooooooooooooooooooole ", role);
+// console.log("rooooooooooooooooooole ", role);
 
 const FeedLayout = () => {
   const titleContext = useContext(TitleContext);

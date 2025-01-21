@@ -10,19 +10,19 @@ import IconButton from "@mui/joy/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
 import { Box, DialogContentText } from "@mui/material";
 import Rating from "@mui/material/Rating";
-import FavoriteIcon from "@mui/icons-material/Favorite";
-import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+// import FavoriteIcon from "@mui/icons-material/Favorite";
+// import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import Typography from "@mui/material/Typography";
-import { styled } from "@mui/material/styles";
+// import { styled } from "@mui/material/styles";
 
-const StyledRating = styled(Rating)({
-  '& .MuiRating-iconFilled': {
-    color: '#ff6d75',
-  },
-  '& .MuiRating-iconHover': {
-    color: '#ff3d47',
-  },
-});
+// const StyledRating = styled(Rating)({
+//   '& .MuiRating-iconFilled': {
+//     color: '#ff6d75',
+//   },
+//   '& .MuiRating-iconHover': {
+//     color: '#ff3d47',
+//   },
+// });
 
 export default function AddRatingModal() {
   const [open, setOpen] = React.useState<boolean>(false);

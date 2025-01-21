@@ -1,4 +1,4 @@
-import React, { ReactNode, useState } from "react";
+import React, { ReactNode } from "react";
 
 interface DashboardStatCardProps {
   image: string;
@@ -16,7 +16,7 @@ const MohDashboardStatCard: React.FC<DashboardStatCardProps> = ({
   title,
   subtitle
 }) => {
-  const [currentCount, setCurrentCount] = useState(count);
+  // const [currentCount, setCurrentCount] = useState(count);
 
 
   return (
@@ -32,7 +32,7 @@ const MohDashboardStatCard: React.FC<DashboardStatCardProps> = ({
           <div>
             <div>
               <span className="text-2xl text-text_color_1 font-medium">
-                {currentCount}
+                {count}
               </span>{" "}
               <span className="font-normal text-text_color_2">{subtitle}</span>
             </div>

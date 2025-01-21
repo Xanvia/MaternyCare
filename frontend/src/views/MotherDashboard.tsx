@@ -178,7 +178,7 @@ const MotherDashboard = () => {
         open={openModal}
         onClose={() => setOpenModal(false)}
         phm={phm?.result || { firstName: "", phoneNumber: 0, email: "" }}
-        email={phm?.result.email || ""}
+        // email={phm?.result.email || ""}
         phoneNumber={phm?.result.phoneNumber || 0}
         firstName={phm?.result.firstName || ""}
       />

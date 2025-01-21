@@ -14,7 +14,7 @@ interface ReportHealthIssueModalProps {
   open: boolean;
   onClose: () => void;
   phm: { firstName: string; phoneNumber: number; email: string };
-  email: string;
+  // email: string;
   firstName: string;
   phoneNumber: number;
 }
@@ -23,7 +23,7 @@ const ReportHealthIssueModal: React.FC<ReportHealthIssueModalProps> = ({
   open,
   onClose,
   phm,
-  email,
+  // email,
   firstName,
   phoneNumber,
 }) => {

@@ -39,18 +39,29 @@ const PatientsList: React.FC<PatientsListProps> = ({ mothers }) => {
   // Helper function to get the latest fixed appointment
   const getLatestAppointment = (appointments: Mother["appointments"]) => {
     const today = new Date().setHours(0, 0, 0, 0); // Normalize to start of today
-  
+
     const withFixedDateAfterToday = appointments
-      .filter((appointment) => appointment.fixedDate && new Date(appointment.fixedDate).getTime() > today)
-      .sort((a, b) => new Date(a.fixedDate).getTime() - new Date(b.fixedDate).getTime());
-      
-  
+      .filter(
+        (appointment) =>
+          appointment.fixedDate &&
+          new Date(appointment.fixedDate).getTime() > today
+      )
+      .sort(
+        (a, b) =>
+          new Date(a.fixedDate).getTime() - new Date(b.fixedDate).getTime()
+      );
+
     if (withFixedDateAfterToday.length > 0) return withFixedDateAfterToday[0]; // Return the next fixed appointment
-  
+
     const withStartDateAfterToday = appointments
-      .filter((appointment) => new Date(appointment.startDate).getTime() > today)
-      .sort((a, b) => new Date(a.startDate).getTime() - new Date(b.startDate).getTime());
-  
+      .filter(
+        (appointment) => new Date(appointment.startDate).getTime() > today
+      )
+      .sort(
+        (a, b) =>
+          new Date(a.startDate).getTime() - new Date(b.startDate).getTime()
+      );
+
     return withStartDateAfterToday[0] || null; // Return the next start date appointment or null
   };
 
@@ -58,11 +69,13 @@ const PatientsList: React.FC<PatientsListProps> = ({ mothers }) => {
     <div className="container mx-auto antialiased">
       <div className="py-4">
         <div>
-          <h2 className="text-2xl font-semibold leading-tight mx-12">Appointments</h2>
+          <h2 className="text-2xl font-semibold leading-tight mx-12">
+            Appointments
+          </h2>
         </div>
         <div className="-mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto">
-          <div className="flex flex-col justify-center inline-block min-w-11/12 shadow rounded-lg overflow-hidden mx-12">
-          <table className="min-w-full leading-normal">
+          <div className="flex flex-col justify-center min-w-11/12 shadow rounded-lg overflow-hidden mx-12">
+            <table className="min-w-full leading-normal">
               <thead>
                 <tr>
                   <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
@@ -84,17 +97,29 @@ const PatientsList: React.FC<PatientsListProps> = ({ mothers }) => {
                   .filter((mother) => mother.phm !== null)
                   .map((mother) => ({
                     ...mother,
-                    latestAppointment: getLatestAppointment(mother.appointments),
+                    latestAppointment: getLatestAppointment(
+                      mother.appointments
+                    ),
                   }))
                   .sort((a, b) => {
-                    const dateA = new Date(a.latestAppointment?.fixedDate || a.latestAppointment?.startDate || 0);
-                    const dateB = new Date(b.latestAppointment?.fixedDate || b.latestAppointment?.startDate || 0);
+                    const dateA = new Date(
+                      a.latestAppointment?.fixedDate ||
+                        a.latestAppointment?.startDate ||
+                        0
+                    );
+                    const dateB = new Date(
+                      b.latestAppointment?.fixedDate ||
+                        b.latestAppointment?.startDate ||
+                        0
+                    );
                     return dateA.getTime() - dateB.getTime(); // Sort descending by date
                   })
                   .map((mother) => (
                     <tr key={mother.id}>
                       <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                        <button onClick={() => handleButtonClick({ id: mother.id })}>
+                        <button
+                          onClick={() => handleButtonClick({ id: mother.id })}
+                        >
                           <div className="flex items-center">
                             <div className="flex-shrink-0 w-10 h-10">
                               <img
@@ -113,24 +138,33 @@ const PatientsList: React.FC<PatientsListProps> = ({ mothers }) => {
                       </td>
                       <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                         <p className="text-gray-900 whitespace-no-wrap">
-                          <a href={`tel:${mother.phone_number}`}>{mother.location}</a>
+                          <a href={`tel:${mother.phone_number}`}>
+                            {mother.location}
+                          </a>
                         </p>
                       </td>
                       <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                        <p className="text-gray-900 whitespace-no-wrap">{mother.delivery_date}</p>
+                        <p className="text-gray-900 whitespace-no-wrap">
+                          {mother.delivery_date}
+                        </p>
                       </td>
                       <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                         {mother.latestAppointment ? (
                           <div>
                             <p className="text-gray-900 whitespace-no-wrap">
-                              {mother.latestAppointment.appointment_description || "No Fixed Appointment Yet"}
+                              {mother.latestAppointment
+                                .appointment_description ||
+                                "No Fixed Appointment Yet"}
                             </p>
                             <p className="text-gray-500 whitespace-no-wrap">
-                              {mother.latestAppointment.fixedDate || mother.latestAppointment.startDate}
+                              {mother.latestAppointment.fixedDate ||
+                                mother.latestAppointment.startDate}
                             </p>
                           </div>
                         ) : (
-                          <p className="text-gray-500 whitespace-no-wrap">No appointments</p>
+                          <p className="text-gray-500 whitespace-no-wrap">
+                            No appointments
+                          </p>
                         )}
                       </td>
                     </tr>

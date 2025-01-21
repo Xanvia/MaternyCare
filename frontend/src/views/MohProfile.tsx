@@ -1,6 +1,6 @@
 import { useEffect, useState, useRef } from "react";
 import { EyeIcon, EyeOffIcon } from "../assets/icons/Icons";
-import ToTitle from "../components/CaseConverter";
+// import ToTitle from "../components/CaseConverter";
 import axios from "axios";
 import { CircularProgress } from "@mui/material";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -61,7 +61,11 @@ const MohProfile = () => {
     getMoh();
   }, [user.id, token]);
 
-  const handleImageUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
+  console.log("image test: ", image);
+
+  const handleImageUpload = async (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
     const file = event.target.files?.[0];
     if (file) {
       setImage(file);
@@ -75,7 +79,13 @@ const MohProfile = () => {
             "Content-Type": "multipart/form-data",
           },
         });
-        setMoh((prevMoh) => prevMoh && { ...prevMoh, user: { ...prevMoh.user, profileImage: response.data.imageUrl } });
+        setMoh(
+          (prevMoh) =>
+            prevMoh && {
+              ...prevMoh,
+              user: { ...prevMoh.user, profileImage: response.data.imageUrl },
+            }
+        );
       } catch (error) {
         console.error("Error uploading image:", error);
       }
@@ -86,7 +96,9 @@ const MohProfile = () => {
     return <CircularProgress />;
   }
 
-  const initials = `${moh?.user.firstName.charAt(0)}${moh?.user.lastName.charAt(0)}`;
+  const initials = `${moh?.user.firstName.charAt(0)}${moh?.user.lastName.charAt(
+    0
+  )}`;
 
   return (
     <div className="xs:mx-10 mx-3 bg-white rounded-xl p-5 flex flex-col gap-8">
@@ -101,7 +113,9 @@ const MohProfile = () => {
               />
             ) : (
               <div className="flex items-center justify-center w-24 h-24 bg-gray-300 rounded-full">
-                <span className="text-3xl font-bold text-white">{initials}</span>
+                <span className="text-3xl font-bold text-white">
+                  {initials}
+                </span>
               </div>
             )}
             <button
@@ -135,15 +149,21 @@ const MohProfile = () => {
         <div className="grid xs:grid-cols-2 grid-cols-1">
           <div className="text-text_color_2">
             <h5 className="">First Name</h5>
-            <p className="font-semibold mt-2 mb-4">{moh?.user.firstName || "N/A"}</p>
+            <p className="font-semibold mt-2 mb-4">
+              {moh?.user.firstName || "N/A"}
+            </p>
           </div>
           <div className="text-text_color_2">
             <h5 className="">Last Name</h5>
-            <p className="font-semibold mt-2 mb-4">{moh?.user.lastName || "N/A"}</p>
+            <p className="font-semibold mt-2 mb-4">
+              {moh?.user.lastName || "N/A"}
+            </p>
           </div>
           <div className="text-text_color_2">
             <h5 className="">Email</h5>
-            <p className="font-semibold mt-2 mb-4">{moh?.user.email || "N/A"}</p>
+            <p className="font-semibold mt-2 mb-4">
+              {moh?.user.email || "N/A"}
+            </p>
           </div>
           <div className="text-text_color_2">
             <h5 className="">NIC</h5>
@@ -151,7 +171,9 @@ const MohProfile = () => {
           </div>
           <div className="text-text_color_2">
             <h5 className="">Phone</h5>
-            <p className="font-semibold mt-2 mb-4">{moh?.phoneNumber || "N/A"}</p>
+            <p className="font-semibold mt-2 mb-4">
+              {moh?.phoneNumber || "N/A"}
+            </p>
           </div>
           <div className="text-text_color_2">
             <h5 className="">MOH ID</h5>

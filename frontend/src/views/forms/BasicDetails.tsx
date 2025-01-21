@@ -138,8 +138,7 @@ const BasicDetails = () => {
           preconceptional_folic_acid: formData.preconceptional_folic_acid,
           history_of_subfertility: formData.history_of_subfertility,
           planned_pregnancy: formData.planned_pregnancy,
-          last_family_planing_method:
-            formData.last_family_planing_method,
+          last_family_planing_method: formData.last_family_planing_method,
         },
         {
           headers: {
@@ -166,6 +165,7 @@ const BasicDetails = () => {
       id="basic-details"
       className="max-w-full mx-4 my-4 bg-white shadow-lg rounded-lg p-6 border border-gray-200"
     >
+      {loading && "Loading..."}
       <form onSubmit={handleSubmit}>
         {/* <label
           htmlFor="riskType"

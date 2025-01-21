@@ -1,6 +1,6 @@
 import React from "react";
-import ToTitle from "./CaseConverter";
-import { LocationIcon, PlusCircle, TickCircle } from "../assets/icons/Icons";
+// import ToTitle from "./CaseConverter";
+import {  PlusCircle, TickCircle } from "../assets/icons/Icons";
 
 interface PhmCardProps {
   firstName: string;
@@ -21,17 +21,17 @@ const PhmCard: React.FC<PhmCardProps> = ({
   moh,
   isVerified,
 }) => {
-  const [isAdded, setIsAdded] = React.useState(false);
+  // const [isAdded, setIsAdded] = React.useState(false);
 
   const handleAddClick = () => {
     onAdd(); // Call the onAdd function passed from the parent
-    setIsAdded(true); // Update UI state after adding
+    // setIsAdded(true); // Update UI state after adding
   };
 
-  const handleRemoveClick = () => {
-    // onAdd();
-    setIsAdded(false); // Update UI state after adding
-  };
+  // const handleRemoveClick = () => {
+  //   // onAdd();
+  //   setIsAdded(false); // Update UI state after adding
+  // };
 
   return (
     <div className="max-w-sm rounded-md overflow-hidden shadow-lg bg-white border border-gray-200 p-4">
@@ -39,7 +39,7 @@ const PhmCard: React.FC<PhmCardProps> = ({
         <div className="flex justify-center items-center px-2 py-0 col-span-1">
           <div className="relative inline-flex items-center justify-center w-14 h-14 overflow-hidden bg-gray-100 rounded-full dark:bg-gray-600">
             <span className="font-medium text-xl text-gray-600 dark:text-gray-300">
-              {`${ToTitle(firstName[0])} ${ToTitle(lastName[0])}`}
+              {`${firstName[0]} ${lastName[0]}`}
             </span>
           </div>
         </div>
