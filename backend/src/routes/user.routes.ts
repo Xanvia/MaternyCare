@@ -1,5 +1,5 @@
 import { UserController } from "../controller/UserController";
-import { adminMiddleware } from "../middlewear/adminMiddleware";
+// import { adminMiddleware } from "../middlewear/adminMiddleware";
 import { jwtMiddleware } from "../middlewear/jwtMiddleware";
 
 export const UserRoutes = [

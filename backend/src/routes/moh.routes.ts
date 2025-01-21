@@ -1,6 +1,6 @@
 import { MohController } from "../controller/MohController";
 import { jwtMiddleware } from "../middlewear/jwtMiddleware";
-import { roleMiddleware } from "../middlewear/roleMiddleware";
+// import { roleMiddleware } from "../middlewear/roleMiddleware";
 
 export const MohRoutes = [
   {

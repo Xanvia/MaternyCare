@@ -1,4 +1,4 @@
-import { jwtMiddleware } from "../middlewear/jwtMiddleware";
+// import { jwtMiddleware } from "../middlewear/jwtMiddleware";
 import { UserController } from "../controller/UserController";
 
 export const AuthRoutes = [

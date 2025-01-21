@@ -1,6 +1,6 @@
 import { PhmController } from "../controller/PhmController";
 import { jwtMiddleware } from "../middlewear/jwtMiddleware";
-import { roleMiddleware } from "../middlewear/roleMiddleware";
+// import { roleMiddleware } from "../middlewear/roleMiddleware";
 
 export const PhmRoutes = [
   {

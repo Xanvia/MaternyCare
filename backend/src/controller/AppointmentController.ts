@@ -2,13 +2,13 @@ import { AppDataSource } from "../data-source";
 import { NextFunction, Request, Response } from "express";
 import { Mother } from "../entity/Mother";
 import { User } from "../entity/User";
-import { generateAppointmentsForMother } from "../service/mothreAppointmentGenerater";
-import { DataSource, In } from "typeorm";
+// import { generateAppointmentsForMother } from "../service/mothreAppointmentGenerater";
+// import { DataSource, In } from "typeorm";
 import { Appointment, AppointmentState } from "../entity/Appointment";
-import { error } from "console";
-import { Feedback } from "../entity/Feedback";
-import { Phm } from "../entity/Phm";
-import { getRepository } from "typeorm";
+// import { error } from "console";
+// import { Feedback } from "../entity/Feedback";
+// import { Phm } from "../entity/Phm";
+// import { getRepository } from "typeorm";
 
 export class AppointmentController {
   private appointmentRepository = AppDataSource.getRepository(Appointment);
