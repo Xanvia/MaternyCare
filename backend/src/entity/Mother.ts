@@ -386,13 +386,19 @@ export class Mother {
   Breast_examination: string;
 
   @Column({ type: "varchar", length: 255, nullable: true })
-  Anthelmintic_drugs: string;
+  Antihelminthic_drugs: string;
 
   @Column({ type: "date", nullable: true })
   Date_of_taking_blood_sample_for_HIV_screening: Date;
 
   @Column({ type: "date", nullable: true })
   Date_of_result_informed_to_mother: Date;
+
+  @Column({ type: "varchar", length: 255, nullable: true })
+  Other_investigations: string;
+
+  @Column({ type: "date", nullable: true })
+  date_of_issuing_kick_count_chart: Date;
 
   @OneToMany(() => Appointment, (appointment) => appointment.mother)
   appointments: Appointment[];
