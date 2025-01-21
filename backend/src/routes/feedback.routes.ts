@@ -1,4 +1,4 @@
-import { AppointmentController } from "../controller/AppointmentController";
+// import { AppointmentController } from "../controller/AppointmentController";
 import { FeedbackController } from "../controller/FeedbackController";
 import { jwtMiddleware } from "../middlewear/jwtMiddleware";
 

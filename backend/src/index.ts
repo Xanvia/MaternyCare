@@ -11,9 +11,9 @@ import { MotherRoutes } from "./routes/mother.routes";
 //import { MotherGuideRoutes } from "./routes/motherGuide.routes";
 // import * as cors from "cors"; // import cors
 import { RequestHandler } from "express"; // import RequestHandler from express
-import { User, UserRole } from "./entity/User";
-import { Moh } from "./entity/Moh";
-import { Appointment } from "./entity/Appointment";
+// import { User, UserRole } from "./entity/User";
+// import { Moh } from "./entity/Moh";
+// import { Appointment } from "./entity/Appointment";
 import { MotherGuideRoutes } from "./routes/motherGuide.routes";
 import { MohRoutes } from "./routes/moh.routes";
 import { VogRoutes } from "./routes/vog.routes";

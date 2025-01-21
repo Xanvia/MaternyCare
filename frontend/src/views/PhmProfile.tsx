@@ -71,7 +71,9 @@ const Profile = () => {
     getMother();
   }, []);
 
-  const handleImageUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleImageUpload = async (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
     const file = event.target.files?.[0];
     if (file) {
       setImage(file);
@@ -85,7 +87,13 @@ const Profile = () => {
             "Content-Type": "multipart/form-data",
           },
         });
-        setMother((prevMother) => prevMother && { ...prevMother, user: { ...prevMother, profileImage: response.data.imageUrl } });
+        setMother(
+          (prevMother) =>
+            prevMother && {
+              ...prevMother,
+              user: { ...prevMother, profileImage: response.data.imageUrl },
+            }
+        );
       } catch (error) {
         console.error("Error uploading image:", error);
       }
@@ -97,12 +105,13 @@ const Profile = () => {
   }
 
   const initials = `${user?.firstName.charAt(0)}${user?.lastName.charAt(0)}`;
+  console.log("image ", image);
 
   return (
     <div className="xs:mx-10 mx-3 bg-white rounded-xl p-5 flex flex-col gap-8">
       <div className="border-solid border-2 rounded-lg md:py-2 px-5 sm:flex justify-between items-center py-5">
         <div className="flex flex-col items-center bg-white xs:flex-row xs:max-w-xl">
-        <div className="relative">
+          <div className="relative">
             {mother?.profileImage ? (
               <img
                 className="object-cover w-24 rounded-full h-24"
@@ -111,7 +120,9 @@ const Profile = () => {
               />
             ) : (
               <div className="flex items-center justify-center w-24 h-24 bg-gray-300 rounded-full">
-                <span className="text-3xl font-bold text-white">{initials}</span>
+                <span className="text-3xl font-bold text-white">
+                  {initials}
+                </span>
               </div>
             )}
             <button
@@ -252,4 +263,3 @@ const Profile = () => {
 };
 
 export default Profile;
-

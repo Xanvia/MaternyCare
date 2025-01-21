@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import Button from "@mui/joy/Button";
+// import Button from "@mui/joy/Button";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
@@ -252,13 +252,13 @@ const EmergencyPlanTable: React.FC<EmergencyPlanTableProps> = ({
           </tbody>
         </table>
         <div className="flex justify-end mt-4 px-4 py-2">
-          <Button
+          <button
             type="submit"
             disabled={isLoading}
-            className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded"
+            className="bg-blue_primary hover:bg-blue_secondary text-white px-4 py-2 rounded"
           >
             {isLoading ? "Updating..." : "Update Plan"}
-          </Button>
+          </button>
         </div>
       </form>
     </div>

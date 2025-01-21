@@ -71,7 +71,7 @@ const DashboardPHM = () => {
     };
 
     axios(axiosConfig)
-      .then((response) => {
+      .then(() => {
         toast.success("Mother added successfully!");
         setTimeout(() => window.location.reload(), 1000);
       })

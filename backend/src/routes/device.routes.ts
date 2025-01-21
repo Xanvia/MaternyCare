@@ -1,6 +1,6 @@
 // src/routes/device.routes.ts
 import { DeviceController } from "../controller/DeviceController";
-import { jwtMiddleware } from "../middlewear/jwtMiddleware";
+// import { jwtMiddleware } from "../middlewear/jwtMiddleware";
 
 export const DeviceRoutes = [
   {

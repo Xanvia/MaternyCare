@@ -6,12 +6,11 @@ import {
   ManyToOne,
   BeforeInsert,
   BeforeUpdate,
-  OneToOne,
 } from "typeorm";
 import { Mother } from "./Mother";
-import { Phm } from "./Phm";
-import { Moh } from "./Moh";
-import { Feedback } from "./Feedback";
+// import { Phm } from "./Phm";
+// import { Moh } from "./Moh";
+// import { Feedback } from "./Feedback";
 
 export enum AppointmentState {
   PRENATAL = "prenatal",

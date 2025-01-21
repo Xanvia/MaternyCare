@@ -1,6 +1,6 @@
 import React from "react";
-import ToTitle from "./CaseConverter";
-import { LocationIcon, PlusCircle, TickCircle } from "../assets/icons/Icons";
+// import ToTitle from "./CaseConverter";
+import {  PlusCircle, TickCircle } from "../assets/icons/Icons";
 
 interface MotherCardProps {
   firstName: string;
@@ -20,20 +20,20 @@ const MotherCard: React.FC<MotherCardProps> = ({
   location,
   onAdd,
   phm,
-  isVerified,
+  // isVerified,
   profilePic,
 }) => {
-  const [isAdded, setIsAdded] = React.useState(false);
+  // const [isAdded, setIsAdded] = React.useState(false);
 
   const handleAddClick = () => {
     onAdd(); // Call the onAdd function passed from the parent
-    setIsAdded(true); // Update UI state after adding
+    // setIsAdded(true); // Update UI state after adding
   };
 
-  const handleRemoveClick = () => {
-    // onAdd();
-    setIsAdded(false); // Update UI state after adding
-  };
+  // const handleRemoveClick = () => {
+  //   // onAdd();
+  //   setIsAdded(false); // Update UI state after adding
+  // };
 
   return (
     <div className="max-w-sm rounded-md overflow-hidden shadow-lg bg-white border border-gray-200 p-4">

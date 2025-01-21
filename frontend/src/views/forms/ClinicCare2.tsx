@@ -104,6 +104,7 @@ const ClinicCare2 = () => {
       id="details"
       className="max-w-full mx-4 my-4 bg-white shadow-lg rounded-lg p-6 border border-gray-200"
     >
+      {loading && "Loading..."}
       <form onSubmit={handleSubmit}>
         <h2 className="my-2 font-medium text-lg">Clinic Care 2</h2>
         <h2 className="my-2 font-medium text-lg">සායනික සංරක්ෂණය 2</h2>

@@ -7,9 +7,9 @@ import {
   JoinColumn,
   ManyToOne,
 } from "typeorm";
-import { Appointment } from "./Appointment";
+// import { Appointment } from "./Appointment";
 import { User } from "./User";
-import { FieldArea } from "./FieldArea";
+// import { FieldArea } from "./FieldArea";
 import { Feedback } from "./Feedback";
 import { Mother } from "./Mother";
 import { Moh } from "./Moh";

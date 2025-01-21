@@ -1,7 +1,7 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, OneToOne, JoinColumn, DeleteDateColumn } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, DeleteDateColumn } from "typeorm";
 import { Mother } from "./Mother";
 import { Phm } from "./Phm";
-import { Appointment } from "./Appointment";
+// import { Appointment } from "./Appointment";
 
 @Entity()
 export class Feedback {

@@ -91,6 +91,7 @@ const DentalCare = () => {
       id="dental-care"
       className="max-w-full mx-4 my-4 bg-white shadow-lg rounded-lg p-6 border border-gray-200"
     >
+      {loading && "Loading..."}
       <form onSubmit={handleSubmit}>
         <h2 className="my-2 font-medium text-lg">Dental Care</h2>
         <h2 className="my-2 font-medium text-lg">දන්ත සංරක්ෂණය</h2>

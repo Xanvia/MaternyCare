@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import  { useState, useEffect } from "react";
 import { Search, Trash, ChevronLeft, ChevronRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import axios from "axios";
@@ -26,8 +26,8 @@ export default function RedPatientTable() {
 
   useEffect(() => {
     const fetchPatients = async () => {
-      const storedToken = localStorage.getItem("token");
-      const token = storedToken ? JSON.parse(storedToken) : null;
+      // const storedToken = localStorage.getItem("token");
+      // const token = storedToken ? JSON.parse(storedToken) : null;
 
       try {
         const response = await axios.get(`${import.meta.env.VITE_API_URL}vog/mothers/`, {

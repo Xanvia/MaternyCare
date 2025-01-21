@@ -6,7 +6,7 @@ import {
   OneToOne,
   JoinColumn,
 } from "typeorm";
-import { Appointment } from "./Appointment";
+// import { Appointment } from "./Appointment";
 import { User } from "./User";
 import { Phm } from "./Phm";
 

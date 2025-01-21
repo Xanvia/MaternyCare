@@ -20,9 +20,9 @@ const DashboardStatCard: React.FC<DashboardStatCardProps> = ({
 }) => {
   // const [currentCount, setCurrentCount] = useState(count);
 
-  const handleUpdate = (newCount: number) => {
-    // setCurrentCount(newCount);
-  };
+  // const handleUpdate = (newCount: number) => {
+  //   // setCurrentCount(newCount);
+  // };
 
   return (
     <div className="bg-white py-8 xs:px-6 px-4 h-42 rounded-lg">
