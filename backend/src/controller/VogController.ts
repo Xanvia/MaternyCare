@@ -71,7 +71,7 @@ export class VogController {
     next: NextFunction
   ) {
     const id = parseInt(request.params.id);
-    const { firstName, lastName, email, phoneNumber, NIC, vogID, vogArea } =
+    const { firstName, lastName, email, phoneNumber, vogID, vogArea } =
       request.body;
 
     const userId = request.user?.userId;

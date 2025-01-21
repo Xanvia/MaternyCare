@@ -114,6 +114,7 @@ export class UserController {
         email: user.email,
         firstName: user.firstName,
         lastName: user.lastName,
+        nic: user.nic,
         role: user.role,
         isVerified: user.isVerified,
       };
