@@ -200,6 +200,12 @@ const BasicDetails = () => {
             >
               Blood Type
             </label>
+            <label
+              htmlFor="bloodtype"
+              className="block text-sm font-medium text-gray-700"
+            >
+              රුධිර වර්ගය
+            </label>
             <input
               type="text"
               id="bloodtype"
@@ -216,6 +222,12 @@ const BasicDetails = () => {
             >
               Height(cm)
             </label>
+            <label
+              htmlFor="mother_height"
+              className="block text-sm font-medium text-gray-700 "
+            >
+              උස
+            </label>
             <input
               type="text"
               id="mother_height"
@@ -230,7 +242,13 @@ const BasicDetails = () => {
               htmlFor="mother_weight"
               className="block text-sm font-medium text-gray-700 mt-4"
             >
-              Weight(KG)
+              Weight(kg)
+            </label>
+            <label
+              htmlFor="mother_weight"
+              className="block text-sm font-medium text-gray-700 "
+            >
+              බර
             </label>
             <input
               type="text"
@@ -248,6 +266,12 @@ const BasicDetails = () => {
             >
               Allergies
             </label>
+            <label
+              htmlFor="alergies"
+              className="block text-sm font-medium text-gray-700 "
+            >
+              ආසාත්මිකතා
+            </label>
             <textarea
               id="alergies"
               name="allergies"
@@ -262,6 +286,12 @@ const BasicDetails = () => {
               className="block text-sm font-medium text-gray-700 mt-4"
             >
               Grama Niladhari Division
+            </label>
+            <label
+              htmlFor="gs_division"
+              className="block text-sm font-medium text-gray-700 "
+            >
+              ග්‍රාම නිලධාරී වසම
             </label>
             <input
               type="text"
@@ -279,6 +309,12 @@ const BasicDetails = () => {
             >
               Name of the Hospital Clinic
             </label>
+            <label
+              htmlFor="hospital_clinic"
+              className="block text-sm font-medium text-gray-700 "
+            >
+              රෝහල් සායනයේ නම
+            </label>
             <input
               type="text"
               id="hospital_clinic"
@@ -294,6 +330,12 @@ const BasicDetails = () => {
               className="block text-sm font-medium text-gray-700 mt-4"
             >
               Registration No
+            </label>
+            <label
+              htmlFor="registration_no"
+              className="block text-sm font-medium text-gray-700 "
+            >
+              ලියාපදිංචි අංකය
             </label>
             <input
               type="text"
@@ -311,6 +353,12 @@ const BasicDetails = () => {
             >
               Registration Date
             </label>
+            <label
+              htmlFor="registration_date"
+              className="block text-sm font-medium text-gray-700"
+            >
+              ලියාපදිංචි දිනය
+            </label>
             <input
               type="date"
               id="registration_date"
@@ -327,6 +375,13 @@ const BasicDetails = () => {
                   className="block text-sm font-medium text-gray-700 mr-4"
                 >
                   Consanguinity
+                </label>
+
+                <label
+                  htmlFor="consanguinity"
+                  className="block text-sm font-medium text-gray-700 mr-4"
+                >
+                  සහෝදරත්වය
                 </label>
 
                 <label className="relative flex items-center cursor-pointer">
@@ -353,6 +408,13 @@ const BasicDetails = () => {
                   Rubella Immunization
                 </label>
 
+                <label
+                  htmlFor="rubella_immunization"
+                  className="block text-sm font-medium text-gray-700 mr-4"
+                >
+                  රුබෙල්ලා එන්නත
+                </label>
+
                 <label className="relative flex items-center cursor-pointer">
                   <input
                     type="checkbox"
@@ -375,6 +437,13 @@ const BasicDetails = () => {
                   className="block text-sm font-medium text-gray-700 mr-4"
                 >
                   Pre-pregnancy screening done
+                </label>
+
+                <label
+                  htmlFor="pre_pregnancy_screening"
+                  className="block text-sm font-medium text-gray-700 mr-4"
+                >
+                  ගර්භණී පරීක්ෂණය
                 </label>
 
                 <label className="relative flex items-center cursor-pointer">
@@ -401,6 +470,13 @@ const BasicDetails = () => {
                   Preconceptional folic acid
                 </label>
 
+                <label
+                  htmlFor="preconceptional_folic_acid"
+                  className="block text-sm font-medium text-gray-700 mr-4"
+                >
+                  ගර්භණී පරීක්ෂණය
+                </label>
+
                 <label className="relative flex items-center cursor-pointer">
                   <input
                     type="checkbox"
@@ -423,6 +499,13 @@ const BasicDetails = () => {
                   className="block text-sm font-medium text-gray-700 mr-4"
                 >
                   History of Subfertility
+                </label>
+
+                <label
+                  htmlFor="history_of_subfertility"
+                  className="block text-sm font-medium text-gray-700 mr-4"
+                >
+                  අනාරක්ෂිත ඉතිහාසය
                 </label>
 
                 <label className="relative flex items-center cursor-pointer">
@@ -449,6 +532,13 @@ const BasicDetails = () => {
                   Planned pregnancy or not
                 </label>
 
+                <label
+                  htmlFor="planned_pregnancy"
+                  className="block text-sm font-medium text-gray-700 mr-4"
+                >
+                  සැලසුම් කළ ගර්භණීභාවය හෝ නැත
+                </label>
+
                 <label className="relative flex items-center cursor-pointer">
                   <input
                     type="checkbox"
@@ -471,6 +561,13 @@ const BasicDetails = () => {
                   className="block text-sm font-medium text-gray-700 mr-4"
                 >
                   Familiy planning method last used
+                </label>
+
+                <label
+                  htmlFor="last_family_planing_method"
+                  className="block text-sm font-medium text-gray-700 mr-4"
+                >
+                  පවුල් සැලසුම් ක්‍රමය අවසන් වරට භාවිතා කළේ
                 </label>
 
                 <label className="relative flex items-center cursor-pointer">
@@ -500,6 +597,12 @@ const BasicDetails = () => {
             >
               MOH Area
             </label>
+            <label
+              htmlFor="moh_area"
+              className="block text-sm font-medium text-gray-700"
+            >
+              MOH ප්‍රදේශය
+            </label>
             <input
               type="text"
               id="moh_area"
@@ -515,6 +618,12 @@ const BasicDetails = () => {
               className="block text-sm font-medium text-gray-700 mt-4"
             >
               PHM area
+            </label>
+            <label
+              htmlFor="phm_area"
+              className="block text-sm font-medium text-gray-700 "
+            >
+              PHM ප්‍රදේශය
             </label>
             <input
               type="text"
@@ -532,6 +641,12 @@ const BasicDetails = () => {
             >
               Field Clinic Name
             </label>
+            <label
+              htmlFor="field_clinic"
+              className="block text-sm font-medium text-gray-700 "
+            >
+              ක්ෂේත්‍ර සායනික නම
+            </label>
             <input
               type="text"
               id="field_clinic"
@@ -548,6 +663,12 @@ const BasicDetails = () => {
             >
               Name of the Consultant Obstetrician
             </label>
+            <label
+              htmlFor="consultant_obstetrician"
+              className="block text-sm font-medium text-gray-700 "
+            >
+              උපදේශක ප්‍රසවවේදීගේ නම
+            </label>
             <input
               type="text"
               id="consultant_obstetrician"
@@ -563,6 +684,12 @@ const BasicDetails = () => {
             >
               Identified Antenatal Risk Conditions & Morbidities
             </label>
+            <label
+              htmlFor="antenatal_risk_conditions"
+              className="block text-sm font-medium text-gray-700 "
+            >
+              හඳුනාගත් ප්‍රසව පූර්ව අවදානම් තත්ත්වයන් සහ රෝගී තත්ත්වයන්
+            </label>
             <textarea
               id="antenatal_risk_conditions"
               name="antenatal_risk_conditions"
@@ -576,6 +703,12 @@ const BasicDetails = () => {
               className="block text-sm font-medium text-gray-700 mt-4"
             >
               Eligible Family Register
+            </label>
+            <label
+              htmlFor="eligible_family_register"
+              className="block text-sm font-medium text-gray-700 "
+            >
+              සුදුසු පවුල් ලේඛනය
             </label>
             <input
               type="text"
@@ -592,6 +725,13 @@ const BasicDetails = () => {
               className="block text-sm font-medium text-gray-700 mt-4"
             >
               Pregnant Mother's Register
+            </label>
+
+            <label
+              htmlFor="pregnant_mother_register"
+              className="block text-sm font-medium text-gray-700 "
+            >
+              ගර්භණී මව්වරුන්ගේ ලේඛනය
             </label>
             <input
               type="text"
