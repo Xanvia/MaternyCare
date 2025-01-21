@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
-import CustomizedRating from '../modals/AddRating';
+import AddRatingModal from '../modals/AddRating';
 
 interface Mother {
   age: number;
@@ -74,7 +74,7 @@ const Feedback: React.FC = () => {
           ))}
         </div>
       )}
-      <CustomizedRating phmId={parseInt(id!)} />
+      <AddRatingModal phmId={parseInt(id!)} />
     </div>
   );
 };

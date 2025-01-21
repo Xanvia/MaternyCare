@@ -16,6 +16,7 @@ const Progress = () => {
   // const [activeTab, setActiveTab] = useState('pending');
 
   interface Phm {
+    star_points: number;
     phm_area: string;
     id: number;
     nic: string;
