@@ -1,11 +1,13 @@
-[[headers]]
-  for = "/*"
-  [headers.values]
-    "Content-Type" = "text/javascript"
-    "X-Content-Type-Options" = "nosniff"
+[build]
+  publish = "dist"
+  command = "pnpm run build"
 
-# Specific rule for JavaScript files
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
 [[headers]]
-  for = "/*.js"
+  for = "/assets/*"
   [headers.values]
-    "Content-Type" = "text/javascript"
+    "Content-Type" = "application/javascript"
