@@ -189,8 +189,6 @@ const SingleMother = () => {
       <BasicDetails />
       <PresentObstetricHistory />
       <ClinicCare />
-      <ClinicCare2 />
-      <DentalCare />
     </div>
   );
 };

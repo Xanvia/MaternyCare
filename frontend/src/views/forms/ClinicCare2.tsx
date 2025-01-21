@@ -106,8 +106,8 @@ const ClinicCare2 = () => {
     >
       {loading && "Loading..."}
       <form onSubmit={handleSubmit}>
-        <h2 className="my-2 font-medium text-lg">Clinic Care 2</h2>
-        <h2 className="my-2 font-medium text-lg">සායනික සංරක්ෂණය 2</h2>
+        <h2 className="my-2 font-medium text-lg">Clinic Care Check-Up</h2>
+        <h2 className="my-2 font-medium text-lg">සායනික සංරක්ෂණ පරීක්ෂණ</h2>
         <div className="grid grid-cols-1 md:grid-cols-1 gap-6">
           <div>
             <label
