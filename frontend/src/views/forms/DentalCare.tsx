@@ -17,7 +17,7 @@ const DentalCare = () => {
     referredDate: "",
     dateOfExamination: "",
     treatment: "",
-    sign: "",
+    dentistsignature: "",
   });
   const [loading, setLoading] = useState(false);
   const [isUpdating, setIsUpdating] = useState(false);
@@ -40,12 +40,12 @@ const DentalCare = () => {
           referredDate: response.data.referredDate || "",
           dateOfExamination: response.data.dateOfExamination || "",
           treatment: response.data.treatment || "",
-          sign: response.data.sign || "",
+          dentistsignature: response.data.dentistsignature || "",
         });
-        if (response.data.sign) {
-          setSignature(response.data.sign);
+        if (response.data.dentistsignature) {
+          setSignature(response.data.dentistsignature);
           if (padInstance.current) {
-            padInstance.current.fromDataURL(response.data.sign);
+            padInstance.current.fromDataURL(response.data.dentistsignature);
           }
         }
       } catch (err) {
@@ -57,6 +57,37 @@ const DentalCare = () => {
 
     fetchDetails();
   }, [id, token]);
+
+  const saveSignature = async () => {
+    if (!padInstance.current || padInstance.current.isEmpty()) {
+      toast.warning("Please provide a signature before saving");
+      return;
+    }
+
+    const dataURL = padInstance.current.toDataURL("image/png");
+    const storedToken = localStorage.getItem("token");
+    const token = storedToken ? JSON.parse(storedToken) : null;
+
+    try {
+      await axios.put(
+        `${import.meta.env.VITE_API_URL}users/mother/${id}/dentistsignature`,
+        {
+          dentistsignature: dataURL,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      setSignature(dataURL);
+      toast.success("Signature saved successfully");
+    } catch (error) {
+      console.error("Error saving signature:", error);
+      toast.error("Failed to save signature");
+    }
+  };
 
   useEffect(() => {
     if (signaturePadRef.current) {
@@ -97,12 +128,12 @@ const DentalCare = () => {
       const dataURL = padInstance.current?.toDataURL("image/png") || "";
 
       await axios.put(
-        `${import.meta.env.VITE_API_URL}users/mother/${id}/dental-care`,
+        `${import.meta.env.VITE_API_URL}users/mother/${id}/dentistsignature`,
         {
           referredDate: formData.referredDate,
           dateOfExamination: formData.dateOfExamination,
           treatment: formData.treatment,
-          sign: dataURL,
+          dentistsignature: dataURL,
         },
         {
           headers: {
@@ -189,7 +220,7 @@ const DentalCare = () => {
             />
 
             <label
-              htmlFor="sign"
+              htmlFor="dentistsignature"
               className="block text-sm font-medium text-gray-700 mt-4"
             >
               <div>Signature</div>
@@ -220,7 +251,7 @@ const DentalCare = () => {
                     </button>
                     <button
                       type="button"
-                      onClick={handleSubmit}
+                      onClick={saveSignature}
                       className="px-4 py-2 bg-green-500 text-white rounded-md"
                     >
                       Save
