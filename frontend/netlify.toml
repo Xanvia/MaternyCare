@@ -1,4 +1,11 @@
 [[headers]]
+  for = "/*"
+  [headers.values]
+    "Content-Type" = "text/javascript"
+    "X-Content-Type-Options" = "nosniff"
+
+# Specific rule for JavaScript files
+[[headers]]
   for = "/*.js"
   [headers.values]
-    Content-Type = "text/javascript"
+    "Content-Type" = "text/javascript"

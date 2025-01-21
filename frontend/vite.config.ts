@@ -1,13 +1,20 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 
-// https://vitejs.dev/config/
 export default defineConfig({
+  base: "/",
   plugins: [react()],
   build: {
     outDir: "dist",
+    manifest: true,
+    rollupOptions: {
+      output: {
+        format: "es",
+        manualChunks: undefined,
+      },
+    },
   },
   server: {
-    port: 3005, // Specify a port for local development if needed
+    port: 3005,
   },
 });
