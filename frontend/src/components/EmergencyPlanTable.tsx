@@ -139,13 +139,17 @@ const EmergencyPlanTable: React.FC<EmergencyPlanTableProps> = ({
               <th className="px-4 py-2 text-left">
                 Birth and emergency preparedness plan
               </th>
-              <th className="px-4 py-2 text-left">Delivery</th>
-              <th className="px-4 py-2 text-left">In an emergency</th>
+              <th className="px-4 py-2 text-left">Delivery (බිහිවීම)</th>
+              <th className="px-4 py-2 text-left">
+                In an emergency (හදිසි අවස්ථාවකදී)
+              </th>
             </tr>
           </thead>
           <tbody>
             <tr className="border-t">
-              <td className="px-4 py-2">Intended hospital</td>
+              <td className="px-4 py-2">
+                Intended hospital <br /> අදහස් කළ රෝහල
+              </td>
               <td className="px-4 py-2">
                 <input
                   type="text"
@@ -166,7 +170,9 @@ const EmergencyPlanTable: React.FC<EmergencyPlanTableProps> = ({
               </td>
             </tr>
             <tr className="border-t">
-              <td className="px-4 py-2">Mode of transport</td>
+              <td className="px-4 py-2">
+                Mode of transport <br /> ප්‍රවාහන ක්‍රමය
+              </td>
               <td className="px-4 py-2">
                 <input
                   type="text"
@@ -187,7 +193,9 @@ const EmergencyPlanTable: React.FC<EmergencyPlanTableProps> = ({
               </td>
             </tr>
             <tr className="border-t">
-              <td className="px-4 py-2">Average cost</td>
+              <td className="px-4 py-2">
+                Average cost <br /> සාමාන්‍ය වියදම
+              </td>
               <td className="px-4 py-2">
                 <input
                   type="text"
@@ -208,7 +216,9 @@ const EmergencyPlanTable: React.FC<EmergencyPlanTableProps> = ({
               </td>
             </tr>
             <tr className="border-t">
-              <td className="px-4 py-2">Distance from home</td>
+              <td className="px-4 py-2">
+                Distance from home <br /> නිවසේ සිට දුර
+              </td>
               <td className="px-4 py-2">
                 <input
                   type="text"
@@ -229,7 +239,9 @@ const EmergencyPlanTable: React.FC<EmergencyPlanTableProps> = ({
               </td>
             </tr>
             <tr className="border-t">
-              <td className="px-4 py-2">Time taken to reach</td>
+              <td className="px-4 py-2">
+                Time taken to reach <br /> ළඟා වීමට ගතවන කාලය
+              </td>
               <td className="px-4 py-2">
                 <input
                   type="text"
