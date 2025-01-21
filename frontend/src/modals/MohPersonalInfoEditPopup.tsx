@@ -17,7 +17,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 
 interface Moh {
-  id:number,
+  id: number;
   user: {
     firstName: string;
     lastName: string;
@@ -124,7 +124,6 @@ export default function MohEditPersonalInfo() {
       setTimeout(() => {
         window.location.reload();
       }, 3000);
-      
     } catch (error) {
       console.error("Update error:", error);
     }
@@ -132,6 +131,7 @@ export default function MohEditPersonalInfo() {
 
   return (
     <React.Fragment>
+      {loading && "Loading..."}
       <Button
         variant="outlined"
         onClick={handleOpen}
@@ -241,8 +241,14 @@ export default function MohEditPersonalInfo() {
                         fullWidth
                         size="small"
                         variant="outlined"
-                        error={touched[field.name as keyof typeof touched] && Boolean(errors[field.name as keyof typeof errors])}
-                        helperText={touched[field.name as keyof typeof touched] && errors[field.name as keyof typeof errors]}
+                        error={
+                          touched[field.name as keyof typeof touched] &&
+                          Boolean(errors[field.name as keyof typeof errors])
+                        }
+                        helperText={
+                          touched[field.name as keyof typeof touched] &&
+                          errors[field.name as keyof typeof errors]
+                        }
                       />
                     </Box>
                   </React.Fragment>

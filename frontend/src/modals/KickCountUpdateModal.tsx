@@ -33,7 +33,7 @@ KickCountUpdateModalProps) {
 
   const handleUpdateKickCount = async () => {
     try {
-      const response = await axios.put(
+      await axios.put(
         `${BASE_URL}mother/update-kick-count`,
         {
           motherId,
