@@ -12,6 +12,7 @@ import { Box, DialogContentText } from "@mui/material";
 import Slider from "@mui/material/Slider";
 import Typography from "@mui/material/Typography";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 const AddRatingModal = ({ phmId }: { phmId: number }) => {
   const [open, setOpen] = React.useState<boolean>(false);
@@ -32,7 +33,7 @@ const AddRatingModal = ({ phmId }: { phmId: number }) => {
   const handleSubmit = async () => {
     try {
       const response = await axios.post(
-        `${BASE_URL}phm/rate`,
+        `${BASE_URL}users/phm/rate`,
         {
           phmId,
           starPoints: rating,
@@ -45,11 +46,11 @@ const AddRatingModal = ({ phmId }: { phmId: number }) => {
       );
 
       console.log("Rating submitted successfully:", response.data);
-      alert("Rating submitted successfully!");
+      toast.success("Rating submitted successfully!.");
       handleClose();
     } catch (error) {
       console.error("Error submitting rating:", error);
-      alert("Failed to submit rating. Please try again.");
+      toast.success("Failed to submit rating. Please try again.");
     }
   };
 
@@ -105,7 +106,7 @@ const AddRatingModal = ({ phmId }: { phmId: number }) => {
                 display: "flex",
                 flexDirection: "column",
                 alignItems: "center",
-                mt: 2,
+                mt: 0,
                 width: "100%",
               }}
             >
