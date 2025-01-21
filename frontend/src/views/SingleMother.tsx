@@ -1,19 +1,15 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
-// import ToTitle from "../components/CaseConverter";
-// import BasicDetails from "./forms/BasicDetails";
-import { ExpandLess, ExpandMore, TickCircle } from "../assets/icons/Icons";
-// import PresentObstetricHistory from "./forms/PresentObstetricHistory";
+import { TickCircle } from "../assets/icons/Icons";
 import ClinicCare from "./forms/ClinicCare";
-// import ClinicCare2 from "./forms/ClinicCare2";
-// import DentalCare from "./forms/DentalCare";
+import PostnatalClinicCare from "./forms/PostnatalClinicCare";
+// import PostnatalClinicCare from "./forms/PostnatalClinicCare";
 
 const SingleMother = () => {
   const { id } = useParams<{ id: string }>();
   const { appointmentid } = useParams<{ appointmentid: string }>();
   const [mother, setMother] = useState<any>(null);
-  const [isCollapsed, setIsCollapsed] = useState(true);
   const [appointment, setAppointment] = useState<any>(null);
   const BASE_URL = `${import.meta.env.VITE_API_URL}`;
 
@@ -38,18 +34,6 @@ const SingleMother = () => {
     fetchMother();
   }, [id]);
 
-  useEffect(() => {
-    const handleResize = () => {
-      if (window.innerWidth >= 768) {
-        setIsCollapsed(false);
-      }
-    };
-
-    window.addEventListener("resize", handleResize);
-    handleResize(); // Check initial screen size
-
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
   useEffect(() => {
     const getAppointment = async () => {
       try {
@@ -82,36 +66,21 @@ const SingleMother = () => {
     return <div>Loading...</div>;
   }
 
-  const handleNavigate = (sectionId: string) => {
-    const section = document.getElementById(sectionId);
-    if (section) {
-      section.scrollIntoView({ behavior: "smooth" });
+  const renderClinicCareComponent = () => {
+    if (!appointment) return null;
+    
+    switch (appointment.appointment_state) {
+      case 'postnatal':
+        return <PostnatalClinicCare />;
+      case 'prenatal':
+        return <ClinicCare />;
+      default:
+        return null;
     }
-    setIsCollapsed(true);
   };
 
   return (
     <div>
-      {/* <div className="max-w-full mx-4 flex bg-white shadow-lg rounded-lg overflow-hidden border border-gray-200">
-        <div className="px-6 m-3 border rounded-md  flex items-center justify-center">
-          <span className="font-medium text-2xl text-gray-600 dark:text-gray-300">
-            {`${ToTitle(mother.user.firstName[0])} ${ToTitle(
-              mother.user.lastName[0]
-            )}`}
-          </span>
-        </div>
-        <div className="px-6 py-4">
-          <h2 className="text-xl font-semibold text-gray-800 mb-2">
-            {mother.user.firstName} {mother.user.lastName}
-          </h2>
-          <p className="text-gray-600">
-            <span className="font-semibold">NIC:</span> {mother.nic}
-          </p>
-          <p className="text-gray-600">
-            <span className="font-semibold">Phone:</span> {mother.phone_1}
-          </p>
-        </div>
-      </div> */}
       <div className="max-w-full mx-4 grid grid-cols-2 sm:flex bg-white shadow-lg rounded-lg overflow-hidden border border-gray-200 justify-between items-center">
         <div className="w-24 h-24 m-3 border rounded-md flex items-center justify-center">
           <span className="font-medium text-2xl text-gray-600 dark:text-gray-300">
@@ -151,44 +120,7 @@ const SingleMother = () => {
           Complete Appointment
         </button>
       </div>
-
-      <div className="m-4 bg-white shadow-lg rounded-lg p-6 grid xs:grid-cols-5 gap-5 sticky top-4 z-10">
-        <button
-          className="bg-purple_primary text-white p-3 rounded-lg text-md"
-          onClick={() => handleNavigate("basic-details")}
-        >
-          Basic Details
-        </button>
-        {!isCollapsed && (
-          <>
-            <button
-              onClick={() => handleNavigate("second-details")}
-              className="bg-purple_primary text-white p-3 rounded-lg text-md"
-            >
-              Present Obsteric History
-            </button>
-            <button className="bg-purple_primary text-white p-3 rounded-lg text-md">
-              Family Details
-            </button>
-            <button className="bg-purple_primary text-white p-3 rounded-lg text-md">
-              History Details
-            </button>
-            <button className="bg-purple_primary text-white p-3 rounded-lg text-md">
-              Past Obsteric History
-            </button>
-          </>
-        )}
-        <button
-          className="bg-purple_primary text-white p-3 rounded-lg text-md xs:hidden"
-          onClick={() => setIsCollapsed(!isCollapsed)}
-        >
-          {isCollapsed ? <ExpandMore /> : <ExpandLess />}
-        </button>
-      </div>
-      {/* Basic Details form */}
-      {/* <BasicDetails /> */}
-      {/* <PresentObstetricHistory /> */}
-      <ClinicCare />
+      {renderClinicCareComponent()}
     </div>
   );
 };

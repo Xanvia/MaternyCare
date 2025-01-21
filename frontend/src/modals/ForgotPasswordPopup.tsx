@@ -109,7 +109,7 @@ export default function ForgotPasswordPopup() {
                 });
             }}
           >
-            {({ isSubmitting, setFieldValue, errors, touched }) => (
+            {({ isSubmitting, errors, touched }) => (
               <Form>
 
                 <DialogContent
@@ -236,7 +236,7 @@ export default function ForgotPasswordPopup() {
                     type="submit"
                     disabled={isSubmitting}
                   >
-                    Create
+                    Submit
                   </Button>
                   <Button
                     variant="outlined"
