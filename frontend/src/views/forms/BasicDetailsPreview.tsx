@@ -98,7 +98,11 @@ const BasicDetailsPreview: React.FC<BasicDetailsPreviewProps> = ({
     <div className="max-w-full my-4 bg-white shadow-lg rounded-lg p-6 border border-gray-200">
       <div className="flex gap-4">
         <h2 className="text-xl font-semibold mb-6">Basic Details Preview</h2>
-        <div className={`w-8 h-8 bg-${data.risk_type}-500 mb-6`}></div>
+        <div
+          className={`w-16 h-8 bg-${data.risk_type}-500 rounded-2xl mb-6 text-xs flex items-center justify-center text-white`}
+        >
+          <p>Blue Risk</p>
+        </div>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {/* Left Column */}
@@ -177,6 +181,7 @@ const BasicDetailsPreview: React.FC<BasicDetailsPreviewProps> = ({
               data.preconceptional_folic_acid ? <TickCircle /> : <CloseCircle />
             }
           />
+
           <PreviewField
             label="History of subfertility"
             value={
