@@ -9,13 +9,13 @@ const token = storedToken ? JSON.parse(storedToken) : null;
 
 const ClinicCareCheckUp = () => {
   const [formData, setFormData] = useState({
-    respiratorySystem: "",
-    breastExamination: "",
-    otherInvestigations: "",
-    antihelminthicDrugs: "",
-    dateOfIssuingKickCountChart: "",
-    dateOfTakingBloodSampleForHIVScreening: "",
-    dateOfResultInformedToMother: "",
+    Respiratory_system: "",
+    Breast_examination: "",
+    Other_investigations: "",
+    Antihelminthic_drugs: "",
+    date_of_issuing_kick_count_chart: "",
+    Date_of_taking_blood_sample_for_HIV_screening: "",
+    Date_of_result_informed_to_mother: "",
   });
   const [loading, setLoading] = useState(false);
   const [isUpdating, setIsUpdating] = useState(false);
@@ -35,16 +35,16 @@ const ClinicCareCheckUp = () => {
           }
         );
         setFormData({
-          respiratorySystem: response.data.respiratorySystem || "",
-          breastExamination: response.data.breastExamination || "",
-          otherInvestigations: response.data.otherInvestigations || "",
-          antihelminthicDrugs: response.data.antihelminthicDrugs || "",
-          dateOfIssuingKickCountChart:
-            response.data.dateOfIssuingKickCountChart || "",
-          dateOfTakingBloodSampleForHIVScreening:
-            response.data.dateOfTakingBloodSampleForHIVScreening || "",
-          dateOfResultInformedToMother:
-            response.data.dateOfResultInformedToMother || "",
+          Respiratory_system: response.data.Respiratory_system || "",
+          Breast_examination: response.data.Breast_examination || "",
+          Other_investigations: response.data.Other_investigations || "",
+          Antihelminthic_drugs: response.data.Antihelminthic_drugs || "",
+          date_of_issuing_kick_count_chart:
+            response.data.date_of_issuing_kick_count_chart || "",
+            Date_of_taking_blood_sample_for_HIV_screening:
+            response.data.Date_of_taking_blood_sample_for_HIV_screening || "",
+            Date_of_result_informed_to_mother:
+            response.data.Date_of_result_informed_to_mother || "",
         });
       } catch (err) {
         console.error("Error fetching details:", err);
@@ -71,16 +71,16 @@ const ClinicCareCheckUp = () => {
       setIsUpdating(true);
 
       await axios.put(
-        `${import.meta.env.VITE_API_URL}users/mother/${id}/details`,
+        `${import.meta.env.VITE_API_URL}users/mother/${id}/updateClinicCareCheckUp`,
         {
-          respiratorySystem: formData.respiratorySystem,
-          breastExamination: formData.breastExamination,
-          otherInvestigations: formData.otherInvestigations,
-          antihelminthicDrugs: formData.antihelminthicDrugs,
-          dateOfIssuingKickCountChart: formData.dateOfIssuingKickCountChart,
-          dateOfTakingBloodSampleForHIVScreening:
-            formData.dateOfTakingBloodSampleForHIVScreening,
-          dateOfResultInformedToMother: formData.dateOfResultInformedToMother,
+          Respiratory_system: formData.Respiratory_system,
+          Breast_examination: formData.Breast_examination,
+          Other_investigations: formData.Other_investigations,
+          Antihelminthic_drugs: formData.Antihelminthic_drugs,
+          date_of_issuing_kick_count_chart: formData.date_of_issuing_kick_count_chart,
+          Date_of_taking_blood_sample_for_HIV_screening:
+            formData.Date_of_taking_blood_sample_for_HIV_screening,
+            Date_of_result_informed_to_mother: formData.Date_of_result_informed_to_mother,
         },
         {
           headers: {
@@ -111,71 +111,71 @@ const ClinicCareCheckUp = () => {
         <div className="grid grid-cols-1 md:grid-cols-1 gap-6">
           <div>
             <label
-              htmlFor="respiratorySystem"
+              htmlFor="Respiratory_system"
               className="block text-sm font-medium text-gray-700 mt-4"
             >
               <div>Respiratory System</div>
               <div>ශ්වසන පද්ධතිය</div>
             </label>
             <textarea
-              id="respiratorySystem"
-              name="respiratorySystem"
-              value={formData.respiratorySystem}
+              id="Respiratory_system"
+              name="Respiratory_system"
+              value={formData.Respiratory_system}
               onChange={handleChange}
               className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 text-sm"
               placeholder="Enter details about the respiratory system"
             />
 
             <label
-              htmlFor="breastExamination"
+              htmlFor="Breast_examination"
               className="block text-sm font-medium text-gray-700 mt-4"
             >
               <div>Breast Examination</div>
               <div>පියයුරු පරීක්ෂාව</div>
             </label>
             <textarea
-              id="breastExamination"
-              name="breastExamination"
-              value={formData.breastExamination}
+              id="Breast_examination"
+              name="Breast_examination"
+              value={formData.Breast_examination}
               onChange={handleChange}
               className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 text-sm"
               placeholder="Enter details about the breast examination"
             />
 
             <label
-              htmlFor="otherInvestigations"
+              htmlFor="Other_investigations"
               className="block text-sm font-medium text-gray-700 mt-4"
             >
               <div>Other Investigations</div>
               <div>වෙනත් පරීක්ෂණ</div>
             </label>
             <textarea
-              id="otherInvestigations"
-              name="otherInvestigations"
-              value={formData.otherInvestigations}
+              id="Other_investigations"
+              name="Other_investigations"
+              value={formData.Other_investigations}
               onChange={handleChange}
               className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 text-sm"
               placeholder="Enter details about other investigations"
             />
 
             <label
-              htmlFor="antihelminthicDrugs"
+              htmlFor="Antihelminthic_drugs"
               className="block text-sm font-medium text-gray-700 mt-4"
             >
               <div>Antihelminthic Drugs</div>
               <div>පණු ප්‍රතිකාර</div>
             </label>
             <textarea
-              id="antihelminthicDrugs"
-              name="antihelminthicDrugs"
-              value={formData.antihelminthicDrugs}
+              id="Antihelminthic_drugs"
+              name="Antihelminthic_drugs"
+              value={formData.Antihelminthic_drugs}
               onChange={handleChange}
               className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 text-sm"
               placeholder="Enter details about antihelminthic drugs"
             />
 
             <label
-              htmlFor="dateOfIssuingKickCountChart"
+              htmlFor="date_of_issuing_kick_count_chart"
               className="block text-sm font-medium text-gray-700 mt-4"
             >
               <div>Date of Issuing Kick Count Chart</div>
@@ -183,15 +183,15 @@ const ClinicCareCheckUp = () => {
             </label>
             <input
               type="date"
-              id="dateOfIssuingKickCountChart"
-              name="dateOfIssuingKickCountChart"
-              value={formData.dateOfIssuingKickCountChart}
+              id="date_of_issuing_kick_count_chart"
+              name="date_of_issuing_kick_count_chart"
+              value={formData.date_of_issuing_kick_count_chart}
               onChange={handleChange}
               className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 text-sm"
             />
 
             <label
-              htmlFor="dateOfTakingBloodSampleForHIVScreening"
+              htmlFor="Date_of_taking_blood_sample_for_HIV_screening"
               className="block text-sm font-medium text-gray-700 mt-4"
             >
               <div>Date of Taking Blood Sample for HIV Screening</div>
@@ -199,15 +199,15 @@ const ClinicCareCheckUp = () => {
             </label>
             <input
               type="date"
-              id="dateOfTakingBloodSampleForHIVScreening"
-              name="dateOfTakingBloodSampleForHIVScreening"
-              value={formData.dateOfTakingBloodSampleForHIVScreening}
+              id="Date_of_taking_blood_sample_for_HIV_screening"
+              name="Date_of_taking_blood_sample_for_HIV_screening"
+              value={formData.Date_of_taking_blood_sample_for_HIV_screening}
               onChange={handleChange}
               className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 text-sm"
             />
 
             <label
-              htmlFor="dateOfResultInformedToMother"
+              htmlFor="Date_of_result_informed_to_mother"
               className="block text-sm font-medium text-gray-700 mt-4"
             >
               <div>Date of Result Informed to Mother</div>
@@ -215,9 +215,9 @@ const ClinicCareCheckUp = () => {
             </label>
             <input
               type="date"
-              id="dateOfResultInformedToMother"
-              name="dateOfResultInformedToMother"
-              value={formData.dateOfResultInformedToMother}
+              id="Date_of_result_informed_to_mother"
+              name="Date_of_result_informed_to_mother"
+              value={formData.Date_of_result_informed_to_mother}
               onChange={handleChange}
               className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 text-sm"
             />
