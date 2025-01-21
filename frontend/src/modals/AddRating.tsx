@@ -61,10 +61,12 @@ const AddRatingModal = ({ phmId }: { phmId: number }) => {
         onClick={handleClickOpen}
         sx={{
           borderColor: "#0D99FF",
-          color: "#0D99FF",
+          backgroundColor: "#0D99FF",
+          color: "#FFFFFF",
           "&:hover": {
             borderColor: "#80CAFF",
-            color: "#80CAFF",
+            backgroundColor: "#80CAFF",
+            color: "#FFFFFF",
           },
         }}
       >
