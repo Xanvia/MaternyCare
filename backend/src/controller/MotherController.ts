@@ -5,6 +5,7 @@ import { User } from "../entity/User";
 import { Phm } from "../entity/Phm";
 import { KickCount } from "../entity/KickCount";
 import { EmergencyPlan } from "../entity/EmergencyPlan";
+import { DentalCare } from "../entity/DentalCare";
 
 export class MotherController {
   private motherRepository = AppDataSource.getRepository(Mother);
@@ -12,6 +13,7 @@ export class MotherController {
   private phmRepository = AppDataSource.getRepository(Phm);
   private kickCountRepository = AppDataSource.getRepository(KickCount);
   private emergencyRepository = AppDataSource.getRepository(EmergencyPlan);
+  dentalCareRepository: any;
 
   async all(request: Request, response: Response, next: NextFunction) {
     return this.motherRepository.find({
@@ -403,6 +405,47 @@ export class MotherController {
     } catch (error) {
       console.error("Error updating Emergency plan:", error);
       return "Internal server error";
+    }
+  }
+
+  async updateDentalCare(
+    request: Request,
+    response: Response,
+    next: NextFunction
+  ) {
+    const {
+      motherId,
+      referred_date,
+      examination_date,
+      treatment,
+      dentistsignature,
+    } = request.body;
+
+    try {
+      const mother = await this.motherRepository.findOne({
+        where: { id: motherId },
+      });
+
+      if (!mother) {
+        return { message: "Mother not found" };
+      }
+
+      const newDentalCare = new DentalCare();
+      newDentalCare.referred_date = referred_date;
+      newDentalCare.examination_date = examination_date;
+      newDentalCare.treatment = treatment;
+      newDentalCare.dentistsignature = dentistsignature;
+      newDentalCare.mother = mother;
+
+      await this.dentalCareRepository.save(newDentalCare);
+
+      return {
+        message: "Dental care updated successfully",
+        data: newDentalCare,
+      };
+    } catch (error) {
+      console.error("Error updating dental care:", error);
+      return { message: "Internal server error" };
     }
   }
 

@@ -155,6 +155,15 @@ export const MotherRoutes = [
 
   {
     method: "put",
+    route: "/users/mother/dental-care",
+    controller: MotherController,
+    action: "updateDentalCare",
+    // middlewares: [jwtMiddleware, roleMiddleware("mother")],
+    middlewares: [],
+  },
+
+  {
+    method: "put",
     route: "/users/mother/update-counseling-form",
     controller: MotherController,
     action: "updateCounselingForm",
