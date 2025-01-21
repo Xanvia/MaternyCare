@@ -1,13 +1,18 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import SignaturePad from "signature_pad";
 
 const storedToken = localStorage.getItem("token");
 const token = storedToken ? JSON.parse(storedToken) : null;
 
 const DentalCare = () => {
+  const signaturePadRef = useRef<HTMLCanvasElement>(null);
+  const padInstance = useRef<SignaturePad | null>(null);
+  const [signature, setSignature] = useState<string | null>(null);
+
   const [formData, setFormData] = useState({
     referredDate: "",
     dateOfExamination: "",
@@ -37,6 +42,12 @@ const DentalCare = () => {
           treatment: response.data.treatment || "",
           sign: response.data.sign || "",
         });
+        if (response.data.sign) {
+          setSignature(response.data.sign);
+          if (padInstance.current) {
+            padInstance.current.fromDataURL(response.data.sign);
+          }
+        }
       } catch (err) {
         console.error("Error fetching details:", err);
       } finally {
@@ -46,6 +57,28 @@ const DentalCare = () => {
 
     fetchDetails();
   }, [id, token]);
+
+  useEffect(() => {
+    if (signaturePadRef.current) {
+      const canvas = signaturePadRef.current;
+      const ratio = Math.max(window.devicePixelRatio || 1, 1);
+      canvas.width = canvas.offsetWidth * ratio;
+      canvas.height = canvas.offsetHeight * ratio;
+      canvas.getContext("2d")?.scale(ratio, ratio);
+
+      padInstance.current = new SignaturePad(canvas, {
+        minWidth: 0.5,
+        maxWidth: 2.5,
+        backgroundColor: "rgb(255, 255, 255)",
+      });
+    }
+
+    return () => {
+      if (padInstance.current) {
+        padInstance.current.off();
+      }
+    };
+  }, []);
 
   const handleChange = (e: any) => {
     const { name, value } = e.target;
@@ -61,13 +94,15 @@ const DentalCare = () => {
       setLoading(true);
       setIsUpdating(true);
 
+      const dataURL = padInstance.current?.toDataURL("image/png") || "";
+
       await axios.put(
         `${import.meta.env.VITE_API_URL}users/mother/${id}/dental-care`,
         {
           referredDate: formData.referredDate,
           dateOfExamination: formData.dateOfExamination,
           treatment: formData.treatment,
-          sign: formData.sign,
+          sign: dataURL,
         },
         {
           headers: {
@@ -76,6 +111,7 @@ const DentalCare = () => {
         }
       );
 
+      setSignature(dataURL);
       setIsUpdating(false);
       toast.success("Details updated successfully!");
     } catch (err) {
@@ -83,6 +119,13 @@ const DentalCare = () => {
       toast.error("Update failed!");
     } finally {
       setLoading(false);
+    }
+  };
+
+  const clearSignature = () => {
+    if (padInstance.current) {
+      padInstance.current.clear();
+      setSignature(null);
     }
   };
 
@@ -149,17 +192,43 @@ const DentalCare = () => {
               htmlFor="sign"
               className="block text-sm font-medium text-gray-700 mt-4"
             >
-              <div>Sign</div>
+              <div>Signature</div>
               <div>අත්සන</div>
             </label>
-            <textarea
-              id="sign"
-              name="sign"
-              value={formData.sign}
-              onChange={handleChange}
-              className="mt-1 block w-full px-1 py-1 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 text-xs"
-              placeholder="Enter sign"
-            />
+            <div className="mt-4">
+              {signature ? (
+                <div>
+                  <img
+                    src={signature}
+                    alt="Saved Signature"
+                    className="border border-gray-300 rounded-md"
+                  />
+                </div>
+              ) : (
+                <div>
+                  <canvas
+                    ref={signaturePadRef}
+                    className="border border-gray-300 rounded-md"
+                  ></canvas>
+                  <div className="mt-2 flex space-x-2">
+                    <button
+                      type="button"
+                      onClick={clearSignature}
+                      className="px-4 py-2 bg-red-500 text-white rounded-md"
+                    >
+                      Clear
+                    </button>
+                    <button
+                      type="button"
+                      onClick={handleSubmit}
+                      className="px-4 py-2 bg-green-500 text-white rounded-md"
+                    >
+                      Save
+                    </button>
+                  </div>
+                </div>
+              )}
+            </div>
           </div>
         </div>
 
