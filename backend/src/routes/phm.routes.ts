@@ -50,4 +50,12 @@ export const PhmRoutes = [
     action: "addMother",
     middlewares: [jwtMiddleware], // Only PHMs can add mothers
   },
+
+  {
+    method: "post",
+    route: "/users/phm/rate",
+    controller: PhmController,
+    action: "ratePhm",
+    middlewares: [jwtMiddleware], // Authentication is required for submitting ratings
+  },
 ];

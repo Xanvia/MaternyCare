@@ -163,4 +163,37 @@ export class PhmController {
 
     return { message: "Mother added to PHM successfully" };
   }
+
+  async ratePhm(request: Request, response: Response, next: NextFunction) {
+    const { phmId, starPoints } = request.body;
+
+    if (!phmId || !starPoints) {
+      return response
+        .status(400)
+        .json({ message: "PHM ID and rating are required." });
+    }
+
+    try {
+      // Find the PHM by ID
+      const phm = await this.phmRepository.findOne({
+        where: { id: phmId },
+      });
+
+      if (!phm) {
+        return response.status(404).json({ message: "PHM not found." });
+      }
+
+      // Update the PHM's star_points
+      phm.star_points = starPoints;
+
+      await this.phmRepository.save(phm);
+
+      return response
+        .status(200)
+        .json({ message: "Rating submitted successfully." });
+    } catch (error) {
+      console.error("Error submitting rating:", error);
+      return response.status(500).json({ message: "Internal server error." });
+    }
+  }
 }
