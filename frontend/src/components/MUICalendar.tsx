@@ -8,6 +8,7 @@ import { DateCalendar } from "@mui/x-date-pickers/DateCalendar";
 import { DayCalendarSkeleton } from "@mui/x-date-pickers/DayCalendarSkeleton";
 import axios from "axios";
 
+
 let userItem = localStorage.getItem("user");
 const user = userItem ? JSON.parse(userItem) : null;
 const userId = user?.id;
@@ -63,10 +64,12 @@ export default function DateCalendarServerRequest() {
   const [highlightedDays, setHighlightedDays] = React.useState<string[]>([]);
 
   const fetchMotherAppointments = async (signal: AbortSignal) => {
+    setIsLoading(true);
     const response = await axios.get<Appointment[]>(
       `${BASE_URL}appointments/user/${userId}`,
       { signal }
     );
+    setIsLoading(false);
     return response.data.map(appointment => 
       dayjs(appointment.fixedDate).format('YYYY-MM-DD')
     );
