@@ -9,13 +9,13 @@ import ModalDialog from "@mui/joy/ModalDialog";
 import IconButton from "@mui/joy/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
 import { Box, DialogContentText } from "@mui/material";
-import Rating from "@mui/material/Rating";
+import Slider from "@mui/material/Slider";
 import Typography from "@mui/material/Typography";
 import axios from "axios";
 
 const AddRatingModal = ({ phmId }: { phmId: number }) => {
   const [open, setOpen] = React.useState<boolean>(false);
-  const [rating, setRating] = React.useState<number | null>(null);
+  const [rating, setRating] = React.useState<number>(5); // Default rating set to 5
 
   const BASE_URL = "http://localhost:3000/";
   const storedToken = localStorage.getItem("token");
@@ -31,11 +31,6 @@ const AddRatingModal = ({ phmId }: { phmId: number }) => {
 
   const handleSubmit = async () => {
     try {
-      if (!rating) {
-        alert("Please select a rating before submitting.");
-        return;
-      }
-
       const response = await axios.post(
         `${BASE_URL}phm/rate`,
         {
@@ -111,18 +106,36 @@ const AddRatingModal = ({ phmId }: { phmId: number }) => {
                 flexDirection: "column",
                 alignItems: "center",
                 mt: 2,
+                width: "100%",
               }}
             >
-              <Typography component="legend"></Typography>
-              <Rating
-                name="phm-rating"
+              <Typography sx={{ mb: 2 }}></Typography>
+              <Slider
+                aria-label="Rating"
+                defaultValue={5}
                 value={rating}
-                onChange={(event, newValue) => {
-                  setRating(newValue);
-                }}
+                onChange={(event, newValue) => setRating(newValue as number)}
+                step={1}
+                min={1}
                 max={10}
-                size="large"
+                valueLabelDisplay="auto"
+                sx={{ width: "60%" }}
               />
+              {/* Row of numbers below the slider */}
+              <Box
+                sx={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  width: "60%",
+                  mt: 1,
+                }}
+              >
+                {Array.from({ length: 10 }, (_, i) => (
+                  <Typography key={i} sx={{ fontSize: "0.9rem" }}>
+                    {i + 1}
+                  </Typography>
+                ))}
+              </Box>
             </Box>
           </DialogContent>
           <DialogActions
