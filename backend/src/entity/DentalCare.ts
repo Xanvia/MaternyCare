@@ -1,16 +1,23 @@
-import { Entity, PrimaryGeneratedColumn, Column } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, OneToOne } from "typeorm";
+import { Mother } from "./Mother";
 
 @Entity()
 export class DentalCare {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ type: 'date' })
+  @Column({ type: "date" })
   referred_date: Date;
 
-  @Column({ type: 'date' })
+  @Column({ type: "date" })
   examination_date: Date;
 
-  @Column({ type: 'text' })
+  @Column({ type: "text" })
   treatment: string;
+
+  @Column({ type: "text" })
+  dentistsignature: string;
+
+  @OneToOne(() => Mother, (mother) => mother.emergencyPlan)
+  mother: Mother;
 }

@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 interface Phm {
+  star_points: number;
   phm_area: string;
   id: number;
   nic: string;
@@ -22,6 +23,7 @@ const ProgressTable: React.FC<ProgressTableProps> = ({ phms }) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
+  const navigate = useNavigate();
 
   const filteredData = phms.filter((phm) =>
     [phm.user?.firstName, phm.user?.lastName, phm.phm_area, phm.phone_number?.toString()]
@@ -36,6 +38,10 @@ const ProgressTable: React.FC<ProgressTableProps> = ({ phms }) => {
     (currentPage - 1) * itemsPerPage,
     currentPage * itemsPerPage
   );
+
+  const handleRowClick = (phmId: number) => {
+    navigate(`feedback/phm/${phmId}`);
+  };
 
   return (
     <div className="container mx-auto p-4 space-y-4">
@@ -71,16 +77,17 @@ const ProgressTable: React.FC<ProgressTableProps> = ({ phms }) => {
             </thead>
             <tbody className="bg-white divide-y divide-gray-200">
               {currentData.map((phm) => (
-                <tr key={phm.id} className="hover:bg-gray-100">
+                <tr
+                  key={phm.id}
+                  className="hover:bg-gray-100 cursor-pointer"
+                  onClick={() => handleRowClick(phm.id)}
+                >
                   <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                    {/* Link to navigate to the relevant feedbacks */}
-                    <Link to={`feedback/phm/${phm.id}`} className="block w-full h-full">
-                      {phm.user ? `${phm.user.firstName} ${phm.user.lastName}` : "Unknown User"}
-                    </Link>
+                    {phm.user ? `${phm.user.firstName} ${phm.user.lastName}` : "Unknown User"}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{phm.phm_area || "Not Available"}</td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{phm.phone_number || "N/A"}</td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{phm.id}</td>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{phm.star_points}/10</td>
                 </tr>
               ))}
             </tbody>

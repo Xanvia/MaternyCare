@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 
 interface Mother {
   phone_1: string;
@@ -17,7 +17,8 @@ const storedToken = localStorage.getItem('token');
 const token = storedToken ? JSON.parse(storedToken) : null;
 
 const PhmMotherListInMoh: React.FC = () => {
-  const { id } = useParams<{ id: string }>();
+  const { id: phmId } = useParams<{ id: string }>();
+  const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const [mothers, setMothers] = useState<Mother[]>([]);
@@ -26,7 +27,7 @@ const PhmMotherListInMoh: React.FC = () => {
   useEffect(() => {
     const getMothers = async () => {
       try {
-        const response = await axios.get(`${BASE_URL}phm/mothers/${id}`, {
+        const response = await axios.get(`${BASE_URL}phm/mothers/${phmId}`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -37,10 +38,10 @@ const PhmMotherListInMoh: React.FC = () => {
       }
     };
 
-    if (id) {
+    if (phmId) {
       getMothers();
     }
-  }, [id, token]);
+  }, [phmId, token]);
 
   const filteredData = mothers.filter((mother) => {
     const firstName = mother.user.firstName || "";
@@ -62,11 +63,15 @@ const PhmMotherListInMoh: React.FC = () => {
     currentPage * itemsPerPage
   );
 
+  const handleRowClick = (motherId: number) => {
+    navigate(`/mohdashboard/phm/${phmId}/mother/${motherId}/details`);
+  };
+
   return (
     <div className="container mx-auto p-4 space-y-4">
       <div className="flex rounded-t-lg overflow-hidden" style={{ backgroundColor: "#F5F5F5" }}>
         <button className="flex-1 py-2 px-4 text-sm font-medium transition-colors duration-200 bg-purple_primary text-gray-800 border border-purple-600 rounded-2xl mx-1">
-          Mother List for PHM ID: {id}
+          Mother List for PHM ID: {phmId}
         </button>
       </div>
       <div className="flex justify-between items-center">
@@ -94,7 +99,11 @@ const PhmMotherListInMoh: React.FC = () => {
           </thead>
           <tbody className="bg-white divide-y divide-gray-200">
             {currentData.map((mother) => (
-              <tr key={mother.id} className="hover:bg-gray-100">
+              <tr
+                key={mother.id}
+                className="hover:bg-gray-100 cursor-pointer"
+                onClick={() => handleRowClick(mother.id)}
+              >
                 <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                   {mother.user.firstName} {mother.user.lastName}
                 </td>

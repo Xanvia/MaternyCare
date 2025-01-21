@@ -215,6 +215,76 @@ export class MotherController {
     }
   }
 
+  async updateClinicCareCheckUp(
+    request: Request,
+    response: Response,
+    next: NextFunction
+  ) {
+    const id = parseInt(request.params.id);
+    const {
+      Respiratory_system,
+      Breast_examination,
+      Other_investigations,
+      Antihelminthic_drugs,
+      date_of_issuing_kick_count_chart,
+      Date_of_taking_blood_sample_for_HIV_screening,
+      Date_of_result_informed_to_mother,
+    } = request.body;
+
+    const userId = request.user?.userId;
+
+    try {
+      const mother = await this.motherRepository.findOne({
+        where: { id },
+        relations: ["user", "phm"],
+      });
+
+      if (!mother) {
+        return response.status(404).json({ message: "Mother not found" });
+      }
+
+      // Update the mother's clinic care checkup details
+      mother.Respiratory_system =
+        Respiratory_system ?? mother.Respiratory_system;
+      mother.Breast_examination =
+        Breast_examination ?? mother.Breast_examination;
+      mother.Other_investigations =
+        Other_investigations ?? mother.Other_investigations;
+      mother.Antihelminthic_drugs =
+        Antihelminthic_drugs ?? mother.Antihelminthic_drugs;
+      mother.date_of_issuing_kick_count_chart =
+        date_of_issuing_kick_count_chart ??
+        mother.date_of_issuing_kick_count_chart;
+      mother.Date_of_taking_blood_sample_for_HIV_screening =
+        Date_of_taking_blood_sample_for_HIV_screening ??
+        mother.Date_of_taking_blood_sample_for_HIV_screening;
+      mother.Date_of_result_informed_to_mother =
+        Date_of_result_informed_to_mother ??
+        mother.Date_of_result_informed_to_mother;
+
+      console.log("phm ", userId);
+      if (userId) {
+        const user = await this.userRepository.findOne({
+          where: { id: userId },
+        });
+        const phm = await this.phmRepository.findOne({
+          where: { user },
+          relations: ["user"],
+        });
+        if (!phm) {
+          return response.status(404).json({ message: "PHM not found" });
+        }
+        mother.phm = phm; // Update the PHM relationship
+      }
+
+      await this.motherRepository.save(mother);
+      response.send(mother);
+      return;
+    } catch (error) {
+      return next(error);
+    }
+  }
+
   async updatePresentObstetricHistory(
     request: Request,
     response: Response,
