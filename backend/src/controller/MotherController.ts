@@ -328,7 +328,10 @@ export class MotherController {
 
       await this.emergencyRepository.save(newEmergencyPlan);
 
-      return "Emergency plan updated successfully";
+      return {
+        message: "Emergency plan updated successfully",
+        data: newEmergencyPlan,
+      };
     } catch (error) {
       console.error("Error updating Emergency plan:", error);
       return "Internal server error";
