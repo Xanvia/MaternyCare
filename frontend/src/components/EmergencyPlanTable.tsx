@@ -4,8 +4,8 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
 
-const storedToken = localStorage.getItem("token");
-const token = storedToken ? JSON.parse(storedToken) : null;
+// const storedToken = localStorage.getItem("token");
+// const token = storedToken ? JSON.parse(storedToken) : null;
 
 interface EmergencyPlanData {
   intented_hospital_delivery: string;
@@ -47,12 +47,12 @@ const EmergencyPlanTable: React.FC<EmergencyPlanTableProps> = ({
     const fetchEmergencyDetails = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:3000/users/mother/${motherId}`,
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
+          `http://localhost:3000/mother/${motherId}/emergency-plan/`
+          // {
+          //   headers: {
+          //     Authorization: `Bearer ${token}`,
+          //   },
+          // }
         ); // Adjust endpoint as needed
         setFormData({
           intented_hospital_delivery:
@@ -98,14 +98,15 @@ const EmergencyPlanTable: React.FC<EmergencyPlanTableProps> = ({
     setIsLoading(true);
     try {
       const updatedFormData = { ...formData, motherId };
+      console.log("Posting data: ", updatedFormData);
       await axios.put(
-        `http://localhost:3000/users/mother/${motherId}/update-emergency-plan`,
-        updatedFormData,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
+        `http://localhost:3000/users/mother/update-emergency-plan`,
+        updatedFormData
+        // {
+        //   headers: {
+        //     Authorization: `Bearer ${token}`,
+        //   },
+        // }
       );
 
       toast.success("Emergency Details Updated successfully!");

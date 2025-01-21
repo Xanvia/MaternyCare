@@ -11,7 +11,7 @@ import EmergencyPlanTable from "../components/EmergencyPlanTable";
 
 const SingleMotherGenral = () => {
   const { id } = useParams<{ id: string }>();
-  const { appointmentid } = useParams<{ appointmentid: string }>();
+  // const { appointmentid } = useParams<{ appointmentid: string }>();
   const [mother, setMother] = useState<any>(null);
   const [isCollapsed, setIsCollapsed] = useState(true);
 
@@ -51,33 +51,33 @@ const SingleMotherGenral = () => {
 
     return () => window.removeEventListener("resize", handleResize);
   }, []);
-  useEffect(() => {
-    const getAppointment = async () => {
-      try {
-        const response = await axios.get(
-          `${BASE_URL}appointments/${appointmentid}`,
-          {}
-        );
-        setAppointment(response.data);
-        console.log(response.data);
-      } catch (error) {
-        console.error("Error fetching mother data:", error);
-      }
-    };
+  // useEffect(() => {
+  //   const getAppointment = async () => {
+  //     try {
+  //       const response = await axios.get(
+  //         `${BASE_URL}appointments/${appointmentid}`,
+  //         {}
+  //       );
+  //       setAppointment(response.data);
+  //       console.log(response.data);
+  //     } catch (error) {
+  //       console.error("Error fetching mother data:", error);
+  //     }
+  //   };
 
-    getAppointment();
-  }, [id]);
+  //   getAppointment();
+  // }, [id]);
 
-  const updateAppointment = async () => {
-    try {
-      await axios.put(`${BASE_URL}appointments/${appointmentid}}`, {
-        checkedByPHM: true,
-      });
-      window.location.reload();
-    } catch (error) {
-      console.error("Error posting appointment data:", error);
-    }
-  };
+  // const updateAppointment = async () => {
+  //   try {
+  //     await axios.put(`${BASE_URL}appointments/${appointmentid}}`, {
+  //       checkedByPHM: true,
+  //     });
+  //     window.location.reload();
+  //   } catch (error) {
+  //     console.error("Error posting appointment data:", error);
+  //   }
+  // };
 
   if (!mother) {
     return <div>Loading...</div>;
@@ -112,7 +112,7 @@ const SingleMotherGenral = () => {
           </p>
         </div>
 
-        <div className="m-3">
+        {/* <div className="m-3">
           <button
             onClick={updateAppointment}
             disabled={appointment?.checkedByPHM}
@@ -121,7 +121,7 @@ const SingleMotherGenral = () => {
             <TickCircle className="mr-2" />
             {appointment?.checkedByPHM ? "Completed" : "Mark As Completed"}
           </button>
-        </div>
+        </div> */}
       </div>
 
       <div className="px-4 py-3 sm:hidden w-full">
