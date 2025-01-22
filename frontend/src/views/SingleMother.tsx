@@ -1,10 +1,18 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
-import { TickCircle } from "../assets/icons/Icons";
+// import ToTitle from "../components/CaseConverter";
+import BasicDetails from "./forms/BasicDetails";
+import {
+  ExpandLess,
+  ExpandMore,
+  NoticesIcon,
+  TickCircle,
+} from "../assets/icons/Icons";
+import PresentObstetricHistory from "./forms/PresentObstetricHistory";
 import ClinicCare from "./forms/ClinicCare";
-import PostnatalClinicCare from "./forms/PostnatalClinicCare";
-// import PostnatalClinicCare from "./forms/PostnatalClinicCare";
+// import ClinicCare2 from "./forms/ClinicCare2";
+// import DentalCare from "./forms/DentalCare";
 
 const SingleMother = () => {
   const { id } = useParams<{ id: string }>();
@@ -12,6 +20,8 @@ const SingleMother = () => {
   const [mother, setMother] = useState<any>(null);
   const [appointment, setAppointment] = useState<any>(null);
   const BASE_URL = `${import.meta.env.VITE_API_URL}`;
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchMother = async () => {
@@ -84,9 +94,7 @@ const SingleMother = () => {
       <div className="max-w-full mx-4 grid grid-cols-2 sm:flex bg-white shadow-lg rounded-lg overflow-hidden border border-gray-200 justify-between items-center">
         <div className="w-24 h-24 m-3 border rounded-md flex items-center justify-center">
           <span className="font-medium text-2xl text-gray-600 dark:text-gray-300">
-            {`${mother.user.firstName[0]} ${
-              mother.user.lastName[0]
-            }`}
+            {`${mother.user.firstName[0]} ${mother.user.lastName[0]}`}
           </span>
         </div>
 
@@ -102,6 +110,13 @@ const SingleMother = () => {
           </p>
         </div>
 
+        <button
+          onClick={() => navigate(`/mother/${mother.id}/form-preview`)}
+          className="flex items-center px-4 py-2 bg-blue_primary text-white rounded-md hover:bg-blue_secondary"
+        >
+          <NoticesIcon className="mr-2" />
+          Form Preview
+        </button>
         <div className="m-3">
           <button
             onClick={updateAppointment}

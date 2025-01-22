@@ -1,9 +1,14 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 // import ToTitle from "../components/CaseConverter";
 import BasicDetails from "./forms/BasicDetails";
-import { ExpandLess, ExpandMore, TickCircle } from "../assets/icons/Icons";
+import {
+  ExpandLess,
+  ExpandMore,
+  NoticesIcon,
+  TickCircle,
+} from "../assets/icons/Icons";
 import PresentObstetricHistory from "./forms/PresentObstetricHistory";
 import PregnancyBMIChart from "../components/PregnancyBMIChart";
 import EmergencyPlanTable from "../components/EmergencyPlanTable";
@@ -18,6 +23,8 @@ const SingleMotherGenral = () => {
   // const { appointmentid } = useParams<{ appointmentid: string }>();
   const [mother, setMother] = useState<any>(null);
   const [isCollapsed, setIsCollapsed] = useState(true);
+
+  const navigate = useNavigate();
 
   // const [appointment, setAppointment] = useState<any>(null);
   const BASE_URL = `${import.meta.env.VITE_API_URL}`;
@@ -126,8 +133,14 @@ const SingleMotherGenral = () => {
             {appointment?.checkedByPHM ? "Completed" : "Mark As Completed"}
           </button>
         </div> */}
+        <button
+          onClick={() => navigate(`/mother/${mother.id}/form-preview`)}
+          className="flex items-center px-4 py-2 bg-blue_primary text-white rounded-md hover:bg-blue_secondary mr-4"
+        >
+          <NoticesIcon className="mr-2" />
+          Form Preview
+        </button>
       </div>
-
       <div className="px-4 py-3 sm:hidden w-full">
         <button className="flex items-center px-4 py-2 bg-green_primary text-white rounded-md hover:bg-green-400 w-full">
           <TickCircle className="mr-2" />
@@ -173,8 +186,8 @@ const SingleMotherGenral = () => {
       <PresentObstetricHistory />
       <ClinicCareCheckUp />
       <DentalCare />
-      <PregnancyBMIChart />
-      <SFHChart />
+      <PregnancyBMIChart motherId={mother.id} />
+      <SFHChart motherId={mother.id} />
       <EmergencyPlanTable motherId={mother.id} />
       <CounselingFormTable motherId={mother.id} />
     </div>

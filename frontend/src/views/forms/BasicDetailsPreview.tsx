@@ -1,8 +1,20 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
+import { CloseCircle, TickCircle } from "../../assets/icons/Icons";
 
-const BasicDetailsPreview = () => {
+interface BasicDetailsPreviewProps {
+  motherId: string;
+}
+
+const BasicDetailsPreview: React.FC<BasicDetailsPreviewProps> = ({
+  motherId,
+}) => {
   const [data, setData] = useState({
+    user: {
+      firstName: "",
+      lastName: "",
+    },
+    age: 0,
     mother_blood_type: "",
     mother_height: "",
     allergies: "",
@@ -14,11 +26,24 @@ const BasicDetailsPreview = () => {
     eligible_family_register: "",
     pregnant_mother_register: "",
     gs_division: "",
+    risk_type: " formData.risk_type",
+    registration_no: "formData.registration_no",
+    registration_date: " formData.registration_date",
+    mother_weight: "formData.mother_weight",
+    hospital_clinic: "formData.hospital_clinic",
+    consanguinity: "formData.consanguinity",
+    rubella_immunization: " formData.rubella_immunization",
+    pre_pregnancy_screening: "",
+    preconceptional_folic_acid: "",
+    history_of_subfertility: "",
+    planned_pregnancy: "",
+    last_family_planing_method: "",
+    vogSignature: "",
+    richTextContent: "",
   });
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
-  const id = 19; // hard coded
   const token = JSON.parse(localStorage.getItem("token") || '""');
 
   useEffect(() => {
@@ -26,7 +51,7 @@ const BasicDetailsPreview = () => {
       try {
         setLoading(true);
         const response = await axios.get(
-          `${import.meta.env.VITE_API_URL}users/mother/${id}`,
+          `${import.meta.env.VITE_API_URL}users/mother/${motherId}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -43,7 +68,7 @@ const BasicDetailsPreview = () => {
     };
 
     fetchBasicDetails();
-  }, [id]);
+  }, [motherId]);
 
   if (loading) {
     return (
@@ -61,7 +86,7 @@ const BasicDetailsPreview = () => {
     );
   }
 
-  const PreviewField: React.FC<{ label: string; value: string }> = ({
+  const PreviewField: React.FC<{ label: string; value: React.ReactNode }> = ({
     label,
     value,
   }) => (
@@ -73,14 +98,32 @@ const BasicDetailsPreview = () => {
 
   return (
     <div className="max-w-full my-4 bg-white shadow-lg rounded-lg p-6 border border-gray-200">
-      <h2 className="text-xl font-semibold mb-6">Basic Details Preview</h2>
-
+      <div className="flex gap-4">
+        <h2 className="text-xl font-semibold mb-6">Basic Details Preview</h2>
+        <div
+          className={`w-16 h-8 bg-${data.risk_type}-500 rounded-2xl mb-6 text-xs flex items-center justify-center text-white`}
+        >
+          <p>{data.risk_type.toUpperCase()} Risk</p>
+        </div>
+      </div>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {/* Left Column */}
         <div>
-          <PreviewField label="Mother's Name" value={data.mother_blood_type} />
-          <PreviewField label="Height (cm)" value={data.mother_height} />
-          <PreviewField label="BMI" value={data.mother_height} />
+          <PreviewField
+            label="Mother's Name"
+            value={`${data.user?.firstName} ${data.user?.lastName}`}
+          />
+          <PreviewField
+            label="Height (cm)"
+            value={Number(data.mother_height)}
+          />
+          <PreviewField
+            label="BMI"
+            value={(
+              Number(data.mother_weight) /
+              (Number(data.mother_height) / 100) ** 2
+            ).toFixed(2)}
+          />
           <PreviewField label="Allergies" value={data.allergies} />
           <PreviewField
             label="Grama Niladhari Division"
@@ -91,33 +134,96 @@ const BasicDetailsPreview = () => {
             value={data.eligible_family_register}
           />
           <PreviewField
-            label="Hospital Clinic"
-            value={data.pregnant_mother_register}
+            label="Name of the Hospital Clinic"
+            value={data.hospital_clinic}
           />
           <PreviewField
             label="Pregnant Mother Register"
             value={data.pregnant_mother_register}
           />
+          <PreviewField
+            label="Consanguinity"
+            value={data.consanguinity ? <TickCircle /> : <CloseCircle />}
+          />
+          <PreviewField
+            label="Rubella immunization"
+            value={data.rubella_immunization ? <TickCircle /> : <CloseCircle />}
+          />
+
+          <PreviewField
+            label="Pre-pregnancy screening done"
+            value={
+              data.pre_pregnancy_screening ? <TickCircle /> : <CloseCircle />
+            }
+          />
         </div>
 
         {/* Right Column */}
         <div>
-          <PreviewField label="Age" value={data.moh_area} />
-          <PreviewField label="Weight" value={data.moh_area} />
+          <PreviewField label="Age" value={data.age} />
+          <PreviewField label="Weight" value={data.mother_weight} />
           <PreviewField label="Blood Group" value={data.mother_blood_type} />
           <PreviewField label="MOH Area" value={data.moh_area} />
           <PreviewField label="PHM Area" value={data.phm_area} />
-          <PreviewField label="Field Clinic" value={data.field_clinic} />
           <PreviewField
-            label="Consultant Obstetrician"
+            label="Name of the Field Clinic"
+            value={data.field_clinic}
+          />
+          <PreviewField
+            label="Name of the Consultant Obstetrician"
             value={data.consultant_obstetrician}
           />
           <PreviewField
-            label="Antenatal Risk Conditions"
+            label="Identified Antenatal Risk Conditions and Morbidities"
             value={data.antenatal_risk_conditions}
           />
-         
+          <PreviewField
+            label="Preconceptional folic acid"
+            value={
+              data.preconceptional_folic_acid ? <TickCircle /> : <CloseCircle />
+            }
+          />
+
+          <PreviewField
+            label="History of subfertility"
+            value={
+              data.history_of_subfertility ? <TickCircle /> : <CloseCircle />
+            }
+          />
+          <PreviewField
+            label="History of subfertility"
+            value={data.planned_pregnancy ? <TickCircle /> : <CloseCircle />}
+          />
         </div>
+        {data.risk_type === "red" && (
+          <>
+            <h2 className="text-lg font-bold">VOG Response</h2>
+            <div className="col-span-2">
+              <PreviewField
+                label="Advice from VOG"
+                value={
+                  <div
+                    dangerouslySetInnerHTML={{ __html: data.richTextContent }}
+                  />
+                }
+              />
+              <PreviewField
+                label="VOG Signature"
+                value={
+                  data.vogSignature ? (
+                    <img
+                      src={data.vogSignature}
+                      alt="VOG Signature"
+                      className="h-24"
+                    />
+                  ) : (
+                    "Not specified"
+                  )
+                }
+              />
+            </div>
+          </>
+        )}
       </div>
     </div>
   );

@@ -19,6 +19,7 @@ import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 import ReportProblemIcon from "@mui/icons-material/ReportProblem";
 import CallIcon from "@mui/icons-material/Call";
 import GradingIcon from "@mui/icons-material/Grading";
+import HighlightOffIcon from "@mui/icons-material/HighlightOff";
 
 export {
   SpaceDashboardIcon as DashboardIcon,
@@ -42,4 +43,5 @@ export {
   ReportProblemIcon as ReportProblem,
   CallIcon as CallIcon,
   GradingIcon as GradingIcon,
+  HighlightOffIcon as CloseCircle,
 };

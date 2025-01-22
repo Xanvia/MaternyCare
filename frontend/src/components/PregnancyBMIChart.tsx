@@ -1,4 +1,4 @@
-// import React from "react";
+import { useEffect, useState } from "react";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -11,9 +11,7 @@ import {
   Filler,
 } from "chart.js";
 import { Line } from "react-chartjs-2";
-// import { Card } from "@/components/ui/card";
 
-// Register Chart.js components
 ChartJS.register(
   CategoryScale,
   LinearScale,
@@ -25,16 +23,62 @@ ChartJS.register(
   Filler
 );
 
-const PregnancyBMIChart = () => {
+interface Appointment {
+  POA_weeks: number;
+  weight: string;
+}
+
+const PregnancyBMIChart = ({ motherId }: { motherId: string }) => {
+  const [appointments, setAppointments] = useState<Appointment[]>([]);
+  const [weightGainData, setWeightGainData] = useState<
+    Array<{ poa: number; gain: number }>
+  >([]);
+
+  useEffect(() => {
+    const fetchAppointments = async () => {
+      try {
+        const response = await fetch(
+          `http://localhost:3000/appointments/mother/${motherId}`
+        );
+        if (!response.ok) throw new Error("Failed to fetch appointments");
+        const data = await response.json();
+
+        console.log("Appointments:", data);
+
+        // Sort appointments by POA weeks
+        const sortedAppointments = data.sort(
+          (a: Appointment, b: Appointment) => a.POA_weeks - b.POA_weeks
+        );
+        setAppointments(sortedAppointments);
+
+        // Calculate weight gains
+        if (sortedAppointments.length > 0) {
+          const initialWeight = parseFloat(sortedAppointments[0].weight);
+          console.log("Initial weight:", initialWeight);
+          const gains = sortedAppointments.map((app: Appointment) => ({
+            poa: app.POA_weeks,
+            gain: parseFloat(app.weight) - initialWeight,
+          }));
+          setWeightGainData(gains);
+          console.log("Weight gains:", gains);
+        }
+      } catch (error) {
+        console.error("Error fetching appointments:", error);
+      }
+    };
+
+    fetchAppointments();
+  }, [motherId]);
+
   // Generate POA weeks array (0 to 42)
   const weeks = Array.from({ length: 43 }, (_, i) => i);
 
-  const hardcodedBMIData = [
-    0.0, 0.5, 1.0, 1.5, 2.0, 2.5, 3.0, 3.5, 4.0, 4.5, 5.0, 5.5, 6.0, 6.5, 7.0,
-    7.5, 8.0, 8.5, 9.0, 9.5, 10.0, 10.5, 11.0, 11.5, 12.0, 12.5, 13.0, 13.5,
-    14.0, 14.5, 15.0, 15.5, 16.0, 16.5, 17.0, 17.5, 18.0, 17.5, 17.0, 16.5,
-    16.0, 15.5,
-  ];
+  console.log("app ", appointments);
+  // Create patient data array that matches the weeks array length
+  const patientData = weeks.map((week) => {
+    const matchingGain = weightGainData.find((data) => data.poa === week);
+    return matchingGain ? matchingGain.gain : null;
+  });
 
   // Chart data
   const data = {
@@ -42,10 +86,7 @@ const PregnancyBMIChart = () => {
     datasets: [
       {
         label: "Underweight BMI <18.5",
-        data: weeks.map((week) => {
-          // Calculate values for underweight line
-          return week * (18 / 42); // Linear progression to max 18kg
-        }),
+        data: weeks.map((week) => week * (18 / 42)),
         borderColor: "rgba(255, 159, 64, 0.8)",
         backgroundColor: "rgba(255, 159, 64, 0.4)",
         fill: true,
@@ -53,10 +94,7 @@ const PregnancyBMIChart = () => {
       },
       {
         label: "Normal BMI 18.5-24.9",
-        data: weeks.map((week) => {
-          // Calculate values for normal weight line
-          return week * (16 / 42); // Linear progression to max 16kg
-        }),
+        data: weeks.map((week) => week * (16 / 42)),
         borderColor: "rgba(75, 192, 192, 0.8)",
         backgroundColor: "rgba(75, 192, 192, 0.4)",
         fill: true,
@@ -64,10 +102,7 @@ const PregnancyBMIChart = () => {
       },
       {
         label: "Overweight BMI 25-29.9",
-        data: weeks.map((week) => {
-          // Calculate values for overweight line
-          return week * (13 / 42); // Linear progression to max 13kg
-        }),
+        data: weeks.map((week) => week * (13 / 42)),
         borderColor: "rgba(153, 102, 255, 0.8)",
         backgroundColor: "rgba(153, 102, 255, 0.4)",
         fill: true,
@@ -75,18 +110,15 @@ const PregnancyBMIChart = () => {
       },
       {
         label: "Obese BMI ≥30",
-        data: weeks.map((week) => {
-          // Calculate values for obese line
-          return week * (10 / 42); // Linear progression to max 10kg
-        }),
+        data: weeks.map((week) => week * (10 / 42)),
         borderColor: "rgba(255, 99, 132, 0.8)",
         backgroundColor: "rgba(255, 99, 132, 0.4)",
         fill: true,
         tension: 0.4,
       },
       {
-        label: "Patient's Weight Gain (BMI)",
-        data: hardcodedBMIData,
+        label: "Patient's Weight Gain",
+        data: patientData,
         borderColor: "rgba(54, 162, 235, 1)",
         backgroundColor: "rgba(54, 162, 235, 1)",
         borderWidth: 2,
@@ -94,6 +126,7 @@ const PregnancyBMIChart = () => {
         pointBackgroundColor: "rgba(54, 162, 235, 1)",
         fill: false,
         tension: 0.4,
+        spanGaps: true, // This will connect points even with null values in between
       },
     ],
   };
@@ -104,10 +137,10 @@ const PregnancyBMIChart = () => {
     maintainAspectRatio: false,
     plugins: {
       legend: {
-        position: "top" as const, // Instead of just 'top'
+        position: "top" as const,
       },
       tooltip: {
-        mode: "index" as const, // Instead of just 'index'
+        mode: "index" as const,
         intersect: false,
       },
       title: {
@@ -136,11 +169,9 @@ const PregnancyBMIChart = () => {
   };
 
   return (
-    // <Card className="w-full max-w-2xl p-4">-
     <div className="h-96">
       <Line data={data} options={options} />
     </div>
-    // </Card>
   );
 };
 
