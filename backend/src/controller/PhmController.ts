@@ -31,13 +31,7 @@ export class PhmController {
 
   async getByMother(request: Request, response: Response, next: NextFunction) {
     const id = parseInt(request.params.id);
-    // const userId = request.user?.userId;
 
-    // const user = await this.userRepository.findOne({
-    //   where: { id: userId },
-    // });
-
-    console.log("mother: " + id);
     try {
       // Find the mother by ID
       const mother = await this.motherRepository.findOne({
