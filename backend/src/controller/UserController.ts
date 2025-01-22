@@ -85,6 +85,32 @@ export class UserController {
     }
   }
 
+  async updateProfilePic(
+    request: Request,
+    response: Response,
+    next: NextFunction
+  ) {
+    const id = parseInt(request.params.id);
+    const { profilePic } = request.body;
+
+    try {
+      const userToUpdate = await this.userRepository.findOneBy({ id });
+
+      if (!userToUpdate) {
+        response.status(404).json({ message: "User not found" });
+        return;
+      }
+
+      userToUpdate.profilePic = profilePic;
+      await this.userRepository.save(userToUpdate);
+
+      return { message: "Profile picture updated successfully" };
+    } catch (error) {
+      console.error("Error updating profile picture:", error);
+      return { message: "Internal server error" };
+    }
+  }
+
   async login(request: Request, response: Response, next: NextFunction) {
     try {
       const { email, password } = request.body;
@@ -184,7 +210,7 @@ export class UserController {
 
     await this.userRepository.save(userToUpdate);
 
-    return "user has been verified";
+    return { userToUpdate };
   }
 
   async removeUser(request: Request, response: Response, next: NextFunction) {
@@ -228,7 +254,9 @@ export class UserController {
     try {
       // Validate input
       if (!nic || !newPassword || !email) {
-        response.status(400).json({ message: "NIC, email, and new password are required" });
+        response
+          .status(400)
+          .json({ message: "NIC, email, and new password are required" });
         return;
       }
 
@@ -236,7 +264,9 @@ export class UserController {
       const user = await this.userRepository.findOne({ where: { nic, email } });
 
       if (!user) {
-        response.status(400).json({ message: "User not found or incorrect NIC/email" });
+        response
+          .status(400)
+          .json({ message: "User not found or incorrect NIC/email" });
         return;
       }
 
@@ -244,10 +274,11 @@ export class UserController {
 
       user.password = hashedPassword;
       await this.userRepository.save(user);
-      
-      response.status(200).json({ message: "New password successfully updated" });
-      return;
 
+      response
+        .status(200)
+        .json({ message: "New password successfully updated" });
+      return;
     } catch (error) {
       console.error("Error updating password:", error);
       response.status(500).json({ message: "Internal server error" });
