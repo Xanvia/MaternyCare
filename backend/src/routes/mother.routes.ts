@@ -88,7 +88,16 @@ export const MotherRoutes = [
     controller: MotherController,
     action: "getDentalCare",
     // middlewares: [jwtMiddleware, roleMiddleware("mother")],
-    middlewares: [],
+    middlewares: [jwtMiddleware],
+  },
+
+  {
+    method: "put",
+    route: "/users/mother/:id/dental-care/",
+    controller: MotherController,
+    action: "updateDentalCare",
+    // middlewares: [jwtMiddleware, roleMiddleware("mother")],
+    middlewares: [jwtMiddleware],
   },
 
   {
