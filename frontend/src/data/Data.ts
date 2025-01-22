@@ -48,6 +48,7 @@ export const getNavLinks = ({ role }: { role: string }) => {
       name: "Profile",
       icon: ProfileIcon,
       path: `/${role}profile`,
+      roles: ["mother", "phm", "moh"],
     },
     {
       name: "Mother's Guide",
