@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import PresentObstetricHistoryPreview from "./forms/PresentObstetricHistoryPreview";
 import PregnancyBMIChart from "../components/PregnancyBMIChart";
 import SFHChart from "../components/SFHChart";
+import EmergencyPlanPreview from "./forms/EmergencyPlanPreview";
 
 const FormPreview = () => {
   const { id = "" } = useParams<{ id: string }>() || {};
@@ -15,7 +16,10 @@ const FormPreview = () => {
       <div className="my-10">
         <PregnancyBMIChart motherId={id} />
       </div>
-      <SFHChart />
+      <div className="my-10">
+        <SFHChart />
+      </div>
+      <EmergencyPlanPreview motherId={id} />
     </div>
   );
 };
