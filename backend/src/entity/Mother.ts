@@ -228,7 +228,7 @@ export class Mother {
   @Column({ type: "numeric", nullable: true })
   phone_2: number;
 
-  @Column({ type: "varchar", length: 20, nullable: true })
+  @Column({ type: "varchar", length: 255, nullable: true })
   address: string;
 
   @Column({ type: "varchar", length: 255, nullable: true })
