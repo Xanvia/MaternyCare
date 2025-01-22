@@ -65,6 +65,7 @@ export class Phm {
 
   @ManyToOne(() => Moh, (moh) => moh.phms, {
     nullable: true,
+    eager: true,
     onDelete: "SET NULL", // When PHM is deleted, mothers can remain with no assigned PHM
   })
   moh: Moh;
