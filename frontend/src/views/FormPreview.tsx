@@ -6,6 +6,7 @@ import PregnancyBMIChart from "../components/PregnancyBMIChart";
 import SFHChart from "../components/SFHChart";
 import EmergencyPlanPreview from "./forms/EmergencyPlanPreview";
 import CounselingFormPreview from "./forms/CounselingFormPreview";
+import DentalCarePreview from "./forms/DentalCarePreview";
 
 const FormPreview = () => {
   const { id = "" } = useParams<{ id: string }>() || {};
@@ -22,6 +23,7 @@ const FormPreview = () => {
       </div>
       <EmergencyPlanPreview motherId={id} />
       <CounselingFormPreview motherId={id} />
+      <DentalCarePreview />
     </div>
   );
 };
