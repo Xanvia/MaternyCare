@@ -268,8 +268,8 @@ const PostnatalClinicCare = () => {
     >
       {loading && "Loading..."}
       <form onSubmit={handleSubmit}>
-        <h2 className="my-2 font-medium text-lg">Clinic Care</h2>
-        <h2 className="my-2 font-medium text-lg">සායනික සංරක්ෂණය</h2>
+        <h2 className="my-2 font-medium text-lg">Post Partum Field Care</h2>
+        <h2 className="my-2 font-medium text-lg">පසු ප්‍රසූත ක්ෂේත්ර සංරක්ෂණය</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {/* Left Side Fields */}
           <div className="flex flex-col">
@@ -278,8 +278,8 @@ const PostnatalClinicCare = () => {
                 htmlFor="hospitalclinic"
                 className="block text-sm font-medium text-gray-700 mt-4"
               >
-                <div>Date of visit</div>
-                <div>සායනයට පැමිණි දිනය</div>
+                <div>Date of home visit by phm</div>
+                <div>පවුල් සෞඛය සේවා නිළධාරිනිය නිවසට පැමිණි දිනය</div>
               </label>
 
               <div className="flex">
@@ -294,123 +294,22 @@ const PostnatalClinicCare = () => {
               />
               </div>
 
-              <label
-              htmlFor="poa"
-              className="block text-sm font-medium text-gray-700 mt-4"
-              >
-              <div>POA</div>
-              <div>ගර්භයට සති ගණන</div>
-              </label>
-
-              <div className="flex">
-              
-              <input
-                  type="number"
-                  id="POA_weeks"
-                  name="POA_weeks"
-                  value={formData.POA_weeks}
-                  onChange={handleChange}
-                  className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 text-sm"
-                  placeholder="Weeks"
-                  min="0"
-              />
-              
-              <input
-                  type="number"
-                  id="POV_days"
-                  name="POV_days"
-                  value={formData.POV_days}
-                  onChange={handleChange}
-                  className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 text-xs"
-                  placeholder="Days"
-                  min="0"
-                  max="6" 
-              />
-              </div>
-
-              <div className="flex flex-row">
-
-                <div>
-                <label
-                  htmlFor="urine  "
-                  className="block text-sm font-medium text-gray-700 mt-4"
-                  >
-                  <div>Urine</div>
-                  <div>මුත්‍රා</div>
-                </label>
-
-                <input
-                  type="text"
-                  id="urine"
-                  name="urine"
-                  value={formData.urine}
-                  onChange={handleChange}
-                  className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 text-sm"
-                  placeholder="urine"
-                />
-
-                </div>
-              
-                <div>
-                <label
-                  htmlFor="sugar  "
-                  className="block text-sm font-medium text-gray-700 mt-4"
-                  >
-                  <div>Sugar</div>
-                  <div>සීනි</div>
-                </label>
-
-                <input
-                  type="text"
-                  id="sugar"
-                  name="sugar"
-                  value={formData.sugar}
-                  onChange={handleChange}
-                  className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 text-sm"
-                  placeholder="sugar"
-                />
-
-                </div>
-
-                <div>
-                <label
-                  htmlFor="albumin  "
-                  className="block text-sm font-medium text-gray-700 mt-4"
-                  >
-                  <div>Albumin</div>
-                  <div>ඇල්බුමින්</div>
-                </label>
-
-                <input
-                  type="text"
-                  id="albumin"
-                  name="albumin"
-                  value={formData.albumin}
-                  onChange={handleChange}
-                  className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 text-sm"
-                  placeholder="albumin"
-                />
-
-                </div>
-              </div>
-
               <div>
               <label
                 htmlFor="pallor  "
                 className="block text-sm font-medium text-gray-700 mt-4"
                 >
-                <div>Pallor</div>
-                <div>සුදුමැලි බව</div>
+                <div>Identified post partum morbidities & actions taken</div>
+                <div>හදුනාගත් පසුප්‍රසූත රෝගී තත්ව සහ ගත් පියවර</div>
               </label>
 
-              <input
-                type="text"
+              <textarea
                 id="pallor"
                 name="pallor"
                 value={formData.pallor}
                 onChange={handleChange}
-                className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 text-sm"
-                placeholder="pallor"
+                className="mt-1 block w-full px-4 py-2 h-32 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 text-sm"
+                placeholder="Identified post partum morbidities & actions taken"
               />
 
               </div >
