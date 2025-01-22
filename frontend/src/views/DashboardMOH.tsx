@@ -5,6 +5,7 @@ import axios from 'axios';
 import { toast, ToastContainer } from 'react-toastify';
 import fire from '../assets/images/fire.svg';
 import water from '../assets/images/drops.svg';
+import phmImage from '../assets/images/phm.png';
 import MohDashboardStatCard from '../components/MohDashboardCard';
 import PhmCard from '../components/PhmCard';
 import useRoleProtection from '../customHooks/useRoleProtection';
@@ -86,13 +87,13 @@ const DashboardMOH = () => {
         <div className="mx-11">
           <div className="grid sm:grid-cols-3 grid-cols-2 gap-8 mb-5">
             <MohDashboardStatCard
-              image={fire}
+              image={phmImage}
               color="bg-[#A8F0DB]"
               count={phms.filter((phm) => phm.user?.isVerified === false).length}
               title="in your division"
               subtitle="PHMs"
             />
-            <MohDashboardStatCard
+            {/* <MohDashboardStatCard
               image={water}
               color="bg-[#80CAFF]"
               count={8}
@@ -112,7 +113,7 @@ const DashboardMOH = () => {
                   </button>
                 </div>
               </div>
-            </div>
+            </div> */}
           </div>
           <div>
             <h1 className="text-lg my-4">PHM list in your area</h1>
