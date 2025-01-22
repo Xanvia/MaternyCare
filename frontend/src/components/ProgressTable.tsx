@@ -94,7 +94,7 @@ const ProgressTable: React.FC<ProgressTableProps> = ({ phms }) => {
           </table>
         </div>
         <div className="flex items-center justify-between">
-          <p className="text-sm text-gray-700">
+          {/* <p className="text-sm text-gray-700">
             Showing {(currentPage - 1) * itemsPerPage + 1} to {Math.min(currentPage * itemsPerPage, filteredData.length)} of {filteredData.length} results
           </p>
           <div className="flex space-x-2">
@@ -110,7 +110,7 @@ const ProgressTable: React.FC<ProgressTableProps> = ({ phms }) => {
             >
               Next
             </button>
-          </div>
+          </div> */}
         </div>
       </div>
     </div>

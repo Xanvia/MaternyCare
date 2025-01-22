@@ -72,7 +72,7 @@ const PhmTable: React.FC<PhmTableProps> = ({ phms }) => {
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">PHM Area</th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Contact Number</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Rating</th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">PHM Id</th>
               </tr>
             </thead>
             <tbody className="bg-white divide-y divide-gray-200">
@@ -94,10 +94,10 @@ const PhmTable: React.FC<PhmTableProps> = ({ phms }) => {
           </table>
         </div>
         <div className="flex items-center justify-between">
-          <p className="text-sm text-gray-700">
+          {/* <p className="text-sm text-gray-700">
             Showing {(currentPage - 1) * itemsPerPage + 1} to {Math.min(currentPage * itemsPerPage, filteredData.length)} of {filteredData.length} results
-          </p>
-          <div className="flex space-x-2">
+          </p> */}
+          {/* <div className="flex space-x-2">
             <button
               onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
               className="px-3 py-1 bg-gray-200 rounded hover:bg-gray-300"
@@ -110,7 +110,7 @@ const PhmTable: React.FC<PhmTableProps> = ({ phms }) => {
             >
               Next
             </button>
-          </div>
+          </div> */}
         </div>
       </div>
     </div>
