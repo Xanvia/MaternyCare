@@ -38,6 +38,8 @@ const BasicDetailsPreview: React.FC<BasicDetailsPreviewProps> = ({
     history_of_subfertility: "",
     planned_pregnancy: "",
     last_family_planing_method: "",
+    vogSignature: "",
+    richTextContent: "",
   });
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -101,7 +103,7 @@ const BasicDetailsPreview: React.FC<BasicDetailsPreviewProps> = ({
         <div
           className={`w-16 h-8 bg-${data.risk_type}-500 rounded-2xl mb-6 text-xs flex items-center justify-center text-white`}
         >
-            <p>{data.risk_type.toUpperCase()} Risk</p>
+          <p>{data.risk_type.toUpperCase()} Risk</p>
         </div>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -193,6 +195,35 @@ const BasicDetailsPreview: React.FC<BasicDetailsPreviewProps> = ({
             value={data.planned_pregnancy ? <TickCircle /> : <CloseCircle />}
           />
         </div>
+        {data.risk_type === "red" && (
+          <>
+            <h2 className="text-lg font-bold">VOG Response</h2>
+            <div className="col-span-2">
+              <PreviewField
+                label="Advice from VOG"
+                value={
+                  <div
+                    dangerouslySetInnerHTML={{ __html: data.richTextContent }}
+                  />
+                }
+              />
+              <PreviewField
+                label="VOG Signature"
+                value={
+                  data.vogSignature ? (
+                    <img
+                      src={data.vogSignature}
+                      alt="VOG Signature"
+                      className="h-24"
+                    />
+                  ) : (
+                    "Not specified"
+                  )
+                }
+              />
+            </div>
+          </>
+        )}
       </div>
     </div>
   );

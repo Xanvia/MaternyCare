@@ -1,4 +1,4 @@
-import  { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect } from "react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css"; // Import the styles
 import axios from "axios";
@@ -7,9 +7,11 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 import SignaturePad from "signature_pad";
+import { NoticesIcon } from "../assets/icons/Icons";
 // import ToTitle from "../components/CaseConverter";
 
 interface Mother {
+  id: string;
   user: {
     firstName: string;
     lastName: string;
@@ -46,9 +48,11 @@ const SingleRedMother = () => {
         // }
       );
       console.log("Content saved successfully:", response.data);
-      navigate(`/view-content/${id}`); // Redirect to the view content page
+      toast.success("Content saved successfully");
+      // navigate(`/view-content/${id}`); // Redirect to the view content page
     } catch (error) {
       console.error("Error saving content:", error);
+      toast.error("Failed to save content");
     }
   };
 
@@ -151,23 +155,34 @@ const SingleRedMother = () => {
 
   return (
     <div className="">
-      <div className="grid grid-cols-2 w-1/4 py-4 rounded-lg bg-pink_tertiary mx-4 ">
-        <div className="flex justify-center items-center px-2 py-0 col-span-1">
-          <div className="relative inline-flex items-center justify-center w-14 h-14 overflow-hidden bg-gray-100 rounded-full dark:bg-gray-600">
-            <span className="font-medium text-xl text-gray-600 dark:text-gray-300">
-              {`${(mother?.user?.firstName?.[0] || "")} ${(
-                mother?.user?.lastName?.[0] || ""
-              )}`}
-            </span>
+      <div className="flex justify-between mr-4">
+        <div className="grid grid-cols-2 w-1/4 py-4 rounded-lg bg-blue_tertiary mx-4 ">
+          <div className="flex justify-center items-center px-2 py-0 col-span-1">
+            <div className="relative inline-flex items-center justify-center w-14 h-14 overflow-hidden bg-gray-100 rounded-full dark:bg-gray-600">
+              <span className="font-medium text-xl text-gray-600 dark:text-gray-300">
+                {`${mother?.user?.firstName?.[0] || ""} ${
+                  mother?.user?.lastName?.[0] || ""
+                }`}
+              </span>
+            </div>
+          </div>
+
+          <div className="text-start ">
+            <h2 className="text-xl font-semibold mb-1">
+              {mother?.user?.firstName}
+            </h2>
+            <p className="text-gray-600 ">NIC: {mother?.nic}</p>
+            <p className="text-gray-600 mb-4">{mother?.location}</p>
           </div>
         </div>
-
-        <div className="text-start ">
-          <h2 className="text-xl font-semibold mb-1">
-            {mother?.user?.firstName}
-          </h2>
-          <p className="text-gray-600 ">NIC: {mother?.user?.nic}</p>
-          <p className="text-gray-600 mb-4">{mother?.location}</p>
+        <div className="flex items-center">
+          <button
+            onClick={() => navigate(`/mother/${mother?.id}/form-preview`)}
+            className="flex items-center px-4 py-2 h-1/2 bg-blue_primary text-white rounded-md hover:bg-blue_secondary"
+          >
+            <NoticesIcon className="mr-2" />
+            Form Preview
+          </button>
         </div>
       </div>
       <div className="container mx-auto p-4">
