@@ -12,13 +12,13 @@ export const loginSchema = yup.object().shape({
 
 // Validation for MOH registration form
 export const mohRegistrationSchema = yup.object().shape({
-  nic: yup
-    .string()
-    .matches(
-      /^(\d{9}[vVxX]|\d{12})$/,
-      "NIC must be 9 digits followed by 'v', 'V', 'x', or 'X' or 12 digits"
-    )
-    .required("Please provide your NIC."),
+  // nic: yup
+  //   .string()
+  //   .matches(
+  //     /^(\d{9}[vVxX]|\d{12})$/,
+  //     "NIC must be 9 digits followed by 'v', 'V', 'x', or 'X' or 12 digits"
+  //   )
+  //   .required("Please provide your NIC."),
   mohArea: yup
     .string()
     .min(3, "MOH Area must be at least 3 characters")

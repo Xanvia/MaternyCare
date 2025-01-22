@@ -33,7 +33,7 @@ const MOHRegistration: React.FC = () => {
           values,
           {
             headers: {
-             Authorization: `Bearer ${parsedToken}`
+              Authorization: `Bearer ${parsedToken}`,
             },
           }
         );
@@ -69,7 +69,10 @@ const MOHRegistration: React.FC = () => {
           Materny<span className="text-pink_primary">Care</span>
         </header>
         {["mohArea", "phoneNumber", "mohID"].map((field) => (
-          <div key={field} className="w-full flex flex-col items-center lg:mb-6 mb-4">
+          <div
+            key={field}
+            className="w-full flex flex-col items-center lg:mb-6 mb-4"
+          >
             <input
               className={`shadow appearance-none rounded-b-xl py-4 px-4 w-11/12 lg:w-5/12 sm:w-8/12 ss:w-10/12 text-gray-700 leading-tight focus:shadow-outline 
               lg:text-lg md:text-base sm:text-base text-sm

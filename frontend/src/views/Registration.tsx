@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useFormik } from "formik";
 import logo from "../assets/images/logo.png";
 import { ErrorIcon } from "../assets/icons/Icons";
@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { registrationSchema } from "../schemas/registrationSchema";
+import { RoleContext } from "../contexts/RoleContextProvider";
 
 interface FormValues {
   firstName: string;
@@ -19,6 +20,9 @@ interface FormValues {
 
 const Registration: React.FC = () => {
   const navigate = useNavigate();
+  const roleContext = useContext(RoleContext);
+
+  // console.log("role ",roleContext?.role);
 
   const formik = useFormik<FormValues>({
     initialValues: {
@@ -56,7 +60,7 @@ const Registration: React.FC = () => {
 
         const response = await axios.post(
           `${import.meta.env.VITE_API_URL}register/`,
-          values,
+          { ...values, role: roleContext?.role },
           {
             headers: {
               "Content-Type": "application/json",

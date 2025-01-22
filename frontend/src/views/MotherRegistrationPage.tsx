@@ -22,7 +22,6 @@ const MotherRegistrationPage: React.FC = () => {
   const navigate = useNavigate();
   const token = localStorage.getItem("regToken");
   const parsedToken = token ? JSON.parse(token) : null;
-  console.log("token from mother reg ",parsedToken);
   const formik = useFormik({
     initialValues: {
       age: "",
@@ -34,18 +33,29 @@ const MotherRegistrationPage: React.FC = () => {
     validationSchema: registrationSchema,
     onSubmit: async (values) => {
       try {
-        await axios.post(`${import.meta.env.VITE_API_URL}users/mother/`, values, {
-          headers: { Authorization: `Bearer ${parsedToken}` },
-        });
+        await axios.post(
+          `${import.meta.env.VITE_API_URL}users/mother/`,
+          values,
+          {
+            headers: { Authorization: `Bearer ${parsedToken}` },
+          }
+        );
 
-        await axios.post(`${import.meta.env.VITE_API_URL}appointments/generate/prenatal`, values, {
-          headers: { Authorization: `Bearer ${parsedToken}` },
-        });
+        await axios.post(
+          `${import.meta.env.VITE_API_URL}appointments/generate/prenatal`,
+          values,
+          {
+            headers: { Authorization: `Bearer ${parsedToken}` },
+          }
+        );
 
-        await axios.post(`${import.meta.env.VITE_API_URL}appointments/generate/postnatal`, values, {
-          headers: { Authorization: `Bearer ${parsedToken}` },
-        });
-
+        await axios.post(
+          `${import.meta.env.VITE_API_URL}appointments/generate/postnatal`,
+          values,
+          {
+            headers: { Authorization: `Bearer ${parsedToken}` },
+          }
+        );
 
         toast.success("Registration successful!");
         navigate("/login");
@@ -152,7 +162,6 @@ const MotherRegistrationPage: React.FC = () => {
             <div className="text-red-500 text-sm mt-1">{formik.errors.bio}</div>
           )}
         </div>
-
 
         {/* Address Input */}
         <div className="w-full">
