@@ -413,13 +413,8 @@ export class MotherController {
     response: Response,
     next: NextFunction
   ) {
-    const {
-      motherId,
-      referred_date,
-      examination_date,
-      treatment,
-      dentistsignature,
-    } = request.body;
+    const { motherId, referred_date, examination_date, treatment } =
+      request.body;
 
     try {
       const mother = await this.motherRepository.findOne({
@@ -434,7 +429,7 @@ export class MotherController {
       newDentalCare.referred_date = referred_date;
       newDentalCare.examination_date = examination_date;
       newDentalCare.treatment = treatment;
-      newDentalCare.dentistsignature = dentistsignature;
+      // newDentalCare.dentistsignature = dentistsignature;
       newDentalCare.mother = mother;
 
       await this.dentalCareRepository.save(newDentalCare);
@@ -565,6 +560,30 @@ export class MotherController {
       return;
     } catch (error) {
       return next(error);
+    }
+  }
+
+  async getDentalCare(
+    request: Request,
+    response: Response,
+    next: NextFunction
+  ) {
+    const motherId = parseInt(request.params.id);
+
+    try {
+      const mother = await this.motherRepository.findOne({
+        where: { id: motherId },
+        relations: ["dentalCare"],
+      });
+
+      if (!mother) {
+        return { message: "Mother not found" };
+      }
+
+      return mother.dentalCare;
+    } catch (error) {
+      console.error("Error fetching dental care data:", error);
+      return { message: "Internal server error" };
     }
   }
 

@@ -18,6 +18,6 @@ export class DentalCare {
   @Column({ type: "text" })
   dentistsignature: string;
 
-  @OneToOne(() => Mother, (mother) => mother.emergencyPlan)
+  @OneToOne(() => Mother, (mother) => mother.dentalCare)
   mother: Mother;
 }
