@@ -153,7 +153,7 @@ const DashboardMOH = () => {
                           firstName={phm.user?.firstName || ''}
                           lastName={phm.user?.lastName || ''}
                           nic={phm.user?.nic || ''}
-                          location="New York, USA"
+                          location={phm.phm_area || ''}
                           onAdd={() => handleAddPhm(phm.id)}
                           moh={phm.moh}
                           isVerified={phm.user?.isVerified || false}
@@ -189,7 +189,7 @@ const DashboardMOH = () => {
                           firstName={phm.user?.firstName || ''}
                           lastName={phm.user?.lastName || ''}
                           nic={phm.user?.nic || ''}
-                          location="New York, USA"
+                          location={phm.phm_area || ''}
                           onAdd={() => handleAddPhm(phm.id)}
                           moh={phm.moh}
                           isVerified={phm.user?.isVerified || false}
