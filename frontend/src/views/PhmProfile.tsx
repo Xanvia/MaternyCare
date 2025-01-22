@@ -1,13 +1,13 @@
 import { useEffect, useState, useRef } from "react";
 import { EyeIcon, EyeOffIcon } from "../assets/icons/Icons";
-import EditPersonalInfo from "../modals/PersonalInfoEditPopup";
-import EditAccountInfo from "../modals/AccountInfoEditPopup";
-import EditLocationInfo from "../modals/LocationInfoEditPopup";
 import ToTitle from "../components/CaseConverter";
 import axios from "axios";
 import { CircularProgress } from "@mui/material";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCamera } from "@fortawesome/free-solid-svg-icons";
+import EditPersonalInfo from "../modals/MotherPersonalInfoEditPopup";
+import EditLocationInfo from "../modals/MotherLocationInfoEditPopup";
+import EditAccountInfo from "../modals/MotherAccountInfoEditPopup";
 
 interface Mother {
   id: number;
