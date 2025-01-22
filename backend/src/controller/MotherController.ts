@@ -5,6 +5,7 @@ import { User } from "../entity/User";
 import { Phm } from "../entity/Phm";
 import { KickCount } from "../entity/KickCount";
 import { EmergencyPlan } from "../entity/EmergencyPlan";
+import { DentalCare } from "../entity/DentalCare";
 
 export class MotherController {
   private motherRepository = AppDataSource.getRepository(Mother);
@@ -12,6 +13,7 @@ export class MotherController {
   private phmRepository = AppDataSource.getRepository(Phm);
   private kickCountRepository = AppDataSource.getRepository(KickCount);
   private emergencyRepository = AppDataSource.getRepository(EmergencyPlan);
+  dentalCareRepository: any;
 
   async all(request: Request, response: Response, next: NextFunction) {
     return this.motherRepository.find({
@@ -406,6 +408,41 @@ export class MotherController {
     }
   }
 
+  // async updateDentalCare(
+  //   request: Request,
+  //   response: Response,
+  //   next: NextFunction
+  // ) {
+  //   const { motherId, referred_date, examination_date, treatment } =
+  //     request.body;
+
+  //   try {
+  //     const mother = await this.motherRepository.findOne({
+  //       where: { id: motherId },
+  //     });
+
+  //     if (!mother) {
+  //       return { message: "Mother not found" };
+  //     }
+
+  //     const newDentalCare = new DentalCare();
+  //     newDentalCare.referred_date = referred_date;
+  //     newDentalCare.examination_date = examination_date;
+  //     newDentalCare.treatment = treatment;
+  //     newDentalCare.mother = mother;
+
+  //     await this.dentalCareRepository.save(newDentalCare);
+
+  //     return {
+  //       message: "Dental care updated successfully",
+  //       data: newDentalCare,
+  //     };
+  //   } catch (error) {
+  //     console.error("Error updating dental care:", error);
+  //     return { message: "Internal server error" };
+  //   }
+  // }
+
   async updateCounselingForm(request: Request, response: Response) {
     const {
       motherId,
@@ -497,33 +534,150 @@ export class MotherController {
     }
   }
 
-  async updateDentistSignature(
+  // Get dental care data
+  async getDentalCare(
     request: Request,
     response: Response,
     next: NextFunction
   ) {
     const id = parseInt(request.params.id);
-    const { dentistsignature } = request.body;
 
     try {
       const mother = await this.motherRepository.findOne({
         where: { id },
+        relations: ["dentalCare"],
       });
 
       if (!mother) {
         return { message: "Mother not found" };
       }
 
-      // Update the mother's signature
-      mother.dentistsignature = dentistsignature;
-
-      await this.motherRepository.save(mother);
-      response.send(mother);
-      return;
+      return mother.dentalCare || {};
     } catch (error) {
       return next(error);
     }
   }
+
+  // Update only the dentist signature
+  // async updateDentistSignature(
+  //   request: Request,
+  //   response: Response,
+  //   next: NextFunction
+  // ) {
+  //   const id = parseInt(request.params.id);
+  //   const { dentistsignature } = request.body;
+
+  //   try {
+  //     const mother = await this.motherRepository.findOne({
+  //       where: { id },
+  //       relations: ["dentalCare"],
+  //     });
+
+  //     if (!mother) {
+  //       return response.status(404).json({ message: "Mother not found" });
+  //     }
+
+  //     if (!mother.dentalCare) {
+  //       mother.dentalCare = new DentalCare();
+  //     }
+
+  //     mother.dentalCare.dentistsignature = dentistsignature;
+  //     await this.motherRepository.save(mother);
+
+  //     return response.json({ message: "Signature updated successfully" });
+  //   } catch (error) {
+  //     return next(error);
+  //   }
+  // }
+
+  // Update only the dental care form data (excluding signature)
+  async updateDentalCare(
+    request: Request,
+    response: Response,
+    next: NextFunction
+  ) {
+    const id = parseInt(request.params.id);
+    const { referred_date, examination_date, treatment } = request.body;
+
+    try {
+      const mother = await this.motherRepository.findOne({
+        where: { id },
+        relations: ["dentalCare"],
+      });
+
+      if (!mother) {
+        return { message: "Mother not found" };
+      }
+
+      if (!mother.dentalCare) {
+        mother.dentalCare = new DentalCare();
+      }
+
+      mother.dentalCare.referred_date = referred_date;
+      mother.dentalCare.examination_date = examination_date;
+      mother.dentalCare.treatment = treatment;
+
+      await this.motherRepository.save(mother);
+
+      return {
+        message: "Dental care details updated successfully",
+      };
+    } catch (error) {
+      return next(error);
+    }
+  }
+
+  // async updateDentistSignature(
+  //   request: Request,
+  //   response: Response,
+  //   next: NextFunction
+  // ) {
+  //   const id = parseInt(request.params.id);
+  //   const { dentistsignature } = request.body;
+
+  //   try {
+  //     const mother = await this.motherRepository.findOne({
+  //       where: { id },
+  //     });
+
+  //     if (!mother) {
+  //       return { message: "Mother not found" };
+  //     }
+
+  //     // Update the mother's signature
+  //     // mother.dentistsignature = dentistsignature;
+
+  //     await this.motherRepository.save(mother);
+  //     response.send(mother);
+  //     return;
+  //   } catch (error) {
+  //     return next(error);
+  //   }
+  // }
+
+  // async getDentalCare(
+  //   request: Request,
+  //   response: Response,
+  //   next: NextFunction
+  // ) {
+  //   const motherId = parseInt(request.params.id);
+
+  //   try {
+  //     const mother = await this.motherRepository.findOne({
+  //       where: { id: motherId },
+  //       relations: ["dentalCare"],
+  //     });
+
+  //     if (!mother) {
+  //       return { message: "Mother not found" };
+  //     }
+
+  //     return mother.dentalCare;
+  //   } catch (error) {
+  //     console.error("Error fetching dental care data:", error);
+  //     return { message: "Internal server error" };
+  //   }
+  // }
 
   async updateDashboard(
     request: Request,

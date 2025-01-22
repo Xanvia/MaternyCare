@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 // import Button from "@mui/joy/Button";
-import { toast, ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
 
@@ -131,7 +131,7 @@ const EmergencyPlanTable: React.FC<EmergencyPlanTableProps> = ({
       id="emergency-details"
       className="max-w-full mx-4 my-4 bg-white shadow-lg rounded-lg p-6 border border-gray-200"
     >
-      <ToastContainer />
+      {/* <ToastContainer /> */}
       <form onSubmit={handleSubmit}>
         <table className="w-full table-auto">
           <thead className="bg-gray-100">

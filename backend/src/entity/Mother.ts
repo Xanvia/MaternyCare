@@ -410,8 +410,8 @@ export class Mother {
   @Column({ type: "text", nullable: true })
   vogSignature: string; // New column for storing the signature
 
-  @Column({ type: "text", nullable: true })
-  dentistsignature: string; // New column for storing dentist's signature
+  // @Column({ type: "text", nullable: true })
+  // dentistsignature: string; // New column for storing dentist's signature
 
   @Column({ type: "text", nullable: true })
   richTextContent: string; // New column for storing rich text content

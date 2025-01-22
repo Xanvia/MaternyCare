@@ -1,41 +1,26 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
-import { toast, ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import SignaturePad from "signature_pad";
 
-const storedToken = localStorage.getItem("token");
-const token = storedToken ? JSON.parse(storedToken) : null;
+const DentalCare = () => {
+  const { id } = useParams<{ id: string }>();
+  const [isUpdating, setIsUpdating] = useState(false);
 
-interface DentalCareData {
-  referred_date: string;
-  examination_date: string;
-  treatment: string;
-  dentistsignature: string;
-}
-
-const DentalCare: React.FC = () => {
-  const signaturePadRef = useRef<HTMLCanvasElement>(null);
-  const padInstance = useRef<SignaturePad | null>(null);
-  const [signature, setSignature] = useState<string | null>(null);
-
-  const [formData, setFormData] = useState<DentalCareData>({
+  const [formData, setFormData] = useState({
     referred_date: "",
     examination_date: "",
     treatment: "",
-    dentistsignature: "",
   });
-  const [loading, setLoading] = useState(false);
-  const [isUpdating, setIsUpdating] = useState(false);
-  const [isDataLoading, setIsDataLoading] = useState(true);
 
-  const { id } = useParams<{ id: string }>();
-
+  // Fetch existing dental care data
   useEffect(() => {
-    const fetchDetails = async () => {
+    const fetchDentalCare = async () => {
+      const storedToken = localStorage.getItem("token");
+      const token = storedToken ? JSON.parse(storedToken) : null;
+
       try {
-        setLoading(true);
         const response = await axios.get(
           `${import.meta.env.VITE_API_URL}users/mother/${id}/dental-care`,
           {
@@ -44,54 +29,41 @@ const DentalCare: React.FC = () => {
             },
           }
         );
+
         setFormData({
           referred_date: response.data.referred_date || "",
           examination_date: response.data.examination_date || "",
           treatment: response.data.treatment || "",
-          dentistsignature: response.data.dentistsignature || "",
         });
-        if (response.data.dentistsignature) {
-          setSignature(response.data.dentistsignature);
-          if (padInstance.current) {
-            padInstance.current.fromDataURL(response.data.dentistsignature);
-          }
-        }
-      } catch (err) {
-        console.error("Error fetching details:", err);
-        toast.error("Failed to load dental care data. Please refresh the page.");
-      } finally {
-        setLoading(false);
-        setIsDataLoading(false);
+      } catch (error) {
+        console.error("Error fetching dental care data:", error);
+        toast.error("Failed to load dental care data");
       }
     };
 
-    fetchDetails();
-  }, [id, token]);
+    fetchDentalCare();
+  }, [id]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({
+    setFormData(prev => ({
       ...prev,
       [name]: value,
     }));
   };
 
+  // Function to update the form data
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setLoading(true);
     setIsUpdating(true);
 
-    const dataURL = padInstance.current?.toDataURL("image/png") || "";
+    const storedToken = localStorage.getItem("token");
+    const token = storedToken ? JSON.parse(storedToken) : null;
 
     try {
       await axios.put(
         `${import.meta.env.VITE_API_URL}users/mother/${id}/dental-care`,
-        {
-          referred_date: formData.referred_date,
-          examination_date: formData.examination_date,
-          treatment: formData.treatment,
-          dentistsignature: dataURL,
-        },
+        formData,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -99,79 +71,23 @@ const DentalCare: React.FC = () => {
         }
       );
 
-      setSignature(dataURL);
-      setIsUpdating(false);
-      toast.success("Details updated successfully!");
-    } catch (err) {
-      console.error("Error updating details:", err);
-      toast.error("Update failed!");
+      toast.success("Dental Care details updated successfully!");
+    } catch (error) {
+      console.error("Error updating dental care details:", error);
+      toast.error("Failed to update dental care details");
     } finally {
-      setLoading(false);
+      setIsUpdating(false);
     }
   };
-
-  const clearSignature = () => {
-    if (padInstance.current) {
-      padInstance.current.clear();
-      setSignature(null);
-    }
-  };
-
-  const saveSignature = () => {
-    if (padInstance.current) {
-      const dataURL = padInstance.current.toDataURL("image/png");
-      setSignature(dataURL);
-    }
-  };
-
-  useEffect(() => {
-    if (signaturePadRef.current) {
-      const canvas = signaturePadRef.current;
-      const ratio = Math.max(window.devicePixelRatio || 1, 1);
-      canvas.width = canvas.offsetWidth * ratio;
-      canvas.height = canvas.offsetHeight * ratio;
-      canvas.getContext("2d")?.scale(ratio, ratio);
-
-      padInstance.current = new SignaturePad(canvas, {
-        minWidth: 0.5,
-        maxWidth: 2.5,
-        backgroundColor: "rgb(255, 255, 255)",
-      });
-    }
-
-    return () => {
-      if (padInstance.current) {
-        padInstance.current.off();
-      }
-    };
-  }, []);
-
-  if (isDataLoading) {
-    return (
-      <div className="flex justify-center items-center p-8">
-        Loading dental care data...
-      </div>
-    );
-  }
 
   return (
-    <div
-      id="dental-care"
-      className="max-w-full mx-4 my-4 bg-white shadow-lg rounded-lg p-6 border border-gray-200"
-    >
-      <ToastContainer />
-      {loading && "Loading..."}
+    <div className="max-w-full mx-4 my-4 bg-white shadow-lg rounded-lg p-6 border border-gray-200">
       <form onSubmit={handleSubmit}>
-        <h2 className="my-2 font-medium text-lg">Dental Care</h2>
-        <h2 className="my-2 font-medium text-lg">දන්ත සංරක්ෂණය</h2>
-        <div className="grid grid-cols-1 md:grid-cols-1 gap-6">
+        <h2 className="text-xl font-semibold mb-6">Dental Care</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div>
-            <label
-              htmlFor="referred_date"
-              className="block text-sm font-medium text-gray-700 mt-4"
-            >
-              <div>Referred Date</div>
-              <div>යොමුකළ දිනය</div>
+            <label htmlFor="referred_date" className="block text-sm font-medium text-gray-700 mb-1">
+              Referred Date
             </label>
             <input
               type="date"
@@ -179,15 +95,11 @@ const DentalCare: React.FC = () => {
               name="referred_date"
               value={formData.referred_date}
               onChange={handleChange}
-              className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 text-sm"
+              className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
             />
 
-            <label
-              htmlFor="examination_date"
-              className="block text-sm font-medium text-gray-700 mt-4"
-            >
-              <div>Date of Examination</div>
-              <div>පරීක්ෂා කළ දිනය</div>
+            <label htmlFor="examination_date" className="block text-sm font-medium text-gray-700 mt-4 mb-1">
+              Examination Date
             </label>
             <input
               type="date"
@@ -195,75 +107,32 @@ const DentalCare: React.FC = () => {
               name="examination_date"
               value={formData.examination_date}
               onChange={handleChange}
-              className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 text-sm"
+              className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
             />
+          </div>
 
-            <label
-              htmlFor="treatment"
-              className="block text-sm font-medium text-gray-700 mt-4"
-            >
-              <div>Treatment</div>
-              <div>ප්‍රතිකාර</div>
+          <div>
+            <label htmlFor="treatment" className="block text-sm font-medium text-gray-700 mb-1">
+              Treatment
             </label>
             <textarea
               id="treatment"
               name="treatment"
               value={formData.treatment}
               onChange={handleChange}
-              className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 text-sm"
-              placeholder="Enter details about the treatment"
+              rows={4}
+              className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
             />
-
-            <label
-              htmlFor="dentistsignature"
-              className="block text-sm font-medium text-gray-700 mt-4"
-            >
-              <div>Signature</div>
-              <div>අත්සන</div>
-            </label>
-            <div className="mt-4">
-              {signature ? (
-                <div>
-                  <img
-                    src={signature}
-                    alt="Saved Signature"
-                    className="border border-gray-300 rounded-md"
-                  />
-                </div>
-              ) : (
-                <div>
-                  <canvas
-                    ref={signaturePadRef}
-                    className="border border-gray-300 rounded-md"
-                  ></canvas>
-                  <div className="mt-2 flex space-x-2">
-                    <button
-                      type="button"
-                      onClick={clearSignature}
-                      className="px-4 py-2 bg-red-500 text-white rounded-md"
-                    >
-                      Clear
-                    </button>
-                    <button
-                      type="button"
-                      onClick={saveSignature}
-                      className="px-4 py-2 bg-green-500 text-white rounded-md"
-                    >
-                      Save
-                    </button>
-                  </div>
-                </div>
-              )}
-            </div>
           </div>
         </div>
 
         <div className="mt-6">
           <button
             type="submit"
-            className="w-full md:w-auto px-6 py-2 bg-blue_primary text-white rounded-md shadow-sm hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+            disabled={isUpdating}
+            className="w-full md:w-auto px-6 py-2 bg-blue-600 text-white rounded-md shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50"
           >
-            {isUpdating ? "Updating..." : "Update"}
+            {isUpdating ? "Updating..." : "Update Dental Care"}
           </button>
         </div>
       </form>
