@@ -187,7 +187,7 @@ const SingleMotherGenral = () => {
       <ClinicCareCheckUp />
       <DentalCare />
       <PregnancyBMIChart motherId={mother.id} />
-      <SFHChart />
+      <SFHChart motherId={mother.id} />
       <EmergencyPlanTable motherId={mother.id} />
       <CounselingFormTable motherId={mother.id} />
     </div>
