@@ -79,10 +79,6 @@ const DashboardMOH = () => {
 
   return (
     <div>
-      <h1 className="font-sans text-lg text-text_color_2 ml-5">Dashboard Overview</h1>
-
-      
-
       <React.Fragment>
         <ToastContainer />
         <div className="mx-11">
