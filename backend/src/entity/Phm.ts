@@ -22,8 +22,8 @@ export class Phm {
   @Column({ type: "int", nullable: true })
   phone_number: number;
 
-  @Column({ type: "int", nullable: true })
-  phm_id: number;
+  @Column({ type: "varchar",length: 255, nullable: true })
+  phm_id: string;
 
   @Column({ type: "varchar", length: 255, nullable: true })
   phm_area: string;
