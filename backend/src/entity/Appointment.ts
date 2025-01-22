@@ -132,6 +132,16 @@ export class Appointment {
   @Column({ nullable: true })
   month: string;
 
+  @Column({ nullable: true })
+  date_of_phm_home_visit: string;
+
+  @Column({ nullable: true })
+  identified_post_partum_morbidities: string;
+
+  @Column({ type: "date", nullable: true })
+  date_of_issuing_micronutrients: Date;
+
+
   @BeforeInsert()
   @BeforeUpdate()
   updateMonth() {

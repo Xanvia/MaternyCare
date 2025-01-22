@@ -270,6 +270,9 @@ export class AppointmentController {
       signature_of_the_officer_examined,
       designation,
       weight,
+      date_of_issuing_micronutrients,
+      identified_post_partum_morbidities,
+      date_of_phm_home_visit,
 
     
     } = request.body;
@@ -316,6 +319,9 @@ export class AppointmentController {
     appointmentToUpdate.signature_of_the_officer_examined = signature_of_the_officer_examined;
     appointmentToUpdate.designation = designation;
     appointmentToUpdate.weight = weight;
+    appointmentToUpdate.date_of_issuing_micronutrients = date_of_issuing_micronutrients;
+    appointmentToUpdate.identified_post_partum_morbidities = identified_post_partum_morbidities;
+    appointmentToUpdate.date_of_phm_home_visit = date_of_phm_home_visit;
 
 
     // Save the updated notice

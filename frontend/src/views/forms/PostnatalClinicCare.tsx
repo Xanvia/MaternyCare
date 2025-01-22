@@ -15,29 +15,9 @@ const PostnatalClinicCare = () => {
     
 
   const [formData, setFormData] = useState({
-    Date_Of_Visited: "",
-    POA_weeks: "",
-    POV_days:"",
-    urine:"",
-    sugar:"",
-    albumin:"",
-    pallor:"",
-    ankle:"",
-    facial:"",
-    blood_pressure : "",
-    fundal_height: "",
-    foetal_lie: "",
-    presentation: "",
-    engagement_of_the_presenting_part: "",
-    fm: "",
-    fhs: "",
-    iron: "",
-    folate: "",
-    calcium: "",
-    vitamin_C: "",
-    food_supplementation: "",
-    designation: "",
-    weight: "",
+    date_of_phm_home_visit: "",
+    date_of_issuing_micronutrients: "",
+    identified_post_partum_morbidities:"",
     
   });
   const [loading, setLoading] = useState(false);
@@ -61,29 +41,9 @@ const PostnatalClinicCare = () => {
         ); 
         
         setFormData({
-          Date_Of_Visited: response.data.Date_Of_Visited || "",
-          POA_weeks: response.data.POA_weeks || "",
-          POV_days: response.data.POV_days || "",
-          urine: response.data.urine || "",
-          sugar: response.data.sugar || "",
-          albumin: response.data.albumin || "",
-          pallor: response.data.pallor || "",
-          ankle: response.data.ankle || "",
-          facial: response.data.facial || "",
-          blood_pressure: response.data.blood_pressure || "",
-          fundal_height: response.data.fundal_height || "",
-          foetal_lie: response.data.foetal_lie || "",
-          presentation: response.data.presentation || "",
-          engagement_of_the_presenting_part: response.data.engagement_of_the_presenting_part || "",
-          fm: response.data.fm || "",
-          fhs: response.data.fhs || "",
-          iron: response.data.iron || "",
-          folate: response.data.folate || "",
-          calcium: response.data.calcium || "",
-          vitamin_C: response.data.vitamin_C || "",
-          food_supplementation: response.data.food_supplementation || "",
-          designation: response.data.designation || "",
-          weight: response.data.weight || "",
+          date_of_phm_home_visit: response.data.date_of_phm_home_visit || "",
+          date_of_issuing_micronutrients: response.data.date_of_issuing_micronutrients || "",
+          identified_post_partum_morbidities: response.data.identified_post_partum_morbidities || "",
 
           
         });
@@ -115,34 +75,15 @@ const PostnatalClinicCare = () => {
       setIsUpdating(true);
 
       console.log(`Endpoint: ${BASE_URL}appointments/${appointmentid}`);
-      console.log(`data-latest${formData.Date_Of_Visited}`);
+      // console.log(`data-latest${formData.Date_Of_Visited}`);
 
       await axios.put(
         `${BASE_URL}appointments/${appointmentid}`,
         {
-          Date_Of_Visited: formData.Date_Of_Visited,
-          POA_weeks: formData.POA_weeks,
-          POV_days : formData.POV_days,
-          urine : formData.urine,
-          sugar : formData.sugar,
-          albumin : formData.albumin,
-          pallor : formData.pallor,
-          ankle : formData.ankle,
-          facial : formData.facial,
-          blood_pressure : formData.blood_pressure,
-          fundal_height : formData.fundal_height,
-          foetal_lie : formData.foetal_lie,
-          presentation: formData.presentation,
-          engagement_of_the_presenting_part: formData.engagement_of_the_presenting_part,
-          fm: formData.fm,
-          fhs: formData.fhs,
-          iron: formData.iron,
-          folate: formData.folate,
-          calcium: formData.calcium,
-          vitamin_C: formData.vitamin_C,
-          food_supplementation: formData.food_supplementation,
-          designation: formData.designation,
-          weight: formData.weight,
+          date_of_phm_home_visit: formData.date_of_phm_home_visit,
+          date_of_issuing_micronutrients: formData.date_of_issuing_micronutrients,
+          identified_post_partum_morbidities : formData.identified_post_partum_morbidities,
+          
         },
         {
           headers: {
@@ -189,12 +130,12 @@ const PostnatalClinicCare = () => {
               <div className="flex">
                 <input
                 type="date"
-                id="Date_Of_Visited"
-                name="Date_Of_Visited"
-                value = {formData.Date_Of_Visited}
+                id="date_of_phm_home_visit"
+                name="date_of_phm_home_visit"
+                value = {formData.date_of_phm_home_visit}
                 onChange={handleChange}
                 className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 text-sm"
-                placeholder="Registration Date"
+                placeholder="PHM home visit Date"
               />
               </div>
 
@@ -208,9 +149,9 @@ const PostnatalClinicCare = () => {
               </label>
 
               <textarea
-                id="pallor"
-                name="pallor"
-                value={formData.pallor}
+                id="identified_post_partum_morbidities"
+                name="identified_post_partum_morbidities"
+                value={formData.identified_post_partum_morbidities}
                 onChange={handleChange}
                 className="mt-1 block w-full px-4 py-2 h-32 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 text-sm"
                 placeholder="Identified post partum morbidities & actions taken"
@@ -233,24 +174,24 @@ const PostnatalClinicCare = () => {
               <div className="flex">
                 <input
                 type="date"
-                id="Date_Of_Visited"
-                name="Date_Of_Visited"
-                value = {formData.Date_Of_Visited}
+                id="date_of_issuing_micronutrients"
+                name="date_of_issuing_micronutrients"
+                value = {formData.date_of_issuing_micronutrients}
                 onChange={handleChange}
                 className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 text-sm"
-                placeholder="Registration Date"
+                placeholder="Date of issuing micronutrients"
               />
               </div>
 
-              <label
+              {/* <label
                 htmlFor="hospitalclinic"
                 className="block text-sm font-medium text-gray-700 mt-4"
               >
                 <div>Date for postpartum clinic</div>
                 <div>පසු ප්‍රසූත සායන දිනය</div>
-              </label>
+              </label> */}
 
-              <div className="flex">
+              {/* <div className="flex">
                 <input
                 type="date"
                 id="Date_Of_Visited"
@@ -281,7 +222,7 @@ const PostnatalClinicCare = () => {
                 />
               
 
-              </div>
+              </div> */}
           
           </div>
 
