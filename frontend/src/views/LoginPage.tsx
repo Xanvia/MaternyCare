@@ -5,7 +5,7 @@ import { loginSchema } from "../schemas/Schemas";
 import { ErrorIcon } from "../assets/icons/Icons";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { toast, ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import ForgotPasswordPopup from "../modals/ForgotPasswordPopup";
 
@@ -77,7 +77,7 @@ const LoginPage: React.FC = () => {
 
   return (
     <div className="flex items-center justify-center h-screen">
-      <ToastContainer />
+      {/* <ToastContainer /> */}
       <form
         autoComplete="off"
         onSubmit={formik.handleSubmit}
@@ -143,18 +143,17 @@ const LoginPage: React.FC = () => {
           </div>
         </div>
         <div className="w-11/12 lg:w-5/12 sm:w-8/12 ss:w-10/12 mb-4 flex flex-row justify-between">
-            
-            <div>
+          <div>
             <ForgotPasswordPopup />
-            </div>
+          </div>
 
           {/* <a href="" className="text-[#838383] text-xs ">
             Forgot Password?
           </a> */}
           <div className="flex items-center">
-          <a href="" className="text-[#838383] text-xs ">
-            Don't have an account? Sign Up
-          </a>
+            <a href="" className="text-[#838383] text-xs ">
+              Don't have an account? Sign Up
+            </a>
           </div>
         </div>
         <button

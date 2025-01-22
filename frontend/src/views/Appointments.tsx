@@ -112,7 +112,7 @@ const Appointments = () => {
       </div> */}
       <div className="flex flex-col justify-between my-4 items-left ">
         {role !== "mother" && (
-          <div className="flex flex-row justify-between mt-9 mb-4 text-sm">
+          <div className="flex flex-row justify-between mt-9 mb-4 text-sm bg-white py-4 px-4 rounded-md">
             <div>
               <div>
                 <strong>Mother's Name: </strong>{" "}
@@ -129,11 +129,7 @@ const Appointments = () => {
             </div>
             <div className="flex items-center gap-4">
               <button
-                 onClick={() =>
-                  navigate(
-                    `/mother/${motherId}/general-form`
-                  )
-                }
+                onClick={() => navigate(`/mother/${motherId}/general-form`)}
                 className="flex items-center px-4 py-2 bg-green_primary text-white rounded-md hover:bg-green-400"
               >
                 <NoticesIcon className="mr-2" />
@@ -144,7 +140,7 @@ const Appointments = () => {
           </div>
         )}
 
-        <h1 className="mt-4 mb-4 text-sm">Prenatal Appointments</h1>
+        <h1 className="mt-4 mb-4 text-lg">Prenatal Appointments</h1>
         {/* <div className="flex justify-end">
           <AddFixAppointmentModal />
         </div> */}

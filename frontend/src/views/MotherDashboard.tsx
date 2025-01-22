@@ -162,9 +162,11 @@ const MotherDashboard = () => {
     setCount(kickcounts[kickcounts.length - 1]?.kickCount);
   }, [kickcounts]);
 
+  console.log("phm: ", phm);
+
   return (
     <div className="mx-11">
-      {phm !== null && (
+      {phm?.result && (
         <>
           <div className="w-full justify-end flex ">
             {" "}
@@ -179,10 +181,9 @@ const MotherDashboard = () => {
           <ReportHealthIssueModal
             open={openModal}
             onClose={() => setOpenModal(false)}
-            phm={phm?.result || { firstName: "", phoneNumber: 0, email: "" }}
-            // email={phm?.result.email || ""}
-            phoneNumber={phm?.result.phoneNumber || 0}
-            firstName={phm?.result.firstName || ""}
+            phm={phm.result}
+            phoneNumber={phm?.result?.phoneNumber ?? ""}
+            firstName={phm?.result?.firstName ?? ""}
           />
         </>
       )}
@@ -210,10 +211,7 @@ const MotherDashboard = () => {
           title="Kick Count"
           subtitle="kicks"
           updateComponent={
-            <KickCountUpdateModal
-              motherId={mother ? mother.id : 0}
-              // onUpdate={getKickCount}
-            />
+            <KickCountUpdateModal motherId={mother ? mother.id : 0} />
           }
         />
         <DashboardStatCard
@@ -235,12 +233,8 @@ const MotherDashboard = () => {
           count={8}
           title="Water Amount"
           subtitle="litres"
-          // updateComponent=<WaterAmountUpdate />
         />
       </div>
-      {/* <div className="mt-12 h-96 w-auto">
-        <LineChart />
-      </div> */}
 
       <div className="mt-12">
         {mother && <PregnancyBMIChart motherId={mother.id.toString()} />}

@@ -105,7 +105,7 @@ const SingleMother = () => {
 
         <button
           onClick={() => navigate(`/mother/${mother.id}/form-preview`)}
-          className="flex items-center px-4 py-2 bg-blue_primary text-white rounded-md hover:bg-blue_secondary"
+          className=" items-center px-4 py-2 hidden sm:flex bg-blue_primary text-white rounded-md hover:bg-blue_secondary"
         >
           <NoticesIcon className="mr-2" />
           Form Preview
@@ -114,18 +114,31 @@ const SingleMother = () => {
           <button
             onClick={updateAppointment}
             disabled={appointment?.checkedByPHM}
-            className="flex items-center px-4 py-2 bg-green_primary text-white rounded-md hover:bg-green-400"
+            className="sm:flex items-center px-4 py-2 hidden bg-green_primary text-white rounded-md hover:bg-green-400"
           >
             <TickCircle className="mr-2" />
             {appointment?.checkedByPHM ? "Completed" : "Mark As Completed"}
           </button>
         </div>
       </div>
+      <div className="px-4">
+        <button
+          onClick={() => navigate(`/mother/${mother.id}/form-preview`)}
+          className="flex items-center px-4 py-2 sm:hidden  mt-2 w-full bg-blue_primary text-white rounded-md hover:bg-blue_secondary"
+        >
+          <NoticesIcon className="mr-2" />
+          Form Preview
+        </button>
+      </div>
 
       <div className="px-4 py-3 sm:hidden w-full">
-        <button className="flex items-center px-4 py-2 bg-green_primary text-white rounded-md hover:bg-green-400 w-full">
+        <button
+          onClick={updateAppointment}
+          disabled={appointment?.checkedByPHM}
+          className="flex items-center px-4 py-2 bg-green_primary text-white rounded-md hover:bg-green-400 w-full"
+        >
           <TickCircle className="mr-2" />
-          Complete Appointment
+          {appointment?.checkedByPHM ? "Completed" : "Mark As Completed"}
         </button>
       </div>
       {renderClinicCareComponent()}

@@ -101,7 +101,7 @@ const Appointments = () => {
     getMother();
   }, [motherId]);
 
-  console.log("postnatal appointments: ", mother);
+  console.log("ostnatal appointments: ", mother);
 
   return (
     <div>
@@ -111,7 +111,7 @@ const Appointments = () => {
         )) }
       </div> */}
       <div className="flex justify-between my-4 items-center ">
-        <h1 className="mt-9 mb-4 text-sm">Postnatal Appointments</h1>
+        <h1 className="mt-9 mb-4 text-lg">Postnatal Appointments</h1>
         {/* <div className="flex justify-end">
           <AddFixAppointmentModal />
         </div> */}

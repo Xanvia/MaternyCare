@@ -103,7 +103,7 @@ const BasicDetailsPreview: React.FC<BasicDetailsPreviewProps> = ({
         <div
           className={`w-16 h-8 bg-${data.risk_type}-500 rounded-2xl mb-6 text-xs flex items-center justify-center text-white`}
         >
-          <p>{data.risk_type.toUpperCase()} Risk</p>
+          <p>{data?.risk_type ? data.risk_type.toUpperCase() : "UNKNOWN"} Risk</p>
         </div>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
