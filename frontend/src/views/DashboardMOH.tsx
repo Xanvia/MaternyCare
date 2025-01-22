@@ -86,16 +86,16 @@ const DashboardMOH = () => {
             <MohDashboardStatCard
               image={fire}
               color="bg-[#A8F0DB]"
-              count={10}
-              title="Checked"
-              subtitle="patients"
+              count={phms.filter((phm) => phm.user?.isVerified === false).length}
+              title="in your division"
+              subtitle="PHMs"
             />
             <MohDashboardStatCard
               image={water}
               color="bg-[#80CAFF]"
               count={8}
-              title="Unchecked"
-              subtitle="patients"
+              title="in your division"
+              subtitle="mothers"
             />
             <div className="bg-white py-8 xs:px-6 px-4 h-42 rounded-lg">
               <div className="grid xs:grid-cols-2 grid-cols-1 gap-2 items-center">
