@@ -164,24 +164,28 @@ const MotherDashboard = () => {
 
   return (
     <div className="mx-11">
-      <div className="w-full justify-end flex ">
-        {" "}
-        <button
-          className="flex items-center bg-red-500 text-white px-4 py-2 rounded mb-3"
-          onClick={() => setOpenModal(true)}
-        >
-          <ReportProblem />
-          <span className="ml-2">Report Health Issue</span>
-        </button>
-      </div>
-      <ReportHealthIssueModal
-        open={openModal}
-        onClose={() => setOpenModal(false)}
-        phm={phm?.result || { firstName: "", phoneNumber: 0, email: "" }}
-        // email={phm?.result.email || ""}
-        phoneNumber={phm?.result.phoneNumber || 0}
-        firstName={phm?.result.firstName || ""}
-      />
+      {phm !== null && (
+        <>
+          <div className="w-full justify-end flex ">
+            {" "}
+            <button
+              className="flex items-center bg-red-500 text-white px-4 py-2 rounded mb-3"
+              onClick={() => setOpenModal(true)}
+            >
+              <ReportProblem />
+              <span className="ml-2">Report Health Issue</span>
+            </button>
+          </div>
+          <ReportHealthIssueModal
+            open={openModal}
+            onClose={() => setOpenModal(false)}
+            phm={phm?.result || { firstName: "", phoneNumber: 0, email: "" }}
+            // email={phm?.result.email || ""}
+            phoneNumber={phm?.result.phoneNumber || 0}
+            firstName={phm?.result.firstName || ""}
+          />
+        </>
+      )}
 
       <div className="mt-14 lg:mt-0 h-auto min-h-44 px-8 py-5 text-white bg-[#BA97FE] rounded-2xl mb-8 w-auto">
         <h1 className="mb-2 text-lg">
@@ -239,13 +243,13 @@ const MotherDashboard = () => {
       </div> */}
 
       <div className="mt-12">
-        <PregnancyBMIChart />
+        {mother && <PregnancyBMIChart motherId={mother.id.toString()} />}
       </div>
       <div className="mt-6">
-        <SFHChart />
+        {mother && <SFHChart motherId={mother.id.toString()} />}
       </div>
       <div className="py-6">
-        <BasicDetailsPreview />
+        {mother && <BasicDetailsPreview motherId={mother.id.toString()} />}
       </div>
     </div>
   );

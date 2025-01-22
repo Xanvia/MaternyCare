@@ -38,7 +38,7 @@ const SFHChart = ({ motherId }: { motherId: string }) => {
     const fetchAppointments = async () => {
       try {
         const response = await fetch(
-          `http://localhost:3000/appointments/mother/${motherId}`
+        `${import.meta.env.VITE_API_URL}appointments/mother/${motherId}`
         );
         if (!response.ok) throw new Error("Failed to fetch appointments");
         const data = await response.json();
