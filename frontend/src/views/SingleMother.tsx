@@ -1,16 +1,9 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
-// import ToTitle from "../components/CaseConverter";
-import BasicDetails from "./forms/BasicDetails";
-import {
-  ExpandLess,
-  ExpandMore,
-  NoticesIcon,
-  TickCircle,
-} from "../assets/icons/Icons";
-import PresentObstetricHistory from "./forms/PresentObstetricHistory";
+import { NoticesIcon, TickCircle } from "../assets/icons/Icons";
 import ClinicCare from "./forms/ClinicCare";
+import PostnatalClinicCare from "./forms/PostnatalClinicCare";
 // import ClinicCare2 from "./forms/ClinicCare2";
 // import DentalCare from "./forms/DentalCare";
 
@@ -78,11 +71,11 @@ const SingleMother = () => {
 
   const renderClinicCareComponent = () => {
     if (!appointment) return null;
-    
+
     switch (appointment.appointment_state) {
-      case 'postnatal':
+      case "postnatal":
         return <PostnatalClinicCare />;
-      case 'prenatal':
+      case "prenatal":
         return <ClinicCare />;
       default:
         return null;
