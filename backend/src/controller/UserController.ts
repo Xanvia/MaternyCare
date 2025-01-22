@@ -53,7 +53,8 @@ export class UserController {
   //   return { user: savedUser, token };
   // }
   async createUser(request: Request, response: Response, next: NextFunction) {
-    const { firstName, lastName, email, password, role, nic } = request.body;
+    const { firstName, lastName, email, password, confirmPassword, role, nic } =
+      request.body;
 
     try {
       // Hash the password
@@ -217,35 +218,35 @@ export class UserController {
     }
   }
 
-  async forgotPassword(request: Request, response: Response, next: NextFunction) {
+  async forgotPassword(
+    request: Request,
+    response: Response,
+    next: NextFunction
+  ) {
     const { nic, newPassword, email } = request.body;
-  
+
     try {
       // Validate input
       if (!nic || !newPassword || !email) {
-        return ({ message: "NIC, email, and new password are required" });
+        return { message: "NIC, email, and new password are required" };
       }
-  
+
       // Find user by NIC and email
       const user = await this.userRepository.findOne({ where: { nic, email } });
-  
+
       if (!user) {
-        return ({ message: "User not found or incorrect NIC/email" });
+        return { message: "User not found or incorrect NIC/email" };
       }
-  
-      
+
       const hashedPassword = await bcrypt.hash(newPassword, 10);
-  
-      
+
       user.password = hashedPassword;
       await this.userRepository.save(user);
-      
-      return ({ message: "New password successfully updated" });
+
+      return { message: "New password successfully updated" };
     } catch (error) {
       console.error("Error updating password:", error);
-      return ({ message: "Internal server error" });
+      return { message: "Internal server error" };
     }
   }
-  
-  
 }
