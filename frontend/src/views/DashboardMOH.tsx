@@ -21,6 +21,7 @@ const DashboardMOH = () => {
   interface Phm {
     phm_area: string;
     id: number;
+    mohArea: string;
     phone_number: number;
     mother_count: number;
     user: {
@@ -46,6 +47,7 @@ const DashboardMOH = () => {
       axios(axiosConfig)
         .then((response) => {
           setPhms(response.data);
+          console.log("PHMS: ",response.data);
         })
         .catch((err) => {
           console.log(err);
@@ -137,7 +139,7 @@ const DashboardMOH = () => {
               <>
                 <div className="grid lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-y-4 gap-x-6 mb-5">
                   {phms
-                    .filter((phm) => phm.user?.isVerified === false) // Add null check
+                    .filter((phm) => phm.moh == null) // Add null check
                     .map((phm, index) => (
                       <div
                         key={phm.id}
@@ -173,7 +175,7 @@ const DashboardMOH = () => {
               <>
                 <div className="grid lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-y-4 gap-x-6 mb-5">
                   {phms
-                    .filter((phm) => phm.user?.isVerified === true) // Add null check
+                    .filter((phm) => phm.moh !== null) // Add null check
                     .map((phm, index) => (
                       <div
                         key={phm.id}

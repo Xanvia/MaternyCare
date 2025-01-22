@@ -12,6 +12,7 @@ interface Phm {
     isVerified: boolean;
     nic: string;
   } | null; // Allow null for safety
+  moh: {};
 }
 
 interface PhmTableProps {
@@ -75,7 +76,7 @@ const PhmTable: React.FC<PhmTableProps> = ({ phms }) => {
               </tr>
             </thead>
             <tbody className="bg-white divide-y divide-gray-200">
-              {currentData.map((phm) => (
+              {currentData.filter((phm)=> phm.moh !== null).map((phm) => (
                 <tr
                   key={phm.id}
                   className="hover:bg-gray-100 cursor-pointer"
