@@ -24,7 +24,7 @@ const MotherRegistrationPage: React.FC = () => {
   const parsedToken = token ? JSON.parse(token) : null;
   const formik = useFormik({
     initialValues: {
-      age: "",
+      age: 18,
       phone_1: "",
       bio: "",
       address: "",

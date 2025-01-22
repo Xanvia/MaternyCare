@@ -43,7 +43,7 @@ export const MotherRoutes = [
     controller: MotherController,
     action: "getPhmAllMothersByUserId",
     // middlewares: [jwtMiddleware, roleMiddleware("mother")],
-    middlewares: [jwtMiddleware],
+    middlewares: [],
   },
 
   {
@@ -105,6 +105,14 @@ export const MotherRoutes = [
     route: "/mother/:motherId/counseling-form/",
     controller: MotherController,
     action: "getCounselingDetails",
+    // middlewares: [jwtMiddleware, roleMiddleware("mother")],
+    middlewares: [],
+  },
+  {
+    method: "get",
+    route: "/statcard/:id",
+    controller: MotherController,
+    action: "getMotherByUserId",
     // middlewares: [jwtMiddleware, roleMiddleware("mother")],
     middlewares: [],
   },

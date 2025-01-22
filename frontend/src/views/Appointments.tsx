@@ -202,6 +202,7 @@ const Appointments = () => {
                       <button
                         className="flex flex-col w-full items-center"
                         disabled={
+                          role === "mother" ||
                           appointment.fixedDate === null ||
                           appointment.checkedByPHM === true
                         }

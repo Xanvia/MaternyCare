@@ -54,7 +54,12 @@ export class MotherController {
     if (!mother) {
       return "unlisted mother";
     }
-    return mother;
+    const newData = {
+      phone_number: mother.phm.phone_number, 
+      moh_division: mother.phm.moh_division,
+      phm_area: mother.phm.phm_area,
+    }
+    return newData;
   }
 
   async save(request: Request, response: Response, next: NextFunction) {
