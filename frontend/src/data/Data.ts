@@ -36,12 +36,13 @@ export const getNavLinks = ({ role }: { role: string }) => {
       name: "Notices",
       icon: NoticesIcon,
       path: "/notices",
+      roles: ["mother", "phm", "moh"],
     },
     {
       name: "Appointments",
       icon: AppointmentsIcon,
       path: `/${role}appointments`,
-      roles: ["phm", "mother", "vog"],
+      roles: ["mother", "phm"],
     },
     {
       name: "Profile",
@@ -52,6 +53,7 @@ export const getNavLinks = ({ role }: { role: string }) => {
       name: "Mother's Guide",
       icon: Help,
       path: "/guide",
+      roles: ["mother", "moh"],
     },
     {
       name: "Progress",
