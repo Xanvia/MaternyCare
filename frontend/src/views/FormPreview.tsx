@@ -7,6 +7,7 @@ import SFHChart from "../components/SFHChart";
 import EmergencyPlanPreview from "./forms/EmergencyPlanPreview";
 import CounselingFormPreview from "./forms/CounselingFormPreview";
 import DentalCarePreview from "./forms/DentalCarePreview";
+import ClinicCareCheckUpPreview from "./forms/ClinicCareCheckUpPreview";
 
 const FormPreview = () => {
   const { id = "" } = useParams<{ id: string }>() || {};
@@ -24,6 +25,7 @@ const FormPreview = () => {
       <EmergencyPlanPreview motherId={id} />
       <CounselingFormPreview motherId={id} />
       <DentalCarePreview />
+      <ClinicCareCheckUpPreview />
     </div>
   );
 };

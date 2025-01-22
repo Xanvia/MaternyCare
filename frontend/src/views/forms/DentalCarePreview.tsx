@@ -50,14 +50,14 @@ const DentalCarePreview = () => {
           <label className="block text-sm font-medium text-gray-700 mb-1">
             Referred Date
           </label>
-          <p className="mt-1 px-4 py-2 border border-gray-300 rounded-md">
+          <p className="mt-1 px-4 py-2 border border-gray-300 rounded-md bg-gray-100">
             {formData.referred_date}
           </p>
 
           <label className="block text-sm font-medium text-gray-700 mt-4 mb-1">
             Examination Date
           </label>
-          <p className="mt-1 px-4 py-2 border border-gray-300 rounded-md">
+          <p className="mt-1 px-4 py-2 border border-gray-300 rounded-md bg-gray-100">
             {formData.examination_date}
           </p>
         </div>
@@ -66,7 +66,7 @@ const DentalCarePreview = () => {
           <label className="block text-sm font-medium text-gray-700 mb-1">
             Treatment
           </label>
-          <p className="mt-1 px-4 py-2 border border-gray-300 rounded-md whitespace-pre-wrap">
+          <p className="mt-1 px-4 py-2 border border-gray-300 rounded-md bg-gray-100 whitespace-pre-wrap">
             {formData.treatment}
           </p>
         </div>
