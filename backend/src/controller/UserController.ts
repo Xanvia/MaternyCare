@@ -228,25 +228,30 @@ export class UserController {
     try {
       // Validate input
       if (!nic || !newPassword || !email) {
-        return { message: "NIC, email, and new password are required" };
+        response.status(400).json({ message: "NIC, email, and new password are required" });
+        return;
       }
 
       // Find user by NIC and email
       const user = await this.userRepository.findOne({ where: { nic, email } });
 
       if (!user) {
-        return { message: "User not found or incorrect NIC/email" };
+        response.status(400).json({ message: "User not found or incorrect NIC/email" });
+        return;
       }
 
       const hashedPassword = await bcrypt.hash(newPassword, 10);
 
       user.password = hashedPassword;
       await this.userRepository.save(user);
+      
+      response.status(200).json({ message: "New password successfully updated" });
+      return;
 
-      return { message: "New password successfully updated" };
     } catch (error) {
       console.error("Error updating password:", error);
-      return { message: "Internal server error" };
+      response.status(500).json({ message: "Internal server error" });
+      return;
     }
   }
 }
