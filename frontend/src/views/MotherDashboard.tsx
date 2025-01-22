@@ -13,11 +13,12 @@ import axios from "axios";
 import useRoleProtection from "../customHooks/useRoleProtection";
 import { quotes } from "../data/Data";
 import BasicDetailsPreview from "./forms/BasicDetailsPreview";
-import { ReportProblem } from "../assets/icons/Icons";
+import { NoticesIcon, ReportProblem } from "../assets/icons/Icons";
 import ReportHealthIssueModal from "../modals/ReportHealthIssueModal";
 import PregnancyBMIChart from "../components/PregnancyBMIChart";
 import SFHChart from "../components/SFHChart";
 import Phmstatcard from "../modals/Phmstatcard";
+import { useNavigate } from "react-router-dom";
 
 interface Mother {
   id: number;
@@ -60,11 +61,7 @@ const MotherDashboard = () => {
   const [kickcounts, setKickcounts] = useState<KickCount[]>([]);
   const [openModal, setOpenModal] = useState(false);
 
-  // if (user.firstName) {
-  //   name = toTitleCase(user.firstName);
-  // } else {
-  //   name = role ? (JSON.parse(role) as string) : "";
-  // }
+  const navigate = useNavigate();
 
   useEffect(() => {
     setRandom(Math.floor(Math.random() * 4));
@@ -170,7 +167,6 @@ const MotherDashboard = () => {
       {phm?.result && (
         <>
           <div className="w-full justify-end flex ">
-            {" "}
             <button
               className="flex items-center bg-red-500 text-white px-4 py-2 rounded mb-3"
               onClick={() => setOpenModal(true)}
@@ -239,6 +235,13 @@ const MotherDashboard = () => {
         {mother && <SFHChart motherId={mother.id.toString()} />}
       </div>
       <div className="py-6">
+        <button
+          onClick={() => navigate(`/mother/${mother?.id}/form-preview`)}
+          className=" items-center px-4 py-2 flex bg-blue_primary text-white rounded-md hover:bg-blue_secondary"
+        >
+          <NoticesIcon className="mr-2" />
+          Full Form Preview
+        </button>{" "}
         {mother && <BasicDetailsPreview motherId={mother.id.toString()} />}
       </div>
     </div>

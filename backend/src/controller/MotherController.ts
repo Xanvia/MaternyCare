@@ -874,7 +874,6 @@ export class MotherController {
     next: NextFunction
   ) {
     const userId = parseInt(request.params.userId);
-    console.log("teeeeeeeeeeeest");
     const user = await this.userRepository.findOne({
       where: { id: userId },
     });

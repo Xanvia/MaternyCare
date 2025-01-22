@@ -1,15 +1,15 @@
 import React from "react";
-import IconButton from "@mui/material/IconButton";
-import Badge from "@mui/material/Badge";
-import NotificationsNoneIcon from "@mui/icons-material/NotificationsNone";
+// import IconButton from "@mui/material/IconButton";
+// import Badge from "@mui/material/Badge";
+// import NotificationsNoneIcon from "@mui/icons-material/NotificationsNone";
 import NotificationsIcon from "@mui/icons-material/Notifications";
-import SettingsIcon from "@mui/icons-material/Settings";
-import RightBarProfile from "./RightBarProfile";
+// import SettingsIcon from "@mui/icons-material/Settings";
+// import RightBarProfile from "./RightBarProfile";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import MUICalendar from "./MUICalendar";
 // import ToTitle from "./CaseConverter";
 
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 
 const RightBar: React.FC = () => {
   let userItem = localStorage.getItem("user");
@@ -17,7 +17,7 @@ const RightBar: React.FC = () => {
 
   return (
     <div className="px-6  pt-4 hidden lg:flex flex-col bg-white rounded-l-2xl w-[350px] ml-auto ">
-      <div className="grid grid-cols-3 gap-4 items-center mx-5">
+      {/* <div className="grid grid-cols-3 gap-4 items-center mx-5">
         <div>
           <Link to="/notification">
             <IconButton aria-label="show new notifications" color="inherit">
@@ -36,7 +36,7 @@ const RightBar: React.FC = () => {
           {" "}
           <RightBarProfile />{" "}
         </div>
-      </div>
+      </div> */}
       <div className="bg-[#F7FBFF] rounded-2xl text-center py-4 px-8 mt-8">
         <div className="justify-center flex">
           {user?.image ? (
@@ -62,22 +62,22 @@ const RightBar: React.FC = () => {
           </span>
           Badulla, Srilanka */}
         </p>
-        {user?.role === 'mother' && (
-        <div className="grid grid-cols-3 text-[#333333] mt-8 mb-2">
-          <div className="border-r-2 px-4">
-            <p className="text-xs">Blood</p>
-            <p className="text-lg font-semibold">O+</p>
+        {user?.role === "mother" && (
+          <div className="grid grid-cols-3 text-[#333333] mt-8 mb-2">
+            <div className="border-r-2 px-4">
+              <p className="text-xs">Blood</p>
+              <p className="text-lg font-semibold">O+</p>
+            </div>
+            <div className="border-r-2 px-4">
+              <p className="text-xs">Height</p>
+              <p className="text-lg font-semibold">186cm</p>
+            </div>
+            <div className="px-4">
+              <p className="text-xs">Weight</p>
+              <p className="text-lg font-semibold">90kgs</p>
+            </div>
           </div>
-          <div className="border-r-2 px-4">
-            <p className="text-xs">Height</p>
-            <p className="text-lg font-semibold">186cm</p>
-          </div>
-          <div className="px-4">
-            <p className="text-xs">Weight</p>
-            <p className="text-lg font-semibold">90kgs</p>
-          </div>
-        </div>
-      )}
+        )}
       </div>
       <div className="mt-10">
         <MUICalendar />

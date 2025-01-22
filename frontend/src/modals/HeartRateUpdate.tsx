@@ -78,9 +78,10 @@ export default function HeartRateUpdate({
     }
   };
 
-  // const handleUpdate = () => {
-  //   setOpen(false);
-  // };
+  const handleClose = () => {
+    setOpen(false);
+    window.location.reload();
+  };
 
   return (
     <>
@@ -101,7 +102,7 @@ export default function HeartRateUpdate({
         Update
       </Button>
 
-      <Modal open={open} onClose={() => setOpen(false)}>
+      <Modal open={open} onClose={handleClose}>
         <ModalDialog variant="outlined" role="alertdialog">
           <IconButton
             aria-label="close"

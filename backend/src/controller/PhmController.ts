@@ -149,9 +149,9 @@ export class PhmController {
       return { error: "Mother not found" };
     }
 
-    mother.phm = phm; // Assign the mother to the PHM
-    mother.user.isVerified = true; // Mark the mother as verified
-    console.log("mother veifiy ", mother.user.isVerified);
+    mother.phm = phm;
+    // user.isVerified = true;
+    // await this.userRepository.save(user);
     await this.motherRepository.save(mother);
 
     return { message: "Mother added to PHM successfully" };

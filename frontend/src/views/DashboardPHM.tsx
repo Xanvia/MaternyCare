@@ -25,6 +25,7 @@ const DashboardPHM = () => {
     phone_number: number;
     mother_count: number;
     user: {
+      id: number;
       firstName: string;
       lastName: string;
       isVerified: boolean;
@@ -85,13 +86,6 @@ const DashboardPHM = () => {
       <ToastContainer />
       <div className="mx-11">
         <div className="grid sm:grid-cols-3 grid-cols-2 gap-8 mb-5">
-          {/* <DashboardStatCard
-            image={feet}
-            color="bg-[#F9B8D0]"
-            count={5}
-            title="Ratings"
-            subtitle="/10"
-          /> */}
           <PhmDashboardStatCard
             image={fire}
             color="bg-[#A8F0DB]"
@@ -146,55 +140,7 @@ const DashboardPHM = () => {
               Verified
             </button>
           </div>
-          {/* <div className="grid grid-cols-3 gap-y-4 gap-x-6 mb-5">
-            {activeTab === "pending" &&
-              mothers
-                .filter((mother) => !mother.user.isVerified)
-                .map((mother, index) => (
-                  <div
-                    key={mother.id}
-                    className={`transform transition-all duration-500 ease-in-out ${
-                      index >= 3 && isPendingCollapsed
-                        ? "h-0 opacity-0 scale-95 overflow-hidden"
-                        : "h-auto opacity-100 scale-100"
-                    }`}
-                  >
-                    <MotherCard
-                      firstName={mother.user.firstName}
-                      lastName={mother.user.lastName}
-                      nic={mother.nic}
-                      location="New York, USA"
-                      onAdd={() => handleAddMother(mother.id)}
-                      phm={mother.phm}
-                      isVerified={mother.user.isVerified}
-                    />
-                  </div>
-                  
-                ))}
-            {activeTab === "verified" &&
-              mothers
-                .filter((mother) => mother.user.isVerified)
-                .map((mother, index) => (
-                  <div
-                    key={mother.id}
-                    className={`transform transition-all duration-500 ease-in-out ${
-                      index >= 3 && isVerifiedCollapsed
-                        ? "h-0 opacity-0 scale-95 overflow-hidden"
-                        : "h-auto opacity-100 scale-100"
-                    }`}
-                  >
-                    <MotherCard
-                      firstName={mother.user.firstName}
-                      lastName={mother.user.lastName}
-                      nic={mother.nic}
-                      location="New York, USA"
-                      onAdd={() => handleAddMother(mother.id)}
-                      phm={mother.phm}
-                      isVerified={mother.user.isVerified}
-                    />
-                  </div>
-                ))}
-          </div> */}
+
           {activeTab === "pending" && (
             <>
               <div className="grid lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-y-4 gap-x-6 mb-5">

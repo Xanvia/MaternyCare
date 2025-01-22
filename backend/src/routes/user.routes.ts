@@ -43,6 +43,15 @@ export const UserRoutes = [
 
   {
     method: "put",
+    route: "/users/:id/profile",
+    controller: UserController,
+    action: "updateProfilePic",
+    middlewares: [jwtMiddleware],
+  },
+
+
+  {
+    method: "put",
     route: "/forgotPassword",
     controller: UserController,
     action: "forgotPassword",

@@ -6,7 +6,7 @@ import ClinicCare from "./forms/ClinicCare";
 import PostnatalClinicCare from "./forms/PostnatalClinicCare";
 // import ClinicCare2 from "./forms/ClinicCare2";
 // import DentalCare from "./forms/DentalCare";
-import DentalCare from "./forms/DentalCare";
+// import DentalCare from "./forms/DentalCare";
 
 const SingleMother = () => {
   const { id } = useParams<{ id: string }>();
