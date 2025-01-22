@@ -12,6 +12,13 @@ export const registrationSchema = Yup.object({
   email: Yup.string()
     .email("Invalid email format")
     .required("Email is required"),
+  nic: Yup
+      .string()
+      .matches(
+        /^(\d{9}[vVxX]|\d{12})$/,
+        "NIC must be 9 digits followed by 'v', 'V', 'x', or 'X' or 12 digits"
+      )
+      .required("Please provide your NIC."),
   password: Yup.string()
     .min(8, "Password must be at least 8 characters")
     .max(50, "Password can't exceed 50 characters")

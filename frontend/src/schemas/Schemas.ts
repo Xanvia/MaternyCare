@@ -29,3 +29,28 @@ export const mohRegistrationSchema = yup.object().shape({
     .required("Please provide your phone number."),
   mohID: yup.string().required("Please provide your MOH ID."),
 });
+
+
+export const forgotPasswordSchema = yup.object().shape({
+  nic: yup
+    .string()
+    .matches(
+      /^(\d{9}[vVxX]|\d{12})$/,
+      "NIC must be 9 digits followed by 'v', 'V', 'x', or 'X' or 12 digits"
+    )
+    .required("Please provide your NIC."),
+
+  email : yup.string()
+    .email("Invalid email format")
+    .required("User Email is required"),
+  
+  newPassword: yup.string()
+    .min(8, "Password must be at least 8 characters")
+    .max(50, "Password can't exceed 50 characters")
+    .required("Password is required"),
+
+  confirm_password: yup.string()
+    .oneOf([yup.ref("newPassword")], "Passwords must match")
+    .required("Please confirm your password"),
+
+});

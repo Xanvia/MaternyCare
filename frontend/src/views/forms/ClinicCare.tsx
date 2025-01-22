@@ -14,6 +14,7 @@ const ClinicCare = () => {
   const padInstance = useRef<SignaturePad | null>(null);
   const [signature, setSignature] = useState<string | null>(null);
   const { appointmentid } = useParams<{ appointmentid: string }>();
+  const BASE_URL = `${import.meta.env.VITE_API_URL}`;
 
   useEffect(() => {
       if (signaturePadRef.current) {
@@ -47,7 +48,7 @@ const ClinicCare = () => {
   
         try {
           const response = await axios.get(
-            `http://localhost:3000/appointments/${appointmentid}`,
+            `${BASE_URL}appointments/${appointmentid}`,
             {
               headers: {
                 Authorization: `Bearer ${token}`,
@@ -89,7 +90,7 @@ const ClinicCare = () => {
   
       try {
         await axios.put(
-          `http://localhost:3000/appointments/${appointmentid}`,
+          `${BASE_URL}appointments/${appointmentid}`,
           {
             signature_of_the_officer_examined: dataURL,
           },
@@ -147,7 +148,7 @@ const ClinicCare = () => {
       try {
         setLoading(true);
         const response = await axios.get(
-          `http://localhost:3000/appointments/${appointmentid}`,
+          `${BASE_URL}appointments/${appointmentid}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -209,11 +210,11 @@ const ClinicCare = () => {
       // setSuccess(false);
       setIsUpdating(true);
 
-      console.log(`Endpoint: http://localhost:3000/appointments/${appointmentid}`);
+      console.log(`Endpoint: ${BASE_URL}appointments/${appointmentid}`);
       console.log(`data-latest${formData.Date_Of_Visited}`);
 
       await axios.put(
-        `http://localhost:3000/appointments/${appointmentid}`,
+        `${BASE_URL}appointments/${appointmentid}`,
         {
           Date_Of_Visited: formData.Date_Of_Visited,
           POA_weeks: formData.POA_weeks,
