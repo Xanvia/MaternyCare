@@ -64,9 +64,9 @@ const PhmMotherListInMoh: React.FC = () => {
   );
 
   const handleRowClick = (motherId: number) => {
-    navigate(`/mohdashboard/phm/${phmId}/mother/${motherId}/details`);
+    navigate(`/mother/${motherId}/form-preview/`);
   };
-
+  console.log(mothers);
   return (
     <div className="container mx-auto p-4 space-y-4">
       <div className="flex rounded-t-lg overflow-hidden" style={{ backgroundColor: "#F5F5F5" }}>

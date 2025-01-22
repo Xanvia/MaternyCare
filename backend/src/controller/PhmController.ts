@@ -95,15 +95,24 @@ export class PhmController {
       return { error: "User not found" };
     }
 
-    const phm = Object.assign(new Phm(), {
-      phone_number,
-      phm_id,
-      phm_area,
-      moh_division,
-      user: user,
-    });
+    // const phm = Object.assign(new Phm(), {
+    //   phone_number,
+    //   phm_id,
+    //   phm_area,
+    //   moh_division,
+    //   user: user,
+    // });
 
-    return this.phmRepository.save(phm);
+    const phm = new Phm();
+    (phm.phone_number = phone_number),
+      (phm.phm_id = phm_id),
+      (phm.phm_area = phm_area),
+      (phm.moh_division = moh_division),
+      (phm.user = user);
+
+    await this.phmRepository.save(phm);
+    response.send(phm);
+    return;
   }
 
   async remove(request: Request, response: Response, next: NextFunction) {

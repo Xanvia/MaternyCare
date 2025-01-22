@@ -46,12 +46,12 @@ const PhmCard: React.FC<PhmCardProps> = ({
 
         <div className="text-start col-span-2">
           <h2 className="text-xl font-semibold mb-1">{firstName}</h2>
-          <p className="text-gray-600 ">NIC: {nic}</p>
+          <p className="text-gray-600 ">{nic}</p>
           <p className="text-gray-600 mb-4">{location}</p>
         </div>
 
         <div className="flex items-center col-span-1">
-          {moh == null && !isVerified ? (
+          {!moh ? (
             <button
               onClick={handleAddClick} // Handle button click
               className="bg-green_tertiary hover:bg-green_secondary text-green_primary font-semibold p-2 rounded w-auto"
@@ -59,10 +59,6 @@ const PhmCard: React.FC<PhmCardProps> = ({
               <PlusCircle />
             </button>
           ) : (
-            // <button
-            //   className="bg-red-300 hover:bg-red-400 text-red-600 font-semibold p-2 rounded w-auto"
-            //   onClick={handleRemoveClick}
-            // >
             <TickCircle className="text-green_primary" />
             // </button>
           )}

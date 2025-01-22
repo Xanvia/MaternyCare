@@ -188,21 +188,21 @@ const MohProfile = () => {
       <div className="border-solid border-2 rounded-lg py-5 px-5 ">
         <div className="flex justify-between ">
           <h5 className="text-xl mb-5">Account information</h5>
-          <MohEditAccountInfo />
+          {/* <MohEditAccountInfo /> */}
         </div>
         <div className="grid xs:grid-cols-2 grid-cols-1">
           <div className="text-text_color_2">
-            <h5 className="">User Name</h5>
+            <h5 className="">Email</h5>
             <p className="font-semibold mt-2 mb-4">{moh?.user.email}</p>
           </div>
-          <div className="text-text_color_2 pr-4 xs:pr-0">
+          {/* <div className="text-text_color_2 pr-4 xs:pr-0">
             <h5 className="">Password</h5>
             <div className="relative w-full xs:w-1/2">
               <input
                 type={showPassword ? "text" : "password"}
                 id="password"
                 className="bg-gray-50 border border-none pl-0 text-gray-900 text-sm rounded-lg disabled:opacity-50 focus:ring-0 focus:outline-none w-full"
-                value={user.password}
+                value={moh?.user.password}
                 required
               />
               <button
@@ -217,7 +217,7 @@ const MohProfile = () => {
                 )}
               </button>
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
     </div>

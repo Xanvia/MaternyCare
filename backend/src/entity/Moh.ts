@@ -40,7 +40,7 @@ export class Moh {
   @JoinColumn()
   user: User;
 
-  @OneToMany(() => Phm, (phm) => phm.moh)
+  @OneToMany(() => Phm, (phm) => phm.moh, {})
   phms: Phm[];
 
   // @OneToMany(() => Appointment, (appointment) => appointment.moh)

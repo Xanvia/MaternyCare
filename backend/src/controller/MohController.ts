@@ -32,7 +32,7 @@ export class MohController {
   }
 
   async save(request: Request, response: Response, next: NextFunction) {
-    const {mohArea, phoneNumber, mohID } = request.body;
+    const { mohArea, phoneNumber, mohID } = request.body;
 
     if (request.user.userRole !== "moh") {
       console.log(request.user.userRole);
@@ -201,21 +201,7 @@ export class MohController {
       where: { id: phmId },
     });
 
-    console.log("ad phm: " + phm.id);
-
-    // if (!phm) {
-    //   return response.status(404).json({ error: "PHM not found" });
-    // }
-
-    // if (!mother) {
-    //   return response.status(404).json({ error: "Mother not found" });
-    // }
-
     phm.moh = moh; // Assign the phm to the MOH
     return this.phmRepository.save(phm);
-
-    // return response
-    //   .status(200)
-    //   .json({ message: "Mother added to PHM successfully" });
   }
 }

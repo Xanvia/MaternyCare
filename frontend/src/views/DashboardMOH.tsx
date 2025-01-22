@@ -5,6 +5,7 @@ import axios from 'axios';
 import { toast, ToastContainer } from 'react-toastify';
 import fire from '../assets/images/fire.svg';
 import water from '../assets/images/drops.svg';
+import phmImage from '../assets/images/phm.png';
 import MohDashboardStatCard from '../components/MohDashboardCard';
 import PhmCard from '../components/PhmCard';
 import useRoleProtection from '../customHooks/useRoleProtection';
@@ -21,6 +22,7 @@ const DashboardMOH = () => {
   interface Phm {
     phm_area: string;
     id: number;
+    mohArea: string;
     phone_number: number;
     mother_count: number;
     user: {
@@ -46,6 +48,7 @@ const DashboardMOH = () => {
       axios(axiosConfig)
         .then((response) => {
           setPhms(response.data);
+          console.log("PHMS: ",response.data);
         })
         .catch((err) => {
           console.log(err);
@@ -79,27 +82,23 @@ const DashboardMOH = () => {
 
   return (
     <div>
-      <h1 className="font-sans text-lg text-text_color_2 ml-5">Dashboard Overview</h1>
-
-      
-
       <React.Fragment>
         <ToastContainer />
         <div className="mx-11">
           <div className="grid sm:grid-cols-3 grid-cols-2 gap-8 mb-5">
             <MohDashboardStatCard
-              image={fire}
+              image={phmImage}
               color="bg-[#A8F0DB]"
-              count={10}
-              title="Checked"
-              subtitle="patients"
+              count={phms.filter((phm) => phm.user?.isVerified === false).length}
+              title="in your division"
+              subtitle="PHMs"
             />
-            <MohDashboardStatCard
+            {/* <MohDashboardStatCard
               image={water}
               color="bg-[#80CAFF]"
               count={8}
-              title="Unchecked"
-              subtitle="patients"
+              title="in your division"
+              subtitle="mothers"
             />
             <div className="bg-white py-8 xs:px-6 px-4 h-42 rounded-lg">
               <div className="grid xs:grid-cols-2 grid-cols-1 gap-2 items-center">
@@ -114,7 +113,7 @@ const DashboardMOH = () => {
                   </button>
                 </div>
               </div>
-            </div>
+            </div> */}
           </div>
           <div>
             <h1 className="text-lg my-4">PHM list in your area</h1>
@@ -141,7 +140,7 @@ const DashboardMOH = () => {
               <>
                 <div className="grid lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-y-4 gap-x-6 mb-5">
                   {phms
-                    .filter((phm) => phm.user?.isVerified === false) // Add null check
+                    .filter((phm) => phm.moh == null) // Add null check
                     .map((phm, index) => (
                       <div
                         key={phm.id}
@@ -155,7 +154,7 @@ const DashboardMOH = () => {
                           firstName={phm.user?.firstName || ''}
                           lastName={phm.user?.lastName || ''}
                           nic={phm.user?.nic || ''}
-                          location="New York, USA"
+                          location={phm.phm_area || ''}
                           onAdd={() => handleAddPhm(phm.id)}
                           moh={phm.moh}
                           isVerified={phm.user?.isVerified || false}
@@ -177,7 +176,7 @@ const DashboardMOH = () => {
               <>
                 <div className="grid lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-y-4 gap-x-6 mb-5">
                   {phms
-                    .filter((phm) => phm.user?.isVerified === true) // Add null check
+                    .filter((phm) => phm.moh !== null) // Add null check
                     .map((phm, index) => (
                       <div
                         key={phm.id}
@@ -191,7 +190,7 @@ const DashboardMOH = () => {
                           firstName={phm.user?.firstName || ''}
                           lastName={phm.user?.lastName || ''}
                           nic={phm.user?.nic || ''}
-                          location="New York, USA"
+                          location={phm.phm_area || ''}
                           onAdd={() => handleAddPhm(phm.id)}
                           moh={phm.moh}
                           isVerified={phm.user?.isVerified || false}
