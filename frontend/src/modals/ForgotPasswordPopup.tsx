@@ -11,21 +11,10 @@ import IconButton from "@mui/joy/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
 import { Box } from "@mui/material";
 import { Formik, Form, Field } from "formik";
-import * as Yup from "yup";
 import axios from "axios";
-import { toast, ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
-// Validation schema
-const validationSchema = Yup.object({
-  email : Yup.string().required("User Email is required"),
-  nic: Yup.string().required("NIC number is required"),
-  newPassword: Yup.string().required("Password is required"),
-});
-
-// interface AddAppointmentModalProps {
-//   userId: string;
-// }
+import { forgotPasswordSchema } from "../schemas/Schemas";
 
 export default function ForgotPasswordPopup() {
   const [open, setOpen] = React.useState<boolean>(false);
@@ -34,7 +23,6 @@ export default function ForgotPasswordPopup() {
 
   return (
     <React.Fragment>
-      <ToastContainer />
         <Button 
         onClick={() => setOpen(true)} 
         className="text-[#838383] text-xs"
@@ -81,8 +69,9 @@ export default function ForgotPasswordPopup() {
               email: "",
               nic: "",
               newPassword: "",
+              confirm_password: "",
             }}
-            validationSchema={validationSchema}
+            validationSchema={forgotPasswordSchema}
             onSubmit={(values, { setSubmitting }) => {
               const axiosConfig = {
                 method: "put",
@@ -97,15 +86,19 @@ export default function ForgotPasswordPopup() {
                 .then((response) => {
                   console.log(response.data);
                   setSubmitting(false);
+                  toast.success(response.data.message);
                   setOpen(false);
-                  toast.success(
-                    "The password has been changed successfully!."
-                  );
                   setTimeout(() => window.location.reload(), 1500);
                 })
                 .catch((err) => {
                   console.log(err);
                   setSubmitting(false);
+
+                  if (err.response && err.response.data && err.response.data.message) {
+                    toast.error(err.response.data.message);
+                  } else {
+                    toast.error("An unexpected error occurred. Please try again.");
+                  }
                 });
             }}
           >
@@ -207,6 +200,39 @@ export default function ForgotPasswordPopup() {
                     }
                     helperText={
                       touched.newPassword && errors.newPassword
+                    }
+                  />
+                </Box>
+                <DialogContent
+                  sx={{
+                    display: "flex",
+                    justifyContent: "center",
+                    gap: 1,
+                    color: "#666666",
+                    fontWeight: "bold",
+                  }}
+                >
+                  confirm password:
+                </DialogContent>
+                <Box
+                  sx={{
+                    width: 500,
+                    maxWidth: "100%",
+                  }}
+                >
+                  <Field
+                    as = {TextField}
+                    type = "password"
+                    name="confirm_password"
+                    fullWidth
+                    size="small"
+                    variant="outlined"
+                    error={
+                      touched.confirm_password &&
+                      Boolean(errors.confirm_password)
+                    }
+                    helperText={
+                      touched.confirm_password && errors.confirm_password
                     }
                   />
                 </Box>

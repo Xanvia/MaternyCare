@@ -151,9 +151,12 @@ const LoginPage: React.FC = () => {
             Forgot Password?
           </a> */}
           <div className="flex items-center">
-            <a href="" className="text-[#838383] text-xs ">
-              Don't have an account? Sign Up
-            </a>
+          <a 
+          href=""
+          onClick={() => navigate('/landing')}  
+          className="text-[#838383] text-xs ">
+            Don't have an account? Sign Up
+          </a>
           </div>
         </div>
         <button
