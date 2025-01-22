@@ -19,9 +19,6 @@ export class Vog {
   @Column({ nullable: true })
   vogID: string;
 
-  @Column({ nullable: true })
-  NIC: string;
-
   // @Column({ nullable: true })
   // mohArea: string;
 

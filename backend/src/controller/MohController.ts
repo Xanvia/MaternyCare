@@ -32,7 +32,7 @@ export class MohController {
   }
 
   async save(request: Request, response: Response, next: NextFunction) {
-    const { NIC, mohArea, phoneNumber, mohID } = request.body;
+    const {mohArea, phoneNumber, mohID } = request.body;
 
     if (request.user.userRole !== "moh") {
       console.log(request.user.userRole);
@@ -57,7 +57,6 @@ export class MohController {
       }
 
       const moh = new Moh();
-      moh.NIC = NIC;
       moh.mohArea = mohArea;
       moh.phoneNumber = phoneNumber;
       moh.mohID = mohID;
@@ -123,7 +122,7 @@ export class MohController {
     next: NextFunction
   ) {
     const id = parseInt(request.params.id);
-    const { firstName, lastName, email, phoneNumber, NIC, mohID, mohArea } =
+    const { firstName, lastName, email, phoneNumber, mohID, mohArea } =
       request.body;
 
     const userId = request.user?.userId;
@@ -142,7 +141,6 @@ export class MohController {
       moh.user.firstName = firstName ?? moh.user.firstName;
       moh.user.lastName = lastName ?? moh.user.lastName;
       moh.user.email = email ?? moh.user.email;
-      moh.NIC = NIC ?? moh.NIC;
       moh.mohArea = mohArea ?? moh.mohArea;
       moh.phoneNumber = phoneNumber ?? moh.phoneNumber;
       moh.mohID = mohID ?? moh.mohID;

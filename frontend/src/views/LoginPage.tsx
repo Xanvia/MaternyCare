@@ -7,6 +7,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import ForgotPasswordPopup from "../modals/ForgotPasswordPopup";
 
 interface FormValues {
   email: string;
@@ -142,12 +143,19 @@ const LoginPage: React.FC = () => {
           </div>
         </div>
         <div className="w-11/12 lg:w-5/12 sm:w-8/12 ss:w-10/12 mb-4 flex flex-row justify-between">
-          <a href="" className="text-[#838383] text-xs ">
+            
+            <div>
+            <ForgotPasswordPopup />
+            </div>
+
+          {/* <a href="" className="text-[#838383] text-xs ">
             Forgot Password?
-          </a>
+          </a> */}
+          <div className="flex items-center">
           <a href="" className="text-[#838383] text-xs ">
             Don't have an account? Sign Up
           </a>
+          </div>
         </div>
         <button
           className={`py-5 rounded-xl w-11/12 lg:w-5/12 sm:w-8/12 ss:w-10/12 text-white h-16 bg-blue_primary hover:bg-[#33C2FF] lg:text-lg md:text-lg sm:text-small text-small`}

@@ -9,7 +9,6 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 interface FormValues {
-  NIC: string;
   mohArea: string; // Updated from password to mohArea
   phoneNumber: string;
   mohID: string;
@@ -21,7 +20,6 @@ const MOHRegistration: React.FC = () => {
   const navigate = useNavigate();
   const formik = useFormik<FormValues>({
     initialValues: {
-      NIC: "",
       mohArea: "", // Updated from password to mohArea
       phoneNumber: "",
       mohID: "",
@@ -70,7 +68,7 @@ const MOHRegistration: React.FC = () => {
         <header className="text-blue_primary lg:text-4xl ss:text-4xl text-2xl lg:mb-8 mb-6">
           Materny<span className="text-pink_primary">Care</span>
         </header>
-        {["NIC", "mohArea", "phoneNumber", "mohID"].map((field) => (
+        {["mohArea", "phoneNumber", "mohID"].map((field) => (
           <div key={field} className="w-full flex flex-col items-center lg:mb-6 mb-4">
             <input
               className={`shadow appearance-none rounded-b-xl py-4 px-4 w-11/12 lg:w-5/12 sm:w-8/12 ss:w-10/12 text-gray-700 leading-tight focus:shadow-outline 
@@ -89,7 +87,7 @@ const MOHRegistration: React.FC = () => {
               }
               id={field}
               name={field}
-              type={field === "NIC" || field === "phoneNumber" ? "text" : "text"} // Updated password to text for MOH Area
+              type={field === "phoneNumber" ? "text" : "text"} // Updated password to text for MOH Area
               onChange={formik.handleChange}
             />
             <div className="w-11/12 lg:w-5/12 sm:w-8/12 ss:w-10/12 mb-2 flex flex-col items-start mt-1">

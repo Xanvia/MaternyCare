@@ -21,7 +21,6 @@ const DashboardPHM = () => {
 
   interface Mother {
     id: number;
-    nic: string;
     location: string;
     phone_number: number;
     mother_count: number;
@@ -30,6 +29,7 @@ const DashboardPHM = () => {
       lastName: string;
       isVerified: boolean;
       profilePic: string;
+      nic: string;
     };
     phm: {};
   }
@@ -212,7 +212,7 @@ const DashboardPHM = () => {
                       <MotherCard
                         firstName={mother.user.firstName}
                         lastName={mother.user.lastName}
-                        nic={mother.nic}
+                        nic={mother.user.nic}
                         location={mother.location}
                         onAdd={() => handleAddMother(mother.id)}
                         phm={mother.phm}
@@ -250,7 +250,7 @@ const DashboardPHM = () => {
                       <MotherCard
                         firstName={mother.user.firstName}
                         lastName={mother.user.lastName}
-                        nic={mother.nic}
+                        nic={mother.user.nic}
                         location={mother.location}
                         onAdd={() => handleAddMother(mother.id)}
                         phm={mother.phm}

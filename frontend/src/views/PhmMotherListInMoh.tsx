@@ -7,9 +7,9 @@ interface Mother {
   user: {
     firstName: string;
     lastName: string;
+    nic: string;
   };
   id: number;
-  nic: string;
 }
 
 const BASE_URL = `${import.meta.env.VITE_API_URL}`;
@@ -46,7 +46,7 @@ const PhmMotherListInMoh: React.FC = () => {
   const filteredData = mothers.filter((mother) => {
     const firstName = mother.user.firstName || "";
     const lastName = mother.user.lastName || "";
-    const nic = mother.nic || "";
+    const nic = mother.user.nic || "";
     const phoneNumber = mother.phone_1 || "";
 
     return (
@@ -107,7 +107,7 @@ const PhmMotherListInMoh: React.FC = () => {
                 <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                   {mother.user.firstName} {mother.user.lastName}
                 </td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{mother.nic}</td>
+                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{mother.user.nic}</td>
                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{mother.phone_1}</td>
               </tr>
             ))}

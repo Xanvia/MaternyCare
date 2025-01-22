@@ -21,13 +21,13 @@ const DashboardMOH = () => {
   interface Phm {
     phm_area: string;
     id: number;
-    nic: string;
     phone_number: number;
     mother_count: number;
     user: {
       firstName: string;
       lastName: string;
       isVerified: boolean;
+      nic: string;
     } | null; // Allow null for safety
     moh: {};
   }
@@ -154,7 +154,7 @@ const DashboardMOH = () => {
                         <PhmCard
                           firstName={phm.user?.firstName || ''}
                           lastName={phm.user?.lastName || ''}
-                          nic={phm.nic}
+                          nic={phm.user?.nic || ''}
                           location="New York, USA"
                           onAdd={() => handleAddPhm(phm.id)}
                           moh={phm.moh}
@@ -190,7 +190,7 @@ const DashboardMOH = () => {
                         <PhmCard
                           firstName={phm.user?.firstName || ''}
                           lastName={phm.user?.lastName || ''}
-                          nic={phm.nic}
+                          nic={phm.user?.nic || ''}
                           location="New York, USA"
                           onAdd={() => handleAddPhm(phm.id)}
                           moh={phm.moh}

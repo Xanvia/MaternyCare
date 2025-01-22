@@ -26,9 +26,6 @@ export class Phm {
   phm_id: number;
 
   @Column({ type: "varchar", length: 255, nullable: true })
-  nic: string;
-
-  @Column({ type: "varchar", length: 255, nullable: true })
   phm_area: string;
 
   @Column({ type: "varchar", length: 255, nullable: true })

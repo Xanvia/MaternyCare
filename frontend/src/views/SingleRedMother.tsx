@@ -13,8 +13,8 @@ interface Mother {
   user: {
     firstName: string;
     lastName: string;
+    nic: string;
   };
-  nic: string;
   location: string;
 }
 
@@ -166,7 +166,7 @@ const SingleRedMother = () => {
           <h2 className="text-xl font-semibold mb-1">
             {mother?.user?.firstName}
           </h2>
-          <p className="text-gray-600 ">NIC: {mother?.nic}</p>
+          <p className="text-gray-600 ">NIC: {mother?.user?.nic}</p>
           <p className="text-gray-600 mb-4">{mother?.location}</p>
         </div>
       </div>
