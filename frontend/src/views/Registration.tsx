@@ -77,7 +77,7 @@ const Registration: React.FC = () => {
             navigate("/mother/registration");
             break;
           case "phm":
-            navigate("/phmdashboard");
+            navigate("/phmregistration");
             break;
           case "moh":
             navigate("/mohregistration");

@@ -56,11 +56,11 @@ const RightBar: React.FC = () => {
           {`${user?.firstName} ${user?.lastName}`}
         </h1>
         <p className="text-xs text-[#666666]">
-          30 years old
-          <span className="border-l-2 ml-2 px-1">
+          {user.email}
+          {/* <span className="border-l-2 ml-2 px-1">
             <LocationOnIcon style={{ fontSize: 16 }} />
           </span>
-          Badulla, Srilanka
+          Badulla, Srilanka */}
         </p>
         {user?.role === 'mother' && (
         <div className="grid grid-cols-3 text-[#333333] mt-8 mb-2">

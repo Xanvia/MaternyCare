@@ -1,7 +1,7 @@
 export interface Mother {
     id: number;
     phone_number: number;
-    location: string;
+    address: string;
     delivery_date: string;
     user: {
       firstName: string;

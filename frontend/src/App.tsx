@@ -35,6 +35,7 @@ import Feedback from "./views/Feedback";
 import SingleRedMother from "./views/SingleRedMother";
 import SingleMotherGenral from "./views/SingleMotherGeneral";
 import FormPreview from "./views/FormPreview";
+import PhmRegistration from "./views/PhmRegistration";
 // import MotherRegistration from "./views/MotherReg";
 
 // You can add your routes here
@@ -116,6 +117,19 @@ const router = createBrowserRouter([
         element: (
           <PublicRoute>
             <MOHRegistration />
+          </PublicRoute>
+        ),
+      },
+    ],
+  },
+  {
+    path: "/phmregistration",
+    children: [
+      {
+        index: true,
+        element: (
+          <PublicRoute>
+            <PhmRegistration />
           </PublicRoute>
         ),
       },

@@ -17,6 +17,7 @@ import { ReportProblem } from "../assets/icons/Icons";
 import ReportHealthIssueModal from "../modals/ReportHealthIssueModal";
 import PregnancyBMIChart from "../components/PregnancyBMIChart";
 import SFHChart from "../components/SFHChart";
+import Phmstatcard from "../modals/Phmstatcard";
 
 interface Mother {
   id: number;
@@ -192,7 +193,7 @@ const MotherDashboard = () => {
         <h1 className="mb-2 text-lg">
           Hello{" "}
           <span className="">
-            {name}.<span> 😃</span>
+            {user.firstName}.<span> 😃</span>
           </span>
         </h1>
         <p className="text-2xl">
@@ -227,14 +228,9 @@ const MotherDashboard = () => {
             />
           }
         />
-        <DashboardStatCard
-          image={water}
-          color="bg-[#80CAFF]"
-          count={8}
-          title="Water Amount"
-          subtitle="litres"
-        />
+        <Phmstatcard />
       </div>
+
 
       <div className="mt-12">
         {mother && <PregnancyBMIChart motherId={mother.id.toString()} />}
