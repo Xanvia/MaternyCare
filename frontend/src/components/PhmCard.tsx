@@ -46,7 +46,7 @@ const PhmCard: React.FC<PhmCardProps> = ({
 
         <div className="text-start col-span-2">
           <h2 className="text-xl font-semibold mb-1">{firstName}</h2>
-          <p className="text-gray-600 ">NIC: {nic}</p>
+          <p className="text-gray-600 ">{nic}</p>
           <p className="text-gray-600 mb-4">{location}</p>
         </div>
 
