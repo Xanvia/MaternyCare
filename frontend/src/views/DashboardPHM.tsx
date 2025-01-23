@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import fire from "../assets/images/fire.svg";
+import star from "../assets/images/star.png";
 import water from "../assets/images/drops.svg";
 // import PatientsList from "../components/PatientsList";
 import axios from "axios";
@@ -7,6 +8,7 @@ import useRoleProtection from "../customHooks/useRoleProtection";
 import MotherCard from "../components/MotherCard";
 import { toast, ToastContainer } from "react-toastify";
 import PhmDashboardStatCard from "../components/PhmDashboardCard";
+import { useNavigate } from "react-router-dom";
 
 const DashboardPHM = () => {
   useRoleProtection("phm");
@@ -18,6 +20,12 @@ const DashboardPHM = () => {
   const [isPendingCollapsed, setIsPendingCollapsed] = useState(true);
   const [isVerifiedCollapsed, setIsVerifiedCollapsed] = useState(true);
   const [activeTab, setActiveTab] = useState("pending");
+  const [mothers, setMothers] = useState<Mother[]>([]);
+  const navigate = useNavigate();
+  const [phm, setPhm] = useState<Phm>();
+
+  let userItem = localStorage.getItem("user");
+  const user = userItem ? JSON.parse(userItem) : null;
 
   interface Mother {
     id: number;
@@ -35,7 +43,10 @@ const DashboardPHM = () => {
     phm: {};
   }
 
-  const [mothers, setMothers] = useState<Mother[]>([]);
+  interface Phm {
+    star_points: number;
+  }
+
   // const visibleMothers = isCollapsed ? mothers.slice(0, 3) : mothers;
 
   useEffect(() => {
@@ -57,6 +68,27 @@ const DashboardPHM = () => {
     };
 
     getMothers();
+  }, [token]);
+
+  useEffect(() => {
+    const getPhm = () => {
+      const axiosConfig = {
+        method: "get",
+        url: `${BASE_URL}users/phm/${user?.id}`,
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      };
+      axios(axiosConfig)
+        .then((response) => {
+          setPhm(response.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    };
+
+    getPhm();
   }, [token]);
 
   const handleAddMother = (motherID: number) => {
@@ -81,6 +113,10 @@ const DashboardPHM = () => {
       });
   };
 
+  const handleNavigation = () => {
+    navigate("/phmappointments");
+  };
+
   return (
     <React.Fragment>
       <ToastContainer />
@@ -93,13 +129,19 @@ const DashboardPHM = () => {
             title="Checked"
             subtitle="patients"
           />
-          <PhmDashboardStatCard
-            image={water}
-            color="bg-[#80CAFF]"
-            count={8}
-            title="Unchecked"
-            subtitle="patients"
-          />
+          <div className="bg-white py-8 xs:px-6 px-4 h-42 rounded-lg">
+            <div className="grid xs:grid-cols-2 grid-cols-1 gap-2 items-center">
+              <div
+                className={` xl:col-span-1 rounded-full bg-purple_tertiary w-16 h-16 p-4 flex justify-center m-auto`}
+              >
+                <img src={star} alt="Stat Icon" />
+              </div>
+
+              <div className="flex items-center llg:justify-start justify-center">
+               <h3><span className="font-bold text-2xl"> {phm?.star_points}</span>/10 <br /> Service Quality Score</h3>
+              </div>
+            </div>
+          </div>
           <div className="bg-white py-8 xs:px-6 px-4 h-42 rounded-lg">
             <div className="grid xs:grid-cols-2 grid-cols-1 gap-2 items-center">
               <div
@@ -109,7 +151,10 @@ const DashboardPHM = () => {
               </div>
 
               <div className="flex items-center llg:justify-start justify-center">
-                <button className=" p-3 rounded-lg text-white hover:text-white bg-blue_primary hover:bg-blue_primary transition-all duration-300 ease-in-out transform hover:scale-105 active:scale-95">
+                <button
+                  className="p-3 rounded-lg text-white hover:text-white bg-blue_primary hover:bg-blue_primary transition-all duration-300 ease-in-out transform hover:scale-105 active:scale-95"
+                  onClick={handleNavigation}
+                >
                   Appointments
                 </button>
               </div>

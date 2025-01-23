@@ -53,7 +53,8 @@ const PregnancyBMIChart = ({ motherId }: { motherId: string }) => {
 
         // Calculate weight gains
         if (sortedAppointments.length > 0) {
-          const initialWeight = parseFloat(sortedAppointments[0].weight);
+          const initialWeight = parseFloat(sortedAppointments[3].weight);
+          console.log("sorted ",sortedAppointments)
           console.log("Initial weight:", initialWeight);
           const gains = sortedAppointments.map((app: Appointment) => ({
             poa: app.POA_weeks,

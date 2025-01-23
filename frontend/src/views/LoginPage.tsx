@@ -5,7 +5,7 @@ import { loginSchema } from "../schemas/Schemas";
 import { ErrorIcon } from "../assets/icons/Icons";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
+import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import ForgotPasswordPopup from "../modals/ForgotPasswordPopup";
 
@@ -77,7 +77,7 @@ const LoginPage: React.FC = () => {
 
   return (
     <div className="flex items-center justify-center h-screen">
-      {/* <ToastContainer /> */}
+      <ToastContainer />
       <form
         autoComplete="off"
         onSubmit={formik.handleSubmit}
