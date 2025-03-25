@@ -36,10 +36,6 @@ const LoginPage: React.FC = () => {
           }
         );
         console.log(response.data);
-        // localStorage.setItem(
-        //   "name",
-        //   JSON.stringify(response.data.user.firstName)
-        // );
         localStorage.setItem("role", JSON.stringify(response.data.user.role));
         localStorage.setItem("user", JSON.stringify(response.data.user));
         localStorage.setItem("token", JSON.stringify(response.data.token));
@@ -61,112 +57,85 @@ const LoginPage: React.FC = () => {
           default:
             navigate("/dashboard");
         }
-
-        // Handle successful login here
       } catch (error) {
         console.error(error);
-        // Handle errors here
         if ((error as any).response && (error as any).response.status === 401) {
           toast.error("Credentials don't match");
         } else {
-          toast.error("An error occured");
+          toast.error("An error occurred");
         }
       }
     },
   });
 
   return (
-    <div className="flex items-center justify-center h-screen">
+    <div className="flex items-center justify-center min-h-screen py-4 sm:pt-0">
       <ToastContainer />
       <form
         autoComplete="off"
         onSubmit={formik.handleSubmit}
-        className="flex flex-col items-center w-full"
+        className="flex flex-col items-center w-full max-w-md px-4 sm:px-0"
       >
         <img
           src={logo}
-          alt=""
-          className="lg:size-1/12 md:size-1/12 ss:size-1/6 sm:size-1/6 size-1/6"
+          alt="MaternyCare Logo"
+          className="w-16 h-auto mb-4 mt-4 sm:mt-0"
         />
-        <header className="text-blue_primary lg:text-4xl ss:text-4xl text-2xl lg:mb-8 mb-6">
+        <header className="text-blue_primary lg:text-2xl ss:text-2xl text-lg lg:mb-4 mb-2">
           Materny<span className="text-pink_primary">Care</span>
         </header>
-        <div className="w-full flex flex-col items-center lg:mb-9 mb-4">
-          <input
-            className={`shadow appearance-none rounded-b-xl py-4 px-4 w-11/12 lg:w-5/12 sm:w-8/12 ss:w-10/12 text-gray-700 leading-tight focus:shadow-outline 
-            lg:text-lg md:text-base sm:text-base text-sm
-          ${
-            formik.touched.email && formik.errors.email
-              ? "border-solid border-red-500"
-              : "border-none"
-          }`}
-            value={formik.values.email}
-            placeholder="Email"
-            id="email"
-            name="email"
-            type="email"
-            onChange={formik.handleChange}
-          />
-          {/* Display error message with icon */}
-          <div className="w-11/12 lg:w-5/12 sm:w-8/12 ss:w-10/12 mb-2 flex flex-col items-start mt-1">
-            {formik.touched.email && formik.errors.email ? (
-              <div className="text-red-500 text-xs">
-                {" "}
-                <ErrorIcon /> {formik.errors.email}
-              </div>
-            ) : null}
+        {["email", "password"].map((field) => (
+          <div
+            key={field}
+            className="w-full flex flex-col items-center lg:mb-3 mb-2"
+          >
+            <label
+              htmlFor={field}
+              className="w-11/12 text-gray-700 lg:text-sm md:text-xs sm:text-xs text-xs mb-1"
+            >
+              {field.charAt(0).toUpperCase() + field.slice(1)}
+            </label>
+            <input
+              className={`shadow appearance-none rounded-b-xl py-2 px-2 w-11/12 text-gray-700 leading-tight focus:shadow-outline 
+              lg:text-sm md:text-xs sm:text-xs text-xs
+            ${
+              formik.touched[field as keyof typeof formik.values] &&
+              formik.errors[field as keyof typeof formik.values]
+                ? "border-solid border-red-500"
+                : "border-none"
+            }`}
+              value={formik.values[field as keyof typeof formik.values]}
+              placeholder={field.charAt(0).toUpperCase() + field.slice(1)}
+              id={field}
+              name={field}
+              type={field === "password" ? "password" : "text"}
+              onChange={formik.handleChange}
+            />
+            <div className="w-11/12 mb-1 flex flex-col items-start mt-1">
+              {formik.touched[field as keyof typeof formik.values] &&
+              formik.errors[field as keyof typeof formik.values] ? (
+                <div className="text-red-500 text-xs">
+                  <ErrorIcon /> {formik.errors[field as keyof typeof formik.values]}
+                </div>
+              ) : null}
+            </div>
           </div>
-        </div>
-        <div className="w-full mb-4 flex flex-col items-center">
-          <input
-            className={`shadow appearance-none rounded-b-xl py-4 px-4 w-11/12 lg:w-5/12 sm:w-8/12 ss:w-10/12	 text-gray-700 leading-tight  focus:shadow-outline 
-            lg:text-lg md:text-base sm:text-base text-sm
-          ${
-            formik.touched.password && formik.errors.password
-              ? "border-solid border-red-500"
-              : "border-none"
-          }`}
-            value={formik.values.password}
-            placeholder="Password"
-            id="password"
-            name="password"
-            type="password"
-            onChange={formik.handleChange}
-          />
-          <div className="w-11/12 lg:w-5/12 sm:w-8/12 ss:w-10/12 mb-2 flex flex-col items-start mt-1">
-            {formik.touched.password && formik.errors.password ? (
-              <div className="text-red-500 text-xs">
-                <ErrorIcon />
-                {formik.errors.password}
-              </div>
-            ) : null}
-          </div>
-        </div>
-        <div className="w-11/12 lg:w-5/12 sm:w-8/12 ss:w-10/12 mb-4 flex flex-row justify-between">
-          <div>
-            <ForgotPasswordPopup />
-          </div>
-
-          {/* <a href="" className="text-[#838383] text-xs ">
-            Forgot Password?
-          </a> */}
-          <div className="flex items-center">
-          <a 
-          href=""
-          onClick={() => navigate('/landing')}  
-          className="text-[#838383] text-xs ">
+        ))}
+        <div className="w-11/12 flex flex-row justify-between mb-4">
+          <ForgotPasswordPopup />
+          <a href="" onClick={() => navigate("/landing")} className="text-[#838383] text-xs">
             Don't have an account? Sign Up
           </a>
-          </div>
         </div>
         <button
-          className={`py-5 rounded-xl w-11/12 lg:w-5/12 sm:w-8/12 ss:w-10/12 text-white h-16 bg-blue_primary hover:bg-[#33C2FF] lg:text-lg md:text-lg sm:text-small text-small`}
+          className="py-3 rounded-xl w-11/12 text-white h-12 bg-blue_primary hover:bg-[#33C2FF] lg:text-sm md:text-sm sm:text-xs text-xs"
           type="submit"
         >
           Login
         </button>
       </form>
     </div>
+
   );
 };
 
