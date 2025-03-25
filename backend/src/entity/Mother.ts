@@ -267,7 +267,7 @@ export class Mother {
   @Column({ type: "int", nullable: true })
   baby_height: number;
 
-  @Column({ type: "int", nullable: true })
+  @Column({ type: "varchar", nullable: true })
   mother_weight: string;
 
   @Column({ type: "varchar", nullable: true })
