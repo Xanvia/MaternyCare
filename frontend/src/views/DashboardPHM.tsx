@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import fire from "../assets/images/fire.svg";
 import star from "../assets/images/star.png";
-import water from "../assets/images/drops.svg";
 // import PatientsList from "../components/PatientsList";
 import axios from "axios";
 import useRoleProtection from "../customHooks/useRoleProtection";

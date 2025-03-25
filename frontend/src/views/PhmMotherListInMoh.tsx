@@ -4,12 +4,14 @@ import { useParams, useNavigate } from 'react-router-dom';
 
 interface Mother {
   phone_1: string;
+  antenatal_risk_conditions: string;
   user: {
     firstName: string;
     lastName: string;
     nic: string;
   };
   id: number;
+  address: string;
 }
 
 const BASE_URL = `${import.meta.env.VITE_API_URL}`;
@@ -46,14 +48,16 @@ const PhmMotherListInMoh: React.FC = () => {
   const filteredData = mothers.filter((mother) => {
     const firstName = mother.user.firstName || "";
     const lastName = mother.user.lastName || "";
-    const nic = mother.user.nic || "";
+    const nic = mother.address || "";
     const phoneNumber = mother.phone_1 || "";
+    const antenatal_risk_conditions = mother.antenatal_risk_conditions || "";
 
     return (
       firstName.toLowerCase().includes(searchTerm.toLowerCase()) ||
       lastName.toLowerCase().includes(searchTerm.toLowerCase()) ||
       nic.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      phoneNumber.includes(searchTerm.toLowerCase())
+      phoneNumber.includes(searchTerm.toLowerCase()) ||
+      antenatal_risk_conditions.toLowerCase().includes(searchTerm.toLowerCase())
     );
   });
 
@@ -93,7 +97,8 @@ const PhmMotherListInMoh: React.FC = () => {
           <thead className="bg-purple_secondary">
             <tr>
               <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">NIC</th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Address</th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Risk Conditions</th>
               <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Contact Number</th>
             </tr>
           </thead>
@@ -107,7 +112,8 @@ const PhmMotherListInMoh: React.FC = () => {
                 <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                   {mother.user.firstName} {mother.user.lastName}
                 </td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{mother.user.nic}</td>
+                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{mother.address}</td>
+                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{mother.antenatal_risk_conditions}</td>
                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{mother.phone_1}</td>
               </tr>
             ))}

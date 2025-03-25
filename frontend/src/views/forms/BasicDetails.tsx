@@ -66,7 +66,7 @@ const BasicDetails = () => {
           pregnant_mother_register:
             response.data.pregnant_mother_register || "",
           gs_division: response.data.gs_division || "",
-          risk_type: response.data.risk_type,
+          risk_type: response.data.risk_type || null,
           registration_no: response.data.registration_no || "",
           registration_date: response.data.registration_date || "",
           mother_weight: response.data.mother_weight || "",
