@@ -9,10 +9,10 @@ export class DentalCare {
   @Column({ type: "date" })
   referred_date: Date;
 
-  @Column({ type: "date" })
+  @Column({ type: "date", nullable: true })
   examination_date: Date;
 
-  @Column({ type: "text" })
+  @Column({ type: "text", nullable: true })
   treatment: string;
 
   @OneToOne(() => Mother, (mother) => mother.dentalCare)
